@@ -96,7 +96,7 @@ class Nav_Menu extends Widget_Base {
 					'type' => Controls_Manager::RAW_HTML,
 					'raw' => '<strong>' . __( 'There are no menus in your site.', 'elementor-pro' ) . '</strong><br>' . sprintf( __( 'Go to the <a href="%s" target="_blank">Menus screen</a> to create one.', 'elementor-pro' ), admin_url( 'nav-menus.php?action=edit&menu=0' ) ),
 					'separator' => 'after',
-					'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
+					'content_classes' => 'elementor-panel-alert elementor-panel-alert-warning',
 				]
 			);
 		}

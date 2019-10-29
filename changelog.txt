@@ -1,10 +1,20 @@
 # Elementor Pro - by Elementor.com
 
+#### 2.7.3 - 2019-10-28
+Tweak: Added RTL support to Galleries widget ([#9213](https://github.com/elementor/elementor/issues/9213))
+Tweak: Added Custom Icons compatibility for WordPress 5.3
+Fix: Missing template function declaration causes fatal error in WC mini-cart widget
+Fix: Pause on hover doesn't work in Carousel widgets
+Fix: Link-actions conflict with `?action=` parameter in the URL
+Fix: Lightbox navigation not working in Gallery widget Single mode
+Fix: Ken burns effect not working on the 1st slide if Infinite Loop option is turned off in Carousel widgets
+Fix: Popup Advanced Rules detects internal links as external if current URL starts with `www`
+
 #### 2.7.2 - 2019-10-06
-Fix: Slide Overlay not working when applying Ken burns effect in Slides widget ([#9209](https://github.com/elementor/elementor/issues/9209))
-Fix: Content width glitch in Slides widget (#9180)([#9180](https://github.com/elementor/elementor/issues/9180))
-Fix: Horizontal Alignment not working when applying custom style per slide in Slides widget ([#9180](https://github.com/elementor/elementor/issues/9180))
-Fix: Missing semicolon in Custom Fonts `font-display` CSS
+* Fix: Slide Overlay not working when applying Ken burns effect in Slides widget ([#9209](https://github.com/elementor/elementor/issues/9209))
+* Fix: Content width glitch in Slides widget ([#9180](https://github.com/elementor/elementor/issues/9180))
+* Fix: Horizontal Alignment not working when applying custom style per slide in Slides widget ([#9180](https://github.com/elementor/elementor/issues/9180))
+* Fix: Missing semicolon in Custom Fonts `font-display` CSS
 
 #### 2.7.1 - 2019-09-26
 * Fix: Background Overlay layer is over the slide content in Slides widget ([#9180](https://github.com/elementor/elementor/issues/9180))

@@ -1,4 +1,4 @@
-/*! elementor-pro - v2.7.2 - 06-10-2019 */
+/*! elementor-pro - v2.7.3 - 28-10-2019 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -1331,7 +1331,7 @@ var DropZoneField = function (_elementorModules$Vie) {
 				contentType: false,
 				processData: false,
 				xhr: function xhr() {
-					var xhr = $.ajaxSettings.xhr();
+					var xhr = jQuery.ajaxSettings.xhr();
 					//Upload progress
 					xhr.upload.onprogress = function (evt) {
 						if (evt.lengthComputable) {

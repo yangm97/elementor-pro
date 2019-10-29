@@ -40,10 +40,12 @@ class Facebook_SDK_Manager {
 	public static function add_app_id_control( $widget ) {
 		if ( ! self::get_app_id() ) {
 			/* translators: %s: Setting Page link. */
-			$html = sprintf( __( 'You can set your Facebook App ID in the <a href="%s" target="_blank">Integrations Settings</a>', 'elementor-pro' ), Settings::get_url() . '#tab-integrations' );
+			$html = sprintf( __( 'Set your Facebook App ID in the <a href="%s" target="_blank">Integrations Settings</a>', 'elementor-pro' ), Settings::get_url() . '#tab-integrations' );
+			$content_classes = 'elementor-panel-alert elementor-panel-alert-warning';
 		} else {
 			/* translators: 1: App ID, 2: Setting Page link. */
 			$html = sprintf( __( 'You are connected to Facebook App %1$s, <a href="%2$s" target="_blank">Change App</a>', 'elementor-pro' ), self::get_app_id(), Settings::get_url() . '#tab-integrations' );
+			$content_classes = 'elementor-panel-alert elementor-panel-alert-info';
 		}
 
 		$widget->add_control(
@@ -51,7 +53,7 @@ class Facebook_SDK_Manager {
 			[
 				'type' => Controls_Manager::RAW_HTML,
 				'raw' => $html,
-				'content_classes' => 'elementor-descriptor',
+				'content_classes' => $content_classes,
 			]
 		);
 	}

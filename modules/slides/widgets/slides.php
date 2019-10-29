@@ -547,6 +547,16 @@ class Slides extends Base_Widget {
 		);
 
 		$this->add_control(
+			'pause_on_interaction',
+			[
+				'label' => __( 'Pause on Interaction', 'elementor-pro' ),
+				'type' => Controls_Manager::SWITCHER,
+				'default' => 'yes',
+				'frontend_available' => true,
+			]
+		);
+
+		$this->add_control(
 			'autoplay',
 			[
 				'label' => __( 'Autoplay', 'elementor-pro' ),
@@ -566,7 +576,7 @@ class Slides extends Base_Widget {
 					'autoplay' => 'yes',
 				],
 				'selectors' => [
-					'{{WRAPPER}} .swiper-slide-bg' => 'transition-duration: calc({{VALUE}}ms*1.2)',
+					'{{WRAPPER}} .swiper-slide' => 'transition-duration: calc({{VALUE}}ms*1.2)',
 				],
 				'frontend_available' => true,
 			]
@@ -1211,7 +1221,7 @@ class Slides extends Base_Widget {
 				$slide_html .= '<' . $btn_element . ' ' . $btn_attributes . ' ' . $this->get_render_attribute_string( 'button' ) . '>' . $slide['button_text'] . '</' . $btn_element . '>';
 			}
 
-			$slide_html .= '</div>' . '</' . $slide_element . '>';
+			$slide_html .= '</div></' . $slide_element . '>';
 
 			if ( 'yes' === $slide['background_overlay'] ) {
 				$slide_html = '<div class="elementor-background-overlay"></div>' . $slide_html;

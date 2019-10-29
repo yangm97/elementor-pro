@@ -16,11 +16,11 @@ abstract class Integration_Base extends Action_Base {
 		if ( empty( $api_key ) ) {
 			/* translators: 1: Integration label, 2: Setting Page link. */
 			$html = sprintf( __( 'Set your %1$s in the <a href="%2$s" target="_blank">Integrations Settings</a>.', 'elementor-pro' ), $label, Settings::get_url() . '#tab-integrations' );
-			$content_classes = 'elementor-panel-alert elementor-panel-alert-danger';
+			$content_classes = 'elementor-panel-alert elementor-panel-alert-warning';
 		} else {
 			/* translators: 1: Integration label, 2: Setting Page link. */
 			$html = sprintf( __( 'You are using %1$s set in the <a href="%2$s" target="_blank">Integrations Settings</a>.', 'elementor-pro' ), $label, Settings::get_url() . '#tab-integrations' );
-			$content_classes = 'elementor-descriptor';
+			$content_classes = 'elementor-panel-alert elementor-panel-alert-info';
 		}
 
 		/* translators: %s: Integration label */

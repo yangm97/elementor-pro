@@ -1393,7 +1393,7 @@ class Gallery extends Base_Widget {
 					$href = '#';
 					if ( 'file' === $settings['link_to'] ) {
 						$href = $image_data['media'];
-						//$this->add_render_attribute( 'gallery_item_' . $unique_index, [ 'data-elementor-lightbox-slideshow' => $widget_id . $gallery_index ] );
+						$this->add_render_attribute( 'gallery_item_' . $unique_index, [ 'data-elementor-lightbox-slideshow' => 'all' ] );
 					}
 					$this->add_render_attribute( 'gallery_item_' . $unique_index, [ 'href' => $href ] );
 				}

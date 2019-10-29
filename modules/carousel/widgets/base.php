@@ -224,6 +224,19 @@ abstract class Base extends Base_Widget {
 		);
 
 		$this->add_control(
+			'pause_on_hover',
+			[
+				'label' => __( 'Pause on Hover', 'elementor-pro' ),
+				'type' => Controls_Manager::SWITCHER,
+				'default' => 'yes',
+				'condition' => [
+					'autoplay' => 'yes',
+				],
+				'frontend_available' => true,
+			]
+		);
+
+		$this->add_control(
 			'pause_on_interaction',
 			[
 				'label' => __( 'Pause on Interaction', 'elementor-pro' ),

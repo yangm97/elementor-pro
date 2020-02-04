@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-class Products_Renderer extends \WC_Shortcode_Products {
+class Products_Renderer extends Base_Products_Renderer {
 
 	private $settings = [];
 	private $is_added_product_filter = false;

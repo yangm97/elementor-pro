@@ -2,10 +2,9 @@
 namespace ElementorPro\Modules\Woocommerce\Widgets;
 
 use Elementor\Controls_Manager;
+use Elementor\Core\Schemes;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Typography;
-use Elementor\Scheme_Color;
-use Elementor\Scheme_Typography;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -317,8 +316,8 @@ class Categories extends Widget_Base {
 				'label'     => __( 'Color', 'elementor-pro' ),
 				'type'      => Controls_Manager::COLOR,
 				'scheme'    => [
-					'type'  => Scheme_Color::get_type(),
-					'value' => Scheme_Color::COLOR_1,
+					'type'  => Schemes\Color::get_type(),
+					'value' => Schemes\Color::COLOR_1,
 				],
 				'selectors' => [
 					'{{WRAPPER}} .woocommerce .woocommerce-loop-category__title' => 'color: {{VALUE}}',
@@ -330,7 +329,7 @@ class Categories extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			[
 				'name'     => 'title_typography',
-				'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
+				'scheme'   => Schemes\Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}} .woocommerce .woocommerce-loop-category__title',
 			]
 		);
@@ -359,7 +358,7 @@ class Categories extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			[
 				'name'     => 'count_typography',
-				'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
+				'scheme'   => Schemes\Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}} .woocommerce-loop-category__title .count',
 			]
 		);

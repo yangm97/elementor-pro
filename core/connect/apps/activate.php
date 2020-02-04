@@ -9,8 +9,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class Activate extends Common_App {
+	public function get_title() {
+		return __( 'Activate', 'elementor-pro' );
+	}
 
-	protected function get_slug() {
+	public function get_slug() {
 		return 'activate';
 	}
 
@@ -18,7 +21,28 @@ class Activate extends Common_App {
 		$this->action_activate_license();
 	}
 
-	public function render_admin_widget() {}
+	public function render_admin_widget() {
+		parent::render_admin_widget();
+
+		$license = License\Admin::get_license_key();
+
+		$status = $license ? 'Exist' : 'Missing';
+
+		echo sprintf( '<p>License Key: <strong>%s</strong></p>', $status );
+	}
+
+	/**
+	 * @since 2.3.0
+	 * @access public
+	 */
+	public function action_authorize() {
+		// In case the first connect was not from Activate App - require a new authorization.
+		if ( $this->is_connected() && ! License\Admin::get_license_key() ) {
+			$this->disconnect();
+		}
+
+		parent::action_authorize();
+	}
 
 	public function action_activate_pro() {
 		$this->action_activate_license();

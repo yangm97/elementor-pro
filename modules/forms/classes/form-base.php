@@ -116,7 +116,8 @@ abstract class Form_Base extends Base_Widget {
 
 					$this->add_render_attribute( $option_id, 'value', $option_value );
 
-					if ( ! empty( $item['field_value'] ) && $option_value === $item['field_value'] ) {
+					// Support multiple selected values
+					if ( ! empty( $item['field_value'] ) && in_array( $option_value, explode( ',', $item['field_value'] ) ) ) {
 						$this->add_render_attribute( $option_id, 'selected', 'selected' );
 					}
 					echo '<option ' . $this->get_render_attribute_string( $option_id ) . '>' . $option_label . '</option>';

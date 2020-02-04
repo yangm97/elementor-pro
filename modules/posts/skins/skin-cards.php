@@ -2,10 +2,9 @@
 namespace ElementorPro\Modules\Posts\Skins;
 
 use Elementor\Controls_Manager;
+use Elementor\Core\Schemes;
 use Elementor\Group_Control_Image_Size;
 use Elementor\Group_Control_Typography;
-use Elementor\Scheme_Color;
-use Elementor\Scheme_Typography;
 use Elementor\Widget_Base;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -155,8 +154,8 @@ class Skin_Cards extends Skin_Base {
 					'{{WRAPPER}} .elementor-post__card .elementor-post__badge' => 'background-color: {{VALUE}};',
 				],
 				'scheme' => [
-					'type' => Scheme_Color::get_type(),
-					'value' => Scheme_Color::COLOR_4,
+					'type' => Schemes\Color::get_type(),
+					'value' => Schemes\Color::COLOR_4,
 				],
 				'condition' => [
 					$this->get_control_id( 'show_badge' ) => 'yes',
@@ -243,7 +242,7 @@ class Skin_Cards extends Skin_Base {
 			Group_Control_Typography::get_type(),
 			[
 				'name' => 'badge_typography',
-				'scheme' => Scheme_Typography::TYPOGRAPHY_4,
+				'scheme' => Schemes\Typography::TYPOGRAPHY_4,
 				'selector' => '{{WRAPPER}} .elementor-post__card .elementor-post__badge',
 				'exclude' => [ 'font_size', 'line-height' ],
 				'condition' => [
@@ -497,6 +496,9 @@ class Skin_Cards extends Skin_Base {
 				'selectors' => [
 					'{{WRAPPER}} .elementor-post__read-more' => 'margin-bottom: {{SIZE}}{{UNIT}};',
 				],
+			],
+			[
+				'recursive' => true,
 			]
 		);
 	}

@@ -35,10 +35,10 @@ class Current_Date_Time extends Tag {
 				'options' => [
 					'default' => __( 'Default', 'elementor-pro' ),
 					'' => __( 'None', 'elementor-pro' ),
-					'F j, Y' => date( 'F j, Y' ),
-					'Y-m-d' => date( 'Y-m-d' ),
-					'm/d/Y' => date( 'm/d/Y' ),
-					'd/m/Y' => date( 'd/m/Y' ),
+					'F j, Y' => gmdate( 'F j, Y' ),
+					'Y-m-d' => gmdate( 'Y-m-d' ),
+					'm/d/Y' => gmdate( 'm/d/Y' ),
+					'd/m/Y' => gmdate( 'd/m/Y' ),
 					'custom' => __( 'Custom', 'elementor-pro' ),
 				],
 				'default' => 'default',
@@ -53,9 +53,9 @@ class Current_Date_Time extends Tag {
 				'options' => [
 					'default' => __( 'Default', 'elementor-pro' ),
 					'' => __( 'None', 'elementor-pro' ),
-					'g:i a' => date( 'g:i a' ),
-					'g:i A' => date( 'g:i A' ),
-					'H:i' => date( 'H:i' ),
+					'g:i a' => gmdate( 'g:i a' ),
+					'g:i A' => gmdate( 'g:i A' ),
+					'H:i' => gmdate( 'H:i' ),
 				],
 				'default' => 'default',
 				'condition' => [

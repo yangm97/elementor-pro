@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 		<div id="elementor-global-widget-locked-unlink" class="elementor-global-widget-locked-tool">
 			<div class="elementor-global-widget-locked-tool-description"><?php echo __( 'Unlink from global', 'elementor-pro' ); ?></div>
-			<button class="elementor-button"><?php _e( 'Unlink', 'elementor-pro' ); ?></button>
+			<button class="elementor-button elementor-button-danger"><?php _e( 'Unlink', 'elementor-pro' ); ?></button>
 		</div>
 	</div>
 	<div id="elementor-global-widget-loading" class="elementor-hidden">

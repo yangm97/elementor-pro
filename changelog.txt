@@ -1,14 +1,84 @@
 # Elementor Pro - by Elementor.com
 
+#### 2.8.3 - 2020-01-01
+* Tweak: Updated Table of Contents widget panel location
+* Fix: ACF URL Dynamic field throws `undefined index` PHP notice ([#9929](https://github.com/elementor/elementor/issues/9929))
+* Fix: Gallery lightbox pagination shows images from all tabs
+* Fix: "Reply To" option not working in Form widget "Email 2" Action
+* Fix: ACF Dynamic tag not working in Form widget Redirect action
+* Fix: Underline option not working in Table of Contents widget Normal state
+* Fix: Query Control `Undefined index: autocomplete` notice in some cases
+* Fix: Missing display condition to Read More Spacing control in Posts widget
+
+#### 2.8.2 - 2019-12-19
+* Tweak: Improved scroll-spy and collapsing functionality in Table of Contents widget
+* Fix: "No products were found" message not being displayed in an empty Products Archive
+* Fix: Redundant `<br>` tags in Single theme template ([#9927](https://github.com/elementor/elementor/issues/9927), [#9928](https://github.com/elementor/elementor/issues/9928))
+* Fix: Draft Popup shows up in Dynamic tag dropdown
+
+#### 2.8.1 - 2019-12-18
+* Fix: Share Buttons widget not working ([#9920](https://github.com/elementor/elementor/issues/9920))
+* Fix: Redundant `<p>` tags added to Single Template posts
+
+#### 2.8.0 - 2019-12-18
+* New: Table of Contents Widget ([#5171](https://github.com/elementor/elementor/issues/5171))
+* New: Added Font Awesome Pro Duotone font family support ([#9578](https://github.com/elementor/elementor/issues/9578))
+* Tweak: Added Lazy Load option to Gallery widget ([#9763](https://github.com/elementor/elementor/issues/9763))
+* Tweak: Added Random order option to Gallery widget ([#9269](https://github.com/elementor/elementor/issues/9269))
+* Tweak: Updated Font Awesome Pro to v5.11.2 ([#9578](https://github.com/elementor/elementor/issues/9578))
+* Tweak: Added preselect support for multiple default select values in Forms Widget ([#9324](https://github.com/elementor/elementor/issues/9324))
+* Tweak: Avoid duplicate queries for Custom Icons ([#9579](https://github.com/elementor/elementor/issues/9579))
+* Tweak: Major performance improvements to Gallery widget
+* Tweak: Avoid non-existing images in Gallery widget
+* Tweak: Added `tabindex`, `aria-expanded`, `aria-hidden` and `role="navigation"` accessibility attributes to Nav Menu widget
+* Tweak: Changed button HTML tag from `button` to `span` in Call to Action and Flip Box widgets for better W3C compliance and accessibility
+* Tweak: Removed Google+ from default networks in Share Buttons widget
+* Tweak: Added compatibility for Library Connect
+* Tweak: Added i18n to Toolset date dynamic tag
+* Tweak: Added external link support to Gallery widget
+* Tweak: Changed the link external attributes implementation to use `add_link_attributes()` in Gallery widget
+* Tweak: Updated references to the new Schemes system location
+* Tweak: Avoid running Gallery handler when the gallery is empty
+* Tweak: UI Tweaks in Editor Panel
+* Tweak: Added responsive capabilities to Pointer Width control in Nav Menu widget
+* Tweak: Added mobile support for responsive controls in Nav Menu widget
+* Tweak: Refactor `register_controls()` method in Posts widget skin trait
+* Fix: ACF URL "undefined Index" notice ([#7646](https://github.com/elementor/elementor/issues/7646))
+* Fix: WooCommerce Mini-Cart widget causes fatal error in edge cases ([#9304](https://github.com/elementor/elementor/issues/9304))
+* Fix: `PHP Notice: Undefined index` display for Author query ([#9864](https://github.com/elementor/elementor/issues/9864))
+* Fix: Added compatibility for Button widget placed inside Swiper carousel ([Topic](https://wordpress.org/support/topic/broken-buttons-since-elementor-2-8/))
+* Fix: Avoid empty spaces in Post info widget
+* Tweak: Always show "Custom label" control in Login widget
+* Fix: Nav Menu item typography selector in Nav Menu widget
+* Fix: Facebook Like Button widget causes flickering
+* Fix: WooCommerce mini-cart behaviour when using `plain` permalinks format
+* Fix: Avoid running Popup triggers when set without conditions
+* Fix: Removed "Date" query from Products widget
+* Fix: Slides widget when used as a Shortcode and is hidden
+* Fix: Custom URL being accessed on swipe in Media Carousel
+* Fix: Media Carousel widget Cube effect glitch
+* Fix: Lightbox shows images from multiple Gallery widgets in the same page
+* Fix: Image `alt` Text not displayed on overlay in Gallery widget
+* Fix: Gallery widget not visible in Posts widget Full Content skin
+* Fix: WooCommerce mini-cart remove unnecessary hooks registration when WooCommerce integration set to `Disable`
+* Fix: Slides widget button wrapping breaks in mobile view
+* Fix: Dynamic capabilities with the Reviews widget
+* Fix: Disabling autoplay doesn't work in Slides widget
+* Fix: Posts widget Full Content skin not working on Single template
+* Fix: Autocomplete not working for "By Author" condition in Display Conditions screen
+* Fix: Posts widget alignment issue
+* Fix: Product Variations Clear button not working in edge cases
+* Fix: Styling issues in Form widget submit button
+
 #### 2.7.3 - 2019-10-28
-Tweak: Added RTL support to Galleries widget ([#9213](https://github.com/elementor/elementor/issues/9213))
-Tweak: Added Custom Icons compatibility for WordPress 5.3
-Fix: Missing template function declaration causes fatal error in WC mini-cart widget
-Fix: Pause on hover doesn't work in Carousel widgets
-Fix: Link-actions conflict with `?action=` parameter in the URL
-Fix: Lightbox navigation not working in Gallery widget Single mode
-Fix: Ken burns effect not working on the 1st slide if Infinite Loop option is turned off in Carousel widgets
-Fix: Popup Advanced Rules detects internal links as external if current URL starts with `www`
+* Tweak: Added RTL support to Galleries widget ([#9213](https://github.com/elementor/elementor/issues/9213))
+* Tweak: Added Custom Icons compatibility for WordPress 5.3
+* Fix: Missing template function declaration causes fatal error in WC mini-cart widget
+* Fix: Pause on hover doesn't work in Carousel widgets
+* Fix: Link-actions conflict with `?action=` parameter in the URL
+* Fix: Lightbox navigation not working in Gallery widget Single mode
+* Fix: Ken burns effect not working on the 1st slide if Infinite Loop option is turned off in Carousel widgets
+* Fix: Popup Advanced Rules detects internal links as external if current URL starts with `www`
 
 #### 2.7.2 - 2019-10-06
 * Fix: Slide Overlay not working when applying Ken burns effect in Slides widget ([#9209](https://github.com/elementor/elementor/issues/9209))

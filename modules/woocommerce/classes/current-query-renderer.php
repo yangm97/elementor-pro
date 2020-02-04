@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-class Current_Query_Renderer extends \WC_Shortcode_Products {
+class Current_Query_Renderer extends Base_Products_Renderer {
 
 	private $settings = [];
 
@@ -31,7 +31,8 @@ class Current_Query_Renderer extends \WC_Shortcode_Products {
 
 		$paginated = ! $query->get( 'no_found_rows' );
 
-		if ( ! empty( $query->posts ) ) {
+		// Check is_object to indicate it's called the first time.
+		if ( ! empty( $query->posts ) && is_object( $query->posts[0] ) ) {
 			$query->posts = array_map( function ( $post ) {
 				return $post->ID;
 			}, $query->posts );

@@ -49,7 +49,6 @@ class Editor extends App {
 		$settings = [
 			'i18n' => [],
 			'isActive' => $is_license_active,
-			'useComponentsRouter' => defined( 'ELEMENTOR_EDITOR_USE_ROUTER' ) && ELEMENTOR_EDITOR_USE_ROUTER,
 			'urls' => [
 				'modules' => ELEMENTOR_PRO_MODULES_URL,
 			],

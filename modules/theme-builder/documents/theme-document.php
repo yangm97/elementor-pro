@@ -231,7 +231,7 @@ abstract class Theme_Document extends Library_Document {
 						$preview_url = get_author_posts_url( $preview_id );
 						break;
 					case 'date':
-						$preview_url = add_query_arg( 'year', date( 'Y' ), $home_url );
+						$preview_url = add_query_arg( 'year', gmdate( 'Y' ), $home_url );
 						break;
 				}
 				break;
@@ -318,7 +318,7 @@ abstract class Theme_Document extends Library_Document {
 						break;
 					case 'date':
 						$query_args = [
-							'year' => date( 'Y' ),
+							'year' => gmdate( 'Y' ),
 						];
 						break;
 					case 'recent_posts':

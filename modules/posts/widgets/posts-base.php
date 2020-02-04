@@ -1,8 +1,8 @@
 <?php
 namespace ElementorPro\Modules\Posts\Widgets;
 
+use Elementor\Core\Schemes;
 use Elementor\Group_Control_Typography;
-use Elementor\Scheme_Typography;
 use ElementorPro\Base\Base_Widget;
 use Elementor\Controls_Manager;
 
@@ -160,7 +160,7 @@ abstract class Posts_Base extends Base_Widget {
 			[
 				'name' => 'pagination_typography',
 				'selector' => '{{WRAPPER}} .elementor-pagination',
-				'scheme' => Scheme_Typography::TYPOGRAPHY_2,
+				'scheme' => Schemes\Typography::TYPOGRAPHY_2,
 			]
 		);
 

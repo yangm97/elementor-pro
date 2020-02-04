@@ -39,7 +39,7 @@ class By_Author extends Condition_Base {
 					'dropdownCssClass' => 'elementor-conditions-select2-dropdown',
 				],
 				'autocomplete' => [
-					'filter_type' => QueryModule::QUERY_OBJECT_AUTHOR,
+					'object' => QueryModule::QUERY_OBJECT_AUTHOR,
 				],
 			]
 		);

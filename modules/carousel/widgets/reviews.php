@@ -2,12 +2,10 @@
 namespace ElementorPro\Modules\Carousel\Widgets;
 
 use Elementor\Controls_Manager;
-use Elementor\Group_Control_Box_Shadow;
+use Elementor\Core\Schemes;
 use Elementor\Group_Control_Typography;
 use Elementor\Icons_Manager;
 use Elementor\Repeater;
-use Elementor\Scheme_Color;
-use Elementor\Scheme_Typography;
 use Elementor\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -174,7 +172,7 @@ class Reviews extends Base {
 			[
 				'name' => 'name_typography',
 				'selector' => '{{WRAPPER}} .elementor-testimonial__header, {{WRAPPER}} .elementor-testimonial__name',
-				'scheme' => Scheme_Typography::TYPOGRAPHY_1,
+				'scheme' => Schemes\Typography::TYPOGRAPHY_1,
 			]
 		);
 
@@ -231,7 +229,7 @@ class Reviews extends Base {
 			[
 				'name' => 'content_typography',
 				'selector' => '{{WRAPPER}} .elementor-testimonial__text',
-				'scheme' => Scheme_Typography::TYPOGRAPHY_3,
+				'scheme' => Schemes\Typography::TYPOGRAPHY_3,
 			]
 		);
 

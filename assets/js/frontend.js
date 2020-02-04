@@ -1,4 +1,4 @@
-/*! elementor-pro - v2.7.3 - 28-10-2019 */
+/*! elementor-pro - v2.8.3 - 01-01-2020 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -82,7 +82,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 85);
+/******/ 	return __webpack_require__(__webpack_require__.s = 74);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -355,10 +355,7 @@ module.exports = elementorModules.frontend.handlers.Base.extend({
 
 /***/ }),
 /* 4 */,
-/* 5 */,
-/* 6 */,
-/* 7 */,
-/* 8 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -442,7 +439,7 @@ var _class = function (_elementorModules$Vie) {
 exports.default = _class;
 
 /***/ }),
-/* 9 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -569,7 +566,6 @@ module.exports = elementorModules.frontend.handlers.Base.extend({
 			loop: 'yes' === elementSettings.loop,
 			speed: elementSettings.speed,
 			effect: this.getEffect(),
-			preventClicks: false,
 			preventClicksPropagation: false,
 			slideToClickedSlide: true
 		};
@@ -693,13 +689,13 @@ module.exports = elementorModules.frontend.handlers.Base.extend({
 });
 
 /***/ }),
-/* 10 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Base = __webpack_require__(9),
+var Base = __webpack_require__(6),
     TestimonialCarousel;
 
 TestimonialCarousel = Base.extend({
@@ -730,16 +726,16 @@ module.exports = function ($scope) {
 };
 
 /***/ }),
-/* 11 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var FormSender = __webpack_require__(120),
+var FormSender = __webpack_require__(111),
     Form = FormSender.extend();
 
-var RedirectAction = __webpack_require__(121);
+var RedirectAction = __webpack_require__(112);
 
 module.exports = function ($scope) {
 	new Form({ $element: $scope });
@@ -747,7 +743,7 @@ module.exports = function ($scope) {
 };
 
 /***/ }),
-/* 12 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -762,7 +758,7 @@ module.exports = PostsHandler.extend({
 });
 
 /***/ }),
-/* 13 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -871,6 +867,9 @@ module.exports = function ($scope) {
 };
 
 /***/ }),
+/* 11 */,
+/* 12 */,
+/* 13 */,
 /* 14 */,
 /* 15 */,
 /* 16 */,
@@ -931,18 +930,7 @@ module.exports = function ($scope) {
 /* 71 */,
 /* 72 */,
 /* 73 */,
-/* 74 */,
-/* 75 */,
-/* 76 */,
-/* 77 */,
-/* 78 */,
-/* 79 */,
-/* 80 */,
-/* 81 */,
-/* 82 */,
-/* 83 */,
-/* 84 */,
-/* 85 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -952,21 +940,25 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
-var _frontend = __webpack_require__(86);
+var _frontend = __webpack_require__(75);
 
 var _frontend2 = _interopRequireDefault(_frontend);
 
-var _frontend3 = __webpack_require__(87);
+var _frontend3 = __webpack_require__(76);
 
 var _frontend4 = _interopRequireDefault(_frontend3);
 
-var _frontend5 = __webpack_require__(105);
+var _frontend5 = __webpack_require__(94);
 
 var _frontend6 = _interopRequireDefault(_frontend5);
 
-var _frontend7 = __webpack_require__(111);
+var _frontend7 = __webpack_require__(100);
 
 var _frontend8 = _interopRequireDefault(_frontend7);
+
+var _frontend9 = __webpack_require__(102);
+
+var _frontend10 = _interopRequireDefault(_frontend9);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1005,23 +997,24 @@ var ElementorProFrontend = function (_elementorModules$Vie) {
 			var _this2 = this;
 
 			var handlers = {
-				animatedText: __webpack_require__(113),
-				carousel: __webpack_require__(115),
-				countdown: __webpack_require__(117),
-				form: __webpack_require__(119),
+				animatedText: __webpack_require__(104),
+				carousel: __webpack_require__(106),
+				countdown: __webpack_require__(108),
+				form: __webpack_require__(110),
 				gallery: _frontend8.default,
 				linkActions: _frontend2.default,
-				nav_menu: __webpack_require__(125),
+				nav_menu: __webpack_require__(116),
 				motionFX: _frontend6.default,
 				popup: _frontend4.default,
-				posts: __webpack_require__(127),
-				share_buttons: __webpack_require__(129),
-				slides: __webpack_require__(131),
-				social: __webpack_require__(133),
-				sticky: __webpack_require__(135),
-				themeBuilder: __webpack_require__(136),
-				themeElements: __webpack_require__(139),
-				woocommerce: __webpack_require__(141)
+				posts: __webpack_require__(118),
+				share_buttons: __webpack_require__(120),
+				slides: __webpack_require__(122),
+				social: __webpack_require__(124),
+				sticky: __webpack_require__(126),
+				themeBuilder: __webpack_require__(127),
+				themeElements: __webpack_require__(130),
+				woocommerce: __webpack_require__(132),
+				tableOfContents: _frontend10.default
 			};
 
 			jQuery.each(handlers, function (moduleName, ModuleClass) {
@@ -1041,7 +1034,7 @@ var ElementorProFrontend = function (_elementorModules$Vie) {
 window.elementorProFrontend = new ElementorProFrontend();
 
 /***/ }),
-/* 86 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1159,7 +1152,7 @@ var _class = function (_elementorModules$Vie) {
 exports.default = _class;
 
 /***/ }),
-/* 87 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1171,11 +1164,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _document = __webpack_require__(88);
+var _document = __webpack_require__(77);
 
 var _document2 = _interopRequireDefault(_document);
 
-var _formsAction = __webpack_require__(104);
+var _formsAction = __webpack_require__(93);
 
 var _formsAction2 = _interopRequireDefault(_formsAction);
 
@@ -1273,7 +1266,7 @@ var _class = function (_elementorModules$Mod) {
 exports.default = _class;
 
 /***/ }),
-/* 88 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1287,11 +1280,11 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
-var _triggers = __webpack_require__(89);
+var _triggers = __webpack_require__(78);
 
 var _triggers2 = _interopRequireDefault(_triggers);
 
-var _timing = __webpack_require__(96);
+var _timing = __webpack_require__(85);
 
 var _timing2 = _interopRequireDefault(_timing);
 
@@ -1596,7 +1589,7 @@ var _class = function (_elementorModules$fro) {
 exports.default = _class;
 
 /***/ }),
-/* 89 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1608,27 +1601,27 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _pageLoad = __webpack_require__(90);
+var _pageLoad = __webpack_require__(79);
 
 var _pageLoad2 = _interopRequireDefault(_pageLoad);
 
-var _scrolling = __webpack_require__(91);
+var _scrolling = __webpack_require__(80);
 
 var _scrolling2 = _interopRequireDefault(_scrolling);
 
-var _scrollingTo = __webpack_require__(92);
+var _scrollingTo = __webpack_require__(81);
 
 var _scrollingTo2 = _interopRequireDefault(_scrollingTo);
 
-var _click = __webpack_require__(93);
+var _click = __webpack_require__(82);
 
 var _click2 = _interopRequireDefault(_click);
 
-var _inactivity = __webpack_require__(94);
+var _inactivity = __webpack_require__(83);
 
 var _inactivity2 = _interopRequireDefault(_inactivity);
 
-var _exitIntent = __webpack_require__(95);
+var _exitIntent = __webpack_require__(84);
 
 var _exitIntent2 = _interopRequireDefault(_exitIntent);
 
@@ -1710,7 +1703,7 @@ var _class = function (_elementorModules$Mod) {
 exports.default = _class;
 
 /***/ }),
-/* 90 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1766,7 +1759,7 @@ var _class = function (_BaseTrigger) {
 exports.default = _class;
 
 /***/ }),
-/* 91 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1858,7 +1851,7 @@ var _class = function (_BaseTrigger) {
 exports.default = _class;
 
 /***/ }),
-/* 92 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1924,7 +1917,7 @@ var _class = function (_BaseTrigger) {
 exports.default = _class;
 
 /***/ }),
-/* 93 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2000,7 +1993,7 @@ var _class = function (_BaseTrigger) {
 exports.default = _class;
 
 /***/ }),
-/* 94 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2086,7 +2079,7 @@ var _class = function (_BaseTrigger) {
 exports.default = _class;
 
 /***/ }),
-/* 95 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2158,7 +2151,7 @@ var _class = function (_BaseTrigger) {
 exports.default = _class;
 
 /***/ }),
-/* 96 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2170,31 +2163,31 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _pageViews = __webpack_require__(97);
+var _pageViews = __webpack_require__(86);
 
 var _pageViews2 = _interopRequireDefault(_pageViews);
 
-var _sessions = __webpack_require__(98);
+var _sessions = __webpack_require__(87);
 
 var _sessions2 = _interopRequireDefault(_sessions);
 
-var _url = __webpack_require__(99);
+var _url = __webpack_require__(88);
 
 var _url2 = _interopRequireDefault(_url);
 
-var _sources = __webpack_require__(100);
+var _sources = __webpack_require__(89);
 
 var _sources2 = _interopRequireDefault(_sources);
 
-var _loggedIn = __webpack_require__(101);
+var _loggedIn = __webpack_require__(90);
 
 var _loggedIn2 = _interopRequireDefault(_loggedIn);
 
-var _devices = __webpack_require__(102);
+var _devices = __webpack_require__(91);
 
 var _devices2 = _interopRequireDefault(_devices);
 
-var _times = __webpack_require__(103);
+var _times = __webpack_require__(92);
 
 var _times2 = _interopRequireDefault(_times);
 
@@ -2259,7 +2252,7 @@ var _class = function (_elementorModules$Mod) {
 exports.default = _class;
 
 /***/ }),
-/* 97 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2321,7 +2314,7 @@ var _class = function (_BaseTiming) {
 exports.default = _class;
 
 /***/ }),
-/* 98 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2383,7 +2376,7 @@ var _class = function (_BaseTiming) {
 exports.default = _class;
 
 /***/ }),
-/* 99 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2450,7 +2443,7 @@ var _class = function (_BaseTiming) {
 exports.default = _class;
 
 /***/ }),
-/* 100 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2523,7 +2516,7 @@ var _class = function (_BaseTiming) {
 exports.default = _class;
 
 /***/ }),
-/* 101 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2588,7 +2581,7 @@ var _class = function (_BaseTiming) {
 exports.default = _class;
 
 /***/ }),
-/* 102 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2639,7 +2632,7 @@ var _class = function (_BaseTiming) {
 exports.default = _class;
 
 /***/ }),
-/* 103 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2692,7 +2685,7 @@ var _class = function (_BaseTiming) {
 exports.default = _class;
 
 /***/ }),
-/* 104 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2736,7 +2729,7 @@ module.exports = function ($scope) {
 };
 
 /***/ }),
-/* 105 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2746,7 +2739,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _handler = __webpack_require__(106);
+var _handler = __webpack_require__(95);
 
 var _handler2 = _interopRequireDefault(_handler);
 
@@ -2778,7 +2771,7 @@ var _class = function (_elementorModules$Mod) {
 exports.default = _class;
 
 /***/ }),
-/* 106 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2794,7 +2787,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
-var _motionFx = __webpack_require__(107);
+var _motionFx = __webpack_require__(96);
 
 var _motionFx2 = _interopRequireDefault(_motionFx);
 
@@ -3090,7 +3083,7 @@ var _class = function (_elementorModules$fro) {
 exports.default = _class;
 
 /***/ }),
-/* 107 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3104,15 +3097,15 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
-var _scroll = __webpack_require__(108);
+var _scroll = __webpack_require__(97);
 
 var _scroll2 = _interopRequireDefault(_scroll);
 
-var _mouseMove = __webpack_require__(109);
+var _mouseMove = __webpack_require__(98);
 
 var _mouseMove2 = _interopRequireDefault(_mouseMove);
 
-var _actions2 = __webpack_require__(110);
+var _actions2 = __webpack_require__(99);
 
 var _actions3 = _interopRequireDefault(_actions2);
 
@@ -3398,7 +3391,7 @@ var _class = function (_elementorModules$Vie) {
 exports.default = _class;
 
 /***/ }),
-/* 108 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3410,7 +3403,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _base = __webpack_require__(8);
+var _base = __webpack_require__(5);
 
 var _base2 = _interopRequireDefault(_base);
 
@@ -3468,7 +3461,7 @@ var _class = function (_BaseInteraction) {
 exports.default = _class;
 
 /***/ }),
-/* 109 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3482,7 +3475,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
-var _base = __webpack_require__(8);
+var _base = __webpack_require__(5);
 
 var _base2 = _interopRequireDefault(_base);
 
@@ -3557,7 +3550,7 @@ MouseMoveInteraction.updateMousePosition = function (event) {
 };
 
 /***/ }),
-/* 110 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3824,7 +3817,7 @@ var _class = function (_elementorModules$Mod) {
 exports.default = _class;
 
 /***/ }),
-/* 111 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3834,7 +3827,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _handler = __webpack_require__(112);
+var _handler = __webpack_require__(101);
 
 var _handler2 = _interopRequireDefault(_handler);
 
@@ -3866,7 +3859,7 @@ var _class = function (_elementorModules$Mod) {
 exports.default = _class;
 
 /***/ }),
-/* 112 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3902,6 +3895,7 @@ var galleryHandler = function (_elementorModules$fro) {
 				selectors: {
 					container: '.elementor-gallery__container',
 					galleryItems: '.e-gallery-item',
+					galleryItemsHidden: '.e-gallery-item--hidden',
 					galleryImages: '.e-gallery-image'
 				},
 				classes: {
@@ -3958,16 +3952,18 @@ var galleryHandler = function (_elementorModules$fro) {
 				horizontalGap: elementorFrontend.getDeviceSetting('desktop', settings, 'gap').size,
 				verticalGap: elementorFrontend.getDeviceSetting('desktop', settings, 'gap').size,
 				animationDuration: settings.content_animation_duration,
-				classesPrefix: 'e-gallery-',
 				breakpoints: breakPointSettings,
-				rtl: elementorFrontend.config.is_rtl
+				rtl: elementorFrontend.config.is_rtl,
+				lazyLoad: 'yes' === settings.lazyload
 			};
 		}
 	}, {
 		key: 'initGallery',
 		value: function initGallery() {
 			var gallerySettings = this.getGallerySettings();
+
 			this.gallery = new EGallery(gallerySettings);
+
 			this.appendAnimationClasses('all');
 		}
 	}, {
@@ -4066,10 +4062,12 @@ var galleryHandler = function (_elementorModules$fro) {
 		value: function setLightboxGalleryIndex() {
 			var index = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'all';
 
+			var settings = this.getSettings();
+
 			if ('all' === index) {
-				return this.$element.find(this.getSettings().selectors.galleryItems).attr('data-elementor-lightbox-slideshow', 'all_' + this.getID());
+				return this.$element.find(settings.selectors.galleryItems).attr('data-elementor-lightbox-slideshow', 'all_' + this.getID());
 			}
-			this.$element.find(this.getSettings().selectors.galleryItems).not('.gallery-item--hidden').attr('data-elementor-lightbox-slideshow', index + '_' + this.getID());
+			this.$element.find(settings.selectors.galleryItems).not(settings.selectors.galleryItemsHidden).attr('data-elementor-lightbox-slideshow', index + '_' + this.getID());
 		}
 	}, {
 		key: 'onInit',
@@ -4082,13 +4080,17 @@ var galleryHandler = function (_elementorModules$fro) {
 
 			(_get2 = _get(galleryHandler.prototype.__proto__ || Object.getPrototypeOf(galleryHandler.prototype), 'onInit', this)).call.apply(_get2, [this].concat(args));
 
-			this.initGallery();
-
-			this.elements.$titles.first().trigger('click');
-
 			if (elementorFrontend.isEditMode() && 1 <= this.$element.find('.elementor-widget-empty-icon').length) {
 				this.$element.addClass('elementor-widget-empty');
 			}
+
+			if (!this.elements.$container.length) {
+				return;
+			}
+
+			this.initGallery();
+
+			this.elements.$titles.first().trigger('click');
 		}
 	}, {
 		key: 'onElementChange',
@@ -4117,6 +4119,7 @@ var galleryHandler = function (_elementorModules$fro) {
 
 			if (settingsToUpdate) {
 				var gallerySettings = this.getGallerySettings();
+
 				settingsToUpdate.forEach(function (settingToUpdate) {
 					_this3.gallery.setSettings(settingToUpdate, _this3.getItems(gallerySettings, settingToUpdate));
 				});
@@ -4125,6 +4128,8 @@ var galleryHandler = function (_elementorModules$fro) {
 	}, {
 		key: 'onDestroy',
 		value: function onDestroy() {
+			_get(galleryHandler.prototype.__proto__ || Object.getPrototypeOf(galleryHandler.prototype), 'onDestroy', this).call(this);
+
 			if (this.gallery) {
 				this.gallery.destroy();
 			}
@@ -4137,18 +4142,513 @@ var galleryHandler = function (_elementorModules$fro) {
 exports.default = galleryHandler;
 
 /***/ }),
-/* 113 */
+/* 102 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _tableOfContents = __webpack_require__(103);
+
+var _tableOfContents2 = _interopRequireDefault(_tableOfContents);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _class = function (_elementorModules$Mod) {
+	_inherits(_class, _elementorModules$Mod);
+
+	function _class() {
+		_classCallCheck(this, _class);
+
+		var _this = _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).call(this));
+
+		elementorFrontend.hooks.addAction('frontend/element_ready/table-of-contents.default', function ($element) {
+			elementorFrontend.elementsHandler.addHandler(_tableOfContents2.default, { $element: $element });
+		});
+		return _this;
+	}
+
+	return _class;
+}(elementorModules.Module);
+
+exports.default = _class;
+
+/***/ }),
+/* 103 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TOCHandler = function (_elementorModules$fro) {
+	_inherits(TOCHandler, _elementorModules$fro);
+
+	function TOCHandler() {
+		_classCallCheck(this, TOCHandler);
+
+		return _possibleConstructorReturn(this, (TOCHandler.__proto__ || Object.getPrototypeOf(TOCHandler)).apply(this, arguments));
+	}
+
+	_createClass(TOCHandler, [{
+		key: 'getDefaultSettings',
+		value: function getDefaultSettings() {
+			var elementSettings = this.getElementSettings(),
+			    listWrapperTag = 'numbers' === elementSettings.marker_view ? 'ol' : 'ul';
+
+			return {
+				selectors: {
+					widgetContainer: '.elementor-widget-container',
+					container: '.elementor:not([data-elementor-type="header"]):not([data-elementor-type="footer"])',
+					expandButton: '.elementor-toc__toggle-button--expand',
+					collapseButton: '.elementor-toc__toggle-button--collapse',
+					body: '.elementor-toc__body',
+					headerTitle: '.elementor-toc__header-title'
+				},
+				classes: {
+					anchor: 'elementor-menu-anchor',
+					listWrapper: 'elementor-toc__list-wrapper',
+					listItem: 'elementor-toc__list-item',
+					listTextWrapper: 'elementor-toc__list-item-text-wrapper',
+					firstLevelListItem: 'elementor-toc__top-level',
+					listItemText: 'elementor-toc__list-item-text',
+					activeItem: 'elementor-item-active',
+					headingAnchor: 'elementor-toc__heading-anchor',
+					collapsed: 'elementor-toc--collapsed'
+				},
+				listWrapperTag: listWrapperTag
+			};
+		}
+	}, {
+		key: 'getDefaultElements',
+		value: function getDefaultElements() {
+			var settings = this.getSettings(),
+			    elementSettings = this.getElementSettings();
+
+			return {
+				$pageContainer: jQuery(elementSettings.container || settings.selectors.container),
+				$widgetContainer: this.$element.find(settings.selectors.widgetContainer),
+				$expandButton: this.$element.find(settings.selectors.expandButton),
+				$collapseButton: this.$element.find(settings.selectors.collapseButton),
+				$tocBody: this.$element.find(settings.selectors.body),
+				$listItems: this.$element.find('.' + settings.classes.listItem)
+			};
+		}
+	}, {
+		key: 'bindEvents',
+		value: function bindEvents() {
+			var _this2 = this;
+
+			var elementSettings = this.getElementSettings();
+
+			if (elementSettings.minimize_box) {
+				this.elements.$expandButton.on('click', function () {
+					return _this2.expandBox();
+				});
+				this.elements.$collapseButton.on('click', function () {
+					return _this2.collapseBox();
+				});
+			}
+
+			if (elementSettings.collapse_subitems) {
+				this.elements.$listItems.hover(function (event) {
+					return jQuery(event.target).slideToggle();
+				});
+			}
+		}
+	}, {
+		key: 'getHeadings',
+		value: function getHeadings() {
+			// Get all headings from document by user-selected tags
+			var elementSettings = this.getElementSettings(),
+			    tags = elementSettings.headings_by_tags.join(','),
+			    selectors = this.getSettings('selectors'),
+			    excludedSelectors = elementSettings.exclude_headings_by_selector;
+
+			return this.elements.$pageContainer.find(tags).not(selectors.headerTitle).filter(function (index, heading) {
+				return !jQuery(heading).closest(excludedSelectors).length; // Handle excluded selectors if there are any
+			});
+		}
+	}, {
+		key: 'addAnchorsBeforeHeadings',
+		value: function addAnchorsBeforeHeadings() {
+			// Add an anchor element right before each TOC heading to create anchors for TOC links
+			var classes = this.getSettings('classes');
+
+			this.elements.$headings.before(function (index) {
+				return '<span id="' + classes.headingAnchor + '-' + index + '" class="' + classes.anchor + ' "></span>';
+			});
+		}
+	}, {
+		key: 'activateItem',
+		value: function activateItem($listItem) {
+			var classes = this.getSettings('classes');
+
+			this.deactivateActiveItem($listItem);
+
+			$listItem.addClass(classes.activeItem);
+
+			this.$activeItem = $listItem;
+
+			if (!this.getElementSettings('collapse_subitems')) {
+				return;
+			}
+
+			var $activeList = void 0;
+
+			if ($listItem.hasClass(classes.firstLevelListItem)) {
+				$activeList = $listItem.parent().next();
+			} else {
+				$activeList = $listItem.parents('.' + classes.listWrapper).eq(-2);
+			}
+
+			if (!$activeList.length) {
+				delete this.$activeList;
+
+				return;
+			}
+
+			this.$activeList = $activeList;
+
+			this.$activeList.stop().slideDown();
+		}
+	}, {
+		key: 'deactivateActiveItem',
+		value: function deactivateActiveItem($activeToBe) {
+			if (!this.$activeItem || this.$activeItem.is($activeToBe)) {
+				return;
+			}
+
+			var _getSettings = this.getSettings(),
+			    classes = _getSettings.classes;
+
+			this.$activeItem.removeClass(classes.activeItem);
+
+			if (this.$activeList && (!$activeToBe || !this.$activeList[0].contains($activeToBe[0]))) {
+				this.$activeList.slideUp();
+			}
+		}
+	}, {
+		key: 'followAnchor',
+		value: function followAnchor($element, index) {
+			var _this3 = this;
+
+			var anchorSelector = $element[0].hash;
+
+			var $anchor = void 0;
+
+			try {
+				// `decodeURIComponent` for UTF8 characters in the hash.
+				$anchor = jQuery(decodeURIComponent(anchorSelector));
+			} catch (e) {
+				return;
+			}
+
+			if (0 === index) {
+				elementorFrontend.waypoint($anchor, function (direction) {
+					if (_this3.itemClicked) {
+						return;
+					}
+
+					if ('down' === direction) {
+						_this3.activateItem($element);
+					} else {
+						_this3.deactivateActiveItem();
+					}
+				}, { offset: 'bottom-in-view', triggerOnce: false });
+			}
+
+			elementorFrontend.waypoint($anchor, function (direction) {
+				if (_this3.itemClicked) {
+					return;
+				}
+
+				if ('down' === direction) {
+					_this3.activateItem(_this3.$listItemTexts.eq(index + 1));
+				} else {
+					_this3.activateItem($element);
+				}
+			}, { offset: 0, triggerOnce: false });
+		}
+	}, {
+		key: 'followAnchors',
+		value: function followAnchors() {
+			var _this4 = this;
+
+			this.$listItemTexts.each(function (index, element) {
+				return _this4.followAnchor(jQuery(element), index);
+			});
+		}
+	}, {
+		key: 'populateTOC',
+		value: function populateTOC() {
+			this.listItemPointer = 0;
+
+			var elementSettings = this.getElementSettings();
+
+			if (elementSettings.hierarchical_view) {
+				this.createNestedList();
+			} else {
+				this.createFlatList();
+			}
+
+			this.$listItemTexts = this.$element.find('.elementor-toc__list-item-text');
+
+			this.$listItemTexts.on('click', this.onListItemClick.bind(this));
+
+			if (!elementorFrontend.isEditMode()) {
+				this.followAnchors();
+			}
+		}
+	}, {
+		key: 'createNestedList',
+		value: function createNestedList() {
+			var _this5 = this;
+
+			this.headingsData.forEach(function (heading, index) {
+				heading.level = 0;
+
+				for (var i = index - 1; i >= 0; i--) {
+					var currentOrderedItem = _this5.headingsData[i];
+
+					if (currentOrderedItem.tag <= heading.tag) {
+						heading.level = currentOrderedItem.level;
+
+						if (currentOrderedItem.tag < heading.tag) {
+							heading.level++;
+						}
+
+						break;
+					}
+				}
+			});
+
+			this.elements.$tocBody.html(this.getNestedLevel(0));
+		}
+	}, {
+		key: 'createFlatList',
+		value: function createFlatList() {
+			this.elements.$tocBody.html(this.getNestedLevel());
+		}
+	}, {
+		key: 'getNestedLevel',
+		value: function getNestedLevel(level) {
+			var settings = this.getSettings(),
+			    elementSettings = this.getElementSettings(),
+			    icon = this.getElementSettings('icon');
+
+			// Open new list/nested list
+			var html = '<' + settings.listWrapperTag + ' class="' + settings.classes.listWrapper + '">';
+
+			// for each list item, build its markup.
+			while (this.listItemPointer < this.headingsData.length) {
+				var currentItem = this.headingsData[this.listItemPointer];
+
+				var listItemTextClasses = settings.classes.listItemText;
+
+				if (0 === currentItem.level) {
+					// If the current list item is a top level item, give it the first level class
+					listItemTextClasses += ' ' + settings.classes.firstLevelListItem;
+				}
+
+				if (level > currentItem.level) {
+					break;
+				}
+
+				if (level === currentItem.level) {
+					html += '<li class="' + settings.classes.listItem + '">';
+
+					html += '<div class="' + settings.classes.listTextWrapper + '">';
+
+					var liContent = '<a href="#' + settings.classes.headingAnchor + '-' + this.listItemPointer + '" class="' + listItemTextClasses + '">' + currentItem.text + '</a>';
+
+					// If list type is bullets, add the bullet icon as an <i> tag
+					if ('bullets' === elementSettings.marker_view && icon) {
+						liContent = '<i class="' + icon.value + '"></i>' + liContent;
+					}
+
+					html += liContent;
+
+					html += '</div>';
+
+					this.listItemPointer++;
+
+					var nextItem = this.headingsData[this.listItemPointer];
+
+					if (nextItem && level < nextItem.level) {
+						// If a new nested list has to be created under the current item,
+						// this entire method is called recursively (outside the while loop, a list wrapper is created)
+						html += this.getNestedLevel(nextItem.level);
+					}
+
+					html += '</li>';
+				}
+			}
+
+			html += '</' + settings.listWrapperTag + '>';
+
+			return html;
+		}
+	}, {
+		key: 'handleNoHeadingsFound',
+		value: function handleNoHeadingsFound() {
+			if (elementorFrontend.isEditMode()) {
+				return this.elements.$tocBody.html(elementorPro.translate('toc_no_headings_found'));
+			}
+		}
+	}, {
+		key: 'collapseOnInit',
+		value: function collapseOnInit() {
+			var minimizedOn = this.getElementSettings('minimized_on'),
+			    currentDeviceMode = elementorFrontend.getCurrentDeviceMode();
+
+			if ('tablet' === minimizedOn && 'desktop' !== currentDeviceMode || 'mobile' === minimizedOn && 'mobile' === currentDeviceMode) {
+				this.collapseBox();
+			}
+		}
+	}, {
+		key: 'setHeadingsData',
+		value: function setHeadingsData() {
+			var _this6 = this;
+
+			this.headingsData = [];
+
+			// Create an array for simplifying TOC list creation
+			this.elements.$headings.each(function (index, element) {
+				_this6.headingsData.push({ tag: +element.nodeName.slice(1), text: element.textContent });
+			});
+		}
+	}, {
+		key: 'run',
+		value: function run() {
+			this.elements.$headings = this.getHeadings();
+
+			if (!this.elements.$headings.length) {
+				return this.handleNoHeadingsFound();
+			}
+
+			this.setHeadingsData();
+
+			if (!elementorFrontend.isEditMode()) {
+				this.addAnchorsBeforeHeadings();
+			}
+
+			this.populateTOC();
+
+			if (this.getElementSettings('minimize_box')) {
+				this.collapseOnInit();
+			}
+		}
+	}, {
+		key: 'expandBox',
+		value: function expandBox() {
+			var boxHeight = this.getCurrentDeviceSetting('min_height');
+
+			this.$element.removeClass(this.getSettings('classes.collapsed'));
+
+			this.elements.$tocBody.slideDown();
+
+			// return container to the full height in case a min-height is defined by the user
+			this.elements.$widgetContainer.css('min-height', boxHeight.size + boxHeight.unit);
+		}
+	}, {
+		key: 'collapseBox',
+		value: function collapseBox() {
+			this.$element.addClass(this.getSettings('classes.collapsed'));
+
+			this.elements.$tocBody.slideUp();
+
+			// close container in case a min-height is defined by the user
+			this.elements.$widgetContainer.css('min-height', '0px');
+		}
+	}, {
+		key: 'onInit',
+		value: function onInit() {
+			var _get2,
+			    _this7 = this;
+
+			for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+				args[_key] = arguments[_key];
+			}
+
+			(_get2 = _get(TOCHandler.prototype.__proto__ || Object.getPrototypeOf(TOCHandler.prototype), 'onInit', this)).call.apply(_get2, [this].concat(args));
+
+			jQuery(document).ready(function () {
+				return _this7.run();
+			});
+		}
+	}, {
+		key: 'onListItemClick',
+		value: function onListItemClick(event) {
+			var _this8 = this;
+
+			this.itemClicked = true;
+
+			setTimeout(function () {
+				return _this8.itemClicked = false;
+			}, 2000);
+
+			var $clickedItem = jQuery(event.target),
+			    $list = $clickedItem.parent().next(),
+			    collapseNestedList = this.getElementSettings('collapse_subitems');
+
+			var listIsActive = void 0;
+
+			if (collapseNestedList && $clickedItem.hasClass(this.getSettings('classes.firstLevelListItem'))) {
+				if ($list.is(':visible')) {
+					listIsActive = true;
+				}
+			}
+
+			this.activateItem($clickedItem);
+
+			if (collapseNestedList && listIsActive) {
+				$list.slideUp();
+			}
+		}
+	}]);
+
+	return TOCHandler;
+}(elementorModules.frontend.handlers.Base);
+
+exports.default = TOCHandler;
+
+/***/ }),
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = function () {
-    elementorFrontend.hooks.addAction('frontend/element_ready/animated-headline.default', __webpack_require__(114));
+    elementorFrontend.hooks.addAction('frontend/element_ready/animated-headline.default', __webpack_require__(105));
 };
 
 /***/ }),
-/* 114 */
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4436,26 +4936,26 @@ module.exports = function ($scope) {
 };
 
 /***/ }),
-/* 115 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = function () {
-	elementorFrontend.hooks.addAction('frontend/element_ready/media-carousel.default', __webpack_require__(116));
-	elementorFrontend.hooks.addAction('frontend/element_ready/testimonial-carousel.default', __webpack_require__(10));
-	elementorFrontend.hooks.addAction('frontend/element_ready/reviews.default', __webpack_require__(10));
+	elementorFrontend.hooks.addAction('frontend/element_ready/media-carousel.default', __webpack_require__(107));
+	elementorFrontend.hooks.addAction('frontend/element_ready/testimonial-carousel.default', __webpack_require__(7));
+	elementorFrontend.hooks.addAction('frontend/element_ready/reviews.default', __webpack_require__(7));
 };
 
 /***/ }),
-/* 116 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Base = __webpack_require__(9),
+var Base = __webpack_require__(6),
     MediaCarousel;
 
 MediaCarousel = Base.extend({
@@ -4602,18 +5102,18 @@ module.exports = function ($scope) {
 };
 
 /***/ }),
-/* 117 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = function () {
-	elementorFrontend.hooks.addAction('frontend/element_ready/countdown.default', __webpack_require__(118));
+	elementorFrontend.hooks.addAction('frontend/element_ready/countdown.default', __webpack_require__(109));
 };
 
 /***/ }),
-/* 118 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4776,24 +5276,24 @@ module.exports = function ($scope) {
 };
 
 /***/ }),
-/* 119 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = function () {
-	elementorFrontend.hooks.addAction('frontend/element_ready/form.default', __webpack_require__(11));
-	elementorFrontend.hooks.addAction('frontend/element_ready/subscribe.default', __webpack_require__(11));
+	elementorFrontend.hooks.addAction('frontend/element_ready/form.default', __webpack_require__(8));
+	elementorFrontend.hooks.addAction('frontend/element_ready/subscribe.default', __webpack_require__(8));
 
-	elementorFrontend.hooks.addAction('frontend/element_ready/form.default', __webpack_require__(122));
+	elementorFrontend.hooks.addAction('frontend/element_ready/form.default', __webpack_require__(113));
 
-	elementorFrontend.hooks.addAction('frontend/element_ready/form.default', __webpack_require__(123));
-	elementorFrontend.hooks.addAction('frontend/element_ready/form.default', __webpack_require__(124));
+	elementorFrontend.hooks.addAction('frontend/element_ready/form.default', __webpack_require__(114));
+	elementorFrontend.hooks.addAction('frontend/element_ready/form.default', __webpack_require__(115));
 };
 
 /***/ }),
-/* 120 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4949,7 +5449,7 @@ module.exports = elementorModules.frontend.handlers.Base.extend({
 });
 
 /***/ }),
-/* 121 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4985,7 +5485,7 @@ module.exports = elementorModules.frontend.handlers.Base.extend({
 });
 
 /***/ }),
-/* 122 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5049,7 +5549,7 @@ module.exports = function ($scope) {
 };
 
 /***/ }),
-/* 123 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5079,7 +5579,7 @@ module.exports = function ($scope, $) {
 };
 
 /***/ }),
-/* 124 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5108,7 +5608,7 @@ module.exports = function ($scope, $) {
 };
 
 /***/ }),
-/* 125 */
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5126,11 +5626,11 @@ module.exports = function () {
 		}
 	}
 
-	elementorFrontend.hooks.addAction('frontend/element_ready/nav-menu.default', __webpack_require__(126));
+	elementorFrontend.hooks.addAction('frontend/element_ready/nav-menu.default', __webpack_require__(117));
 };
 
 /***/ }),
-/* 126 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5188,6 +5688,10 @@ var MenuHandler = elementorModules.frontend.handlers.Base.extend({
 		if ('boolean' !== typeof show) {
 			show = !isDropdownVisible;
 		}
+
+		this.elements.$menuToggle.attr('aria-expanded', show);
+
+		this.elements.$dropdownMenu.attr('aria-hidden', !show);
 
 		this.elements.$menuToggle.toggleClass('elementor-active', show);
 
@@ -5289,7 +5793,7 @@ module.exports = function ($scope) {
 };
 
 /***/ }),
-/* 127 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5297,8 +5801,8 @@ module.exports = function ($scope) {
 
 module.exports = function () {
 	var PostsModule = __webpack_require__(3),
-	    CardsModule = __webpack_require__(12),
-	    PortfolioModule = __webpack_require__(128);
+	    CardsModule = __webpack_require__(9),
+	    PortfolioModule = __webpack_require__(119);
 
 	elementorFrontend.hooks.addAction('frontend/element_ready/posts.classic', function ($scope) {
 		new PostsModule({ $element: $scope });
@@ -5322,7 +5826,7 @@ module.exports = function () {
 };
 
 /***/ }),
-/* 128 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5591,7 +6095,7 @@ module.exports = PostsHandler.extend({
 });
 
 /***/ }),
-/* 129 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5599,12 +6103,12 @@ module.exports = PostsHandler.extend({
 
 module.exports = function () {
 	if (!elementorFrontend.isEditMode()) {
-		elementorFrontend.hooks.addAction('frontend/element_ready/share-buttons.default', __webpack_require__(130));
+		elementorFrontend.hooks.addAction('frontend/element_ready/share-buttons.default', __webpack_require__(121));
 	}
 };
 
 /***/ }),
-/* 130 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5662,18 +6166,18 @@ module.exports = function ($scope) {
 };
 
 /***/ }),
-/* 131 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = function () {
-	elementorFrontend.hooks.addAction('frontend/element_ready/slides.default', __webpack_require__(132));
+	elementorFrontend.hooks.addAction('frontend/element_ready/slides.default', __webpack_require__(123));
 };
 
 /***/ }),
-/* 132 */
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5736,6 +6240,7 @@ var SlidesHandler = elementorModules.frontend.handlers.Base.extend({
 			loop: 'yes' === elementSettings.infinite,
 			speed: elementSettings.transition_speed,
 			effect: elementSettings.transition,
+			observeParents: true,
 			on: {
 				slideChange: function slideChange() {
 					_this.handleKenBurns();
@@ -5883,13 +6388,13 @@ module.exports = function ($scope) {
 };
 
 /***/ }),
-/* 133 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var facebookHandler = __webpack_require__(134);
+var facebookHandler = __webpack_require__(125);
 
 module.exports = function () {
 	elementorFrontend.hooks.addAction('frontend/element_ready/facebook-button.default', facebookHandler);
@@ -5899,7 +6404,7 @@ module.exports = function () {
 };
 
 /***/ }),
-/* 134 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5947,27 +6452,27 @@ module.exports = function ($scope) {
 };
 
 /***/ }),
-/* 135 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = function () {
-    elementorFrontend.hooks.addAction('frontend/element_ready/section', __webpack_require__(13));
-    elementorFrontend.hooks.addAction('frontend/element_ready/widget', __webpack_require__(13));
+    elementorFrontend.hooks.addAction('frontend/element_ready/section', __webpack_require__(10));
+    elementorFrontend.hooks.addAction('frontend/element_ready/widget', __webpack_require__(10));
 };
 
 /***/ }),
-/* 136 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = function () {
-	var PostsArchiveClassic = __webpack_require__(137),
-	    PostsArchiveCards = __webpack_require__(138);
+	var PostsArchiveClassic = __webpack_require__(128),
+	    PostsArchiveCards = __webpack_require__(129);
 
 	elementorFrontend.hooks.addAction('frontend/element_ready/archive-posts.archive_classic', function ($scope) {
 		new PostsArchiveClassic({ $element: $scope });
@@ -5994,7 +6499,7 @@ module.exports = function () {
 };
 
 /***/ }),
-/* 137 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6009,13 +6514,13 @@ module.exports = PostsClassicHandler.extend({
 });
 
 /***/ }),
-/* 138 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var PostsCardHandler = __webpack_require__(12);
+var PostsCardHandler = __webpack_require__(9);
 
 module.exports = PostsCardHandler.extend({
 	getSkinPrefix: function getSkinPrefix() {
@@ -6024,18 +6529,18 @@ module.exports = PostsCardHandler.extend({
 });
 
 /***/ }),
-/* 139 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = function () {
-    elementorFrontend.hooks.addAction('frontend/element_ready/search-form.default', __webpack_require__(140));
+    elementorFrontend.hooks.addAction('frontend/element_ready/search-form.default', __webpack_require__(131));
 };
 
 /***/ }),
-/* 140 */
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6139,14 +6644,14 @@ module.exports = function ($scope) {
 };
 
 /***/ }),
-/* 141 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = function () {
-	elementorFrontend.hooks.addAction('frontend/element_ready/woocommerce-menu-cart.default', __webpack_require__(142));
+	elementorFrontend.hooks.addAction('frontend/element_ready/woocommerce-menu-cart.default', __webpack_require__(133));
 
 	if (elementorFrontend.isEditMode()) {
 		return;
@@ -6160,7 +6665,7 @@ module.exports = function () {
 };
 
 /***/ }),
-/* 142 */
+/* 133 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6206,7 +6711,8 @@ var MiniCartHandler = elementorModules.frontend.handlers.Base.extend({
 		// Activate full-screen mode on click
 
 		$toggle.on('click', function (event) {
-			var currentUrl = window.location.origin + window.location.pathname,
+			var noQueryParams = -1 === ElementorProFrontendConfig.menu_cart.cart_page_url.indexOf('?'),
+			    currentUrl = noQueryParams ? window.location.origin + window.location.pathname : window.location.href,
 			    isCart = ElementorProFrontendConfig.menu_cart.cart_page_url === currentUrl,
 			    isCheckout = ElementorProFrontendConfig.menu_cart.checkout_page_url === currentUrl;
 

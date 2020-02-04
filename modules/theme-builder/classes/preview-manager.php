@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Preview_Manager {
 
 	public function __construct() {
-		add_filter( 'elementor_pro/query_control/get_query_args/current_query', [ $this, 'filter_query_control_args' ] );
+		add_filter( 'elementor/query/get_query_args/current_query', [ $this, 'filter_query_control_args' ] );
 		add_filter( 'elementor/theme/posts_archive/query_posts/query_vars', [ $this, 'filter_query_control_args' ] );
 		add_filter( 'elementor_pro/dynamic_tags/post_terms/taxonomy_args', [ $this, 'filter_post_terms_taxonomy_arg' ] );
 

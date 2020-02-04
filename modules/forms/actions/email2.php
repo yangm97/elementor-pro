@@ -21,6 +21,10 @@ class Email2 extends Email {
 		return $control_id . '_2';
 	}
 
+	protected function get_reply_to( $record, $fields ) {
+		return isset( $fields['email_reply_to'] ) ? $fields['email_reply_to'] : '';
+	}
+
 	public function register_settings_section( $widget ) {
 		parent::register_settings_section( $widget );
 

@@ -1,7 +1,5 @@
 <?php
 
-namespace ElementorPro\Modules\Woocommerce\WcTemplates\Cart;
-
 defined( 'ABSPATH' ) || exit;
 
 if ( ! function_exists( 'elementor_pro_render_mini_cart_item' ) ) {

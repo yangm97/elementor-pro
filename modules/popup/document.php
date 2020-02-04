@@ -9,6 +9,7 @@ use ElementorPro\Modules\Popup\DisplaySettings\Base;
 use ElementorPro\Modules\Popup\DisplaySettings\Timing;
 use ElementorPro\Modules\Popup\DisplaySettings\Triggers;
 use ElementorPro\Modules\ThemeBuilder\Documents\Theme_Section_Document;
+use ElementorPro\Modules\ThemeBuilder\Module as ThemeBuilderModule;
 use ElementorPro\Plugin;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -107,7 +108,14 @@ class Document extends Theme_Section_Document {
 
 		$display_settings = $this->get_display_settings();
 
-		$settings['triggers'] = $display_settings['triggers']->get_frontend_settings();
+		// Disable triggers if the popup is not printed by the theme builder conditions.
+		// avoid auto show the popup if it's enqueued by a dynamic tag and etc.)
+		$popups_by_condition = ThemeBuilderModule::instance()->get_conditions_manager()->get_documents_for_location( 'popup' );
+
+		if ( $popups_by_condition && isset( $popups_by_condition[ $this->get_main_id() ] ) ) {
+			$settings['triggers'] = $display_settings['triggers']->get_frontend_settings();
+		}
+
 		$settings['timing'] = $display_settings['timing']->get_frontend_settings();
 
 		return $settings;

@@ -49,7 +49,7 @@ class Products extends Products_Base {
 			[
 				'name' => Products_Renderer::QUERY_CONTROL_NAME,
 				'post_type' => 'product',
-				'presets' => [ 'full' ],
+				'presets' => [ 'include', 'exclude', 'order' ],
 				'fields_options' => [
 					'post_type' => [
 						'default' => 'product',

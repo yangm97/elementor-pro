@@ -2,12 +2,12 @@
 namespace ElementorPro\Modules\FlipBox\Widgets;
 
 use Elementor\Controls_Manager;
+use Elementor\Core\Schemes;
 use Elementor\Group_Control_Background;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Image_Size;
 use Elementor\Group_Control_Typography;
 use Elementor\Icons_Manager;
-use Elementor\Scheme_Typography;
 use Elementor\Utils;
 use ElementorPro\Base\Base_Widget;
 
@@ -847,7 +847,7 @@ class Flip_Box extends Base_Widget {
 			Group_Control_Typography::get_type(),
 			[
 				'name' => 'title_typography_a',
-				'scheme' => Scheme_Typography::TYPOGRAPHY_1,
+				'scheme' => Schemes\Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}} .elementor-flip-box__front .elementor-flip-box__layer__title',
 				'condition' => [
 					'title_text_a!' => '',
@@ -886,7 +886,7 @@ class Flip_Box extends Base_Widget {
 			Group_Control_Typography::get_type(),
 			[
 				'name' => 'description_typography_a',
-				'scheme' => Scheme_Typography::TYPOGRAPHY_3,
+				'scheme' => Schemes\Typography::TYPOGRAPHY_3,
 				'selector' => '{{WRAPPER}} .elementor-flip-box__front .elementor-flip-box__layer__description',
 				'condition' => [
 					'description_text_a!' => '',
@@ -1036,7 +1036,7 @@ class Flip_Box extends Base_Widget {
 			Group_Control_Typography::get_type(),
 			[
 				'name' => 'title_typography_b',
-				'scheme' => Scheme_Typography::TYPOGRAPHY_1,
+				'scheme' => Schemes\Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}} .elementor-flip-box__back .elementor-flip-box__layer__title',
 				'condition' => [
 					'title_text_b!' => '',
@@ -1096,7 +1096,7 @@ class Flip_Box extends Base_Widget {
 			Group_Control_Typography::get_type(),
 			[
 				'name' => 'description_typography_b',
-				'scheme' => Scheme_Typography::TYPOGRAPHY_3,
+				'scheme' => Schemes\Typography::TYPOGRAPHY_3,
 				'selector' => '{{WRAPPER}} .elementor-flip-box__back .elementor-flip-box__layer__description',
 				'condition' => [
 					'description_text_b!' => '',
@@ -1140,7 +1140,7 @@ class Flip_Box extends Base_Widget {
 			[
 				'name' => 'button_typography',
 				'selector' => '{{WRAPPER}} .elementor-flip-box__button',
-				'scheme' => Scheme_Typography::TYPOGRAPHY_4,
+				'scheme' => Schemes\Typography::TYPOGRAPHY_4,
 				'condition' => [
 					'button_text!' => '',
 				],
@@ -1322,7 +1322,7 @@ class Flip_Box extends Base_Widget {
 
 			if ( 'box' === $settings['link_click'] ) {
 				$wrapper_tag = 'a';
-				$button_tag = 'button';
+				$button_tag = 'span';
 				$link_element = 'wrapper';
 			}
 
@@ -1441,7 +1441,7 @@ class Flip_Box extends Base_Widget {
 
 		if ( 'box' === settings.link_click ) {
 			wrapperTag = 'a';
-			buttonTag = 'button';
+			buttonTag = 'span';
 		}
 
 		if ( 'icon' === settings.graphic_element ) {

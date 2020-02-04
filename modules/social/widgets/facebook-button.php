@@ -211,8 +211,6 @@ class Facebook_Button extends Widget_Base {
 			'data-colorscheme' => $settings['color_scheme'],
 			'data-size' => $settings['size'],
 			'data-show-faces' => $settings['show_faces'] ? 'true' : 'false',
-			// The style prevent's the `widget.handleEmptyWidget` to set it as an empty widget
-			'style' => 'min-height: 1px',
 		];
 
 		switch ( $settings['type'] ) {

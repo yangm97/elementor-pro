@@ -2,11 +2,11 @@
 namespace ElementorPro\Modules\Blockquote\Widgets;
 
 use Elementor\Controls_Manager;
+use Elementor\Core\Schemes;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Box_Shadow;
 use Elementor\Group_Control_Typography;
 use Elementor\Icons_Manager;
-use Elementor\Scheme_Color;
 use Elementor\Widget_Base;
 use Elementor\Modules\DynamicTags\Module as TagsModule;
 
@@ -254,8 +254,8 @@ class Blockquote extends Widget_Base {
 				'label' => __( 'Text Color', 'elementor-pro' ),
 				'type' => Controls_Manager::COLOR,
 				'scheme' => [
-					'type' => Scheme_Color::get_type(),
-					'value' => Scheme_Color::COLOR_3,
+					'type' => Schemes\Color::get_type(),
+					'value' => Schemes\Color::COLOR_3,
 				],
 				'selectors' => [
 					'{{WRAPPER}} .elementor-blockquote__content' => 'color: {{VALUE}}',
@@ -297,8 +297,8 @@ class Blockquote extends Widget_Base {
 				'label' => __( 'Text Color', 'elementor-pro' ),
 				'type' => Controls_Manager::COLOR,
 				'scheme' => [
-					'type' => Scheme_Color::get_type(),
-					'value' => Scheme_Color::COLOR_2,
+					'type' => Schemes\Color::get_type(),
+					'value' => Schemes\Color::COLOR_2,
 				],
 				'selectors' => [
 					'{{WRAPPER}} .elementor-blockquote__author' => 'color: {{VALUE}}',

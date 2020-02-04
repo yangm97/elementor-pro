@@ -2,12 +2,11 @@
 namespace ElementorPro\Modules\NavMenu\Widgets;
 
 use Elementor\Controls_Manager;
+use Elementor\Core\Schemes;
 use Elementor\Core\Responsive\Responsive;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Box_Shadow;
 use Elementor\Group_Control_Typography;
-use Elementor\Scheme_Color;
-use Elementor\Scheme_Typography;
 use Elementor\Widget_Base;
 use ElementorPro\Plugin;
 
@@ -320,6 +319,9 @@ class Nav_Menu extends Widget_Base {
 				'prefix_class' => 'elementor-nav-menu--',
 				'return_value' => 'stretch',
 				'frontend_available' => true,
+				'condition' => [
+					'dropdown!' => 'none',
+				],
 			]
 		);
 
@@ -334,6 +336,9 @@ class Nav_Menu extends Widget_Base {
 					'center' => __( 'Center', 'elementor-pro' ),
 				],
 				'prefix_class' => 'elementor-nav-menu__text-align-',
+				'condition' => [
+					'dropdown!' => 'none',
+				],
 			]
 		);
 
@@ -350,6 +355,9 @@ class Nav_Menu extends Widget_Base {
 				'prefix_class' => 'elementor-nav-menu--toggle elementor-nav-menu--',
 				'render_type' => 'template',
 				'frontend_available' => true,
+				'condition' => [
+					'dropdown!' => 'none',
+				],
 			]
 		);
 
@@ -383,6 +391,7 @@ class Nav_Menu extends Widget_Base {
 				],
 				'condition' => [
 					'toggle!' => '',
+					'dropdown!' => 'none',
 				],
 				'label_block' => false,
 			]
@@ -406,8 +415,8 @@ class Nav_Menu extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			[
 				'name' => 'menu_typography',
-				'scheme' => Scheme_Typography::TYPOGRAPHY_1,
-				'selector' => '{{WRAPPER}} .elementor-nav-menu--main',
+				'scheme' => Schemes\Typography::TYPOGRAPHY_1,
+				'selector' => '{{WRAPPER}} .elementor-nav-menu .elementor-item',
 			]
 		);
 
@@ -426,8 +435,8 @@ class Nav_Menu extends Widget_Base {
 				'label' => __( 'Text Color', 'elementor-pro' ),
 				'type' => Controls_Manager::COLOR,
 				'scheme' => [
-					'type' => Scheme_Color::get_type(),
-					'value' => Scheme_Color::COLOR_3,
+					'type' => Schemes\Color::get_type(),
+					'value' => Schemes\Color::COLOR_3,
 				],
 				'default' => '',
 				'selectors' => [
@@ -451,8 +460,8 @@ class Nav_Menu extends Widget_Base {
 				'label' => __( 'Text Color', 'elementor-pro' ),
 				'type' => Controls_Manager::COLOR,
 				'scheme' => [
-					'type' => Scheme_Color::get_type(),
-					'value' => Scheme_Color::COLOR_4,
+					'type' => Schemes\Color::get_type(),
+					'value' => Schemes\Color::COLOR_4,
 				],
 				'selectors' => [
 					'{{WRAPPER}} .elementor-nav-menu--main .elementor-item:hover,
@@ -490,8 +499,8 @@ class Nav_Menu extends Widget_Base {
 				'label' => __( 'Pointer Color', 'elementor-pro' ),
 				'type' => Controls_Manager::COLOR,
 				'scheme' => [
-					'type' => Scheme_Color::get_type(),
-					'value' => Scheme_Color::COLOR_4,
+					'type' => Schemes\Color::get_type(),
+					'value' => Schemes\Color::COLOR_4,
 				],
 				'default' => '',
 				'selectors' => [
@@ -557,12 +566,11 @@ class Nav_Menu extends Widget_Base {
 			]
 		);
 
-		$this->add_control(
+		$this->add_responsive_control(
 			'pointer_width',
 			[
 				'label' => __( 'Pointer Width', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
-				'devices' => [ self::RESPONSIVE_DESKTOP, self::RESPONSIVE_TABLET ],
 				'range' => [
 					'px' => [
 						'max' => 30,
@@ -595,7 +603,6 @@ class Nav_Menu extends Widget_Base {
 						'max' => 50,
 					],
 				],
-				'devices' => [ 'desktop', 'tablet' ],
 				'selectors' => [
 					'{{WRAPPER}} .elementor-nav-menu--main .elementor-item' => 'padding-left: {{SIZE}}{{UNIT}}; padding-right: {{SIZE}}{{UNIT}}',
 				],
@@ -612,7 +619,6 @@ class Nav_Menu extends Widget_Base {
 						'max' => 50,
 					],
 				],
-				'devices' => [ 'desktop', 'tablet' ],
 				'selectors' => [
 					'{{WRAPPER}} .elementor-nav-menu--main .elementor-item' => 'padding-top: {{SIZE}}{{UNIT}}; padding-bottom: {{SIZE}}{{UNIT}}',
 				],
@@ -629,7 +635,6 @@ class Nav_Menu extends Widget_Base {
 						'max' => 100,
 					],
 				],
-				'devices' => [ 'desktop', 'tablet' ],
 				'selectors' => [
 					'body:not(.rtl) {{WRAPPER}} .elementor-nav-menu--layout-horizontal .elementor-nav-menu > li:not(:last-child)' => 'margin-right: {{SIZE}}{{UNIT}}',
 					'body.rtl {{WRAPPER}} .elementor-nav-menu--layout-horizontal .elementor-nav-menu > li:not(:last-child)' => 'margin-left: {{SIZE}}{{UNIT}}',
@@ -644,7 +649,6 @@ class Nav_Menu extends Widget_Base {
 				'label' => __( 'Border Radius', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em', '%' ],
-				'devices' => [ 'desktop', 'tablet' ],
 				'selectors' => [
 					'{{WRAPPER}} .elementor-item:before' => 'border-radius: {{SIZE}}{{UNIT}}',
 					'{{WRAPPER}} .e--animation-shutter-in-horizontal .elementor-item:before' => 'border-radius: {{SIZE}}{{UNIT}} {{SIZE}}{{UNIT}} 0 0',
@@ -665,6 +669,9 @@ class Nav_Menu extends Widget_Base {
 			[
 				'label' => __( 'Dropdown', 'elementor-pro' ),
 				'tab' => Controls_Manager::TAB_STYLE,
+				'condition' => [
+					'dropdown!' => 'none',
+				],
 			]
 		);
 
@@ -792,7 +799,7 @@ class Nav_Menu extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			[
 				'name' => 'dropdown_typography',
-				'scheme' => Scheme_Typography::TYPOGRAPHY_4,
+				'scheme' => Schemes\Typography::TYPOGRAPHY_4,
 				'exclude' => [ 'line_height' ],
 				'selector' => '{{WRAPPER}} .elementor-nav-menu--dropdown',
 				'separator' => 'before',
@@ -925,6 +932,7 @@ class Nav_Menu extends Widget_Base {
 				'tab' => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'toggle!' => '',
+					'dropdown!' => 'none',
 				],
 			]
 		);
@@ -1086,8 +1094,12 @@ class Nav_Menu extends Widget_Base {
 			return;
 		}
 
-		$this->add_render_attribute( 'menu-toggle', 'class', [
-			'elementor-menu-toggle',
+		$this->add_render_attribute( 'menu-toggle', [
+			'class' => 'elementor-menu-toggle',
+			'role' => 'button',
+			'tabindex' => '0',
+			'aria-label' => __( 'Menu Toggle', 'elementor-pro' ),
+			'aria-expanded' => 'false',
 		] );
 
 		if ( Plugin::elementor()->editor->is_edit_mode() ) {
@@ -1095,6 +1107,8 @@ class Nav_Menu extends Widget_Base {
 				'class' => 'elementor-clickable',
 			] );
 		}
+
+		$this->add_render_attribute( 'main-menu', 'role', 'navigation' );
 
 		if ( 'dropdown' !== $settings['layout'] ) :
 			$this->add_render_attribute( 'main-menu', 'class', [
@@ -1122,7 +1136,7 @@ class Nav_Menu extends Widget_Base {
 			<i class="eicon-menu-bar" aria-hidden="true"></i>
 			<span class="elementor-screen-only"><?php _e( 'Menu', 'elementor-pro' ); ?></span>
 		</div>
-			<nav class="elementor-nav-menu--dropdown elementor-nav-menu__container"><?php echo $dropdown_menu_html; ?></nav>
+			<nav class="elementor-nav-menu--dropdown elementor-nav-menu__container" role="navigation" aria-hidden="true"><?php echo $dropdown_menu_html; ?></nav>
 		<?php
 	}
 

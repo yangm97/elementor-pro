@@ -33,7 +33,10 @@ class Notice_Bar extends Base_Notice_Bar {
 				'option_key' => '_elementor_pro_editor_activate_license_notice_dismissed',
 				'message' => __( 'Activate Your License and Get Access to Premium Elementor Templates, Support & Plugin Updates.', 'elementor-pro' ),
 				'action_title' => __( 'Connect & Activate', 'elementor-pro' ),
-				'action_url' => $license_admin->get_connect_url(),
+				'action_url' => $license_admin->get_connect_url( [
+					'mode' => 'popup',
+					'callback_id' => 'editor-pro-activate',
+				] ),
 				'muted_period' => 0,
 			];
 		}

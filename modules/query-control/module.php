@@ -195,15 +195,15 @@ class Module extends Module_Base {
 
 		if ( in_array( $autocomplete['object'], self::$supported_objects_for_query, true ) ) {
 			$method_name = 'autocomplete_query_for_' . $autocomplete['object'];
+			if ( empty( $autocomplete['display'] ) ) {
+				$autocomplete['display'] = 'minimal';
+				$data['autocomplete'] = $autocomplete;
+			}
 			$query = $this->$method_name( $data );
 			if ( is_wp_error( $query ) ) {
 				return $query;
 			}
 			$autocomplete['query'] = $query;
-		}
-
-		if ( empty( $autocomplete['display'] ) ) {
-			$autocomplete['display'] = 'minimal';
 		}
 
 		return $autocomplete;
@@ -266,7 +266,6 @@ class Module extends Module_Base {
 			return $query;
 		}
 		$query['who'] = 'authors';
-		$query['has_published_posts'] = true;
 		return $query;
 	}
 
@@ -348,7 +347,7 @@ class Module extends Module_Base {
 
 
 	private function get_titles_query_for_library_template( $data ) {
-		$query = $data['autocomplete']['query'];
+		$query = $data['get_titles']['query'];
 
 		$query['post_type'] = Source_Local::CPT;
 		$query['orderby'] = 'meta_value';

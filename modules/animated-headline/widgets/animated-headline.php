@@ -2,9 +2,8 @@
 namespace ElementorPro\Modules\AnimatedHeadline\Widgets;
 
 use Elementor\Controls_Manager;
+use Elementor\Core\Schemes;
 use Elementor\Group_Control_Typography;
-use Elementor\Scheme_Color;
-use Elementor\Scheme_Typography;
 use Elementor\Widget_Base;
 use Elementor\Modules\DynamicTags\Module as TagsModule;
 
@@ -250,8 +249,8 @@ class Animated_Headline extends Widget_Base {
 				'label' => __( 'Color', 'elementor-pro' ),
 				'type' => Controls_Manager::COLOR,
 				'scheme' => [
-					'type' => Scheme_Color::get_type(),
-					'value' => Scheme_Color::COLOR_4,
+					'type' => Schemes\Color::get_type(),
+					'value' => Schemes\Color::COLOR_4,
 				],
 				'selectors' => [
 					'{{WRAPPER}} .elementor-headline-dynamic-wrapper path' => 'stroke: {{VALUE}}',
@@ -315,8 +314,8 @@ class Animated_Headline extends Widget_Base {
 				'label' => __( 'Text Color', 'elementor-pro' ),
 				'type' => Controls_Manager::COLOR,
 				'scheme' => [
-					'type' => Scheme_Color::get_type(),
-					'value' => Scheme_Color::COLOR_2,
+					'type' => Schemes\Color::get_type(),
+					'value' => Schemes\Color::COLOR_2,
 				],
 				'selectors' => [
 					'{{WRAPPER}} .elementor-headline-plain-text' => 'color: {{VALUE}}',
@@ -329,7 +328,7 @@ class Animated_Headline extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			[
 				'name' => 'title_typography',
-				'scheme' => Scheme_Typography::TYPOGRAPHY_1,
+				'scheme' => Schemes\Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}} .elementor-headline',
 			]
 		);
@@ -349,8 +348,8 @@ class Animated_Headline extends Widget_Base {
 				'label' => __( 'Text Color', 'elementor-pro' ),
 				'type' => Controls_Manager::COLOR,
 				'scheme' => [
-					'type' => Scheme_Color::get_type(),
-					'value' => Scheme_Color::COLOR_2,
+					'type' => Schemes\Color::get_type(),
+					'value' => Schemes\Color::COLOR_2,
 				],
 				'selectors' => [
 					'{{WRAPPER}} .elementor-headline-dynamic-text' => 'color: {{VALUE}}',
@@ -362,7 +361,7 @@ class Animated_Headline extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			[
 				'name' => 'words_typography',
-				'scheme' => Scheme_Typography::TYPOGRAPHY_1,
+				'scheme' => Schemes\Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}} .elementor-headline-dynamic-text',
 				'exclude' => [ 'font_size' ],
 			]

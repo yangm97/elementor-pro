@@ -2,9 +2,8 @@
 namespace ElementorPro\Modules\Woocommerce\Widgets;
 
 use Elementor\Controls_Manager;
+use Elementor\Core\Schemes;
 use Elementor\Group_Control_Typography;
-use Elementor\Scheme_Color;
-use Elementor\Scheme_Typography;
 use ElementorPro\Plugin;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -123,8 +122,8 @@ class Archive_Products_Deprecated extends Products {
 				'label' => __( 'Color', 'elementor-pro' ),
 				'type' => Controls_Manager::COLOR,
 				'scheme' => [
-					'type' => Scheme_Color::get_type(),
-					'value' => Scheme_Color::COLOR_3,
+					'type' => Schemes\Color::get_type(),
+					'value' => Schemes\Color::COLOR_3,
 				],
 				'selectors' => [
 					'{{WRAPPER}} .elementor-products-nothing-found' => 'color: {{VALUE}};',
@@ -136,7 +135,7 @@ class Archive_Products_Deprecated extends Products {
 			Group_Control_Typography::get_type(),
 			[
 				'name' => 'nothing_found_typography',
-				'scheme' => Scheme_Typography::TYPOGRAPHY_3,
+				'scheme' => Schemes\Typography::TYPOGRAPHY_3,
 				'selector' => '{{WRAPPER}} .elementor-products-nothing-found',
 			]
 		);

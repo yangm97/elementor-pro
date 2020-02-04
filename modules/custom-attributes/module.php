@@ -55,6 +55,7 @@ class Module extends Module_Base {
 	 */
 	public function register_controls( Controls_Stack $element, $section_id ) {
 		$required_section_id = '';
+
 		if ( $element instanceof Element_Section || $element instanceof Widget_Base ) {
 			$required_section_id = '_section_responsive';
 		} elseif ( $element instanceof Element_Column ) {

@@ -2,8 +2,8 @@
 namespace ElementorPro\Modules\ThemeElements\Widgets;
 
 use Elementor\Controls_Manager;
+use Elementor\Core\Schemes;
 use Elementor\Group_Control_Typography;
-use Elementor\Scheme_Typography;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -123,7 +123,7 @@ class Breadcrumbs extends Base {
 			[
 				'name' => 'typography',
 				'selector' => '{{WRAPPER}}',
-				'scheme' => Scheme_Typography::TYPOGRAPHY_2,
+				'scheme' => Schemes\Typography::TYPOGRAPHY_2,
 			]
 		);
 

@@ -64,19 +64,19 @@ class Fonts_Manager {
 	 */
 	public function register_post_type_and_tax() {
 		$labels = [
-			'name' => _x( 'Custom Fonts', 'Elementor Font', 'elementor-pro' ),
-			'singular_name' => _x( 'Font', 'Elementor Font', 'elementor-pro' ),
-			'add_new' => _x( 'Add New', 'Elementor Font', 'elementor-pro' ),
-			'add_new_item' => _x( 'Add New Font', 'Elementor Font', 'elementor-pro' ),
-			'edit_item' => _x( 'Edit Font', 'Elementor Font', 'elementor-pro' ),
-			'new_item' => _x( 'New Font', 'Elementor Font', 'elementor-pro' ),
-			'all_items' => _x( 'All Fonts', 'Elementor Font', 'elementor-pro' ),
-			'view_item' => _x( 'View Font', 'Elementor Font', 'elementor-pro' ),
-			'search_items' => _x( 'Search Font', 'Elementor Font', 'elementor-pro' ),
-			'not_found' => _x( 'No Fonts found', 'Elementor Font', 'elementor-pro' ),
-			'not_found_in_trash' => _x( 'No Font found in Trash', 'Elementor Font', 'elementor-pro' ),
+			'name' => _x( 'Custom Fonts', 'CPT Name', 'elementor-pro' ),
+			'singular_name' => _x( 'Font', 'CPT Singular Name', 'elementor-pro' ),
+			'add_new' => __( 'Add New', 'elementor-pro' ),
+			'add_new_item' => __( 'Add New Font', 'elementor-pro' ),
+			'edit_item' => __( 'Edit Font', 'elementor-pro' ),
+			'new_item' => __( 'New Font', 'elementor-pro' ),
+			'all_items' => __( 'All Fonts', 'elementor-pro' ),
+			'view_item' => __( 'View Font', 'elementor-pro' ),
+			'search_items' => __( 'Search Font', 'elementor-pro' ),
+			'not_found' => __( 'No fonts found', 'elementor-pro' ),
+			'not_found_in_trash' => __( 'No fonts found in trash', 'elementor-pro' ),
 			'parent_item_colon' => '',
-			'menu_name' => _x( 'Custom Fonts', 'Elementor Font', 'elementor-pro' ),
+			'menu_name' => _x( 'Custom Fonts', 'CPT Menu Name', 'elementor-pro' ),
 		];
 
 		$args = [

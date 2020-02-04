@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 trait Skin_Content_Base {
 	protected function _register_controls_actions() {
 		$widget_name = $this->parent->get_name();
-		add_action( 'elementor/element/' . $widget_name . '/section_layout/before_section_end', [ $this, 'register_controls' ] );
+		add_action( 'elementor/element/' . $widget_name . '/section_layout/before_section_end', [ $this, 'register_skin_controls' ] );
 
 		if ( 'archive-posts' === $widget_name ) {
 			add_action( 'elementor/element/archive-posts/section_layout/after_section_end', [ $this, 'register_style_sections' ] );
@@ -27,7 +27,7 @@ trait Skin_Content_Base {
 		return __( 'Full Content', 'elementor-pro' );
 	}
 
-	public function register_controls( Widget_Base $widget ) {
+	public function register_skin_controls( Widget_Base $widget ) {
 		$this->parent = $widget;
 		$this->register_post_count_control();
 		$this->register_row_gap_control();

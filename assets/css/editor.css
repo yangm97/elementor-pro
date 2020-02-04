@@ -1,4 +1,4 @@
-/*! elementor-pro - v2.7.3 - 28-10-2019 */
+/*! elementor-pro - v2.8.3 - 01-01-2020 */
 #elementor-panel-get-pro-elements {
   display: none; }
 
@@ -73,8 +73,6 @@
 
 #elementor-global-widget-locked-unlink {
   border-top: 1px solid #e6e9ec; }
-  #elementor-global-widget-locked-unlink .elementor-button {
-    background-color: #aa1714; }
 
 #elementor-global-templates {
   padding: 0 5px; }
@@ -122,6 +120,9 @@
     width: 100% !important; }
   .elementor-facebook-widget.fb_iframe_widget iframe {
     position: relative; }
+
+.elementor-facebook-widget.fb-like {
+  height: 1px; }
 
 .elementor-widget-facebook-comments iframe {
   width: 100% !important; }
@@ -225,6 +226,10 @@
         background-color: #c2cbd2; }
         #elementor-theme-builder-conditions .elementor-control-type[data-elementor-condition-type="exclude"] .elementor-control-input-wrapper:before {
           content: '\e8cd'; }
+      #elementor-theme-builder-conditions .elementor-control-type[data-elementor-condition-type="exclude"] select, #elementor-theme-builder-conditions .elementor-control-type[data-elementor-condition-type="include"] select {
+        color: #fff;
+        text-transform: uppercase;
+        padding-left: 33px; }
       #elementor-theme-builder-conditions .elementor-control-type .elementor-control-input-wrapper:before {
         font-family: eicons;
         position: absolute;
@@ -237,10 +242,8 @@
         color: #fff; }
       #elementor-theme-builder-conditions .elementor-control-type .elementor-control-input-wrapper:after {
         color: #fff; }
-      #elementor-theme-builder-conditions .elementor-control-type select {
-        color: #fff;
-        text-transform: uppercase;
-        padding-left: 33px; }
+      #elementor-theme-builder-conditions .elementor-control-type-select {
+        background-color: #ffffff; }
       #elementor-theme-builder-conditions .elementor-control-type option {
         color: #495157; }
   #elementor-theme-builder-conditions .elementor-theme-builder-conditions-repeater-row-controls {
@@ -262,8 +265,7 @@
               flex-grow: 1;
       margin-left: 1px; }
       #elementor-theme-builder-conditions .elementor-theme-builder-conditions-repeater-row-controls .elementor-control:not(:first-child) select {
-        border-radius: 0;
-        background-color: #fff; }
+        border-radius: 0; }
   #elementor-theme-builder-conditions .elementor-repeater-fields-wrapper {
     max-width: 700px;
     width: 100%;

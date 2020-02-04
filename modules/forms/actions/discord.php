@@ -157,7 +157,7 @@ class Discord extends Action_Base {
 		}
 
 		if ( ! empty( $settings['discord_ts'] ) && 'yes' === $settings['discord_ts'] ) {
-			$embeds['timestamp'] = date( \DateTime::ISO8601 );
+			$embeds['timestamp'] = gmdate( \DateTime::ISO8601 );
 			$embeds['footer'] = [
 				'text' => sprintf( __( 'Powered by %s', 'elementor-pro' ), 'Elementor' ),
 				'icon_url' => is_ssl() ? ELEMENTOR_ASSETS_URL . 'images/logo-icon.png' : null,

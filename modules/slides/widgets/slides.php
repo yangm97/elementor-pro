@@ -2,10 +2,10 @@
 namespace ElementorPro\Modules\Slides\Widgets;
 
 use Elementor\Controls_Manager;
+use Elementor\Core\Schemes;
 use Elementor\Group_Control_Text_Shadow;
 use Elementor\Group_Control_Typography;
 use Elementor\Repeater;
-use Elementor\Scheme_Typography;
 use ElementorPro\Base\Base_Widget;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -537,12 +537,25 @@ class Slides extends Base_Widget {
 		);
 
 		$this->add_control(
+			'autoplay',
+			[
+				'label' => __( 'Autoplay', 'elementor-pro' ),
+				'type' => Controls_Manager::SWITCHER,
+				'default' => 'yes',
+				'frontend_available' => true,
+			]
+		);
+
+		$this->add_control(
 			'pause_on_hover',
 			[
 				'label' => __( 'Pause on Hover', 'elementor-pro' ),
 				'type' => Controls_Manager::SWITCHER,
 				'default' => 'yes',
 				'frontend_available' => true,
+				'condition' => [
+					'autoplay!' => '',
+				],
 			]
 		);
 
@@ -553,16 +566,9 @@ class Slides extends Base_Widget {
 				'type' => Controls_Manager::SWITCHER,
 				'default' => 'yes',
 				'frontend_available' => true,
-			]
-		);
-
-		$this->add_control(
-			'autoplay',
-			[
-				'label' => __( 'Autoplay', 'elementor-pro' ),
-				'type' => Controls_Manager::SWITCHER,
-				'default' => 'yes',
-				'frontend_available' => true,
+				'condition' => [
+					'autoplay!' => '',
+				],
 			]
 		);
 
@@ -815,7 +821,7 @@ class Slides extends Base_Widget {
 			Group_Control_Typography::get_type(),
 			[
 				'name' => 'heading_typography',
-				'scheme' => Scheme_Typography::TYPOGRAPHY_1,
+				'scheme' => Schemes\Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}} .elementor-slide-heading',
 			]
 		);
@@ -863,7 +869,7 @@ class Slides extends Base_Widget {
 			Group_Control_Typography::get_type(),
 			[
 				'name' => 'description_typography',
-				'scheme' => Scheme_Typography::TYPOGRAPHY_2,
+				'scheme' => Schemes\Typography::TYPOGRAPHY_2,
 				'selector' => '{{WRAPPER}} .elementor-slide-description',
 			]
 		);
@@ -904,7 +910,7 @@ class Slides extends Base_Widget {
 			[
 				'name' => 'button_typography',
 				'selector' => '{{WRAPPER}} .elementor-slide-button',
-				'scheme' => Scheme_Typography::TYPOGRAPHY_4,
+				'scheme' => Schemes\Typography::TYPOGRAPHY_4,
 			]
 		);
 

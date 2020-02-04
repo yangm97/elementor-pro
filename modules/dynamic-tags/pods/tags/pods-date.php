@@ -43,7 +43,7 @@ class Pods_Date extends Pods_Base {
 						break;
 				}
 
-				$value = date( $date_format, $timestamp );
+				$value = gmdate( $date_format, $timestamp );
 			}
 		}
 		echo wp_kses_post( $value );
@@ -63,10 +63,10 @@ class Pods_Date extends Pods_Base {
 				'type' => Controls_Manager::SELECT,
 				'options' => [
 					'default' => __( 'Default', 'elementor-pro' ),
-					'F j, Y' => date( 'F j, Y' ),
-					'Y-m-d' => date( 'Y-m-d' ),
-					'm/d/Y' => date( 'm/d/Y' ),
-					'd/m/Y' => date( 'd/m/Y' ),
+					'F j, Y' => gmdate( 'F j, Y' ),
+					'Y-m-d' => gmdate( 'Y-m-d' ),
+					'm/d/Y' => gmdate( 'm/d/Y' ),
+					'd/m/Y' => gmdate( 'd/m/Y' ),
 					'human' => __( 'Human Readable', 'elementor-pro' ),
 					'custom' => __( 'Custom', 'elementor-pro' ),
 				],

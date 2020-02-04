@@ -60,6 +60,9 @@ class Ajax_Handler {
 	public function ajax_send_form() {
 		$post_id = $_POST['post_id'];
 
+		// Make the post as global post for dynamic values.
+		Plugin::elementor()->db->switch_to_post( $post_id );
+
 		$form_id = $_POST['form_id'];
 
 		$elementor = Plugin::elementor();

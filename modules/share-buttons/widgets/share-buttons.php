@@ -7,7 +7,6 @@ use Elementor\Icons_Manager;
 use Elementor\Repeater;
 use ElementorPro\Base\Base_Widget;
 use ElementorPro\Modules\ShareButtons\Module;
-use Elementor\Settings;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -117,9 +116,6 @@ class Share_Buttons extends Base_Widget {
 				'default' => [
 					[
 						'button' => 'facebook',
-					],
-					[
-						'button' => 'google',
 					],
 					[
 						'button' => 'twitter',

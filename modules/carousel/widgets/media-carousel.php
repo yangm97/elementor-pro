@@ -2,11 +2,11 @@
 namespace ElementorPro\Modules\Carousel\Widgets;
 
 use Elementor\Controls_Manager;
+use Elementor\Core\Schemes;
 use Elementor\Embed;
 use Elementor\Group_Control_Text_Shadow;
 use Elementor\Group_Control_Typography;
 use Elementor\Repeater;
-use Elementor\Scheme_Typography;
 use Elementor\Utils;
 use ElementorPro\Plugin;
 
@@ -580,7 +580,7 @@ class Media_Carousel extends Base {
 			Group_Control_Typography::get_type(),
 			[
 				'name' => 'caption_typography',
-				'scheme' => Scheme_Typography::TYPOGRAPHY_4,
+				'scheme' => Schemes\Typography::TYPOGRAPHY_4,
 				'selector' => '{{WRAPPER}} .elementor-carousel-image-overlay',
 				'condition' => [
 					'overlay' => 'text',

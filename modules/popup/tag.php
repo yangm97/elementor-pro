@@ -54,6 +54,7 @@ class Tag extends DynamicTagsTag {
 					'object' => QueryControlModule::QUERY_OBJECT_LIBRARY_TEMPLATE,
 					'query' => [
 						'posts_per_page' => 20,
+						'post_status' => [ 'publish', 'private' ],
 						'meta_query' => [
 							[
 								'key' => Document::TYPE_META_KEY,

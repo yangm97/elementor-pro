@@ -47,9 +47,9 @@ class Post_Time extends Tag {
 				'type' => Controls_Manager::SELECT,
 				'options' => [
 					'default' => __( 'Default', 'elementor-pro' ),
-					'g:i a' => date( 'g:i a' ),
-					'g:i A' => date( 'g:i A' ),
-					'H:i' => date( 'H:i' ),
+					'g:i a' => gmdate( 'g:i a' ),
+					'g:i A' => gmdate( 'g:i A' ),
+					'H:i' => gmdate( 'H:i' ),
 					'custom' => __( 'Custom', 'elementor-pro' ),
 				],
 				'default' => 'default',

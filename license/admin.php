@@ -509,10 +509,10 @@ class Admin {
 		return $this->get_app()->is_connected();
 	}
 
-	public function get_connect_url() {
+	public function get_connect_url( $params = [] ) {
 		$action = $this->is_connected() ? 'activate_pro' : 'authorize';
 
-		return $this->get_app()->get_admin_url( $action );
+		return $this->get_app()->get_admin_url( $action, $params );
 	}
 
 	private function get_activate_manually_url() {

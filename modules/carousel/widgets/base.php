@@ -472,7 +472,7 @@ abstract class Base extends Base_Widget {
 
 	protected function print_slider( array $settings = null ) {
 		if ( null === $settings ) {
-			$settings = $this->get_active_settings();
+			$settings = $this->get_settings_for_display();
 		}
 
 		$default_settings = [

@@ -3,15 +3,12 @@
 namespace ElementorPro\Modules\Gallery\Widgets;
 
 use Elementor\Controls_Manager;
-use Elementor\Core\Responsive\Responsive;
+use Elementor\Core\Schemes;
 use Elementor\Group_Control_Background;
-use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Css_Filter;
 use Elementor\Group_Control_Image_Size;
 use Elementor\Group_Control_Typography;
 use Elementor\Repeater;
-use Elementor\Scheme_Color;
-use Elementor\Scheme_Typography;
 use ElementorPro\Base\Base_Widget;
 use ElementorPro\Plugin;
 
@@ -119,7 +116,30 @@ class Gallery extends Base_Widget {
 				'condition' => [
 					'gallery_type' => 'multiple',
 				],
-				'separator' => 'after',
+			]
+		);
+
+		$this->add_control(
+			'order_by',
+			[
+				'type' => Controls_Manager::SELECT,
+				'label' => __( 'Order By', 'elementor-pro' ),
+				'options' => [
+					'' => __( 'Default', 'elementor-pro' ),
+					'random' => __( 'Random', 'elementor-pro' ),
+				],
+				'default' => '',
+			]
+		);
+
+		$this->add_control(
+			'lazyload',
+			[
+				'type' => Controls_Manager::SWITCHER,
+				'label' => __( 'Lazy Load', 'elementor-pro' ),
+				'return_value' => 'yes',
+				'default' => 'yes',
+				'frontend_available' => true,
 			]
 		);
 
@@ -134,6 +154,7 @@ class Gallery extends Base_Widget {
 					'justified' => __( 'Justified', 'elementor-pro' ),
 					'masonry' => __( 'Masonry', 'elementor-pro' ),
 				],
+				'separator' => 'before',
 				'frontend_available' => true,
 			]
 		);
@@ -225,7 +246,7 @@ class Gallery extends Base_Widget {
 			[
 				'label' => __( 'URL', 'elementor-pro' ),
 				'type' => Controls_Manager::URL,
-				'show_external' => false,
+				'show_external' => true,
 				'condition' => [
 					'link_to' => 'custom',
 				],
@@ -873,7 +894,7 @@ class Gallery extends Base_Widget {
 			Group_Control_Typography::get_type(),
 			[
 				'name' => 'title_typography',
-				'scheme' => Scheme_Typography::TYPOGRAPHY_1,
+				'scheme' => Schemes\Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}} .elementor-gallery-item__title',
 				'condition' => [
 					'overlay_title!' => '',
@@ -926,7 +947,7 @@ class Gallery extends Base_Widget {
 			Group_Control_Typography::get_type(),
 			[
 				'name' => 'description_typography',
-				'scheme' => Scheme_Typography::TYPOGRAPHY_3,
+				'scheme' => Schemes\Typography::TYPOGRAPHY_3,
 				'selector' => '{{WRAPPER}} .elementor-gallery-item__description',
 				'condition' => [
 					'overlay_description!' => '',
@@ -1086,8 +1107,8 @@ class Gallery extends Base_Widget {
 				'label' => __( 'Text Color', 'elementor-pro' ),
 				'type' => Controls_Manager::COLOR,
 				'scheme' => [
-					'type' => Scheme_Color::get_type(),
-					'value' => Scheme_Color::COLOR_1,
+					'type' => Schemes\Color::get_type(),
+					'value' => Schemes\Color::COLOR_1,
 				],
 				'selectors' => [
 					'{{WRAPPER}} a.elementor-item' => 'color: {{VALUE}}',
@@ -1100,7 +1121,7 @@ class Gallery extends Base_Widget {
 			[
 				'name' => 'galleries_titles_typography',
 				'selector' => '{{WRAPPER}} .elementor-gallery-title',
-				'scheme' => Scheme_Typography::TYPOGRAPHY_1,
+				'scheme' => Schemes\Typography::TYPOGRAPHY_1,
 			]
 		);
 
@@ -1118,8 +1139,8 @@ class Gallery extends Base_Widget {
 				'label' => __( 'Text Color', 'elementor-pro' ),
 				'type' => Controls_Manager::COLOR,
 				'scheme' => [
-					'type' => Scheme_Color::get_type(),
-					'value' => Scheme_Color::COLOR_2,
+					'type' => Schemes\Color::get_type(),
+					'value' => Schemes\Color::COLOR_2,
 				],
 				'selectors' => [
 					'{{WRAPPER}} a.elementor-item:hover,
@@ -1157,8 +1178,8 @@ class Gallery extends Base_Widget {
 				'label' => __( 'Pointer Color', 'elementor-pro' ),
 				'type' => Controls_Manager::COLOR,
 				'scheme' => [
-					'type' => Scheme_Color::get_type(),
-					'value' => Scheme_Color::COLOR_4,
+					'type' => Schemes\Color::get_type(),
+					'value' => Schemes\Color::COLOR_4,
 				],
 				'selectors' => [
 					'{{WRAPPER}} .elementor-gallery__titles-container:not(.e--pointer-framed) .elementor-item:before,
@@ -1186,8 +1207,8 @@ class Gallery extends Base_Widget {
 				'label' => __( 'Text Color', 'elementor-pro' ),
 				'type' => Controls_Manager::COLOR,
 				'scheme' => [
-					'type' => Scheme_Color::get_type(),
-					'value' => Scheme_Color::COLOR_2,
+					'type' => Schemes\Color::get_type(),
+					'value' => Schemes\Color::COLOR_2,
 				],
 				'selectors' => [
 					'{{WRAPPER}} a.elementor-item.elementor-item-active' => 'color: {{VALUE}}',
@@ -1201,8 +1222,8 @@ class Gallery extends Base_Widget {
 				'label' => __( 'Pointer Color', 'elementor-pro' ),
 				'type' => Controls_Manager::COLOR,
 				'scheme' => [
-					'type' => Scheme_Color::get_type(),
-					'value' => Scheme_Color::COLOR_4,
+					'type' => Schemes\Color::get_type(),
+					'value' => Schemes\Color::COLOR_4,
 				],
 				'selectors' => [
 					'{{WRAPPER}} .elementor-gallery__titles-container:not(.e--pointer-framed) .elementor-item.elementor-item-active:before,
@@ -1350,6 +1371,7 @@ class Gallery extends Base_Widget {
 		$this->add_render_attribute( 'gallery_item_background_overlay', [ 'class' => 'elementor-gallery-item__overlay' ] );
 
 		$gallery_items = [];
+		$thumbnail_size = $settings['thumbnail_image_size'];
 		foreach ( $galleries as $gallery_index => $gallery ) {
 			foreach ( $gallery as $index => $item ) {
 				if ( in_array( $item['id'], array_keys( $gallery_items ), true ) ) {
@@ -1360,18 +1382,32 @@ class Gallery extends Base_Widget {
 			}
 		}
 
+		if ( 'random' === $settings['order_by'] ) {
+			$shuffled_items = [];
+			$keys = array_keys( $gallery_items );
+			shuffle( $keys );
+			foreach ( $keys as $key ) {
+				$shuffled_items[ $key ] = $gallery_items[ $key ];
+			}
+			$gallery_items = $shuffled_items;
+		}
+
 		if ( ! empty( $galleries ) ) { ?>
 		<div <?php echo $this->get_render_attribute_string( 'gallery_container' ); ?>>
 			<?php
 			foreach ( $gallery_items as $id => $tags ) :
 				$unique_index = $id; //$gallery_index . '_' . $index;
-				$thumbnail_size = $settings['thumbnail_image_size'];
+				$image_src = wp_get_attachment_image_src( $id, $thumbnail_size );
+				if ( ! $image_src ) {
+					continue;
+				}
 				$attachment = get_post( $id );
 				$image_data = [
 					'alt' => get_post_meta( $attachment->ID, '_wp_attachment_image_alt', true ),
-					'permalink' => get_permalink( $attachment->ID ),
-					'media' => wp_get_attachment_image_src( $id, 'full' )['0'],
-					'src' => wp_get_attachment_image_src( $id, $thumbnail_size )['0'],
+					'media' => wp_get_attachment_image_src( $id, 'large' )['0'],
+					'src' => $image_src['0'],
+					'width' => $image_src['1'],
+					'height' => $image_src['2'],
 				];
 
 				$this->add_render_attribute( 'gallery_item_' . $unique_index, [
@@ -1390,12 +1426,18 @@ class Gallery extends Base_Widget {
 				}
 
 				if ( 'a' === $gallery_item_tag ) {
-					$href = '#';
 					if ( 'file' === $settings['link_to'] ) {
 						$href = $image_data['media'];
-						$this->add_render_attribute( 'gallery_item_' . $unique_index, [ 'data-elementor-lightbox-slideshow' => 'all' ] );
+
+						$this->add_render_attribute( 'gallery_item_' . $unique_index, [
+							'href' => $href,
+							'data-elementor-lightbox-slideshow' => 'all-' . $this->get_id(),
+						] );
 					}
-					$this->add_render_attribute( 'gallery_item_' . $unique_index, [ 'href' => $href ] );
+
+					if ( 'custom' === $settings['link_to'] ) {
+						$this->add_link_attributes( 'gallery_item_' . $unique_index, $settings['url'] );
+					}
 				}
 
 				$this->add_render_attribute( 'gallery_item_image_' . $unique_index,
@@ -1405,10 +1447,11 @@ class Gallery extends Base_Widget {
 							'elementor-gallery-item__image',
 						],
 						'data-thumbnail' => $image_data['src'],
+						'data-width' => $image_data['width'],
+						'data-height' => $image_data['height'],
 						'alt' => $image_data['alt'],
 					]
 				);?>
-
 				<<?php echo $gallery_item_tag; ?> <?php echo $this->get_render_attribute_string( 'gallery_item_' . $unique_index ); ?>>
 					<div <?php echo $this->get_render_attribute_string( 'gallery_item_image_' . $unique_index ); ?> ></div>
 					<?php if ( ! empty( $settings['overlay_background'] ) ) : ?>
@@ -1419,6 +1462,7 @@ class Gallery extends Base_Widget {
 							'caption' => $attachment->post_excerpt,
 							'description' => $attachment->post_content,
 							'title' => $attachment->post_title,
+							'alt' => $image_data['alt'],
 						];
 						?>
 					<div <?php echo $this->get_render_attribute_string( 'gallery_item_content' ); ?>>

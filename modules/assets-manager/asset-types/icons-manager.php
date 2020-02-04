@@ -60,19 +60,19 @@ class Icons_Manager {
 	 */
 	public function register_post_type() {
 		$labels = [
-			'name' => _x( 'Custom Icons', 'Elementor Icon', 'elementor-pro' ),
-			'singular_name' => _x( 'Icon Set', 'Elementor Icon', 'elementor-pro' ),
-			'add_new' => _x( 'Add New', 'Elementor Icon', 'elementor-pro' ),
-			'add_new_item' => _x( 'Add New Icon Set', 'Elementor Icon', 'elementor-pro' ),
-			'edit_item' => _x( 'Edit Icon Set', 'Elementor Icon', 'elementor-pro' ),
-			'new_item' => _x( 'New Icon Set', 'Elementor Icon', 'elementor-pro' ),
-			'all_items' => _x( 'All Icons', 'Elementor Icon', 'elementor-pro' ),
-			'view_item' => _x( 'View Icon', 'Elementor Icon', 'elementor-pro' ),
-			'search_items' => _x( 'Search Font', 'Elementor Icon', 'elementor-pro' ),
-			'not_found' => _x( 'No Fonts found', 'Elementor Icon', 'elementor-pro' ),
-			'not_found_in_trash' => _x( 'No Icon found in Trash', 'Elementor Icon', 'elementor-pro' ),
+			'name' => _x( 'Custom Icons', 'CPT Name', 'elementor-pro' ),
+			'singular_name' => _x( 'Icon Set', 'CPT Singular Name', 'elementor-pro' ),
+			'add_new' => __( 'Add New', 'elementor-pro' ),
+			'add_new_item' => __( 'Add New Icon Set', 'elementor-pro' ),
+			'edit_item' => __( 'Edit Icon Set', 'elementor-pro' ),
+			'new_item' => __( 'New Icon Set', 'elementor-pro' ),
+			'all_items' => __( 'All Icons', 'elementor-pro' ),
+			'view_item' => __( 'View Icon', 'elementor-pro' ),
+			'search_items' => __( 'Search Icon Set', 'elementor-pro' ),
+			'not_found' => __( 'No icons found', 'elementor-pro' ),
+			'not_found_in_trash' => __( 'No icons found in trash', 'elementor-pro' ),
 			'parent_item_colon' => '',
-			'menu_name' => _x( 'Custom Icons', 'Elementor Icon', 'elementor-pro' ),
+			'menu_name' => _x( 'Custom Icons', 'CPT Menu Name', 'elementor-pro' ),
 		];
 
 		$args = [

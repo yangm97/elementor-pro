@@ -24,6 +24,7 @@ final class Manager {
 			'assets-manager',
 			'popup',
 			'motion-fx',
+			'usage',
 
 			// Modules with Widgets.
 			'theme-builder',
@@ -37,6 +38,7 @@ final class Manager {
 			'flip-box',
 			'call-to-action',
 			'carousel',
+			'table-of-contents',
 			'countdown',
 			'share-buttons',
 			'theme-elements',

@@ -1,10 +1,9 @@
 <?php
 namespace ElementorPro\Modules\Posts\Widgets;
 
+use Elementor\Core\Schemes;
 use Elementor\Group_Control_Image_Size;
 use Elementor\Group_Control_Typography;
-use Elementor\Scheme_Color;
-use Elementor\Scheme_Typography;
 use ElementorPro\Base\Base_Widget;
 use ElementorPro\Modules\QueryControl\Module as Module_Query;
 use ElementorPro\Modules\QueryControl\Controls\Group_Control_Related;
@@ -343,8 +342,8 @@ class Portfolio extends Base_Widget {
 				'label' => __( 'Background Color', 'elementor-pro' ),
 				'type' => Controls_Manager::COLOR,
 				'scheme' => [
-					'type' => Scheme_Color::get_type(),
-					'value' => Scheme_Color::COLOR_4,
+					'type' => Schemes\Color::get_type(),
+					'value' => Schemes\Color::COLOR_4,
 				],
 				'selectors' => [
 					'{{WRAPPER}} a .elementor-portfolio-item__overlay' => 'background-color: {{VALUE}};',
@@ -371,7 +370,7 @@ class Portfolio extends Base_Widget {
 			Group_Control_Typography::get_type(),
 			[
 				'name' => 'typography_title',
-				'scheme' => Scheme_Typography::TYPOGRAPHY_1,
+				'scheme' => Schemes\Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}} .elementor-portfolio-item__title',
 				'condition' => [
 					'show_title' => 'yes',
@@ -398,8 +397,8 @@ class Portfolio extends Base_Widget {
 				'label' => __( 'Color', 'elementor-pro' ),
 				'type' => Controls_Manager::COLOR,
 				'scheme' => [
-					'type' => Scheme_Color::get_type(),
-					'value' => Scheme_Color::COLOR_3,
+					'type' => Schemes\Color::get_type(),
+					'value' => Schemes\Color::COLOR_3,
 				],
 				'selectors' => [
 					'{{WRAPPER}} .elementor-portfolio__filter' => 'color: {{VALUE}}',
@@ -413,8 +412,8 @@ class Portfolio extends Base_Widget {
 				'label' => __( 'Active Color', 'elementor-pro' ),
 				'type' => Controls_Manager::COLOR,
 				'scheme' => [
-					'type' => Scheme_Color::get_type(),
-					'value' => Scheme_Color::COLOR_1,
+					'type' => Schemes\Color::get_type(),
+					'value' => Schemes\Color::COLOR_1,
 				],
 				'selectors' => [
 					'{{WRAPPER}} .elementor-portfolio__filter.elementor-active' => 'color: {{VALUE}};',
@@ -426,7 +425,7 @@ class Portfolio extends Base_Widget {
 			Group_Control_Typography::get_type(),
 			[
 				'name' => 'typography_filter',
-				'scheme' => Scheme_Typography::TYPOGRAPHY_1,
+				'scheme' => Schemes\Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}} .elementor-portfolio__filter',
 			]
 		);

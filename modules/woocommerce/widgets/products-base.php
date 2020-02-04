@@ -2,11 +2,10 @@
 namespace ElementorPro\Modules\Woocommerce\Widgets;
 
 use Elementor\Controls_Manager;
+use Elementor\Core\Schemes;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Box_Shadow;
 use Elementor\Group_Control_Typography;
-use Elementor\Scheme_Color;
-use Elementor\Scheme_Typography;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -177,8 +176,8 @@ abstract class Products_Base extends Widget_Base {
 				'label' => __( 'Color', 'elementor-pro' ),
 				'type' => Controls_Manager::COLOR,
 				'scheme' => [
-					'type' => Scheme_Color::get_type(),
-					'value' => Scheme_Color::COLOR_1,
+					'type' => Schemes\Color::get_type(),
+					'value' => Schemes\Color::COLOR_1,
 				],
 				'selectors' => [
 					'{{WRAPPER}}.elementor-wc-products ul.products li.product .woocommerce-loop-product__title' => 'color: {{VALUE}}',
@@ -191,7 +190,7 @@ abstract class Products_Base extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			[
 				'name' => 'title_typography',
-				'scheme' => Scheme_Typography::TYPOGRAPHY_1,
+				'scheme' => Schemes\Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}}.elementor-wc-products ul.products li.product .woocommerce-loop-product__title, ' .
 								'{{WRAPPER}}.elementor-wc-products ul.products li.product .woocommerce-loop-category__title',
 
@@ -304,8 +303,8 @@ abstract class Products_Base extends Widget_Base {
 				'label' => __( 'Color', 'elementor-pro' ),
 				'type' => Controls_Manager::COLOR,
 				'scheme' => [
-					'type' => Scheme_Color::get_type(),
-					'value' => Scheme_Color::COLOR_1,
+					'type' => Schemes\Color::get_type(),
+					'value' => Schemes\Color::COLOR_1,
 				],
 				'selectors' => [
 					'{{WRAPPER}}.elementor-wc-products ul.products li.product .price' => 'color: {{VALUE}}',
@@ -319,7 +318,7 @@ abstract class Products_Base extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			[
 				'name' => 'price_typography',
-				'scheme' => Scheme_Typography::TYPOGRAPHY_1,
+				'scheme' => Schemes\Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}}.elementor-wc-products ul.products li.product .price',
 			]
 		);
@@ -339,8 +338,8 @@ abstract class Products_Base extends Widget_Base {
 				'label' => __( 'Color', 'elementor-pro' ),
 				'type' => Controls_Manager::COLOR,
 				'scheme' => [
-					'type' => Scheme_Color::get_type(),
-					'value' => Scheme_Color::COLOR_1,
+					'type' => Schemes\Color::get_type(),
+					'value' => Schemes\Color::COLOR_1,
 				],
 				'selectors' => [
 					'{{WRAPPER}}.elementor-wc-products ul.products li.product .price del' => 'color: {{VALUE}}',
@@ -353,7 +352,7 @@ abstract class Products_Base extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			[
 				'name' => 'old_price_typography',
-				'scheme' => Scheme_Typography::TYPOGRAPHY_1,
+				'scheme' => Schemes\Typography::TYPOGRAPHY_1,
 				'selector' => '{{WRAPPER}}.elementor-wc-products ul.products li.product .price del .amount  ',
 				'selector' => '{{WRAPPER}}.elementor-wc-products ul.products li.product .price del ',
 			]
@@ -415,7 +414,7 @@ abstract class Products_Base extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			[
 				'name' => 'button_typography',
-				'scheme' => Scheme_Typography::TYPOGRAPHY_4,
+				'scheme' => Schemes\Typography::TYPOGRAPHY_4,
 				'selector' => '{{WRAPPER}}.elementor-wc-products ul.products li.product .button',
 			]
 		);
@@ -535,7 +534,7 @@ abstract class Products_Base extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			[
 				'name' => 'view_cart_typography',
-				'scheme' => Scheme_Typography::TYPOGRAPHY_4,
+				'scheme' => Schemes\Typography::TYPOGRAPHY_4,
 				'selector' => '{{WRAPPER}}.elementor-wc-products .added_to_cart',
 			]
 		);

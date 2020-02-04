@@ -2,11 +2,10 @@
 namespace ElementorPro\Modules\ThemeElements\Widgets;
 
 use Elementor\Controls_Manager;
+use Elementor\Core\Schemes;
 use Elementor\Group_Control_Typography;
 use Elementor\Icons_Manager;
 use Elementor\Repeater;
-use Elementor\Scheme_Color;
-use Elementor\Scheme_Typography;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -557,8 +556,8 @@ class Post_Info extends Base {
 				'type' => Controls_Manager::COLOR,
 				'default' => '#ddd',
 				'scheme' => [
-					'type' => Scheme_Color::get_type(),
-					'value' => Scheme_Color::COLOR_3,
+					'type' => Schemes\Color::get_type(),
+					'value' => Schemes\Color::COLOR_3,
 				],
 				'condition' => [
 					'divider' => 'yes',
@@ -590,8 +589,8 @@ class Post_Info extends Base {
 					'{{WRAPPER}} .elementor-icon-list-icon svg' => 'fill: {{VALUE}};',
 				],
 				'scheme' => [
-					'type' => Scheme_Color::get_type(),
-					'value' => Scheme_Color::COLOR_1,
+					'type' => Schemes\Color::get_type(),
+					'value' => Schemes\Color::COLOR_1,
 				],
 			]
 		);
@@ -654,8 +653,8 @@ class Post_Info extends Base {
 					'{{WRAPPER}} .elementor-icon-list-text, {{WRAPPER}} .elementor-icon-list-text a' => 'color: {{VALUE}}',
 				],
 				'scheme' => [
-					'type' => Scheme_Color::get_type(),
-					'value' => Scheme_Color::COLOR_2,
+					'type' => Schemes\Color::get_type(),
+					'value' => Schemes\Color::COLOR_2,
 				],
 			]
 		);
@@ -665,7 +664,7 @@ class Post_Info extends Base {
 			[
 				'name' => 'icon_typography',
 				'selector' => '{{WRAPPER}} .elementor-icon-list-item',
-				'scheme' => Scheme_Typography::TYPOGRAPHY_3,
+				'scheme' => Schemes\Typography::TYPOGRAPHY_3,
 			]
 		);
 
@@ -927,24 +926,26 @@ class Post_Info extends Base {
 		$is_new = empty( $repeater_item['icon'] ) && $migration_allowed;
 		$show_icon = 'none' !== $repeater_item['show_icon'];
 
-		?>
-		<span class="elementor-icon-list-icon">
+		if ( ! empty( $item_data['image'] ) || $show_icon ) {
+			?>
+			<span class="elementor-icon-list-icon">
 			<?php
 			if ( ! empty( $item_data['image'] ) ) :
 				$image_data = 'image_' . $repeater_index;
 				$this->add_render_attribute( $image_data, 'src', $item_data['image'] );
 				$this->add_render_attribute( $image_data, 'alt', $item_data['text'] );
 				?>
-				<img class="elementor-avatar" <?php echo $this->get_render_attribute_string( $image_data ); ?>>
-			<?php elseif ( $show_icon ) : ?>
-				<?php if ( $is_new || $migrated ) :
-					Icons_Manager::render_icon( $item_data['selected_icon'], [ 'aria-hidden' => 'true' ] );
-				else : ?>
-					<i class="<?php echo esc_attr( $item_data['icon'] ); ?>" aria-hidden="true"></i>
+					<img class="elementor-avatar" <?php echo $this->get_render_attribute_string( $image_data ); ?>>
+				<?php elseif ( $show_icon ) : ?>
+					<?php if ( $is_new || $migrated ) :
+						Icons_Manager::render_icon( $item_data['selected_icon'], [ 'aria-hidden' => 'true' ] );
+					else : ?>
+						<i class="<?php echo esc_attr( $item_data['icon'] ); ?>" aria-hidden="true"></i>
+					<?php endif; ?>
 				<?php endif; ?>
-			<?php endif; ?>
-		</span>
-		<?php
+			</span>
+			<?php
+		}
 	}
 
 	protected function render_item_text( $item_data, $repeater_index ) {

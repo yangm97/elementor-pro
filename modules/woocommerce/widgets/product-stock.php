@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-class Product_Stock extends Widget_Base {
+class Product_Stock extends Base_Widget {
 
 	public function get_name() {
 		return 'woocommerce-product-stock';

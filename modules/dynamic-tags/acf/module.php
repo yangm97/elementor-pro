@@ -1,6 +1,8 @@
 <?php
 namespace ElementorPro\Modules\DynamicTags\ACF;
 
+use Elementor\Controls_Manager;
+use Elementor\Core\DynamicTags\Base_Tag;
 use Elementor\Modules\DynamicTags;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -97,6 +99,17 @@ class Module extends DynamicTags\Module {
 		return $groups;
 	}
 
+	public static function add_key_control( Base_Tag $tag ) {
+		$tag->add_control(
+			'key',
+			[
+				'label' => __( 'Key', 'elementor-pro' ),
+				'type' => Controls_Manager::SELECT,
+				'groups' => self::get_control_options( $tag->get_supported_fields() ),
+			]
+		);
+	}
+
 	public function get_tag_classes_names() {
 		return [
 			'ACF_Text',
@@ -105,7 +118,27 @@ class Module extends DynamicTags\Module {
 			'ACF_Gallery',
 			'ACF_File',
 			'ACF_Number',
+			'ACF_Color',
 		];
+	}
+
+	// For use by ACF tags
+	public static function get_tag_value_field( Base_Tag $tag ) {
+		$key = $tag->get_settings( 'key' );
+
+		if ( ! empty( $key ) ) {
+			list( $field_key, $meta_key ) = explode( ':', $key );
+
+			if ( 'options' === $field_key ) {
+				$field = get_field_object( $meta_key, $field_key );
+			} else {
+				$field = get_field_object( $field_key, get_queried_object() );
+			}
+
+			return [ $field, $meta_key ];
+		}
+
+		return [];
 	}
 
 	public function get_groups() {

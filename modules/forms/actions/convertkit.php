@@ -6,7 +6,7 @@ use ElementorPro\Modules\Forms\Classes\Form_Record;
 use ElementorPro\Modules\Forms\Classes\Integration_Base;
 use ElementorPro\Modules\Forms\Controls\Fields_Map;
 use ElementorPro\Modules\Forms\Classes\Convertkit_Handler;
-use ElementorPro\Classes\Utils;
+use ElementorPro\Core\Utils;
 use Elementor\Settings;
 
 if ( ! defined( 'ABSPATH' ) ) {

@@ -87,7 +87,7 @@ class Archive_Products extends Products {
 			[
 				'type' => Controls_Manager::RAW_HTML,
 				'raw' => __( 'The editor preview might look different from the live site. Please make sure to check the frontend.', 'elementor-pro' ),
-				'content_classes' => 'elementor-panel-alert elementor-panel-alert-warning',
+				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
 			]
 		);
 

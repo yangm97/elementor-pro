@@ -58,10 +58,18 @@ class Ajax_Handler {
 	}
 
 	public function ajax_send_form() {
+		// $post_id that holds the form settings.
 		$post_id = $_POST['post_id'];
 
+		// $queried_id the post for dynamic values data.
+		if ( isset( $_POST['queried_id'] ) ) {
+			$queried_id = $_POST['queried_id'];
+		} else {
+			$queried_id = $post_id;
+		}
+
 		// Make the post as global post for dynamic values.
-		Plugin::elementor()->db->switch_to_post( $post_id );
+		Plugin::elementor()->db->switch_to_post( $queried_id );
 
 		$form_id = $_POST['form_id'];
 

@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-class Product_Add_To_Cart extends Widget_Base {
+class Product_Add_To_Cart extends Base_Widget {
 
 	public function get_name() {
 		return 'woocommerce-product-add-to-cart';

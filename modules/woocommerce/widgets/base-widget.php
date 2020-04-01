@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-abstract class Widget_Base extends \Elementor\Widget_Base {
+abstract class Base_Widget extends \ElementorPro\Base\Base_Widget {
 
 	public function get_categories() {
 		return [ 'woocommerce-elements-single' ];

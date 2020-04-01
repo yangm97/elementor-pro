@@ -1,4 +1,4 @@
-/*! elementor-pro - v2.8.3 - 01-01-2020 */
+/*! elementor-pro - v2.9.2 - 25-03-2020 */
 #elementor-panel-get-pro-elements {
   display: none; }
 
@@ -44,8 +44,10 @@
 #elementor-global-widget-locked-header {
   -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
           box-shadow: 0 0 8px rgba(0, 0, 0, 0.1); }
-  #elementor-global-widget-locked-header.elementor-nerd-box, #elementor-global-widget-locked-header.elementor-panel-nerd-box {
+  #elementor-global-widget-locked-header.elementor-nerd-box {
     padding: 40px 25px; }
+    #elementor-global-widget-locked-header.elementor-nerd-box .elementor-nerd-box-icon {
+      margin-top: 20px; }
 
 #elementor-global-widget-locked-tools {
   margin-top: 15px;

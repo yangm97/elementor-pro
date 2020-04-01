@@ -2,7 +2,7 @@
 namespace ElementorPro\Modules\DynamicTags\ACF\Tags;
 
 use Elementor\Controls_Manager;
-use Elementor\Core\DynamicTags\Data_Tag;
+use ElementorPro\Modules\DynamicTags\Tags\Base\Data_Tag;
 use ElementorPro\Modules\DynamicTags\ACF\Module;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -32,18 +32,7 @@ class ACF_URL extends Data_Tag {
 	}
 
 	public function get_value( array $options = [] ) {
-		$key = $this->get_settings( 'key' );
-		if ( empty( $key ) ) {
-			return '';
-		}
-
-		list( $field_key, $meta_key ) = explode( ':', $key );
-
-		if ( 'options' === $field_key ) {
-			$field = get_field_object( $meta_key, $field_key );
-		} else {
-			$field = get_field_object( $field_key, get_queried_object() );
-		}
+		list( $field, $meta_key ) = Module::get_tag_value_field( $this );
 
 		if ( $field ) {
 			$value = $field['value'];
@@ -53,7 +42,7 @@ class ACF_URL extends Data_Tag {
 			}
 
 			if ( $value ) {
-				if ( empty( $field['return_format'] ) ) {
+				if ( ! isset( $field['return_format'] ) ) {
 					$field['return_format'] = isset( $field['save_format'] ) ? $field['save_format'] : '';
 				}
 
@@ -102,14 +91,7 @@ class ACF_URL extends Data_Tag {
 	}
 
 	protected function _register_controls() {
-		$this->add_control(
-			'key',
-			[
-				'label' => __( 'Key', 'elementor-pro' ),
-				'type' => Controls_Manager::SELECT,
-				'groups' => Module::get_control_options( $this->get_supported_fields() ),
-			]
-		);
+		Module::add_key_control( $this );
 
 		$this->add_control(
 			'fallback',
@@ -119,7 +101,7 @@ class ACF_URL extends Data_Tag {
 		);
 	}
 
-	protected function get_supported_fields() {
+	public function get_supported_fields() {
 		return [
 			'text',
 			'email',

@@ -45,7 +45,7 @@ class Module extends Module_Base {
 				'label' => __( 'Sticky On', 'elementor-pro' ),
 				'type' => Controls_Manager::SELECT2,
 				'multiple' => true,
-				'label_block' => 'true',
+				'label_block' => true,
 				'default' => [ 'desktop', 'tablet', 'mobile' ],
 				'options' => [
 					'desktop' => __( 'Desktop', 'elementor-pro' ),

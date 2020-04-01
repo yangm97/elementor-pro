@@ -4,14 +4,14 @@ namespace ElementorPro\Modules\ThemeBuilder\Widgets;
 use Elementor\Controls_Manager;
 use Elementor\Core\Schemes;
 use Elementor\Group_Control_Typography;
-use Elementor\Widget_Base;
+use ElementorPro\Base\Base_Widget;
 use ElementorPro\Plugin;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-class Post_Excerpt extends Widget_Base {
+class Post_Excerpt extends Base_Widget {
 
 	public function get_name() {
 		// `theme` prefix is to avoid conflicts with a dynamic-tag with same name.

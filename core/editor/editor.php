@@ -2,7 +2,6 @@
 namespace ElementorPro\Core\Editor;
 
 use Elementor\Core\Base\App;
-use ElementorPro\License\Admin as License_Admin;
 use ElementorPro\License\API as License_API;
 use ElementorPro\Plugin;
 
@@ -31,24 +30,14 @@ class Editor extends App {
 		add_action( 'elementor/editor/init', [ $this, 'on_elementor_editor_init' ] );
 		add_action( 'elementor/editor/after_enqueue_styles', [ $this, 'enqueue_editor_styles' ] );
 		add_action( 'elementor/editor/before_enqueue_scripts', [ $this, 'enqueue_editor_scripts' ] );
+
+		add_filter( 'elementor/editor/localize_settings', [ $this, 'localize_settings' ] );
 	}
 
 	public function get_init_settings() {
-		$is_license_active = false;
-
-		$license_key = License_Admin::get_license_key();
-
-		if ( ! empty( $license_key ) ) {
-			$license_data = License_API::get_license_data();
-
-			if ( ! empty( $license_data['license'] ) && License_API::STATUS_VALID === $license_data['license'] ) {
-				$is_license_active = true;
-			}
-		}
-
 		$settings = [
 			'i18n' => [],
-			'isActive' => $is_license_active,
+			'isActive' => License_API::is_license_active(),
 			'urls' => [
 				'modules' => ELEMENTOR_PRO_MODULES_URL,
 			],
@@ -85,14 +74,25 @@ class Editor extends App {
 			$this->get_js_assets_url( 'editor' ),
 			[
 				'backbone-marionette',
-				'elementor-common-modules',
+				'elementor-common',
 				'elementor-editor-modules',
+				'elementor-editor-document',
 			],
 			ELEMENTOR_PRO_VERSION,
 			true
 		);
 
 		$this->print_config( 'elementor-pro' );
+	}
+
+	public function localize_settings( array $settings ) {
+		$connect_url = Plugin::instance()->license_admin->get_connect_url();
+
+		$settings['elementPromotionURL'] = $connect_url;
+		$settings['dynamicPromotionURL'] = $connect_url;
+		$settings['i18n']['see_it_in_action'] = __( 'Activate License', 'elementor-pro' );
+
+		return $settings;
 	}
 
 	public function on_elementor_init() {

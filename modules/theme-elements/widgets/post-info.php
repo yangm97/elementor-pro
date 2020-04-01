@@ -59,7 +59,6 @@ class Post_Info extends Base {
 				],
 				'render_type' => 'template',
 				'classes' => 'elementor-control-start-end',
-				'label_block' => false,
 			]
 		);
 
@@ -87,7 +86,6 @@ class Post_Info extends Base {
 			[
 				'label' => __( 'Date Format', 'elementor-pro' ),
 				'type' => Controls_Manager::SELECT,
-				'label_block' => false,
 				'default' => 'default',
 				'options' => [
 					'default' => 'Default',
@@ -109,7 +107,6 @@ class Post_Info extends Base {
 				'label' => __( 'Custom Date Format', 'elementor-pro' ),
 				'type' => Controls_Manager::TEXT,
 				'default' => 'F j, Y',
-				'label_block' => false,
 				'condition' => [
 					'type' => 'date',
 					'date_format' => 'custom',
@@ -127,7 +124,6 @@ class Post_Info extends Base {
 			[
 				'label' => __( 'Time Format', 'elementor-pro' ),
 				'type' => Controls_Manager::SELECT,
-				'label_block' => false,
 				'default' => 'default',
 				'options' => [
 					'default' => 'Default',
@@ -148,7 +144,6 @@ class Post_Info extends Base {
 				'type' => Controls_Manager::TEXT,
 				'default' => 'g:i a',
 				'placeholder' => 'g:i a',
-				'label_block' => false,
 				'condition' => [
 					'type' => 'time',
 					'time_format' => 'custom',
@@ -180,7 +175,6 @@ class Post_Info extends Base {
 			[
 				'label' => __( 'Before', 'elementor-pro' ),
 				'type' => Controls_Manager::TEXT,
-				'label_block' => false,
 				'condition' => [
 					'type!' => 'custom',
 				],
@@ -229,7 +223,6 @@ class Post_Info extends Base {
 			[
 				'label' => __( 'No Comments', 'elementor-pro' ),
 				'type' => Controls_Manager::TEXT,
-				'label_block' => false,
 				'placeholder' => __( 'No Comments', 'elementor-pro' ),
 				'condition' => [
 					'comments_custom_strings' => 'yes',
@@ -243,7 +236,6 @@ class Post_Info extends Base {
 			[
 				'label' => __( 'One Comment', 'elementor-pro' ),
 				'type' => Controls_Manager::TEXT,
-				'label_block' => false,
 				'placeholder' => __( 'One Comment', 'elementor-pro' ),
 				'condition' => [
 					'comments_custom_strings' => 'yes',
@@ -257,7 +249,6 @@ class Post_Info extends Base {
 			[
 				'label' => __( 'Comments', 'elementor-pro' ),
 				'type' => Controls_Manager::TEXT,
-				'label_block' => false,
 				'placeholder' => __( '%s Comments', 'elementor-pro' ),
 				'condition' => [
 					'comments_custom_strings' => 'yes',
@@ -871,16 +862,7 @@ class Post_Info extends Base {
 		if ( ! empty( $item_data['url']['url'] ) ) {
 			$has_link = true;
 
-			$url = $item_data['url'];
-			$this->add_render_attribute( $link_key, 'href', $url['url'] );
-
-			if ( ! empty( $url['is_external'] ) ) {
-				$this->add_render_attribute( $link_key, 'target', '_blank' );
-			}
-
-			if ( ! empty( $url['nofollow'] ) ) {
-				$this->add_render_attribute( $link_key, 'rel', 'nofollow' );
-			}
+			$this->add_link_attributes( $link_key, $item_data['url'] );
 		}
 
 		if ( ! empty( $item_data['itemprop'] ) ) {

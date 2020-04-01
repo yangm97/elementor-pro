@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-class Product_Rating extends Widget_Base {
+class Product_Rating extends Base_Widget {
 
 	public function get_name() {
 		return 'woocommerce-product-rating';

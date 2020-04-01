@@ -2,7 +2,7 @@
 namespace ElementorPro\Modules\QueryControl\Controls;
 
 use Elementor\Controls_Manager;
-use ElementorPro\Classes\Utils;
+use ElementorPro\Core\Utils;
 use ElementorPro\Modules\QueryControl\Module as Query_Module;
 
 if ( ! defined( 'ABSPATH' ) ) {

@@ -34,7 +34,7 @@ trait Skin_Content_Base {
 		$this->register_thumbnail_controls();
 		$this->register_title_controls();
 		$this->register_meta_data_controls();
-
+		$this->register_link_controls();
 	}
 
 	public function register_thumbnail_controls() {
@@ -190,8 +190,11 @@ trait Skin_Content_Base {
 		if ( empty( $thumbnail_html ) ) {
 			return;
 		}
+
+		$optional_attributes_html = $this->get_optional_link_attributes_html();
+
 		?>
-		<a class="elementor-post__thumbnail__link" href="<?php echo $this->current_permalink; ?>">
+		<a class="elementor-post__thumbnail__link" href="<?php echo $this->current_permalink; ?>" <?php echo $optional_attributes_html; ?>>
 			<div class="elementor-post__thumbnail"><?php echo $thumbnail_html; ?></div>
 		</a>
 		<?php
@@ -214,6 +217,9 @@ trait Skin_Content_Base {
 		$did_posts[ $post->ID ] = true;
 		// End avoid recursion
 
+		$editor = Plugin::elementor()->editor;
+		$is_edit_mode = $editor->is_edit_mode();
+
 		if ( Plugin::elementor()->preview->is_preview_mode( $post->ID ) ) {
 			$content = Plugin::elementor()->preview->builder_wrapper( '' ); // XSS ok
 		} else {
@@ -235,17 +241,11 @@ trait Skin_Content_Base {
 				}
 			}
 
-			$editor = Plugin::elementor()->editor;
-
 			// Set edit mode as false, so don't render settings and etc. use the $is_edit_mode to indicate if we need the CSS inline
-			$is_edit_mode = $editor->is_edit_mode();
 			$editor->set_edit_mode( false );
 
 			// Print manually (and don't use `the_content()`) because it's within another `the_content` filter, and the Elementor filter has been removed to avoid recursion.
 			$content = Plugin::elementor()->frontend->get_builder_content( $post->ID, true );
-
-			// Restore edit mode state
-			Plugin::elementor()->editor->set_edit_mode( $is_edit_mode );
 
 			if ( empty( $content ) ) {
 				Plugin::elementor()->frontend->remove_content_filter();
@@ -272,6 +272,9 @@ trait Skin_Content_Base {
 				$content = apply_filters( 'the_content', $content );
 			}
 		} // End if().
+
+		// Restore edit mode state
+		Plugin::elementor()->editor->set_edit_mode( $is_edit_mode );
 
 		if ( $with_wrapper ) {
 			echo '<div class="elementor-post__content">' . balanceTags( $content, true ) . '</div>';  // XSS ok.

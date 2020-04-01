@@ -271,18 +271,13 @@ class Admin {
 		return false;
 	}
 
+	/**
+	 * @deprecated 2.9.0 Use ElementorPro\License\API::is_license_about_to_expire() instead
+	 *
+	 * @return bool
+	 */
 	public function is_license_about_to_expire() {
-		$license_data = API::get_license_data();
-
-		if ( ! empty( $license_data['subscriptions'] ) && 'enable' === $license_data['subscriptions'] ) {
-			return false;
-		}
-
-		if ( 'lifetime' === $license_data['expires'] ) {
-			return false;
-		}
-
-		return time() > strtotime( '-28 days', strtotime( $license_data['expires'] ) );
+		return Api::is_license_about_to_expire();
 	}
 
 	public function admin_license_details() {
@@ -340,8 +335,8 @@ class Admin {
 			return;
 		}
 
-		if ( API::STATUS_VALID === $license_data['license'] ) {
-			if ( $this->is_license_about_to_expire() ) {
+		if ( API::is_license_active() ) {
+			if ( API::is_license_about_to_expire() ) {
 				$title = sprintf( __( 'Your License Will Expire in %s.', 'elementor-pro' ), human_time_diff( current_time( 'timestamp' ), strtotime( $license_data['expires'] ) ) );
 				$description = sprintf( __( '<a href="%s" target="_blank">Renew your license today</a>, to keep getting feature updates, premium support and unlimited access to the template library.', 'elementor-pro' ), $renew_url );
 
@@ -505,6 +500,20 @@ class Admin {
 		<?php
 	}
 
+	public function on_deactivate_plugin( $plugin ) {
+		if ( ELEMENTOR_PRO_PLUGIN_BASE !== $plugin ) {
+			return;
+		}
+
+		wp_remote_post( 'https://my.elementor.com/api/v1/feedback-pro/', [
+			'timeout' => 30,
+			'body' => [
+				'api_version' => ELEMENTOR_PRO_VERSION,
+				'site_lang' => get_bloginfo( 'language' ),
+			],
+		] );
+	}
+
 	private function is_connected() {
 		return $this->get_app()->is_connected();
 	}
@@ -513,10 +522,6 @@ class Admin {
 		$action = $this->is_connected() ? 'activate_pro' : 'authorize';
 
 		return $this->get_app()->get_admin_url( $action, $params );
-	}
-
-	private function get_activate_manually_url() {
-		return add_query_arg( 'mode', 'manually', self::get_url() );
 	}
 
 	private function get_switch_license_url() {
@@ -549,19 +554,18 @@ class Admin {
 
 	public function __construct() {
 		add_action( 'admin_menu', [ $this, 'register_page' ], 800 );
+		add_action( 'admin_init', [ $this, 'handle_tracker_actions' ], 9 );
 		add_action( 'admin_post_elementor_pro_activate_license', [ $this, 'action_activate_license' ] );
 		add_action( 'admin_post_elementor_pro_deactivate_license', [ $this, 'action_deactivate_license' ] );
 
 		add_action( 'admin_notices', [ $this, 'admin_license_details' ], 20 );
 
+		add_action( 'deactivate_plugin', [ $this, 'on_deactivate_plugin' ] );
+
 		// Add the license key to Templates Library requests
 		add_filter( 'elementor/api/get_templates/body_args', [ $this, 'filter_library_get_templates_args' ] );
-
 		add_filter( 'elementor/finder/categories', [ $this, 'add_finder_item' ] );
-
 		add_filter( 'plugin_action_links_' . ELEMENTOR_PRO_PLUGIN_BASE, [ $this, 'plugin_action_links' ], 50 );
-
-		add_action( 'admin_init', [ $this, 'handle_tracker_actions' ], 9 );
 
 		$this->handle_dashboard_admin_widget();
 

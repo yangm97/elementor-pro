@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-class Menu_Cart extends Widget_Base {
+class Menu_Cart extends Base_Widget {
 
 	public function get_name() {
 		return 'woocommerce-menu-cart';
@@ -107,7 +107,6 @@ class Menu_Cart extends Widget_Base {
 			[
 				'label' => __( 'Alignment', 'elementor-pro' ),
 				'type' => Controls_Manager::CHOOSE,
-				'label_block' => false,
 				'options' => [
 					'left' => [
 						'title' => __( 'Left', 'elementor-pro' ),

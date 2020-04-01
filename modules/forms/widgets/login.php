@@ -152,7 +152,7 @@ class Login extends Base_Widget {
 			[
 				'type' => Controls_Manager::URL,
 				'show_label' => false,
-				'show_external' => false,
+				'options' => false,
 				'separator' => false,
 				'placeholder' => __( 'https://your-link.com', 'elementor-pro' ),
 				'description' => __( 'Note: Because of security reasons, you can ONLY use your current domain here.', 'elementor-pro' ),
@@ -178,7 +178,7 @@ class Login extends Base_Widget {
 			[
 				'type' => Controls_Manager::URL,
 				'show_label' => false,
-				'show_external' => false,
+				'options' => false,
 				'separator' => false,
 				'placeholder' => __( 'https://your-link.com', 'elementor-pro' ),
 				'description' => __( 'Note: Because of security reasons, you can ONLY use your current domain here.', 'elementor-pro' ),
@@ -867,7 +867,15 @@ class Login extends Base_Widget {
 		<?php
 	}
 
-	protected function _content_template() {
+	/**
+	 * Render Login Form output in the editor.
+	 *
+	 * Written as a Backbone JavaScript template and used to generate the live preview.
+	 *
+	 * @since 2.9.0
+	 * @access protected
+	 */
+	protected function content_template() {
 		?>
 		<div class="elementor-login elementor-form">
 			<div class="elementor-form-fields-wrapper">

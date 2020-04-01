@@ -3,11 +3,15 @@
 namespace ElementorPro\Modules\LinkActions;
 
 use ElementorPro\Base\Module_Base;
+use ElementorPro\Plugin;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
+/**
+ * @deprecated since 2.9.0
+ */
 class Module extends Module_Base {
 
 	/**
@@ -30,9 +34,13 @@ class Module extends Module_Base {
 	 * @param string $action
 	 * @param array  $settings Optional.
 	 *
+	 * @deprecated 2.9.0 Use `Plugin::elementor()->frontend->create_action_hash()` instead
+	 *
 	 * @return string
 	 */
 	public static function create_action_url( $action, array $settings = [] ) {
-		return '#' . rawurlencode( sprintf( 'elementor-action:action=%1$s settings=%2$s', $action, base64_encode( wp_json_encode( $settings ) ) ) );
+		_deprecated_function( __METHOD__, '2.9.0', 'Plugin::elementor()->frontend->create_action_hash()' );
+
+		return Plugin::elementor()->frontend->create_action_hash( $action, $settings );
 	}
 }

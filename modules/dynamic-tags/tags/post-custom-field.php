@@ -2,7 +2,7 @@
 namespace ElementorPro\Modules\DynamicTags\Tags;
 
 use Elementor\Controls_Manager;
-use Elementor\Core\DynamicTags\Tag;
+use ElementorPro\Modules\DynamicTags\Tags\Base\Tag;
 use ElementorPro\Modules\DynamicTags\Module;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -28,6 +28,7 @@ class Post_Custom_Field extends Tag {
 			Module::TEXT_CATEGORY,
 			Module::URL_CATEGORY,
 			Module::POST_META_CATEGORY,
+			Module::COLOR_CATEGORY,
 		];
 	}
 
@@ -54,7 +55,6 @@ class Post_Custom_Field extends Tag {
 			[
 				'label' => __( 'Custom Key', 'elementor-pro' ),
 				'type' => Controls_Manager::TEXT,
-				'label_block' => false,
 				'placeholder' => 'key',
 				'condition' => [
 					'key' => '',

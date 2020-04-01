@@ -63,6 +63,7 @@ class Theme_Support {
 			if ( ! empty( $headers ) || ! empty( $footers ) ) {
 				add_action( 'get_header', [ $this, 'get_header' ] );
 				add_action( 'get_footer', [ $this, 'get_footer' ] );
+				add_filter( 'show_admin_bar', [ $this, 'filter_admin_bar_from_body_open' ] );
 			}
 		}
 	}
@@ -84,6 +85,30 @@ class Theme_Support {
 		// It cause a `require_once` so, in the get_header it self it will not be required again.
 		locate_template( $templates, true );
 		ob_get_clean();
+	}
+
+	/**
+	 * Don't show admin bar on `wp_body_open` because the theme header HTML is ignored via `$this->get_header()`.
+	 *
+	 * @param bool $show_admin_bar
+	 *
+	 * @return bool
+	 */
+	public function filter_admin_bar_from_body_open( $show_admin_bar ) {
+		global $wp_current_filter;
+
+		// A flag to mark if $show_admin_bar is switched to false during this filter,
+		// if so, it needed to switch back on the next filter (wp_footer).
+		static $switched = false;
+
+		if ( $show_admin_bar && in_array( 'wp_body_open', $wp_current_filter ) ) {
+			$show_admin_bar = false;
+			$switched = true;
+		} elseif ( $switched ) {
+			$show_admin_bar = true;
+		}
+
+		return $show_admin_bar;
 	}
 
 	public function get_footer( $name ) {

@@ -3,6 +3,7 @@ namespace ElementorPro\Modules\ThemeBuilder\Documents;
 
 use Elementor\Controls_Manager;
 use Elementor\Modules\Library\Documents\Library_Document;
+use Elementor\Utils;
 use ElementorPro\Modules\QueryControl\Module as QueryModule;
 use ElementorPro\Modules\ThemeBuilder\Module;
 use ElementorPro\Plugin;
@@ -14,6 +15,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 abstract class Theme_Document extends Library_Document {
 
 	const LOCATION_META_KEY = '_elementor_location';
+
+	public static function get_properties() {
+		$properties = parent::get_properties();
+
+		$properties['admin_tab_group'] = 'theme';
+		$properties['support_kit'] = true;
+
+		return $properties;
+	}
 
 	public function get_location_label() {
 		$location = $this->get_location();
@@ -80,14 +90,6 @@ abstract class Theme_Document extends Library_Document {
 
 	public static function get_preview_as_options() {
 		return [];
-	}
-
-	public static function get_properties() {
-		$properties = parent::get_properties();
-
-		$properties['admin_tab_group'] = 'theme';
-
-		return $properties;
 	}
 
 	public function get_container_attributes() {
@@ -187,6 +189,92 @@ abstract class Theme_Document extends Library_Document {
 		);
 
 		$this->end_controls_section();
+
+		$this->inject_html_tag_control();
+	}
+
+	/**
+	 * @since 2.9.0
+	 *
+	 * If the implementing document uses optional wrapper HTML tags, this method injects the control to choose the tag
+	 */
+	private function inject_html_tag_control() {
+		$wrapper_tags = $this->get_wrapper_tags();
+
+		// Only proceed if the implementing document has optional wrapper HTML tags to replace 'div'
+		if ( ! $wrapper_tags ) {
+			return;
+		}
+
+		// Add 'div' to the beginning of the list of wrapper tags
+		array_unshift( $wrapper_tags, 'div' );
+
+		/**
+		 * Inject the control that sets the HTML tag for the header/footer wrapper element
+		 */
+		$this->start_injection( [
+			'of' => 'post_status',
+			'fallback' => [
+				'of' => 'post_title',
+			],
+		] );
+
+		$this->add_control(
+			'content_wrapper_html_tag',
+			[
+				'label' => __( 'HTML Tag', 'elementor-pro' ),
+				'type' => Controls_Manager::SELECT,
+				'default' => 'div',
+				'options' => array_combine( $wrapper_tags, $wrapper_tags ),
+			]
+		);
+
+		$this->end_injection();
+	}
+
+	/**
+	 * @param null $elements_data
+	 * @since 2.9.0
+	 * @access public
+	 *
+	 * Overwrite method from document.php to check for user-selected tags to use as the document wrapper element
+	 */
+	public function print_elements_with_wrapper( $elements_data = null ) {
+		// Check if the implementing document has optional wrapper tags
+		$has_wrapper_tags = $this->get_wrapper_tags();
+		$settings = $this->get_settings_for_display();
+		$wrapper_tag = 'div';
+
+		// Only proceed if the inheriting document has optional wrapper HTML tags to replace 'div'
+		if ( $has_wrapper_tags ) {
+			$wrapper_tag = $settings['content_wrapper_html_tag'];
+		}
+
+		if ( ! $elements_data ) {
+			$elements_data = $this->get_elements_data();
+		}
+		?>
+		<<?php echo $wrapper_tag; ?> <?php echo Utils::render_html_attributes( $this->get_container_attributes() ); ?>>
+		<div class="elementor-inner">
+			<div class="elementor-section-wrap">
+				<?php $this->print_elements( $elements_data ); ?>
+			</div>
+		</div>
+		</<?php echo $wrapper_tag; ?>>
+		<?php
+	}
+
+	public function get_wrapper_tags() {
+		// 'div' is added later, no need to include it in this list
+		return [
+			'main',
+			'article',
+			'header',
+			'footer',
+			'section',
+			'aside',
+			'nav',
+		];
 	}
 
 	public function get_elements_raw_data( $data = null, $with_html_content = false ) {
@@ -214,6 +302,11 @@ abstract class Theme_Document extends Library_Document {
 	}
 
 	public function get_wp_preview_url() {
+		// Ajax request from editor.
+		if ( ! empty( $_POST['initial_document_id'] ) ) {
+			return parent::get_wp_preview_url();
+		}
+
 		$preview_id = (int) $this->get_settings( 'preview_id' );
 		$post_id = $this->get_main_id();
 

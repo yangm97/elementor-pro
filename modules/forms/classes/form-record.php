@@ -1,7 +1,7 @@
 <?php
 namespace ElementorPro\Modules\Forms\Classes;
 
-use ElementorPro\Classes\Utils;
+use ElementorPro\Core\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly

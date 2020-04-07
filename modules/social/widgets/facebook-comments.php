@@ -2,7 +2,7 @@
 namespace ElementorPro\Modules\Social\Widgets;
 
 use Elementor\Controls_Manager;
-use Elementor\Widget_Base;
+use ElementorPro\Base\Base_Widget;
 use ElementorPro\Modules\Social\Classes\Facebook_SDK_Manager;
 use ElementorPro\Modules\Social\Module;
 
@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-class Facebook_Comments extends Widget_Base {
+class Facebook_Comments extends Base_Widget {
 
 	public function get_name() {
 		return 'facebook-comments';
@@ -22,10 +22,6 @@ class Facebook_Comments extends Widget_Base {
 
 	public function get_icon() {
 		return 'eicon-facebook-comments';
-	}
-
-	public function get_categories() {
-		return [ 'pro-elements' ];
 	}
 
 	public function get_keywords() {

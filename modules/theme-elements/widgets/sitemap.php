@@ -5,7 +5,7 @@ use Elementor\Controls_Manager;
 use Elementor\Core\Schemes;
 use ElementorPro\Modules\QueryControl\Module as Query_Module;
 use Elementor\Repeater;
-use ElementorPro\Classes\Utils;
+use ElementorPro\Core\Utils;
 use Elementor\Group_Control_Typography;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -480,7 +480,6 @@ class Sitemap extends Base {
 				'label' => __( 'Style', 'elementor-pro' ),
 				'type' => Controls_Manager::CHOOSE,
 				'default' => 'disc',
-				'label_block' => true,
 				'options' => [
 					'disc' => [
 						'title' => __( 'Disc', 'elementor-pro' ),

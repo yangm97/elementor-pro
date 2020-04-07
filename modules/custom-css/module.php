@@ -6,9 +6,6 @@ use Elementor\Controls_Stack;
 use Elementor\Core\DynamicTags\Dynamic_CSS;
 use Elementor\Core\Files\CSS\Post;
 use Elementor\Element_Base;
-use Elementor\Element_Column;
-use Elementor\Element_Section;
-use Elementor\Widget_Base;
 use ElementorPro\Base\Module_Base;
 use ElementorPro\Plugin;
 
@@ -85,7 +82,7 @@ class Module extends Module_Base {
 		$custom_css = str_replace( 'selector', $document->get_css_wrapper_selector(), $custom_css );
 
 		// Add a css comment
-		$custom_css = '/* Start custom CSS for page-settings */' . $custom_css . '/* End custom CSS */';
+		$custom_css = '/* Start custom CSS */' . $custom_css . '/* End custom CSS */';
 
 		$post_css->get_stylesheet()->add_raw_css( $custom_css );
 	}

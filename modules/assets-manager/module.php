@@ -32,9 +32,23 @@ class Module extends Module_Base {
 		return $this->asset_managers;
 	}
 
+	// Add translation string for the modal that appears when a user tries
+	// to publish a new font "post" without uploading/choosing one
+	public function localize_settings( $settings ) {
+		$settings = array_replace_recursive( $settings, [
+			'i18n' => [
+				'fontsUploadEmptyNotice' => __( 'Choose a font to publish.', 'elementor-pro' ),
+				'iconsUploadEmptyNotice' => __( 'Upload an icon set to publish.', 'elementor-pro' ),
+			],
+		] );
+
+		return $settings;
+	}
+
 	public function __construct() {
 		parent::__construct();
 
+		add_filter( 'elementor_pro/admin/localize_settings', [ $this, 'localize_settings' ] );
 		$this->add_asset_manager( 'font', new AssetTypes\Fonts_Manager() );
 		$this->add_asset_manager( 'icon', new AssetTypes\Icons_Manager() );
 	}

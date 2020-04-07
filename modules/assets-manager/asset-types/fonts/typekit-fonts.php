@@ -31,7 +31,7 @@ class Typekit_Fonts extends Font_Base {
 	}
 
 	public function get_name() {
-		return __( 'TypeKit Web Fonts by Adobe', 'elementor-pro' );
+		return __( 'Adobe Fonts (TypeKit)', 'elementor-pro' );
 	}
 
 	public function get_type() {
@@ -160,7 +160,7 @@ class Typekit_Fonts extends Font_Base {
 		}
 		$settings->add_section( Settings::TAB_INTEGRATIONS, 'typekit', [
 			'callback' => function() {
-				echo '<hr><h2>' . esc_html__( 'TypeKit Web Fonts by Adobe', 'elementor-pro' ) . '</h2>';
+				echo '<hr><h2>' . esc_html__( 'Adobe Fonts (TypeKit)', 'elementor-pro' ) . '</h2>';
 				esc_html_e( 'TypeKit partners with the world’s leading type foundries to bring thousands of beautiful fonts to designers every day.', 'elementor-pro' );
 			},
 			'fields' => [

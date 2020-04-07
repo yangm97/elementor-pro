@@ -47,8 +47,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="elementor-template-library-blank-icon">
 		<img src="<?php echo ELEMENTOR_PRO_MODULES_URL; ?>theme-builder/assets/images/conditions-tab.svg">
 	</div>
-	<div class="elementor-template-library-blank-title">{{{ elementorPro.translate( 'conditions_title' ) }}}</div>
-	<div class="elementor-template-library-blank-message">{{{ elementorPro.translate( 'conditions_description' ) }}}</div>
+	<div class="elementor-template-library-blank-title">{{{ elementorPro.translate( 'conditions_title', [ elementor.config.document.post_type_title ] ) }}}</div>
+	<div class="elementor-template-library-blank-message">{{{ elementorPro.translate( 'conditions_description', [ elementor.config.document.post_type_title ] ) }}}</div>
 	<div id="elementor-theme-builder-conditions">
 		<div id="elementor-theme-builder-conditions-controls"></div>
 	</div>
@@ -63,17 +63,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 </script>
 
 <script type="text/template" id="tmpl-elementor-theme-builder-button-preview">
-	<i class="eicon-eye tooltip-target" aria-hidden="true"  data-tooltip="<?php esc_attr_e( 'Preview Changes', 'elementor-pro' ); ?>"></i>
+	<i class="eicon-preview-medium tooltip-target" aria-hidden="true"  data-tooltip="<?php esc_attr_e( 'Preview Changes', 'elementor-pro' ); ?>"></i>
 	<span class="elementor-screen-only">
 		<?php esc_attr_e( 'Preview Changes', 'elementor-pro' ); ?>
 	</span>
 	<div class="elementor-panel-footer-sub-menu-wrapper">
 		<div class="elementor-panel-footer-sub-menu">
-			<div id="elementor-panel-footer-theme-builder-button-preview-settings" class="elementor-panel-footer-sub-menu-item">
+			<div onclick="$e.run( 'theme-builder-publish/preview-settings' );" id="elementor-panel-footer-theme-builder-button-preview-settings" class="elementor-panel-footer-sub-menu-item">
 				<i class="eicon-wrench" aria-hidden="true"></i>
 				<span class="elementor-title"><?php esc_html_e( 'Settings', 'elementor-pro' ); ?></span>
 			</div>
-			<div id="elementor-panel-footer-theme-builder-button-open-preview" class="elementor-panel-footer-sub-menu-item">
+			<div onclick="$e.run( 'editor/documents/preview', { id: elementor.documents.getCurrent().id, force: true } );" id="elementor-panel-footer-theme-builder-button-open-preview" class="elementor-panel-footer-sub-menu-item">
 				<i class="eicon-editor-external-link" aria-hidden="true"></i>
 				<span class="elementor-title"><?php esc_html_e( 'Preview', 'elementor-pro' ); ?></span>
 			</div>

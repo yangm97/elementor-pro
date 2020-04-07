@@ -3,7 +3,7 @@ namespace ElementorPro\Modules\Forms\Classes;
 
 use Elementor\Settings;
 use Elementor\Widget_Base;
-use ElementorPro\Classes\Utils;
+use ElementorPro\Core\Utils;
 use ElementorPro\Plugin;
 
 if ( ! defined( 'ABSPATH' ) ) {

@@ -89,7 +89,6 @@ class Controls_Group extends Group_Control_Base {
 				],
 			],
 			'conditions' => $transform_origin_conditions,
-			'label_block' => false,
 			'toggle' => false,
 			'render_type' => 'ui',
 		];
@@ -116,7 +115,6 @@ class Controls_Group extends Group_Control_Base {
 			'selectors' => [
 				'{{SELECTOR}}' => 'transform-origin: {{transform_origin_x.VALUE}} {{VALUE}}',
 			],
-			'label_block' => false,
 			'toggle' => false,
 		];
 
@@ -124,7 +122,7 @@ class Controls_Group extends Group_Control_Base {
 			'label' => __( 'Apply Effects On', 'elementor-pro' ),
 			'type' => Controls_Manager::SELECT2,
 			'multiple' => true,
-			'label_block' => 'true',
+			'label_block' => true,
 			'default' => [ 'desktop', 'tablet', 'mobile' ],
 			'options' => [
 				'desktop' => __( 'Desktop', 'elementor-pro' ),

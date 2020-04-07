@@ -16,7 +16,6 @@ class API {
 	const STATUS_VALID = 'valid';
 	const STATUS_INVALID = 'invalid';
 	const STATUS_EXPIRED = 'expired';
-	const STATUS_DEACTIVATED = 'deactivated';
 	const STATUS_SITE_INACTIVE = 'site_inactive';
 	const STATUS_DISABLED = 'disabled';
 
@@ -256,5 +255,25 @@ class API {
 		}
 
 		return $error_msg;
+	}
+
+	public static function is_license_active() {
+		$license_data = self::get_license_data();
+
+		return self::STATUS_VALID === $license_data['license'];
+	}
+
+	public static function is_license_about_to_expire() {
+		$license_data = self::get_license_data();
+
+		if ( ! empty( $license_data['subscriptions'] ) && 'enable' === $license_data['subscriptions'] ) {
+			return false;
+		}
+
+		if ( 'lifetime' === $license_data['expires'] ) {
+			return false;
+		}
+
+		return time() > strtotime( '-28 days', strtotime( $license_data['expires'] ) );
 	}
 }

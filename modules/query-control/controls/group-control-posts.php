@@ -3,7 +3,7 @@ namespace ElementorPro\Modules\QueryControl\Controls;
 
 use Elementor\Controls_Manager;
 use Elementor\Group_Control_Base;
-use ElementorPro\Classes\Utils;
+use ElementorPro\Core\Utils;
 use ElementorPro\Modules\QueryControl\Module;
 
 if ( ! defined( 'ABSPATH' ) ) {

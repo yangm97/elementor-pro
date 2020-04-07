@@ -1,5 +1,75 @@
 # Elementor Pro - by Elementor.com
 
+#### 2.9.2 - 2020-03-25
+* Tweak: Added compatibility with WordPress v5.4 ([#10745](https://github.com/elementor/elementor/issues/10745))
+* Fix: Image ratio number is displayed under the Archive Posts widget ([#10874](https://github.com/elementor/elementor/issues/10874))
+* Fix: Theme Style Link color setting overrides the Table of Content list style
+* Fix: PHP notice when using dynamic user info `id`
+* Fix: Navigation arrows direction is crossed on first drag in Slides Widget
+* Fix: "No headings were found on this page" message was not displayed in the frontend in Table of Contents widget
+* Fix: Container includes Popup tags by default in Table of Contents widget
+* Fix: Twitter icon display issue when Font Awesome 4 support is disabled in Blockquote widget
+* Fix: ACF Dynamic tag not working in Form widget Redirect action
+
+#### 2.9.1 - 2020-03-16
+* Fix: Can't access Elementor Editor when there is Page Title widget in the page
+* Fix: Applying styling to Post Content widget affects the Page and Post editing handles
+
+#### 2.9.0 - 2020-03-15
+* New: Introducing Full Site Editing: Design header, footer, and content all in one place! ([#4985](https://github.com/elementor/elementor/issues/4985))
+* New: Added Global Custom CSS for Your Entire Site in Theme Style ([#3345](https://github.com/elementor/elementor/issues/3345))
+* New: Added Dynamic Colors tag ([#6485](https://github.com/elementor/elementor/issues/6485))
+* Tweak: Added option to set the Site Part HTML Wrapper Tags ([#9293](https://github.com/elementor/elementor/issues/9293))
+* Tweak: Added Link Attributes support to Pro widgets ([#5716](https://github.com/elementor/elementor/issues/5716), [#3642](https://github.com/elementor/elementor/issues/3642), [#9225](https://github.com/elementor/elementor/issues/9225), [#9079](https://github.com/elementor/elementor/issues/9079))
+* Tweak: Added Theme Style support in Theme Builder parts ([#10564](https://github.com/elementor/elementor/issues/10564))
+* Tweak: Avoid creating empty Custom Font
+* Tweak: Added `aria-expanded` attribute to Menu Cart widget
+* Tweak: Moved Link Actions module to Core plugin
+* Tweak: Changed the name of “TypeKit Web Fonts by Adobe” to “Adobe Fonts”
+* Tweak: Removed redundant display conditions from Blockquote, Flipbox, Price Table, and Search Form widgets
+* Tweak: Pro widgets are not draggable unless Elementor license has been activated
+* Tweak: Remove redundant `label_block` parameters from several controls
+* Tweak: Converted controls selectors to CSS variables in Gallery widget
+* Tweak: Replaced Stumbleupon with Mix in Reviews widget recommended icons ([#10099](https://github.com/elementor/elementor/issues/10099))
+* Tweak: Added Mix to the Share Buttons network list ([#10099](https://github.com/elementor/elementor/issues/10099))
+* Tweak: Added "Open in new tab" option to Posts widget ([#7924](https://github.com/elementor/elementor/issues/7924))
+* Tweak: Upgraded Font Awesome Pro library to v5.12.0
+* Tweak: Added new Lightbox compatibility for Gallery and Media Carousel widgets
+* Tweak: Expose external API for Swiper instances
+* Tweak: Added compatibility to JS API in Theme Builder, Popups, Form widget and Global widget
+* Tweak: Replaced nerd icons with new Elementor emojis
+* Tweak: Added specific `color` attribute to header title in Table of Contents widget
+* Fix: Line break issues in Animated Headline widget ([#10585](https://github.com/elementor/elementor/issues/10585))
+* Fix: Theme Style Link color overrides the Table of Content list style
+* Fix: Active state glitches when using Table of contents widget with Sticky mode
+* Fix: "Graphic Element" section appears as empty in case of unmarked Graphic Element in Call to Action widget
+* Fix: Page Title widget render glitches in the Editor
+* Fix: Image ratio parameter visible in some edge cases in Posts widget
+* Fix: Image missing when sharing to Pinterest using Share Buttons widget
+* Fix: Theme Style Link color setting override the list style in Table of Contents widget
+* Deprecated: See all deprecations to this version in our [Developers Deprecations Post](https://developers.elementor.com/v2-9-0-planned-deprecations/)
+
+
+#### 2.8.5 - 2020-03-08
+* Tweak: Added new Swiper parameter to all Pro carousels to allow 3rd party integration
+* Fix: Missing closing bracket in Animated Headline widget
+* Fix: Share buttons widgets show Font Awesome 4 icons on first drag in Editor
+
+#### 2.8.4 - 2020-02-16
+* Tweak: Added Lightbox Title & Description support to Gallery widget
+* Tweak: Added RTL support for Slides widget
+* Tweak: Display Lightbox images in Full size in Gallery widget
+* Fix: Template with Slides widget not working properly when placed inside Tabs, Accordion and Toggle widget
+* Fix: Dropdown menu lost styling after Elementor Pro v2.8 upgrade in Nav Menu widget
+* Fix: Indent doesn't work on RTL websites in Table of Contents widget
+* Fix: Query Control throws `Undefined index: q` error
+* Fix: Typography control not affecting dropdown menu in Nav Menu widget
+* Fix: Discord forms integration fails to send submissions in some server configurations
+* Fix: Rotating headlines don't align center in Animated Headline widget
+* Fix: Custom secondary color displayed when not needed in Share buttons widget
+* Fix: Motion Effects of certain objects are not functioning properly on Safari browser
+* Fix: Missing eye icon in Single template footer preview button
+
 #### 2.8.3 - 2020-01-01
 * Tweak: Updated Table of Contents widget panel location
 * Fix: ACF URL Dynamic field throws `undefined index` PHP notice ([#9929](https://github.com/elementor/elementor/issues/9929))

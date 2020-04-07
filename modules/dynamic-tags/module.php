@@ -22,8 +22,6 @@ class Module extends TagsModule {
 
 	const ARCHIVE_GROUP = 'archive';
 
-	const REQUEST_GROUP = 'request';
-
 	const MEDIA_GROUP = 'media';
 
 	const ACTION_GROUP = 'action';

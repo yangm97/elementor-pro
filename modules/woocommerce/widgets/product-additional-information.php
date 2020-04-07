@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-class Product_Additional_Information extends Widget_Base {
+class Product_Additional_Information extends Base_Widget {
 
 	public function get_name() {
 		return 'woocommerce-product-additional-information';

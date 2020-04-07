@@ -171,8 +171,8 @@ class Module extends Module_Base {
 		?>
 		<div class="elementor-menu-cart__wrapper">
 			<?php if ( ! $widget_cart_is_hidden ) : ?>
-			<div class="elementor-menu-cart__container elementor-lightbox">
-				<div class="elementor-menu-cart__main">
+			<div class="elementor-menu-cart__container elementor-lightbox" aria-expanded="false">
+				<div class="elementor-menu-cart__main" aria-expanded="false">
 					<div class="elementor-menu-cart__close-button"></div>
 					<div class="widget_shopping_cart_content"></div>
 				</div>
@@ -218,20 +218,6 @@ class Module extends Module_Base {
 			WC()->cart = new \WC_Cart();
 			WC()->customer = new \WC_Customer( get_current_user_id(), true );
 		}
-	}
-
-	public function localized_settings( $settings ) {
-		$settings = array_replace_recursive( $settings, [
-			'widgets' => [
-				'theme-archive-title' => [
-					'categories' => [
-						'woocommerce-elements-archive',
-					],
-				],
-			],
-		] );
-
-		return $settings;
 	}
 
 	public function localized_settings_frontend( $settings ) {
@@ -342,7 +328,6 @@ class Module extends Module_Base {
 
 		add_filter( 'elementor/theme/need_override_location', [ $this, 'theme_template_include' ], 10, 2 );
 
-		add_filter( 'elementor/editor/localize_settings', [ $this, 'localized_settings' ] );
 		add_filter( 'elementor_pro/frontend/localize_settings', [ $this, 'localized_settings_frontend' ] );
 
 		// On Editor - Register WooCommerce frontend hooks before the Editor init.

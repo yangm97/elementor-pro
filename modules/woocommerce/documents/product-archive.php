@@ -115,6 +115,13 @@ class Product_Archive extends Archive {
 		return $categories;
 	}
 
+	public static function get_editor_panel_config() {
+		$config = parent::get_editor_panel_config();
+		$config['widgets_settings']['theme-archive-title']['categories'][] = 'woocommerce-elements-archive';
+
+		return $config;
+	}
+
 	protected function _register_controls() {
 		parent::_register_controls();
 

@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-class Categories extends Widget_Base {
+class Categories extends Base_Widget {
 
 	protected $_has_template_content = false;
 

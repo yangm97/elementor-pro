@@ -3,6 +3,7 @@ namespace ElementorPro\Modules\ThemeBuilder\Widgets;
 
 use Elementor\Widget_Heading;
 use Elementor\Plugin;
+use ElementorPro\Base\Base_Widget_Trait;
 use ElementorPro\Plugin as ProPlugin;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -10,6 +11,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 abstract class Title_Widget_Base extends Widget_Heading {
+
+	use Base_Widget_Trait;
 
 	abstract protected function get_dynamic_tag_name();
 

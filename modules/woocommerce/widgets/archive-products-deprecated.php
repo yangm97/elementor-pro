@@ -50,7 +50,7 @@ class Archive_Products_Deprecated extends Products {
 			[
 				'type' => Controls_Manager::RAW_HTML,
 				'raw' => __( 'Note that these layout settings will override settings made in Appearance > Customize', 'elementor-pro' ),
-				'content_classes' => 'elementor-panel-alert elementor-panel-alert-warning',
+				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
 			]
 		);
 

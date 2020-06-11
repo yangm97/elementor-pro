@@ -27,7 +27,7 @@ class Module extends Module_Base {
 		static $black_list = null;
 
 		if ( null === $black_list ) {
-			$black_list = [ 'id', 'class', 'data-id', 'data-settings', 'data-element_type', 'data-widget_type', 'data-model-cid', 'onload', 'onclick', 'onfocus', 'onblur', 'onchange', 'onresize', 'onmouseover', 'onmouseout', 'onkeydown', 'onkeyup', 'onerror' ];
+			$black_list = [ 'id', 'class', 'data-id', 'data-settings', 'data-element_type', 'data-widget_type', 'data-model-cid' ];
 
 			/**
 			 * Elementor attributes black list.
@@ -106,23 +106,54 @@ class Module extends Module_Base {
 		$settings = $element->get_settings_for_display();
 
 		if ( ! empty( $settings['_attributes'] ) ) {
-			$attributes = explode( "\n", $settings['_attributes'] );
+			$attributes = $this->parse_custom_attributes( $settings['_attributes'], "\n" );
 
 			$black_list = $this->get_black_list_attributes();
 
-			foreach ( $attributes as $attribute ) {
-				if ( ! empty( $attribute ) ) {
-					$attr = explode( '|', $attribute, 2 );
-					if ( ! isset( $attr[1] ) ) {
-						$attr[1] = '';
-					}
-
-					if ( ! in_array( strtolower( $attr[0] ), $black_list ) ) {
-						$element->add_render_attribute( '_wrapper', trim( $attr[0] ), trim( $attr[1] ) );
-					}
+			foreach ( $attributes as $attribute => $value ) {
+				if ( ! in_array( $attribute, $black_list, true ) ) {
+					$element->add_render_attribute( '_wrapper', $attribute, $value );
 				}
 			}
 		}
+	}
+
+	/**
+	 * TODO: Remove, use \Elementor\Utils:parse_custom_attributes from Core >= 2.9.10.
+	 */
+	private function parse_custom_attributes( $attributes_string, $delimiter = ',' ) {
+		$attributes = explode( $delimiter, $attributes_string );
+		$result = [];
+
+		foreach ( $attributes as $attribute ) {
+			$attr_key_value = explode( '|', $attribute );
+
+			$attr_key = mb_strtolower( $attr_key_value[0] );
+
+			// Remove any not allowed characters.
+			preg_match( '/[-_a-z0-9]+/', $attr_key, $attr_key_matches );
+
+			if ( empty( $attr_key_matches[0] ) ) {
+				continue;
+			}
+
+			$attr_key = $attr_key_matches[0];
+
+			// Avoid Javascript events and unescaped href.
+			if ( 'href' === $attr_key || 'on' === substr( $attr_key, 0, 2 ) ) {
+				continue;
+			}
+
+			if ( isset( $attr_key_value[1] ) ) {
+				$attr_value = trim( $attr_key_value[1] );
+			} else {
+				$attr_value = '';
+			}
+
+			$result[ $attr_key ] = $attr_value;
+		}
+
+		return $result;
 	}
 
 	protected function add_actions() {

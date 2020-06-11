@@ -88,24 +88,31 @@ class API {
 	}
 
 	public static function get_license_data( $force_request = false ) {
+		$license_data_error = [
+			'license' => 'http_error',
+			'payment_id' => '0',
+			'license_limit' => '0',
+			'site_count' => '0',
+			'activations_left' => '0',
+		];
+
+		$license_key = Admin::get_license_key();
+		if ( empty( $license_key ) ) {
+			return $license_data_error;
+		}
+
 		$license_data = get_transient( 'elementor_pro_license_data' );
 
 		if ( false === $license_data || $force_request ) {
 			$body_args = [
 				'edd_action' => 'check_license',
-				'license' => Admin::get_license_key(),
+				'license' => $license_key,
 			];
 
 			$license_data = self::remote_post( $body_args );
 
 			if ( is_wp_error( $license_data ) ) {
-				$license_data = [
-					'license' => 'http_error',
-					'payment_id' => '0',
-					'license_limit' => '0',
-					'site_count' => '0',
-					'activations_left' => '0',
-				];
+				$license_data = $license_data_error;
 
 				self::set_license_data( $license_data, 30 * MINUTE_IN_SECONDS );
 			} else {

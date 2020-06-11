@@ -49,6 +49,7 @@ final class Modules_Manager {
 			'dynamic-tags',
 			'sticky',
 			'wp-cli',
+			'lottie',
 		];
 
 		foreach ( $modules as $module_name ) {

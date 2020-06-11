@@ -1,5 +1,26 @@
 # Elementor Pro - by Elementor.com
 
+#### 2.10.0 - 2020-06-07
+* New: Introducing Multi-Step Forms - Breakdown long forms into simple steps ([#5975](https://github.com/elementor/elementor/issues/5975), [#3911](https://github.com/elementor/elementor/issues/3911))
+* New: Introducing Lottie widget - easily add Lottie animations to your site, no coding needed ([#11026](https://github.com/elementor/elementor/issues/11026))
+* Tweak: Added spacing option to Posts widget pagination ([#5682](https://github.com/elementor/elementor/issues/5682))
+* Tweak: Changed texts and logic for administrator plugin renewal notices
+* Tweak: Added new Scroll Util for improved scrolling handling
+* Tweak: Improved Motion Effects animation performance
+
+#### 2.9.5 - 2020-05-24
+* Fix: Added sanitization to Custom Attributes control to avoid security issue
+
+#### 2.9.4 - 2020-05-07
+* Fix: Hardened user role that is allowed to upload icon sets and unzip only allowed files in Custom Icons to prevent security vulnerability
+
+#### 2.9.3 - 2020-04-19
+* Fix: Form shortcode IDs are not wrapped in double-quotes ([#11023](https://github.com/elementor/elementor/issues/11023), [#10932](https://github.com/elementor/elementor/issues/10932), [#10967](https://github.com/elementor/elementor/issues/10967), [#11000](https://github.com/elementor/elementor/issues/11000), [#11049](https://github.com/elementor/elementor/issues/11049))
+* Fix: Escaped Form records metadata to prevent security vulnerability
+* Fix: Closing "Save Changes" document confirmation modal causes Panel infinite loading
+* Fix: Ken Burns effect not working when there is only one slide in Slides widget
+* Fix: Document handles UI glitch
+
 #### 2.9.2 - 2020-03-25
 * Tweak: Added compatibility with WordPress v5.4 ([#10745](https://github.com/elementor/elementor/issues/10745))
 * Fix: Image ratio number is displayed under the Archive Posts widget ([#10874](https://github.com/elementor/elementor/issues/10874))

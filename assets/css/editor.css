@@ -1,4 +1,4 @@
-/*! elementor-pro - v2.9.2 - 25-03-2020 */
+/*! elementor-pro - v2.10.0 - 07-06-2020 */
 #elementor-panel-get-pro-elements {
   display: none; }
 
@@ -115,6 +115,14 @@
     padding: 0; }
   .elementor-panel .elementor-control-type-fields_map .elementor-repeater-fields:last-child {
     margin-bottom: 0; }
+
+.elementor-repeater-row--form-step .elementor-repeater-row-tools:hover {
+  background-color: #c2cbd2; }
+
+.elementor-repeater-row--form-step .elementor-repeater-row-tools div:not(.elementor-repeater-row-handle-sortable) {
+  background-color: #f1f3f5; }
+  .elementor-repeater-row--form-step .elementor-repeater-row-tools div:not(.elementor-repeater-row-handle-sortable):hover {
+    background-color: #e6e9ec; }
 
 .elementor-facebook-widget.fb_iframe_widget {
   width: 100% !important; }

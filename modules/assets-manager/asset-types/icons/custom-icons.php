@@ -1,6 +1,7 @@
 <?php
 namespace ElementorPro\Modules\AssetsManager\AssetTypes\Icons;
 
+use Elementor\Core\Utils\Exceptions;
 use ElementorPro\Modules\AssetsManager\Classes\Assets_Base;
 use ElementorPro\Modules\AssetsManager\AssetTypes\Icons_Manager;
 use Elementor\Core\Common\Modules\Ajax\Module as Ajax;
@@ -193,7 +194,53 @@ class Custom_Icons extends  Assets_Base {
 	}
 
 	private function extract_zip( $file, $to ) {
-		$unzip_result = unzip_file( $file, $to );
+		// TODO: Move to core as a util.
+		$valid_field_types = [
+			'css',
+			'eot',
+			'html',
+			'json',
+			'otf',
+			'svg',
+			'ttf',
+			'txt',
+			'woff',
+			'woff2',
+		];
+
+		$zip = new \ZipArchive();
+
+		$zip->open( $file );
+
+		$valid_entries = [];
+
+		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+		for ( $i = 0; $i < $zip->numFiles; $i++ ) {
+			$zipped_file_name = $zip->getNameIndex( $i );
+			$dirname = pathinfo( $zipped_file_name, PATHINFO_DIRNAME );
+
+			// Skip the OS X-created __MACOSX directory.
+			if ( '__MACOSX/' === substr( $dirname, 0, 9 ) ) {
+				continue;
+			}
+
+			$zipped_extension = pathinfo( $zipped_file_name, PATHINFO_EXTENSION );
+
+			if ( in_array( $zipped_extension, $valid_field_types, true ) ) {
+				$valid_entries[] = $zipped_file_name;
+			}
+		}
+
+		$unzip_result = false;
+
+		if ( ! empty( $valid_entries ) ) {
+			$unzip_result = $zip->extractTo( $to, $valid_entries );
+		}
+
+		if ( ! $unzip_result ) {
+			$unzip_result = new \WP_Error( 'error', __( 'Could not unzip or empty archive.', 'elementor-pro' ) );
+		}
+
 		@unlink( $file );
 
 		return $unzip_result; // TRUE | WP_Error instance.
@@ -230,6 +277,10 @@ class Custom_Icons extends  Assets_Base {
 	}
 
 	public function custom_icons_upload_handler( $data ) {
+		if ( ! current_user_can( Icons_Manager::CAPABILITY ) ) {
+			return new \WP_Error( Exceptions::FORBIDDEN, 'Access denied.' );
+		}
+
 		$this->current_post_id = $data['post_id'];
 		$results = $this->upload_and_extract_zip();
 		if ( is_wp_error( $results ) ) {

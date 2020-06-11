@@ -1,4 +1,4 @@
-/*! elementor-pro - v2.9.2 - 25-03-2020 */
+/*! elementor-pro - v2.10.0 - 07-06-2020 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -82,7 +82,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 106);
+/******/ 	return __webpack_require__(__webpack_require__.s = 110);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -287,7 +287,9 @@ module.exports = _superPropBase;
 /***/ }),
 /* 14 */,
 /* 15 */,
-/* 16 */
+/* 16 */,
+/* 17 */,
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -395,8 +397,6 @@ var _default = CustomAssetsBase;
 exports.default = _default;
 
 /***/ }),
-/* 17 */,
-/* 18 */,
 /* 19 */,
 /* 20 */,
 /* 21 */,
@@ -484,18 +484,22 @@ exports.default = _default;
 /* 103 */,
 /* 104 */,
 /* 105 */,
-/* 106 */
+/* 106 */,
+/* 107 */,
+/* 108 */,
+/* 109 */,
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var modules = {
-  widget_template_edit_button: __webpack_require__(107),
-  forms_integrations: __webpack_require__(109),
-  AssetsManager: __webpack_require__(111),
-  RoleManager: __webpack_require__(123),
-  ThemeBuilder: __webpack_require__(125)
+  widget_template_edit_button: __webpack_require__(111),
+  forms_integrations: __webpack_require__(113),
+  AssetsManager: __webpack_require__(115),
+  RoleManager: __webpack_require__(127),
+  ThemeBuilder: __webpack_require__(129)
 };
 window.elementorProAdmin = {
   widget_template_edit_button: new modules.widget_template_edit_button(),
@@ -509,20 +513,20 @@ jQuery(function () {
 });
 
 /***/ }),
-/* 107 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = function () {
-  var EditButton = __webpack_require__(108);
+  var EditButton = __webpack_require__(112);
 
   this.editButton = new EditButton();
 };
 
 /***/ }),
-/* 108 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -553,14 +557,14 @@ module.exports = function () {
 };
 
 /***/ }),
-/* 109 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = function () {
-  var ApiValidations = __webpack_require__(110);
+  var ApiValidations = __webpack_require__(114);
 
   this.dripButton = new ApiValidations('drip_api_token');
   this.getResponse = new ApiValidations('getresponse_api_key');
@@ -571,7 +575,7 @@ module.exports = function () {
 };
 
 /***/ }),
-/* 110 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -653,7 +657,7 @@ module.exports = function (key, fieldID) {
 };
 
 /***/ }),
-/* 111 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -661,14 +665,14 @@ module.exports = function (key, fieldID) {
 
 var _interopRequireDefault = __webpack_require__(0);
 
-var _elementorFontManager = _interopRequireDefault(__webpack_require__(112));
+var _elementorFontManager = _interopRequireDefault(__webpack_require__(116));
 
-var _elementorCustomIcons = _interopRequireDefault(__webpack_require__(119));
+var _elementorCustomIcons = _interopRequireDefault(__webpack_require__(123));
 
 module.exports = function () {
-  var TypekitAdmin = __webpack_require__(121),
+  var TypekitAdmin = __webpack_require__(125),
       CustomIcon = _elementorCustomIcons.default,
-      FontAwesomeProAdmin = __webpack_require__(122).default;
+      FontAwesomeProAdmin = __webpack_require__(126).default;
 
   this.fontManager = new _elementorFontManager.default();
   this.typekit = new TypekitAdmin();
@@ -677,7 +681,7 @@ module.exports = function () {
 };
 
 /***/ }),
-/* 112 */
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -702,11 +706,11 @@ var _get3 = _interopRequireDefault(__webpack_require__(6));
 
 var _inherits2 = _interopRequireDefault(__webpack_require__(4));
 
-var _customAssetsBase = _interopRequireDefault(__webpack_require__(16));
+var _customAssetsBase = _interopRequireDefault(__webpack_require__(18));
 
-var _elementorProUpload = _interopRequireDefault(__webpack_require__(113));
+var _elementorProUpload = _interopRequireDefault(__webpack_require__(117));
 
-var _elementorProRepeater = _interopRequireDefault(__webpack_require__(118));
+var _elementorProRepeater = _interopRequireDefault(__webpack_require__(122));
 
 var CustomFontsManager = /*#__PURE__*/function (_CustomAssetsBase) {
   (0, _inherits2.default)(CustomFontsManager, _CustomAssetsBase);
@@ -919,7 +923,7 @@ var CustomFontsManager = /*#__PURE__*/function (_CustomAssetsBase) {
 exports.default = CustomFontsManager;
 
 /***/ }),
-/* 113 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -927,7 +931,7 @@ exports.default = CustomFontsManager;
 
 var _interopRequireDefault = __webpack_require__(0);
 
-var _toConsumableArray2 = _interopRequireDefault(__webpack_require__(114));
+var _toConsumableArray2 = _interopRequireDefault(__webpack_require__(118));
 
 module.exports = {
   $btn: null,
@@ -1118,14 +1122,14 @@ module.exports = {
 };
 
 /***/ }),
-/* 114 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayWithoutHoles = __webpack_require__(115);
+var arrayWithoutHoles = __webpack_require__(119);
 
-var iterableToArray = __webpack_require__(116);
+var iterableToArray = __webpack_require__(120);
 
-var nonIterableSpread = __webpack_require__(117);
+var nonIterableSpread = __webpack_require__(121);
 
 function _toConsumableArray(arr) {
   return arrayWithoutHoles(arr) || iterableToArray(arr) || nonIterableSpread();
@@ -1134,7 +1138,7 @@ function _toConsumableArray(arr) {
 module.exports = _toConsumableArray;
 
 /***/ }),
-/* 115 */
+/* 119 */
 /***/ (function(module, exports) {
 
 function _arrayWithoutHoles(arr) {
@@ -1150,7 +1154,7 @@ function _arrayWithoutHoles(arr) {
 module.exports = _arrayWithoutHoles;
 
 /***/ }),
-/* 116 */
+/* 120 */
 /***/ (function(module, exports) {
 
 function _iterableToArray(iter) {
@@ -1160,7 +1164,7 @@ function _iterableToArray(iter) {
 module.exports = _iterableToArray;
 
 /***/ }),
-/* 117 */
+/* 121 */
 /***/ (function(module, exports) {
 
 function _nonIterableSpread() {
@@ -1170,7 +1174,7 @@ function _nonIterableSpread() {
 module.exports = _nonIterableSpread;
 
 /***/ }),
-/* 118 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1315,7 +1319,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 119 */
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1340,9 +1344,9 @@ var _get2 = _interopRequireDefault(__webpack_require__(6));
 
 var _inherits2 = _interopRequireDefault(__webpack_require__(4));
 
-var _customAssetsBase = _interopRequireDefault(__webpack_require__(16));
+var _customAssetsBase = _interopRequireDefault(__webpack_require__(18));
 
-var _elementorProDropzone = _interopRequireDefault(__webpack_require__(120));
+var _elementorProDropzone = _interopRequireDefault(__webpack_require__(124));
 
 var CustomIcons = /*#__PURE__*/function (_CustomAssetsBase) {
   (0, _inherits2.default)(CustomIcons, _CustomAssetsBase);
@@ -1619,7 +1623,7 @@ var _default = CustomIcons;
 exports.default = _default;
 
 /***/ }),
-/* 120 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1816,7 +1820,7 @@ var _default = DropZoneField;
 exports.default = _default;
 
 /***/ }),
-/* 121 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1896,7 +1900,7 @@ module.exports = function () {
 };
 
 /***/ }),
-/* 122 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2012,20 +2016,20 @@ var _default = /*#__PURE__*/function (_elementorModules$Vie) {
 exports.default = _default;
 
 /***/ }),
-/* 123 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = function () {
-  var AdvancedRoleManager = __webpack_require__(124);
+  var AdvancedRoleManager = __webpack_require__(128);
 
   this.advancedRoleManager = new AdvancedRoleManager();
 };
 
 /***/ }),
-/* 124 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2071,20 +2075,20 @@ module.exports = function () {
 };
 
 /***/ }),
-/* 125 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = function () {
-  var CreateTemplateDialog = __webpack_require__(126);
+  var CreateTemplateDialog = __webpack_require__(130);
 
   this.createTemplateDialog = new CreateTemplateDialog();
 };
 
 /***/ }),
-/* 126 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

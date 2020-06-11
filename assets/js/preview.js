@@ -1,4 +1,4 @@
-/*! elementor-pro - v2.9.2 - 25-03-2020 */
+/*! elementor-pro - v2.10.0 - 07-06-2020 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -82,7 +82,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 127);
+/******/ 	return __webpack_require__(__webpack_require__.s = 131);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -114,7 +114,7 @@ module.exports = _getPrototypeOf;
 
 /***/ }),
 
-/***/ 127:
+/***/ 131:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -192,7 +192,7 @@ var Preview = /*#__PURE__*/function (_elementorModules$Vie) {
       elementorCommon.api.internal('panel/state-loading');
       elementorCommon.api.run('editor/documents/switch', {
         id: document.getSettings('id')
-      }).then(function () {
+      }).finally(function () {
         return elementorCommon.api.internal('panel/state-ready');
       });
     }

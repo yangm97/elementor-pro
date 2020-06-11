@@ -261,6 +261,23 @@ abstract class Posts_Base extends Base_Widget {
 			]
 		);
 
+		$this->add_responsive_control(
+			'pagination_spacing_top',
+			[
+				'label' => __( 'Spacing', 'elementor-pro' ),
+				'type' => Controls_Manager::SLIDER,
+				'range' => [
+					'px' => [
+						'min' => 0,
+						'max' => 100,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .elementor-pagination' => 'margin-top: {{SIZE}}{{UNIT}}',
+				],
+			]
+		);
+
 		$this->end_controls_section();
 	}
 

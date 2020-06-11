@@ -1,6 +1,7 @@
 <?php
 namespace ElementorPro\Modules\AssetsManager\AssetTypes\Fonts;
 
+use Elementor\Core\Files\Assets\Files_Upload_Handler;
 use Elementor\Core\Files\CSS\Base;
 use ElementorPro\Modules\AssetsManager\Classes;
 use ElementorPro\Modules\AssetsManager\AssetTypes\Fonts_Manager;
@@ -197,7 +198,7 @@ class Custom_Fonts extends Classes\Font_Base {
 		 */
 		$svg_handler = Plugin::elementor()->assets_manager->get_asset( 'svg-handler' );
 
-		if ( $svg_handler::svg_sanitizer_can_run() && ! $svg_handler->sanitize_svg( $file['tmp_name'] ) ) {
+		if ( Files_Upload_Handler::file_sanitizer_can_run() && ! $svg_handler->sanitize_svg( $file['tmp_name'] ) ) {
 			$file['error'] = __( 'Invalid SVG Format, file not uploaded for security reasons', 'elementor-pro' );
 		}
 

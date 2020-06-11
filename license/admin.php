@@ -338,7 +338,12 @@ class Admin {
 		if ( API::is_license_active() ) {
 			if ( API::is_license_about_to_expire() ) {
 				$title = sprintf( __( 'Your License Will Expire in %s.', 'elementor-pro' ), human_time_diff( current_time( 'timestamp' ), strtotime( $license_data['expires'] ) ) );
-				$description = sprintf( __( '<a href="%s" target="_blank">Renew your license today</a>, to keep getting feature updates, premium support and unlimited access to the template library.', 'elementor-pro' ), $renew_url );
+
+				if ( isset( $license_data['renewal_discount'] ) && 0 < $license_data['renewal_discount'] ) {
+					$description = sprintf( __( '<a href="%1$s" target="_blank">Renew your license today</a>, and get an exclusive, time-limited %2$s discount.', 'elementor-pro' ), $renew_url, $license_data['renewal_discount'] . '%' );
+				} else {
+					$description = sprintf( __( '<a href="%s" target="_blank">Renew now and enjoy updates</a>, support and Pro templates for another year.', 'elementor-pro' ), $renew_url );
+				}
 
 				$this->print_admin_message( $title, $description, __( 'Renew License', 'elementor-pro' ), $renew_url );
 			}

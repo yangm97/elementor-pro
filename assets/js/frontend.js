@@ -1,4 +1,4 @@
-/*! elementor-pro - v2.9.2 - 25-03-2020 */
+/*! elementor-pro - v2.10.0 - 07-06-2020 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -82,7 +82,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 128);
+/******/ 	return __webpack_require__(__webpack_require__.s = 132);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -379,6 +379,27 @@ module.exports = _superPropBase;
 /***/ }),
 /* 14 */,
 /* 15 */
+/***/ (function(module, exports) {
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+module.exports = _defineProperty;
+
+/***/ }),
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -530,8 +551,133 @@ module.exports = elementorModules.frontend.handlers.Base.extend({
 });
 
 /***/ }),
-/* 16 */,
 /* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(0);
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _classCallCheck2 = _interopRequireDefault(__webpack_require__(2));
+
+var _createClass2 = _interopRequireDefault(__webpack_require__(5));
+
+var Scroll = /*#__PURE__*/function () {
+  function Scroll() {
+    (0, _classCallCheck2.default)(this, Scroll);
+  }
+
+  (0, _createClass2.default)(Scroll, null, [{
+    key: "scrollObserver",
+
+    /**
+     * @param {object} obj
+     * @param {number} obj.sensitivity - Value between 0-100 - Will determine the intersection trigger points on the element
+     * @param {function} obj.callback - Will be triggered on each intersection point between the element and the viewport top/bottom
+     * @param {string} obj.offset - Offset between the element intersection points and the viewport, written like in CSS: '-50% 0 -25%'
+     * @param {HTMLElement} obj.root - The element that the events will be relative to, if 'null' will be relative to the viewport
+     */
+    value: function scrollObserver(obj) {
+      var lastScrollY = 0; // Generating threshholds points along the animation height
+      // More threshholds points = more trigger points of the callback
+
+      var buildThreshholds = function buildThreshholds() {
+        var sensitivityPercentage = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+        var threshholds = [];
+
+        if (sensitivityPercentage > 0 && sensitivityPercentage <= 100) {
+          var increment = 100 / sensitivityPercentage;
+
+          for (var i = 0; i <= 100; i += increment) {
+            threshholds.push(i / 100);
+          }
+        } else {
+          threshholds.push(0);
+        }
+
+        return threshholds;
+      };
+
+      var options = {
+        root: obj.root || null,
+        rootMargin: obj.offset || '0px',
+        threshold: buildThreshholds(obj.sensitivity)
+      };
+
+      function handleIntersect(entries, observer) {
+        var currentScrollY = entries[0].boundingClientRect.y,
+            isInViewport = entries[0].isIntersecting,
+            intersectionScrollDirection = currentScrollY < lastScrollY ? 'down' : 'up',
+            scrollPercentage = Math.abs(parseFloat((entries[0].intersectionRatio * 100).toFixed(2)));
+        obj.callback({
+          sensitivity: obj.sensitivity,
+          isInViewport: isInViewport,
+          scrollPercentage: scrollPercentage,
+          intersectionScrollDirection: intersectionScrollDirection
+        });
+        lastScrollY = currentScrollY;
+      }
+
+      return new IntersectionObserver(handleIntersect, options);
+    }
+    /**
+     * @param {jQuery Element} $element
+     * @param {object} offsetObj
+     * @param {number} offsetObj.start - Offset start value in percentages
+     * @param {number} offsetObj.end - Offset end value in percentages
+     */
+
+  }, {
+    key: "getElementViewportPercentage",
+    value: function getElementViewportPercentage($element) {
+      var offsetObj = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      var elementOffset = $element[0].getBoundingClientRect(),
+          offsetStart = offsetObj.start || 0,
+          offsetEnd = offsetObj.end || 0,
+          windowStartOffset = window.innerHeight * offsetStart / 100,
+          windowEndOffset = window.innerHeight * offsetEnd / 100,
+          y1 = elementOffset.top - window.innerHeight,
+          y2 = elementOffset.top + windowStartOffset + $element.height(),
+          startPosition = 0 - y1 + windowStartOffset,
+          endPosition = y2 - y1 + windowEndOffset,
+          percent = Math.max(0, Math.min(startPosition / endPosition, 1));
+      return parseFloat((percent * 100).toFixed(2));
+    }
+    /**
+     * @param {object} offsetObj
+     * @param {number} offsetObj.start - Offset start value in percentages
+     * @param {number} offsetObj.end - Offset end value in percentages
+     * @param {number} limitPageHeight - Will limit the page height calculation
+     */
+
+  }, {
+    key: "getPageScrollPercentage",
+    value: function getPageScrollPercentage() {
+      var offsetObj = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      var limitPageHeight = arguments.length > 1 ? arguments[1] : undefined;
+      var offsetStart = offsetObj.start || 0,
+          offsetEnd = offsetObj.end || 0,
+          initialPageHeight = limitPageHeight || document.documentElement.scrollHeight - document.documentElement.clientHeight,
+          heightOffset = initialPageHeight * offsetStart / 100,
+          pageRange = initialPageHeight + heightOffset + initialPageHeight * offsetEnd / 100,
+          scrollPos = document.documentElement.scrollTop + document.body.scrollTop + heightOffset;
+      return scrollPos / pageRange * 100;
+    }
+  }]);
+  return Scroll;
+}();
+
+exports.default = Scroll;
+
+/***/ }),
+/* 18 */,
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -550,46 +696,65 @@ var _createClass2 = _interopRequireDefault(__webpack_require__(5));
 
 var _possibleConstructorReturn2 = _interopRequireDefault(__webpack_require__(3));
 
-var _getPrototypeOf2 = _interopRequireDefault(__webpack_require__(1));
+var _assertThisInitialized2 = _interopRequireDefault(__webpack_require__(7));
+
+var _getPrototypeOf3 = _interopRequireDefault(__webpack_require__(1));
 
 var _get2 = _interopRequireDefault(__webpack_require__(6));
 
 var _inherits2 = _interopRequireDefault(__webpack_require__(4));
 
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(15));
+
+var _scroll = _interopRequireDefault(__webpack_require__(17));
+
 var _default = /*#__PURE__*/function (_elementorModules$Vie) {
   (0, _inherits2.default)(_default, _elementorModules$Vie);
 
   function _default() {
+    var _getPrototypeOf2;
+
+    var _this;
+
     (0, _classCallCheck2.default)(this, _default);
-    return (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(_default).apply(this, arguments));
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = (0, _possibleConstructorReturn2.default)(this, (_getPrototypeOf2 = (0, _getPrototypeOf3.default)(_default)).call.apply(_getPrototypeOf2, [this].concat(args)));
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "onInsideViewport", function () {
+      _this.run();
+
+      _this.animationFrameRequest = requestAnimationFrame(_this.onInsideViewport);
+    });
+    return _this;
   }
 
   (0, _createClass2.default)(_default, [{
     key: "__construct",
     value: function __construct(options) {
-      var _this = this;
-
       this.motionFX = options.motionFX;
-      this.runImmediately = this.run;
 
-      this.run = function () {
-        _this.animationFrameRequest = requestAnimationFrame(_this.run.bind(_this));
+      if (!this.intersectionObservers) {
+        this.setElementInViewportObserver();
+      }
+    }
+  }, {
+    key: "setElementInViewportObserver",
+    value: function setElementInViewportObserver() {
+      var _this2 = this;
 
-        if ('page' === _this.motionFX.getSettings('range')) {
-          _this.runImmediately();
-
-          return;
+      this.intersectionObserver = _scroll.default.scrollObserver({
+        callback: function callback(event) {
+          if (event.isInViewport) {
+            _this2.onInsideViewport();
+          } else {
+            _this2.removeAnimationFrameRequest();
+          }
         }
-
-        var dimensions = _this.motionFX.getSettings('dimensions'),
-            elementTopWindowPoint = dimensions.elementTop - pageYOffset,
-            elementEntrancePoint = elementTopWindowPoint - innerHeight,
-            elementExitPoint = elementTopWindowPoint + dimensions.elementHeight;
-
-        if (elementEntrancePoint <= 0 && elementExitPoint >= 0) {
-          _this.runImmediately();
-        }
-      };
+      });
+      this.intersectionObserver.observe(this.motionFX.elements.$parent[0]);
     }
   }, {
     key: "runCallback",
@@ -598,15 +763,29 @@ var _default = /*#__PURE__*/function (_elementorModules$Vie) {
       callback.apply(void 0, arguments);
     }
   }, {
+    key: "removeIntersectionObserver",
+    value: function removeIntersectionObserver() {
+      if (this.intersectionObserver) {
+        this.intersectionObserver.unobserve(this.motionFX.elements.$parent[0]);
+      }
+    }
+  }, {
+    key: "removeAnimationFrameRequest",
+    value: function removeAnimationFrameRequest() {
+      if (this.animationFrameRequest) {
+        cancelAnimationFrame(this.animationFrameRequest);
+      }
+    }
+  }, {
     key: "destroy",
     value: function destroy() {
-      cancelAnimationFrame(this.animationFrameRequest);
+      this.removeAnimationFrameRequest();
+      this.removeIntersectionObserver();
     }
   }, {
     key: "onInit",
     value: function onInit() {
-      (0, _get2.default)((0, _getPrototypeOf2.default)(_default.prototype), "onInit", this).call(this);
-      this.run();
+      (0, _get2.default)((0, _getPrototypeOf3.default)(_default.prototype), "onInit", this).call(this);
     }
   }]);
   return _default;
@@ -615,7 +794,49 @@ var _default = /*#__PURE__*/function (_elementorModules$Vie) {
 exports.default = _default;
 
 /***/ }),
-/* 18 */
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var defineProperty = __webpack_require__(15);
+
+function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly) symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    });
+    keys.push.apply(keys, symbols);
+  }
+
+  return keys;
+}
+
+function _objectSpread2(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+
+    if (i % 2) {
+      ownKeys(Object(source), true).forEach(function (key) {
+        defineProperty(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys(Object(source)).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+
+  return target;
+}
+
+module.exports = _objectSpread2;
+
+/***/ }),
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -833,13 +1054,13 @@ module.exports = elementorModules.frontend.handlers.Base.extend({
 });
 
 /***/ }),
-/* 19 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Base = __webpack_require__(18),
+var Base = __webpack_require__(21),
     TestimonialCarousel;
 
 TestimonialCarousel = Base.extend({
@@ -869,34 +1090,13 @@ module.exports = function ($scope) {
 };
 
 /***/ }),
-/* 20 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var FormSender = __webpack_require__(164),
-    Form = FormSender.extend();
-
-var RedirectAction = __webpack_require__(165);
-
-module.exports = function ($scope) {
-  new Form({
-    $element: $scope
-  });
-  new RedirectAction({
-    $element: $scope
-  });
-};
-
-/***/ }),
-/* 21 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var PostsHandler = __webpack_require__(15);
+var PostsHandler = __webpack_require__(16);
 
 module.exports = PostsHandler.extend({
   getSkinPrefix: function getSkinPrefix() {
@@ -905,7 +1105,7 @@ module.exports = PostsHandler.extend({
 });
 
 /***/ }),
-/* 22 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1002,8 +1202,6 @@ module.exports = function ($scope) {
 };
 
 /***/ }),
-/* 23 */,
-/* 24 */,
 /* 25 */,
 /* 26 */,
 /* 27 */,
@@ -1107,7 +1305,11 @@ module.exports = function ($scope) {
 /* 125 */,
 /* 126 */,
 /* 127 */,
-/* 128 */
+/* 128 */,
+/* 129 */,
+/* 130 */,
+/* 131 */,
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1127,13 +1329,15 @@ var _get2 = _interopRequireDefault(__webpack_require__(6));
 
 var _inherits2 = _interopRequireDefault(__webpack_require__(4));
 
-var _frontend = _interopRequireDefault(__webpack_require__(129));
+var _frontend = _interopRequireDefault(__webpack_require__(133));
 
-var _frontend2 = _interopRequireDefault(__webpack_require__(147));
+var _frontend2 = _interopRequireDefault(__webpack_require__(151));
 
-var _frontend3 = _interopRequireDefault(__webpack_require__(153));
+var _frontend3 = _interopRequireDefault(__webpack_require__(157));
 
-var _frontend4 = _interopRequireDefault(__webpack_require__(155));
+var _frontend4 = _interopRequireDefault(__webpack_require__(159));
+
+var _frontend5 = _interopRequireDefault(__webpack_require__(161));
 
 var ElementorProFrontend = /*#__PURE__*/function (_elementorModules$Vie) {
   (0, _inherits2.default)(ElementorProFrontend, _elementorModules$Vie);
@@ -1161,23 +1365,24 @@ var ElementorProFrontend = /*#__PURE__*/function (_elementorModules$Vie) {
       var _this = this;
 
       var handlers = {
-        animatedText: __webpack_require__(157),
-        carousel: __webpack_require__(159),
-        countdown: __webpack_require__(161),
-        form: __webpack_require__(163),
+        animatedText: __webpack_require__(163),
+        carousel: __webpack_require__(165),
+        countdown: __webpack_require__(167),
+        form: __webpack_require__(169),
         gallery: _frontend3.default,
-        nav_menu: __webpack_require__(169),
+        nav_menu: __webpack_require__(176),
         motionFX: _frontend2.default,
         popup: _frontend.default,
-        posts: __webpack_require__(171),
-        share_buttons: __webpack_require__(173),
-        slides: __webpack_require__(175),
-        social: __webpack_require__(177),
-        sticky: __webpack_require__(179),
-        themeBuilder: __webpack_require__(180),
-        themeElements: __webpack_require__(183),
-        woocommerce: __webpack_require__(185),
-        tableOfContents: _frontend4.default
+        posts: __webpack_require__(178),
+        share_buttons: __webpack_require__(180),
+        slides: __webpack_require__(182),
+        social: __webpack_require__(184),
+        sticky: __webpack_require__(186),
+        themeBuilder: __webpack_require__(187),
+        themeElements: __webpack_require__(190),
+        woocommerce: __webpack_require__(192),
+        tableOfContents: _frontend5.default,
+        lottie: _frontend4.default
       };
       jQuery.each(handlers, function (moduleName, ModuleClass) {
         _this.modules[moduleName] = new ModuleClass();
@@ -1203,7 +1408,7 @@ var ElementorProFrontend = /*#__PURE__*/function (_elementorModules$Vie) {
 window.elementorProFrontend = new ElementorProFrontend();
 
 /***/ }),
-/* 129 */
+/* 133 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1226,9 +1431,9 @@ var _getPrototypeOf2 = _interopRequireDefault(__webpack_require__(1));
 
 var _inherits2 = _interopRequireDefault(__webpack_require__(4));
 
-var _document = _interopRequireDefault(__webpack_require__(130));
+var _document = _interopRequireDefault(__webpack_require__(134));
 
-var _formsAction = _interopRequireDefault(__webpack_require__(146));
+var _formsAction = _interopRequireDefault(__webpack_require__(150));
 
 var _default = /*#__PURE__*/function (_elementorModules$Mod) {
   (0, _inherits2.default)(_default, _elementorModules$Mod);
@@ -1319,7 +1524,7 @@ var _default = /*#__PURE__*/function (_elementorModules$Mod) {
 exports.default = _default;
 
 /***/ }),
-/* 130 */
+/* 134 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1344,9 +1549,9 @@ var _get2 = _interopRequireDefault(__webpack_require__(6));
 
 var _inherits2 = _interopRequireDefault(__webpack_require__(4));
 
-var _triggers = _interopRequireDefault(__webpack_require__(131));
+var _triggers = _interopRequireDefault(__webpack_require__(135));
 
-var _timing = _interopRequireDefault(__webpack_require__(138));
+var _timing = _interopRequireDefault(__webpack_require__(142));
 
 var _default = /*#__PURE__*/function (_elementorModules$fro) {
   (0, _inherits2.default)(_default, _elementorModules$fro);
@@ -1624,7 +1829,7 @@ var _default = /*#__PURE__*/function (_elementorModules$fro) {
 exports.default = _default;
 
 /***/ }),
-/* 131 */
+/* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1647,17 +1852,17 @@ var _getPrototypeOf2 = _interopRequireDefault(__webpack_require__(1));
 
 var _inherits2 = _interopRequireDefault(__webpack_require__(4));
 
-var _pageLoad = _interopRequireDefault(__webpack_require__(132));
+var _pageLoad = _interopRequireDefault(__webpack_require__(136));
 
-var _scrolling = _interopRequireDefault(__webpack_require__(133));
+var _scrolling = _interopRequireDefault(__webpack_require__(137));
 
-var _scrollingTo = _interopRequireDefault(__webpack_require__(134));
+var _scrollingTo = _interopRequireDefault(__webpack_require__(138));
 
-var _click = _interopRequireDefault(__webpack_require__(135));
+var _click = _interopRequireDefault(__webpack_require__(139));
 
-var _inactivity = _interopRequireDefault(__webpack_require__(136));
+var _inactivity = _interopRequireDefault(__webpack_require__(140));
 
-var _exitIntent = _interopRequireDefault(__webpack_require__(137));
+var _exitIntent = _interopRequireDefault(__webpack_require__(141));
 
 var _default = /*#__PURE__*/function (_elementorModules$Mod) {
   (0, _inherits2.default)(_default, _elementorModules$Mod);
@@ -1723,7 +1928,7 @@ var _default = /*#__PURE__*/function (_elementorModules$Mod) {
 exports.default = _default;
 
 /***/ }),
-/* 132 */
+/* 136 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1778,7 +1983,7 @@ var _default = /*#__PURE__*/function (_BaseTrigger) {
 exports.default = _default;
 
 /***/ }),
-/* 133 */
+/* 137 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1870,7 +2075,7 @@ var _default = /*#__PURE__*/function (_BaseTrigger) {
 exports.default = _default;
 
 /***/ }),
-/* 134 */
+/* 138 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1935,7 +2140,7 @@ var _default = /*#__PURE__*/function (_BaseTrigger) {
 exports.default = _default;
 
 /***/ }),
-/* 135 */
+/* 139 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2013,7 +2218,7 @@ var _default = /*#__PURE__*/function (_BaseTrigger) {
 exports.default = _default;
 
 /***/ }),
-/* 136 */
+/* 140 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2099,7 +2304,7 @@ var _default = /*#__PURE__*/function (_BaseTrigger) {
 exports.default = _default;
 
 /***/ }),
-/* 137 */
+/* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2174,7 +2379,7 @@ var _default = /*#__PURE__*/function (_BaseTrigger) {
 exports.default = _default;
 
 /***/ }),
-/* 138 */
+/* 142 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2197,19 +2402,19 @@ var _getPrototypeOf2 = _interopRequireDefault(__webpack_require__(1));
 
 var _inherits2 = _interopRequireDefault(__webpack_require__(4));
 
-var _pageViews = _interopRequireDefault(__webpack_require__(139));
+var _pageViews = _interopRequireDefault(__webpack_require__(143));
 
-var _sessions = _interopRequireDefault(__webpack_require__(140));
+var _sessions = _interopRequireDefault(__webpack_require__(144));
 
-var _url = _interopRequireDefault(__webpack_require__(141));
+var _url = _interopRequireDefault(__webpack_require__(145));
 
-var _sources = _interopRequireDefault(__webpack_require__(142));
+var _sources = _interopRequireDefault(__webpack_require__(146));
 
-var _loggedIn = _interopRequireDefault(__webpack_require__(143));
+var _loggedIn = _interopRequireDefault(__webpack_require__(147));
 
-var _devices = _interopRequireDefault(__webpack_require__(144));
+var _devices = _interopRequireDefault(__webpack_require__(148));
 
-var _times = _interopRequireDefault(__webpack_require__(145));
+var _times = _interopRequireDefault(__webpack_require__(149));
 
 var _default = /*#__PURE__*/function (_elementorModules$Mod) {
   (0, _inherits2.default)(_default, _elementorModules$Mod);
@@ -2259,7 +2464,7 @@ var _default = /*#__PURE__*/function (_elementorModules$Mod) {
 exports.default = _default;
 
 /***/ }),
-/* 139 */
+/* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2318,7 +2523,7 @@ var _default = /*#__PURE__*/function (_BaseTiming) {
 exports.default = _default;
 
 /***/ }),
-/* 140 */
+/* 144 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2377,7 +2582,7 @@ var _default = /*#__PURE__*/function (_BaseTiming) {
 exports.default = _default;
 
 /***/ }),
-/* 141 */
+/* 145 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2443,7 +2648,7 @@ var _default = /*#__PURE__*/function (_BaseTiming) {
 exports.default = _default;
 
 /***/ }),
-/* 142 */
+/* 146 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2514,7 +2719,7 @@ var _default = /*#__PURE__*/function (_BaseTiming) {
 exports.default = _default;
 
 /***/ }),
-/* 143 */
+/* 147 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2577,7 +2782,7 @@ var _default = /*#__PURE__*/function (_BaseTiming) {
 exports.default = _default;
 
 /***/ }),
-/* 144 */
+/* 148 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2627,7 +2832,7 @@ var _default = /*#__PURE__*/function (_BaseTiming) {
 exports.default = _default;
 
 /***/ }),
-/* 145 */
+/* 149 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2678,7 +2883,7 @@ var _default = /*#__PURE__*/function (_BaseTiming) {
 exports.default = _default;
 
 /***/ }),
-/* 146 */
+/* 150 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2725,7 +2930,7 @@ module.exports = function ($scope) {
 };
 
 /***/ }),
-/* 147 */
+/* 151 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2746,7 +2951,7 @@ var _getPrototypeOf2 = _interopRequireDefault(__webpack_require__(1));
 
 var _inherits2 = _interopRequireDefault(__webpack_require__(4));
 
-var _handler = _interopRequireDefault(__webpack_require__(148));
+var _handler = _interopRequireDefault(__webpack_require__(152));
 
 var _default = /*#__PURE__*/function (_elementorModules$Mod) {
   (0, _inherits2.default)(_default, _elementorModules$Mod);
@@ -2770,7 +2975,7 @@ var _default = /*#__PURE__*/function (_elementorModules$Mod) {
 exports.default = _default;
 
 /***/ }),
-/* 148 */
+/* 152 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2797,7 +3002,7 @@ var _get3 = _interopRequireDefault(__webpack_require__(6));
 
 var _inherits2 = _interopRequireDefault(__webpack_require__(4));
 
-var _motionFx = _interopRequireDefault(__webpack_require__(149));
+var _motionFx = _interopRequireDefault(__webpack_require__(153));
 
 var _default = /*#__PURE__*/function (_elementorModules$fro) {
   (0, _inherits2.default)(_default, _elementorModules$fro);
@@ -2955,6 +3160,10 @@ var _default = /*#__PURE__*/function (_elementorModules$fro) {
         options.range = 'page';
       }
 
+      if ('fixed' === this.getCurrentDeviceSetting('_position')) {
+        options.isFixedPosition = true;
+      }
+
       if ('background' === type && 'column' === this.getElementType()) {
         options.addBackgroundLayerTo = ' > .elementor-element-populated';
       }
@@ -3066,7 +3275,7 @@ var _default = /*#__PURE__*/function (_elementorModules$fro) {
 exports.default = _default;
 
 /***/ }),
-/* 149 */
+/* 153 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3091,11 +3300,11 @@ var _get2 = _interopRequireDefault(__webpack_require__(6));
 
 var _inherits2 = _interopRequireDefault(__webpack_require__(4));
 
-var _scroll = _interopRequireDefault(__webpack_require__(150));
+var _scroll = _interopRequireDefault(__webpack_require__(154));
 
-var _mouseMove = _interopRequireDefault(__webpack_require__(151));
+var _mouseMove = _interopRequireDefault(__webpack_require__(155));
 
-var _actions = _interopRequireDefault(__webpack_require__(152));
+var _actions = _interopRequireDefault(__webpack_require__(156));
 
 var _default = /*#__PURE__*/function (_elementorModules$Vie) {
   (0, _inherits2.default)(_default, _elementorModules$Vie);
@@ -3260,7 +3469,7 @@ var _default = /*#__PURE__*/function (_elementorModules$Vie) {
           }
         });
 
-        _this.interactions[interactionName].runImmediately();
+        _this.interactions[interactionName].run();
       });
     }
   }, {
@@ -3335,7 +3544,7 @@ var _default = /*#__PURE__*/function (_elementorModules$Vie) {
 exports.default = _default;
 
 /***/ }),
-/* 150 */
+/* 154 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3358,7 +3567,9 @@ var _getPrototypeOf2 = _interopRequireDefault(__webpack_require__(1));
 
 var _inherits2 = _interopRequireDefault(__webpack_require__(4));
 
-var _base = _interopRequireDefault(__webpack_require__(17));
+var _base = _interopRequireDefault(__webpack_require__(19));
+
+var _scroll = _interopRequireDefault(__webpack_require__(17));
 
 var _default = /*#__PURE__*/function (_BaseInteraction) {
   (0, _inherits2.default)(_default, _BaseInteraction);
@@ -3372,25 +3583,38 @@ var _default = /*#__PURE__*/function (_BaseInteraction) {
     key: "run",
     value: function run() {
       if (pageYOffset === this.windowScrollTop) {
-        return;
+        return false;
       }
 
+      this.onScrollMovement();
+      this.windowScrollTop = pageYOffset;
+    }
+  }, {
+    key: "onScrollMovement",
+    value: function onScrollMovement() {
+      this.updateMotionFxDimensions();
+      this.updateAnimation();
+    }
+  }, {
+    key: "updateMotionFxDimensions",
+    value: function updateMotionFxDimensions() {
       var motionFXSettings = this.motionFX.getSettings();
 
       if (motionFXSettings.refreshDimensions) {
         this.motionFX.defineDimensions();
       }
-
-      this.windowScrollTop = pageYOffset;
+    }
+  }, {
+    key: "updateAnimation",
+    value: function updateAnimation() {
       var passedRangePercents;
 
       if ('page' === this.motionFX.getSettings('range')) {
-        passedRangePercents = document.documentElement.scrollTop / (document.body.scrollHeight - innerHeight) * 100;
+        passedRangePercents = _scroll.default.getPageScrollPercentage();
+      } else if (this.motionFX.getSettings('isFixedPosition')) {
+        passedRangePercents = _scroll.default.getPageScrollPercentage({}, window.innerHeight);
       } else {
-        var dimensions = motionFXSettings.dimensions,
-            elementTopWindowPoint = dimensions.elementTop - pageYOffset,
-            elementEntrancePoint = elementTopWindowPoint - innerHeight;
-        passedRangePercents = 100 / dimensions.elementRange * (elementEntrancePoint * -1);
+        passedRangePercents = _scroll.default.getElementViewportPercentage(this.motionFX.elements.$parent);
       }
 
       this.runCallback(passedRangePercents);
@@ -3402,7 +3626,7 @@ var _default = /*#__PURE__*/function (_BaseInteraction) {
 exports.default = _default;
 
 /***/ }),
-/* 151 */
+/* 155 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3427,7 +3651,7 @@ var _get2 = _interopRequireDefault(__webpack_require__(6));
 
 var _inherits2 = _interopRequireDefault(__webpack_require__(4));
 
-var _base = _interopRequireDefault(__webpack_require__(17));
+var _base = _interopRequireDefault(__webpack_require__(19));
 
 var MouseMoveInteraction = /*#__PURE__*/function (_BaseInteraction) {
   (0, _inherits2.default)(MouseMoveInteraction, _BaseInteraction);
@@ -3484,7 +3708,7 @@ MouseMoveInteraction.updateMousePosition = function (event) {
 };
 
 /***/ }),
-/* 152 */
+/* 156 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3739,7 +3963,7 @@ var _default = /*#__PURE__*/function (_elementorModules$Mod) {
 exports.default = _default;
 
 /***/ }),
-/* 153 */
+/* 157 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3760,7 +3984,7 @@ var _getPrototypeOf2 = _interopRequireDefault(__webpack_require__(1));
 
 var _inherits2 = _interopRequireDefault(__webpack_require__(4));
 
-var _handler = _interopRequireDefault(__webpack_require__(154));
+var _handler = _interopRequireDefault(__webpack_require__(158));
 
 var _default = /*#__PURE__*/function (_elementorModules$Mod) {
   (0, _inherits2.default)(_default, _elementorModules$Mod);
@@ -3784,7 +4008,7 @@ var _default = /*#__PURE__*/function (_elementorModules$Mod) {
 exports.default = _default;
 
 /***/ }),
-/* 154 */
+/* 158 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4075,7 +4299,7 @@ var galleryHandler = /*#__PURE__*/function (_elementorModules$fro) {
 exports.default = galleryHandler;
 
 /***/ }),
-/* 155 */
+/* 159 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4096,7 +4320,929 @@ var _getPrototypeOf2 = _interopRequireDefault(__webpack_require__(1));
 
 var _inherits2 = _interopRequireDefault(__webpack_require__(4));
 
-var _tableOfContents = _interopRequireDefault(__webpack_require__(156));
+var _handler = _interopRequireDefault(__webpack_require__(160));
+
+var _default = /*#__PURE__*/function (_elementorModules$Mod) {
+  (0, _inherits2.default)(_default, _elementorModules$Mod);
+
+  function _default() {
+    var _this;
+
+    (0, _classCallCheck2.default)(this, _default);
+    _this = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(_default).call(this));
+    elementorFrontend.hooks.addAction('frontend/element_ready/lottie.default', function ($element) {
+      elementorFrontend.elementsHandler.addHandler(_handler.default, {
+        $element: $element
+      });
+    });
+    return _this;
+  }
+
+  return _default;
+}(elementorModules.Module);
+
+exports.default = _default;
+
+/***/ }),
+/* 160 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(0);
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _objectSpread2 = _interopRequireDefault(__webpack_require__(20));
+
+var _classCallCheck2 = _interopRequireDefault(__webpack_require__(2));
+
+var _createClass2 = _interopRequireDefault(__webpack_require__(5));
+
+var _possibleConstructorReturn2 = _interopRequireDefault(__webpack_require__(3));
+
+var _getPrototypeOf2 = _interopRequireDefault(__webpack_require__(1));
+
+var _get3 = _interopRequireDefault(__webpack_require__(6));
+
+var _inherits2 = _interopRequireDefault(__webpack_require__(4));
+
+var _scroll = _interopRequireDefault(__webpack_require__(17));
+
+var lottieHandler = /*#__PURE__*/function (_elementorModules$fro) {
+  (0, _inherits2.default)(lottieHandler, _elementorModules$fro);
+
+  function lottieHandler() {
+    (0, _classCallCheck2.default)(this, lottieHandler);
+    return (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(lottieHandler).apply(this, arguments));
+  }
+
+  (0, _createClass2.default)(lottieHandler, [{
+    key: "getDefaultSettings",
+    value: function getDefaultSettings() {
+      return {
+        selectors: {
+          container: '.e-lottie__container',
+          containerLink: '.e-lottie__container__link',
+          animation: '.e-lottie__animation',
+          caption: '.e-lottie__caption'
+        },
+        classes: {
+          caption: 'e-lottie__caption'
+        }
+      };
+    }
+  }, {
+    key: "getDefaultElements",
+    value: function getDefaultElements() {
+      var _this$getSettings = this.getSettings(),
+          selectors = _this$getSettings.selectors;
+
+      return {
+        $widgetWrapper: this.$element,
+        $container: this.$element.find(selectors.container),
+        $containerLink: this.$element.find(selectors.containerLink),
+        $animation: this.$element.find(selectors.animation),
+        $caption: this.$element.find(selectors.caption),
+        $sectionParent: this.$element.closest('.elementor-section'),
+        $columnParent: this.$element.closest('.elementor-column')
+      };
+    }
+  }, {
+    key: "onInit",
+    value: function onInit() {
+      var _get2;
+
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      (_get2 = (0, _get3.default)((0, _getPrototypeOf2.default)(lottieHandler.prototype), "onInit", this)).call.apply(_get2, [this].concat(args));
+
+      this.lottie = null;
+      this.state = {
+        isAnimationScrollUpdateNeededOnFirstLoad: true,
+        isNewLoopCycle: false,
+        isInViewport: false,
+        loop: false,
+        animationDirection: 'forward',
+        currentAnimationTrigger: '',
+        effectsRelativeTo: '',
+        hoverOutMode: '',
+        hoverArea: '',
+        caption: '',
+        playAnimationCount: 0,
+        animationSpeed: 0,
+        linkTimeout: 0,
+        viewportOffset: {
+          start: 0,
+          end: 100
+        }
+      };
+      this.intersectionObservers = {
+        animation: {
+          observer: null,
+          element: null
+        },
+        lazyload: {
+          observer: null,
+          element: null
+        }
+      };
+      this.animationFrameRequest = {
+        timer: null,
+        lastScrollY: 0
+      };
+      this.listeners = {
+        collection: [],
+        elements: {
+          $widgetArea: {
+            triggerAnimationHoverIn: null,
+            triggerAnimationHoverOut: null
+          },
+          $container: {
+            triggerAnimationClick: null
+          }
+        }
+      };
+      this.initLottie();
+    }
+  }, {
+    key: "initLottie",
+    value: function initLottie() {
+      var lottieSettings = this.getLottieSettings();
+
+      if (lottieSettings.lazyload) {
+        this.lazyloadLottie();
+      } else {
+        this.generateLottie();
+      }
+    }
+  }, {
+    key: "lazyloadLottie",
+    value: function lazyloadLottie() {
+      var _this = this;
+
+      var bufferHeightBeforeTriggerLottie = 200;
+      this.intersectionObservers.lazyload.observer = _scroll.default.scrollObserver({
+        offset: "0px 0px ".concat(bufferHeightBeforeTriggerLottie, "px"),
+        callback: function callback(event) {
+          if (event.isInViewport) {
+            _this.generateLottie();
+
+            _this.intersectionObservers.lazyload.observer.unobserve(_this.intersectionObservers.lazyload.element);
+          }
+        }
+      });
+      this.intersectionObservers.lazyload.element = this.elements.$container[0];
+      this.intersectionObservers.lazyload.observer.observe(this.intersectionObservers.lazyload.element);
+    }
+  }, {
+    key: "generateLottie",
+    value: function generateLottie() {
+      this.createLottieInstance();
+      this.setLottieEvents();
+    }
+  }, {
+    key: "createLottieInstance",
+    value: function createLottieInstance() {
+      var lottieSettings = this.getLottieSettings();
+      this.lottie = bodymovin.loadAnimation({
+        container: this.elements.$animation[0],
+        path: this.getAnimationPath(),
+        renderer: lottieSettings.renderer,
+        autoplay: false,
+        // We always want to trigger the animation manually for considering start/end frame.
+        name: 'lottie-widget'
+      }); // Expose the lottie instance in the frontend.
+
+      this.elements.$animation.data('lottie', this.lottie);
+    }
+  }, {
+    key: "getAnimationPath",
+    value: function getAnimationPath() {
+      var _lottieSettings$sourc, _lottieSettings$sourc2;
+
+      var lottieSettings = this.getLottieSettings();
+
+      if (((_lottieSettings$sourc = lottieSettings.source_json) === null || _lottieSettings$sourc === void 0 ? void 0 : _lottieSettings$sourc.url) && 'json' === lottieSettings.source_json.url.toLowerCase().substr(-4)) {
+        return lottieSettings.source_json.url;
+      } else if ((_lottieSettings$sourc2 = lottieSettings.source_external_url) === null || _lottieSettings$sourc2 === void 0 ? void 0 : _lottieSettings$sourc2.url) {
+        return lottieSettings.source_external_url.url;
+      } // Default animation path.
+
+
+      return elementorProFrontend.config.lottie.defaultAnimationUrl;
+    }
+  }, {
+    key: "setCaption",
+    value: function setCaption() {
+      var lottieSettings = this.getLottieSettings();
+
+      if ('external_url' === lottieSettings.source || 'media_file' === lottieSettings.source && 'custom' === lottieSettings.caption_source) {
+        var $captionElement = this.getCaptionElement();
+        $captionElement.text(lottieSettings.caption);
+      }
+    }
+  }, {
+    key: "getCaptionElement",
+    value: function getCaptionElement() {
+      if (!this.elements.$caption.length) {
+        var _this$getSettings2 = this.getSettings(),
+            classes = _this$getSettings2.classes;
+
+        this.elements.$caption = jQuery('<p>', {
+          class: classes.caption
+        });
+        this.elements.$container.append(this.elements.$caption);
+        return this.elements.$caption;
+      }
+
+      return this.elements.$caption;
+    }
+  }, {
+    key: "setLottieEvents",
+    value: function setLottieEvents() {
+      var _this2 = this;
+
+      this.lottie.addEventListener('DOMLoaded', function () {
+        return _this2.onLottieDomLoaded();
+      });
+      this.lottie.addEventListener('complete', function () {
+        return _this2.onComplete();
+      });
+    }
+  }, {
+    key: "saveInitialValues",
+    value: function saveInitialValues() {
+      var _lottieSettings$play_;
+
+      var lottieSettings = this.getLottieSettings();
+      /*
+      These values of the animation are being changed during the animation runtime
+      and saved in the lottie instance (and not in the state) for the instance expose in the frontend.
+       */
+
+      this.lottie.__initialTotalFrames = this.lottie.totalFrames;
+      this.lottie.__initialFirstFrame = this.lottie.firstFrame;
+      this.state.currentAnimationTrigger = lottieSettings.trigger;
+      this.state.effectsRelativeTo = lottieSettings.effects_relative_to;
+      this.state.viewportOffset.start = lottieSettings.viewport ? lottieSettings.viewport.sizes.start : 0;
+      this.state.viewportOffset.end = lottieSettings.viewport ? lottieSettings.viewport.sizes.end : 100;
+      this.state.animationSpeed = (_lottieSettings$play_ = lottieSettings.play_speed) === null || _lottieSettings$play_ === void 0 ? void 0 : _lottieSettings$play_.size;
+      this.state.linkTimeout = lottieSettings.link_timeout;
+      this.state.caption = lottieSettings.caption;
+      this.state.loop = lottieSettings.loop;
+    }
+  }, {
+    key: "setAnimationFirstFrame",
+    value: function setAnimationFirstFrame() {
+      var frame = this.getAnimationFrames();
+      /*
+      We need to subtract the initial first frame from the first frame for handling scenarios
+      when the animation first frame is not 0, this way we always get the relevant first frame.
+      example: when start point is 70 and initial first frame is 60, the animation should start at 10.
+       */
+
+      frame.first = frame.first - this.lottie.__initialFirstFrame;
+      this.lottie.goToAndStop(frame.first, true);
+    }
+  }, {
+    key: "initAnimationTrigger",
+    value: function initAnimationTrigger() {
+      var lottieSettings = this.getLottieSettings();
+
+      switch (lottieSettings.trigger) {
+        case 'none':
+          this.playLottie();
+          break;
+
+        case 'arriving_to_viewport':
+          this.playAnimationWhenArrivingToViewport();
+          break;
+
+        case 'bind_to_scroll':
+          this.playAnimationWhenBindToScroll();
+          break;
+
+        case 'on_click':
+          this.bindAnimationClickEvents();
+          break;
+
+        case 'on_hover':
+          this.bindAnimationHoverEvents();
+          break;
+      }
+    }
+  }, {
+    key: "playAnimationWhenArrivingToViewport",
+    value: function playAnimationWhenArrivingToViewport() {
+      var _this3 = this;
+
+      var offset = this.getOffset();
+      this.intersectionObservers.animation.observer = _scroll.default.scrollObserver({
+        offset: "".concat(offset.end, "% 0% ").concat(offset.start, "%"),
+        callback: function callback(event) {
+          if (event.isInViewport) {
+            _this3.state.isInViewport = true;
+
+            _this3.playLottie();
+          } else {
+            _this3.state.isInViewport = false;
+
+            _this3.lottie.pause();
+          }
+        }
+      });
+      this.intersectionObservers.animation.element = this.elements.$widgetWrapper[0];
+      this.intersectionObservers.animation.observer.observe(this.intersectionObservers.animation.element);
+    }
+  }, {
+    key: "getOffset",
+    value: function getOffset() {
+      var lottieSettings = this.getLottieSettings(),
+          start = -lottieSettings.viewport.sizes.start || 0,
+          end = -(100 - lottieSettings.viewport.sizes.end) || 0;
+      return {
+        start: start,
+        end: end
+      };
+    }
+  }, {
+    key: "playAnimationWhenBindToScroll",
+    value: function playAnimationWhenBindToScroll() {
+      var _this4 = this;
+
+      var lottieSettings = this.getLottieSettings(),
+          offset = this.getOffset(); // Generate scroll detection by Intersection Observer API
+
+      this.intersectionObservers.animation.observer = _scroll.default.scrollObserver({
+        offset: "".concat(offset.end, "% 0% ").concat(offset.start, "%"),
+        callback: function callback(event) {
+          return _this4.onLottieIntersection(event);
+        }
+      });
+      this.intersectionObservers.animation.element = 'viewport' === lottieSettings.effects_relative_to ? this.elements.$widgetWrapper[0] : document.documentElement;
+      this.intersectionObservers.animation.observer.observe(this.intersectionObservers.animation.element);
+    }
+  }, {
+    key: "updateAnimationByScrollPosition",
+    value: function updateAnimationByScrollPosition() {
+      var lottieSettings = this.getLottieSettings();
+      var percentage;
+
+      if ('page' === lottieSettings.effects_relative_to) {
+        percentage = this.getLottiePagePercentage();
+      } else if ('fixed' === this.getCurrentDeviceSetting('_position')) {
+        percentage = this.getLottieViewportHeightPercentage();
+      } else {
+        percentage = this.getLottieViewportPercentage();
+      }
+
+      var nextFrameToPlay = this.getFrameNumberByPercent(percentage);
+      nextFrameToPlay = nextFrameToPlay - this.lottie.__initialFirstFrame;
+      this.lottie.goToAndStop(nextFrameToPlay, true);
+    }
+  }, {
+    key: "getLottieViewportPercentage",
+    value: function getLottieViewportPercentage() {
+      return _scroll.default.getElementViewportPercentage(this.elements.$widgetWrapper, this.getOffset());
+    }
+  }, {
+    key: "getLottiePagePercentage",
+    value: function getLottiePagePercentage() {
+      return _scroll.default.getPageScrollPercentage(this.getOffset());
+    }
+  }, {
+    key: "getLottieViewportHeightPercentage",
+    value: function getLottieViewportHeightPercentage() {
+      return _scroll.default.getPageScrollPercentage(this.getOffset(), window.innerHeight);
+    }
+    /**
+     * @param {number} percent - Percent value between 0-100
+     */
+
+  }, {
+    key: "getFrameNumberByPercent",
+    value: function getFrameNumberByPercent(percent) {
+      var frame = this.getAnimationFrames();
+      /*
+      In mobile devices the document height can be 'stretched' at the top and bottom points of the document,
+      this 'stretched' will make percent to be either negative or larger than 100, therefore we need to limit percent between 0-100.
+      */
+
+      percent = Math.min(100, Math.max(0, percent)); // Getting frame number by percent of range, considering start/end frame values if exist.
+
+      return frame.first + (frame.last - frame.first) * percent / 100;
+    }
+  }, {
+    key: "getAnimationFrames",
+    value: function getAnimationFrames() {
+      var lottieSettings = this.getLottieSettings(),
+          currentFrame = this.getAnimationCurrentFrame(),
+          startPoint = this.getAnimationRange().start,
+          endPoint = this.getAnimationRange().end;
+      var firstFrame = this.lottie.__initialFirstFrame,
+          lastFrame = 0 === this.lottie.__initialFirstFrame ? this.lottie.__initialTotalFrames : this.lottie.__initialFirstFrame + this.lottie.__initialTotalFrames; // Limiting min start point to animation first frame.
+
+      if (startPoint && startPoint > firstFrame) {
+        firstFrame = startPoint;
+      } // limiting max end point to animation last frame.
+
+
+      if (endPoint && endPoint < lastFrame) {
+        lastFrame = endPoint;
+      }
+      /*
+      Getting the relevant first frame after loop complete and when not bind to scroll.
+      when the animation is in progress (no when a new loop start), the first frame should be the current frame.
+      when the trigger is bind_to_scroll we DON'T need to get this functionality.
+      */
+
+
+      if (!this.state.isNewLoopCycle && 'bind_to_scroll' !== lottieSettings.trigger) {
+        // When we have a custom start point, we need to check if the start point is larger than the last pause stop of the animation.
+        firstFrame = startPoint && startPoint > currentFrame ? startPoint : currentFrame;
+      } // Reverse Mode.
+
+
+      if ('backward' === this.state.animationDirection && this.isReverseMode()) {
+        firstFrame = currentFrame;
+        lastFrame = startPoint && startPoint > this.lottie.__initialFirstFrame ? startPoint : this.lottie.__initialFirstFrame;
+      }
+
+      return {
+        first: firstFrame,
+        last: lastFrame,
+        current: currentFrame,
+        total: this.lottie.__initialTotalFrames
+      };
+    }
+  }, {
+    key: "getAnimationRange",
+    value: function getAnimationRange() {
+      var lottieSettings = this.getLottieSettings();
+      return {
+        start: this.getInitialFrameNumberByPercent(lottieSettings.start_point.size),
+        end: this.getInitialFrameNumberByPercent(lottieSettings.end_point.size)
+      };
+    }
+  }, {
+    key: "getInitialFrameNumberByPercent",
+    value: function getInitialFrameNumberByPercent(percent) {
+      percent = Math.min(100, Math.max(0, percent));
+      return this.lottie.__initialFirstFrame + (this.lottie.__initialTotalFrames - this.lottie.__initialFirstFrame) * percent / 100;
+    }
+  }, {
+    key: "getAnimationCurrentFrame",
+    value: function getAnimationCurrentFrame() {
+      // When pausing the animation (when out of viewport) the first frame of the animation changes.
+      return 0 === this.lottie.firstFrame ? this.lottie.currentFrame : this.lottie.firstFrame + this.lottie.currentFrame;
+    }
+  }, {
+    key: "setLinkTimeout",
+    value: function setLinkTimeout() {
+      var _lottieSettings$custo,
+          _this5 = this;
+
+      var lottieSettings = this.getLottieSettings();
+
+      if ('on_click' === lottieSettings.trigger && ((_lottieSettings$custo = lottieSettings.custom_link) === null || _lottieSettings$custo === void 0 ? void 0 : _lottieSettings$custo.url) && lottieSettings.link_timeout) {
+        this.elements.$containerLink.click(function (event) {
+          event.preventDefault();
+
+          if (!_this5.isEdit) {
+            setTimeout(function () {
+              var tabTarget = 'on' === lottieSettings.custom_link.is_external ? '_blank' : '_self';
+              window.open(lottieSettings.custom_link.url, tabTarget);
+            }, lottieSettings.link_timeout);
+          }
+        });
+      }
+    }
+  }, {
+    key: "bindAnimationClickEvents",
+    value: function bindAnimationClickEvents() {
+      var _this6 = this;
+
+      this.listeners.elements.$container.triggerAnimationClick = function () {
+        _this6.playLottie();
+      };
+
+      this.addSessionEventListener(this.elements.$container, 'click', this.listeners.elements.$container.triggerAnimationClick);
+    }
+  }, {
+    key: "getLottieSettings",
+    value: function getLottieSettings() {
+      var lottieSettings = this.getElementSettings();
+      return (0, _objectSpread2.default)({}, lottieSettings, {
+        lazyload: 'yes' === lottieSettings.lazyload,
+        loop: 'yes' === lottieSettings.loop
+      });
+    }
+  }, {
+    key: "playLottie",
+    value: function playLottie() {
+      var frame = this.getAnimationFrames();
+      this.lottie.stop();
+      this.lottie.playSegments([frame.first, frame.last], true); // We reset the loop cycle state after playing the animation.
+
+      this.state.isNewLoopCycle = false;
+    }
+  }, {
+    key: "bindAnimationHoverEvents",
+    value: function bindAnimationHoverEvents() {
+      this.createAnimationHoverInEvents();
+      this.createAnimationHoverOutEvents();
+    }
+  }, {
+    key: "createAnimationHoverInEvents",
+    value: function createAnimationHoverInEvents() {
+      var _this7 = this;
+
+      var lottieSettings = this.getLottieSettings(),
+          $widgetArea = this.getHoverAreaElement();
+      this.state.hoverArea = lottieSettings.hover_area;
+
+      this.listeners.elements.$widgetArea.triggerAnimationHoverIn = function () {
+        _this7.state.animationDirection = 'forward';
+
+        _this7.playLottie();
+      };
+
+      this.addSessionEventListener($widgetArea, 'mouseenter', this.listeners.elements.$widgetArea.triggerAnimationHoverIn);
+    }
+    /**
+     * @param {jQuery} $el
+     * @param {string} event - event type
+     * @param {function} callback
+     */
+
+  }, {
+    key: "addSessionEventListener",
+    value: function addSessionEventListener($el, event, callback) {
+      $el.on(event, callback);
+      this.listeners.collection.push({
+        $el: $el,
+        event: event,
+        callback: callback
+      });
+    }
+  }, {
+    key: "createAnimationHoverOutEvents",
+    value: function createAnimationHoverOutEvents() {
+      var _this8 = this;
+
+      var lottieSettings = this.getLottieSettings(),
+          $widgetArea = this.getHoverAreaElement();
+
+      if ('pause' === lottieSettings.on_hover_out || 'reverse' === lottieSettings.on_hover_out) {
+        this.state.hoverOutMode = lottieSettings.on_hover_out;
+
+        this.listeners.elements.$widgetArea.triggerAnimationHoverOut = function () {
+          if ('pause' === lottieSettings.on_hover_out) {
+            _this8.lottie.pause();
+          } else {
+            _this8.state.animationDirection = 'backward';
+
+            _this8.playLottie();
+          }
+        };
+
+        this.addSessionEventListener($widgetArea, 'mouseleave', this.listeners.elements.$widgetArea.triggerAnimationHoverOut);
+      }
+    }
+  }, {
+    key: "getHoverAreaElement",
+    value: function getHoverAreaElement() {
+      var lottieSettings = this.getLottieSettings();
+
+      if ('section' === lottieSettings.hover_area) {
+        return this.elements.$sectionParent;
+      } else if ('column' === lottieSettings.hover_area) {
+        return this.elements.$columnParent;
+      }
+
+      return this.elements.$container;
+    }
+  }, {
+    key: "setLoopOnAnimationComplete",
+    value: function setLoopOnAnimationComplete() {
+      var lottieSettings = this.getLottieSettings();
+      this.state.isNewLoopCycle = true;
+
+      if (lottieSettings.loop && !this.isReverseMode()) {
+        this.setLoopWhenNotReverse();
+      } else if (lottieSettings.loop && this.isReverseMode()) {
+        this.setReverseAnimationOnLoop();
+      } else if (!lottieSettings.loop && this.isReverseMode()) {
+        this.setReverseAnimationOnSingleTrigger();
+      }
+    }
+  }, {
+    key: "isReverseMode",
+    value: function isReverseMode() {
+      var lottieSettings = this.getLottieSettings();
+      return 'yes' === lottieSettings.reverse_animation || 'reverse' === lottieSettings.on_hover_out && 'backward' === this.state.animationDirection;
+    }
+  }, {
+    key: "setLoopWhenNotReverse",
+    value: function setLoopWhenNotReverse() {
+      var lottieSettings = this.getLottieSettings();
+
+      if (lottieSettings.number_of_times > 0) {
+        this.state.playAnimationCount++;
+
+        if (this.state.playAnimationCount < lottieSettings.number_of_times) {
+          this.playLottie();
+        } else {
+          this.state.playAnimationCount = 0;
+        }
+      } else {
+        this.playLottie();
+      }
+    }
+  }, {
+    key: "setReverseAnimationOnLoop",
+    value: function setReverseAnimationOnLoop() {
+      var lottieSettings = this.getLottieSettings();
+      /*
+      We trigger the reverse animation:
+      either when we don't have any value in the 'Number of Times" field, and then it will be an infinite forward/backward loop,
+      or, when we have a value in the 'Number of Times" field and then we need to limit the number of times of the loop cycles.
+       */
+
+      if (!lottieSettings.number_of_times || this.state.playAnimationCount < lottieSettings.number_of_times) {
+        this.state.animationDirection = 'forward' === this.state.animationDirection ? 'backward' : 'forward';
+        this.playLottie();
+        /*
+        We need to increment the count only on the backward movements,
+        because forward movement + backward movement are equal together to one full movement count.
+        */
+
+        if ('backward' === this.state.animationDirection) {
+          this.state.playAnimationCount++;
+        }
+      } else {
+        // Reset the values for the loop counting for the next trigger.
+        this.state.playAnimationCount = 0;
+        this.state.animationDirection = 'forward';
+      }
+    }
+  }, {
+    key: "setReverseAnimationOnSingleTrigger",
+    value: function setReverseAnimationOnSingleTrigger() {
+      if (this.state.playAnimationCount < 1) {
+        this.state.playAnimationCount++;
+        this.state.animationDirection = 'backward';
+        this.playLottie();
+      } else if (this.state.playAnimationCount >= 1 && 'forward' === this.state.animationDirection) {
+        this.state.animationDirection = 'backward';
+        this.playLottie();
+      } else {
+        this.state.playAnimationCount = 0;
+        this.state.animationDirection = 'forward';
+      }
+    }
+  }, {
+    key: "setAnimationSpeed",
+    value: function setAnimationSpeed() {
+      var lottieSettings = this.getLottieSettings();
+
+      if (lottieSettings.play_speed) {
+        this.lottie.setSpeed(lottieSettings.play_speed.size);
+      }
+    }
+  }, {
+    key: "onElementChange",
+    value: function onElementChange() {
+      this.updateLottieValues();
+      this.resetAnimationTrigger();
+    }
+  }, {
+    key: "updateLottieValues",
+    value: function updateLottieValues() {
+      var _lottieSettings$play_2,
+          _this9 = this;
+
+      var lottieSettings = this.getLottieSettings(),
+          valuesComparison = [{
+        sourceVal: (_lottieSettings$play_2 = lottieSettings.play_speed) === null || _lottieSettings$play_2 === void 0 ? void 0 : _lottieSettings$play_2.size,
+        stateProp: 'animationSpeed',
+        callback: function callback() {
+          return _this9.setAnimationSpeed();
+        }
+      }, {
+        sourceVal: lottieSettings.link_timeout,
+        stateProp: 'linkTimeout',
+        callback: function callback() {
+          return _this9.setLinkTimeout();
+        }
+      }, {
+        sourceVal: lottieSettings.caption,
+        stateProp: 'caption',
+        callback: function callback() {
+          return _this9.setCaption();
+        }
+      }, {
+        sourceVal: lottieSettings.effects_relative_to,
+        stateProp: 'effectsRelativeTo',
+        callback: function callback() {
+          return _this9.updateAnimationByScrollPosition();
+        }
+      }, {
+        sourceVal: lottieSettings.loop,
+        stateProp: 'loop',
+        callback: function callback() {
+          return _this9.onLoopStateChange();
+        }
+      }];
+      valuesComparison.forEach(function (item) {
+        if ('undefined' !== typeof item.sourceVal && item.sourceVal !== _this9.state[item.stateProp]) {
+          _this9.state[item.stateProp] = item.sourceVal;
+          item.callback();
+        }
+      });
+    }
+  }, {
+    key: "onLoopStateChange",
+    value: function onLoopStateChange() {
+      var isInActiveViewportMode = 'arriving_to_viewport' === this.state.currentAnimationTrigger && this.state.isInViewport;
+
+      if (this.state.loop && (isInActiveViewportMode || 'none' === this.state.currentAnimationTrigger)) {
+        this.playLottie();
+      }
+    }
+  }, {
+    key: "resetAnimationTrigger",
+    value: function resetAnimationTrigger() {
+      var lottieSettings = this.getLottieSettings(),
+          isTriggerChange = lottieSettings.trigger !== this.state.currentAnimationTrigger,
+          isViewportOffsetChange = lottieSettings.viewport ? this.isViewportOffsetChange() : false,
+          isHoverOutModeChange = lottieSettings.on_hover_out ? this.isHoverOutModeChange() : false,
+          isHoverAreaChange = lottieSettings.hover_area ? this.isHoverAreaChange() : false;
+
+      if (isTriggerChange || isViewportOffsetChange || isHoverOutModeChange || isHoverAreaChange) {
+        this.removeAnimationFrameRequests();
+        this.removeObservers();
+        this.removeEventListeners();
+        this.initAnimationTrigger();
+      }
+    }
+  }, {
+    key: "isViewportOffsetChange",
+    value: function isViewportOffsetChange() {
+      var lottieSettings = this.getLottieSettings(),
+          isStartOffsetChange = lottieSettings.viewport.sizes.start !== this.state.viewportOffset.start,
+          isEndOffsetChange = lottieSettings.viewport.sizes.end !== this.state.viewportOffset.end;
+      return isStartOffsetChange || isEndOffsetChange;
+    }
+  }, {
+    key: "isHoverOutModeChange",
+    value: function isHoverOutModeChange() {
+      var lottieSettings = this.getLottieSettings();
+      return lottieSettings.on_hover_out !== this.state.hoverOutMode;
+    }
+  }, {
+    key: "isHoverAreaChange",
+    value: function isHoverAreaChange() {
+      var lottieSettings = this.getLottieSettings();
+      return lottieSettings.hover_area !== this.state.hoverArea;
+    }
+  }, {
+    key: "removeEventListeners",
+    value: function removeEventListeners() {
+      this.listeners.collection.forEach(function (listener) {
+        listener.$el.off(listener.event, null, listener.callback);
+      });
+    }
+  }, {
+    key: "removeObservers",
+    value: function removeObservers() {
+      // Removing all observers.
+      for (var type in this.intersectionObservers) {
+        if (this.intersectionObservers[type].observer && this.intersectionObservers[type].element) {
+          this.intersectionObservers[type].observer.unobserve(this.intersectionObservers[type].element);
+        }
+      }
+    }
+  }, {
+    key: "removeAnimationFrameRequests",
+    value: function removeAnimationFrameRequests() {
+      cancelAnimationFrame(this.animationFrameRequest.timer);
+    }
+  }, {
+    key: "onDestroy",
+    value: function onDestroy() {
+      (0, _get3.default)((0, _getPrototypeOf2.default)(lottieHandler.prototype), "onDestroy", this).call(this);
+      this.destroyLottie();
+    }
+  }, {
+    key: "destroyLottie",
+    value: function destroyLottie() {
+      this.removeAnimationFrameRequests();
+      this.removeObservers();
+      this.removeEventListeners();
+      this.elements.$animation.removeData('lottie');
+
+      if (this.lottie) {
+        this.lottie.destroy();
+      }
+    }
+  }, {
+    key: "onLottieDomLoaded",
+    value: function onLottieDomLoaded() {
+      this.saveInitialValues();
+      this.setAnimationSpeed();
+      this.setLinkTimeout();
+      this.setCaption();
+      this.setAnimationFirstFrame();
+      this.initAnimationTrigger();
+    }
+  }, {
+    key: "onComplete",
+    value: function onComplete() {
+      this.setLoopOnAnimationComplete();
+    }
+  }, {
+    key: "onLottieIntersection",
+    value: function onLottieIntersection(event) {
+      var _this10 = this;
+
+      if (event.isInViewport) {
+        /*
+        It's required to update the animation progress on first load when lottie is inside the viewport on load
+        but, there is a problem when the browser is refreshed when the scroll bar is not in 0 position,
+        in this scenario, after the refresh the browser will trigger 2 scroll events
+        one trigger on immediate load and second after a f ew ms to move the scroll bar to previous position (before refresh)
+        therefore, we use the this.state.isAnimationScrollUpdateNeededOnFirstLoad flag
+        to make sure that this.updateAnimationByScrollPosition() function will be triggered only once.
+         */
+        if (this.state.isAnimationScrollUpdateNeededOnFirstLoad) {
+          this.state.isAnimationScrollUpdateNeededOnFirstLoad = false;
+          this.updateAnimationByScrollPosition();
+        }
+
+        this.animationFrameRequest.timer = requestAnimationFrame(function () {
+          return _this10.onAnimationFrameRequest();
+        });
+      } else {
+        var frame = this.getAnimationFrames(),
+            finalFrame = 'up' === event.intersectionScrollDirection ? frame.first : frame.last;
+        this.state.isAnimationScrollUpdateNeededOnFirstLoad = false;
+        cancelAnimationFrame(this.animationFrameRequest.timer); // Set the animation values to min/max when out of viewport.
+
+        this.lottie.goToAndStop(finalFrame, true);
+      }
+    }
+  }, {
+    key: "onAnimationFrameRequest",
+    value: function onAnimationFrameRequest() {
+      var _this11 = this;
+
+      // Making calculation only when there is a change with the scroll position.
+      if (window.scrollY !== this.animationFrameRequest.lastScrollY) {
+        this.updateAnimationByScrollPosition();
+        this.animationFrameRequest.lastScrollY = window.scrollY;
+      }
+
+      this.animationFrameRequest.timer = requestAnimationFrame(function () {
+        return _this11.onAnimationFrameRequest();
+      });
+    }
+  }]);
+  return lottieHandler;
+}(elementorModules.frontend.handlers.Base);
+
+exports.default = lottieHandler;
+
+/***/ }),
+/* 161 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(0);
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _classCallCheck2 = _interopRequireDefault(__webpack_require__(2));
+
+var _possibleConstructorReturn2 = _interopRequireDefault(__webpack_require__(3));
+
+var _getPrototypeOf2 = _interopRequireDefault(__webpack_require__(1));
+
+var _inherits2 = _interopRequireDefault(__webpack_require__(4));
+
+var _tableOfContents = _interopRequireDefault(__webpack_require__(162));
 
 var _default = /*#__PURE__*/function (_elementorModules$Mod) {
   (0, _inherits2.default)(_default, _elementorModules$Mod);
@@ -4120,7 +5266,7 @@ var _default = /*#__PURE__*/function (_elementorModules$Mod) {
 exports.default = _default;
 
 /***/ }),
-/* 156 */
+/* 162 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4588,18 +5734,18 @@ var TOCHandler = /*#__PURE__*/function (_elementorModules$fro) {
 exports.default = TOCHandler;
 
 /***/ }),
-/* 157 */
+/* 163 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = function () {
-  elementorFrontend.hooks.addAction('frontend/element_ready/animated-headline.default', __webpack_require__(158));
+  elementorFrontend.hooks.addAction('frontend/element_ready/animated-headline.default', __webpack_require__(164));
 };
 
 /***/ }),
-/* 158 */
+/* 164 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4868,26 +6014,26 @@ module.exports = function ($scope) {
 };
 
 /***/ }),
-/* 159 */
+/* 165 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = function () {
-  elementorFrontend.hooks.addAction('frontend/element_ready/media-carousel.default', __webpack_require__(160));
-  elementorFrontend.hooks.addAction('frontend/element_ready/testimonial-carousel.default', __webpack_require__(19));
-  elementorFrontend.hooks.addAction('frontend/element_ready/reviews.default', __webpack_require__(19));
+  elementorFrontend.hooks.addAction('frontend/element_ready/media-carousel.default', __webpack_require__(166));
+  elementorFrontend.hooks.addAction('frontend/element_ready/testimonial-carousel.default', __webpack_require__(22));
+  elementorFrontend.hooks.addAction('frontend/element_ready/reviews.default', __webpack_require__(22));
 };
 
 /***/ }),
-/* 160 */
+/* 166 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Base = __webpack_require__(18),
+var Base = __webpack_require__(21),
     MediaCarousel;
 
 MediaCarousel = Base.extend({
@@ -5020,18 +6166,18 @@ module.exports = function ($scope) {
 };
 
 /***/ }),
-/* 161 */
+/* 167 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = function () {
-  elementorFrontend.hooks.addAction('frontend/element_ready/countdown.default', __webpack_require__(162));
+  elementorFrontend.hooks.addAction('frontend/element_ready/countdown.default', __webpack_require__(168));
 };
 
 /***/ }),
-/* 162 */
+/* 168 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5186,22 +6332,740 @@ module.exports = function ($scope) {
 };
 
 /***/ }),
-/* 163 */
+/* 169 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+var _interopRequireDefault = __webpack_require__(0);
+
+var _formSteps = _interopRequireDefault(__webpack_require__(170));
+
+var _formSender = _interopRequireDefault(__webpack_require__(171));
+
+var _formRedirect = _interopRequireDefault(__webpack_require__(172));
+
 module.exports = function () {
-  elementorFrontend.hooks.addAction('frontend/element_ready/form.default', __webpack_require__(20));
-  elementorFrontend.hooks.addAction('frontend/element_ready/subscribe.default', __webpack_require__(20));
-  elementorFrontend.hooks.addAction('frontend/element_ready/form.default', __webpack_require__(166));
-  elementorFrontend.hooks.addAction('frontend/element_ready/form.default', __webpack_require__(167));
-  elementorFrontend.hooks.addAction('frontend/element_ready/form.default', __webpack_require__(168));
+  var handlersInit = function handlersInit($scope) {
+    elementorFrontend.elementsHandler.addHandler(_formSteps.default, {
+      $element: $scope
+    });
+    elementorFrontend.elementsHandler.addHandler(_formSender.default, {
+      $element: $scope
+    });
+    elementorFrontend.elementsHandler.addHandler(_formRedirect.default, {
+      $element: $scope
+    });
+  };
+
+  elementorFrontend.hooks.addAction('frontend/element_ready/form.default', handlersInit);
+  elementorFrontend.hooks.addAction('frontend/element_ready/subscribe.default', handlersInit);
+  elementorFrontend.hooks.addAction('frontend/element_ready/form.default', __webpack_require__(173));
+  elementorFrontend.hooks.addAction('frontend/element_ready/form.default', __webpack_require__(174));
+  elementorFrontend.hooks.addAction('frontend/element_ready/form.default', __webpack_require__(175));
 };
 
 /***/ }),
-/* 164 */
+/* 170 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(0);
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _objectSpread2 = _interopRequireDefault(__webpack_require__(20));
+
+var _classCallCheck2 = _interopRequireDefault(__webpack_require__(2));
+
+var _createClass2 = _interopRequireDefault(__webpack_require__(5));
+
+var _possibleConstructorReturn2 = _interopRequireDefault(__webpack_require__(3));
+
+var _getPrototypeOf2 = _interopRequireDefault(__webpack_require__(1));
+
+var _get3 = _interopRequireDefault(__webpack_require__(6));
+
+var _inherits2 = _interopRequireDefault(__webpack_require__(4));
+
+var FormSteps = /*#__PURE__*/function (_elementorModules$fro) {
+  (0, _inherits2.default)(FormSteps, _elementorModules$fro);
+
+  function FormSteps() {
+    (0, _classCallCheck2.default)(this, FormSteps);
+    return (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(FormSteps).apply(this, arguments));
+  }
+
+  (0, _createClass2.default)(FormSteps, [{
+    key: "getDefaultSettings",
+    value: function getDefaultSettings() {
+      return {
+        selectors: {
+          form: '.elementor-form',
+          fieldsWrapper: '.elementor-form-fields-wrapper',
+          fieldGroup: '.elementor-field-group',
+          stepWrapper: '.elementor-field-type-step',
+          stepField: '.e-field-step',
+          submitWrapper: '.elementor-field-type-submit',
+          submitButton: '[type="submit"]',
+          buttons: '.e-form__buttons',
+          buttonWrapper: '.e-form__buttons__wrapper',
+          button: '.e-form__buttons__wrapper__button',
+          indicator: '.e-form__indicators__indicator',
+          indicatorProgress: '.e-form__indicators__indicator__progress',
+          indicatorProgressMeter: '.e-form__indicators__indicator__progress__meter'
+        },
+        classes: {
+          hidden: 'elementor-hidden',
+          column: 'elementor-column',
+          fieldGroup: 'elementor-field-group',
+          elementorButton: 'elementor-button',
+          step: 'e-form__step',
+          buttons: 'e-form__buttons',
+          buttonWrapper: 'e-form__buttons__wrapper',
+          button: 'e-form__buttons__wrapper__button',
+          indicators: 'e-form__indicators',
+          indicator: 'e-form__indicators__indicator',
+          indicatorIcon: 'e-form__indicators__indicator__icon',
+          indicatorNumber: 'e-form__indicators__indicator__number',
+          indicatorLabel: 'e-form__indicators__indicator__label',
+          indicatorProgress: 'e-form__indicators__indicator__progress',
+          indicatorProgressMeter: 'e-form__indicators__indicator__progress__meter',
+          indicatorSeparator: 'e-form__indicators__indicator__separator',
+          indicatorInactive: 'e-form__indicators__indicator--state-inactive',
+          indicatorActive: 'e-form__indicators__indicator--state-active',
+          indicatorCompleted: 'e-form__indicators__indicator--state-completed',
+          indicatorShapeCircle: 'e-form__indicators__indicator--shape-circle',
+          indicatorShapeSquare: 'e-form__indicators__indicator--shape-square',
+          indicatorShapeRounded: 'e-form__indicators__indicator--shape-rounded',
+          indicatorShapeNone: 'e-form__indicators__indicator--shape-none'
+        }
+      };
+    }
+  }, {
+    key: "getDefaultElements",
+    value: function getDefaultElements() {
+      var _this$getSettings = this.getSettings(),
+          selectors = _this$getSettings.selectors,
+          elements = {
+        $form: this.$element.find(selectors.form)
+      };
+
+      elements.$fieldsWrapper = elements.$form.children(selectors.fieldsWrapper);
+      elements.$stepWrapper = elements.$fieldsWrapper.children(selectors.stepWrapper);
+      elements.$stepField = elements.$stepWrapper.children(selectors.stepField);
+      elements.$fieldGroup = elements.$fieldsWrapper.children(selectors.fieldGroup);
+      elements.$submitWrapper = elements.$fieldsWrapper.children(selectors.submitWrapper);
+      elements.$submitButton = elements.$submitWrapper.children(selectors.submitButton);
+      return elements;
+    }
+  }, {
+    key: "onInit",
+    value: function onInit() {
+      var _get2;
+
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      (_get2 = (0, _get3.default)((0, _getPrototypeOf2.default)(FormSteps.prototype), "onInit", this)).call.apply(_get2, [this].concat(args));
+
+      if (!this.isStepsExist()) {
+        return;
+      }
+
+      this.data = {
+        steps: []
+      };
+      this.state = {
+        currentStep: 0,
+        stepsType: '',
+        stepsShape: ''
+      };
+      this.buildSteps();
+      this.elements = (0, _objectSpread2.default)({}, this.elements, {}, this.createStepsIndicators(), {}, this.createStepsButtons());
+      this.initProgressBar();
+      this.extractResponsiveSizeFromSubmitWrapper();
+      this.handleFormSubmit();
+    }
+  }, {
+    key: "isStepsExist",
+    value: function isStepsExist() {
+      return this.elements.$stepWrapper.length;
+    }
+  }, {
+    key: "initProgressBar",
+    value: function initProgressBar() {
+      var stepsSettings = this.getElementSettings();
+
+      if ('progress_bar' === stepsSettings.step_type) {
+        this.setProgressBar();
+      }
+    }
+  }, {
+    key: "buildSteps",
+    value: function buildSteps() {
+      var _this = this;
+
+      this.elements.$stepWrapper.each(function (index, el) {
+        var _this$getSettings2 = _this.getSettings(),
+            selectors = _this$getSettings2.selectors,
+            classes = _this$getSettings2.classes,
+            $currentStep = jQuery(el);
+
+        $currentStep.addClass(classes.step).removeClass(classes.fieldGroup, classes.column);
+
+        if (index) {
+          $currentStep.addClass(classes.hidden);
+        }
+
+        _this.setStepData($currentStep.children(selectors.stepField));
+
+        $currentStep.append($currentStep.nextUntil(_this.elements.$stepWrapper).not(_this.elements.$submitWrapper));
+      });
+    }
+  }, {
+    key: "setStepData",
+    value: function setStepData($stepElement) {
+      var dataAttributes = ['label', 'previousButton', 'nextButton', 'iconUrl', 'iconLibrary'],
+          stepData = {};
+      dataAttributes.forEach(function (attr) {
+        var attrValue = $stepElement.attr('data-' + attr);
+
+        if (attrValue) {
+          stepData[attr] = attrValue;
+        }
+      });
+      this.data.steps.push(stepData);
+    }
+  }, {
+    key: "createStepsIndicators",
+    value: function createStepsIndicators() {
+      var stepsSettings = this.getElementSettings(),
+          stepsElements = {};
+
+      if ('none' !== stepsSettings.step_type) {
+        var _this$getSettings3 = this.getSettings(),
+            selectors = _this$getSettings3.selectors,
+            classes = _this$getSettings3.classes,
+            indicatorsTypeClass = classes.indicators + '--type-' + stepsSettings.step_type,
+            indicatorsClasses = [classes.indicators, indicatorsTypeClass];
+
+        stepsElements.$indicatorsWrapper = jQuery('<div>', {
+          class: indicatorsClasses.join(' ')
+        });
+        stepsElements.$indicatorsWrapper.append(this.buildIndicators());
+        this.elements.$fieldsWrapper.before(stepsElements.$indicatorsWrapper);
+
+        if ('progress_bar' === stepsSettings.step_type) {
+          stepsElements.$progressBar = stepsElements.$indicatorsWrapper.find(selectors.indicatorProgress);
+          stepsElements.$progressBarMeter = stepsElements.$indicatorsWrapper.find(selectors.indicatorProgressMeter);
+        } else {
+          stepsElements.$indicators = stepsElements.$indicatorsWrapper.find(selectors.indicator);
+          stepsElements.$currentIndicator = stepsElements.$indicators.eq(this.state.currentStep);
+        }
+      }
+
+      this.saveIndicatorsState();
+      return stepsElements;
+    }
+  }, {
+    key: "buildIndicators",
+    value: function buildIndicators() {
+      var stepsSettings = this.getElementSettings();
+      return 'progress_bar' === stepsSettings.step_type ? this.buildProgressBar() : this.buildIndicatorsFromStepsData();
+    }
+  }, {
+    key: "buildProgressBar",
+    value: function buildProgressBar() {
+      var _this$getSettings4 = this.getSettings(),
+          classes = _this$getSettings4.classes,
+          $progressBar = jQuery('<div>', {
+        class: classes.indicatorProgress
+      }),
+          $progressBarMeter = jQuery('<div>', {
+        class: classes.indicatorProgressMeter
+      });
+
+      $progressBar.append($progressBarMeter);
+      return $progressBar;
+    }
+  }, {
+    key: "getProgressBarValue",
+    value: function getProgressBarValue() {
+      var totalSteps = this.data.steps.length,
+          currentStep = this.state.currentStep,
+          percentage = currentStep ? (currentStep + 1) / totalSteps * 100 : 100 / totalSteps;
+      return Math.floor(percentage) + '%';
+    }
+  }, {
+    key: "setProgressBar",
+    value: function setProgressBar() {
+      var progressBarValue = this.getProgressBarValue();
+      this.updateProgressMeterCSSVariable(progressBarValue);
+      this.elements.$progressBarMeter.text(progressBarValue);
+    }
+  }, {
+    key: "updateProgressMeterCSSVariable",
+    value: function updateProgressMeterCSSVariable(value) {
+      this.$element[0].style.setProperty('--e-form-steps-indicator-progress-meter-width', value);
+    }
+  }, {
+    key: "saveIndicatorsState",
+    value: function saveIndicatorsState() {
+      var stepsSettings = this.getElementSettings();
+      this.state.stepsType = stepsSettings.step_type;
+
+      if (!['none', 'text', 'progress_bar'].includes(stepsSettings.step_type)) {
+        this.state.stepsShape = stepsSettings.step_icon_shape;
+      }
+    }
+  }, {
+    key: "buildIndicatorsFromStepsData",
+    value: function buildIndicatorsFromStepsData() {
+      var _this2 = this;
+
+      var indicators = [];
+      this.data.steps.forEach(function (stepObj, index) {
+        if (index) {
+          indicators.push(_this2.getStepSeparator());
+        }
+
+        indicators.push(_this2.getStepIndicatorElement(stepObj, index));
+      });
+      return indicators;
+    }
+  }, {
+    key: "getStepIndicatorElement",
+    value: function getStepIndicatorElement(stepObj, index) {
+      var _this$getSettings5 = this.getSettings(),
+          classes = _this$getSettings5.classes,
+          stepsSettings = this.getElementSettings(),
+          indicatorStateClass = this.getIndicatorStateClass(index),
+          indicatorClasses = [classes.indicator, indicatorStateClass],
+          $stepIndicator = jQuery('<div>', {
+        class: indicatorClasses.join(' ')
+      });
+
+      if (stepsSettings.step_type.includes('icon')) {
+        $stepIndicator.append(this.getStepIconElement(stepObj));
+      }
+
+      if (stepsSettings.step_type.includes('number')) {
+        $stepIndicator.append(this.getStepNumberElement(index));
+      }
+
+      if (stepsSettings.step_type.includes('text')) {
+        $stepIndicator.append(this.getStepLabelElement(stepObj.label));
+      }
+
+      return $stepIndicator;
+    }
+  }, {
+    key: "getIndicatorStateClass",
+    value: function getIndicatorStateClass(index) {
+      var _this$getSettings6 = this.getSettings(),
+          classes = _this$getSettings6.classes;
+
+      if (index < this.state.currentStep) {
+        return classes.indicatorCompleted;
+      } else if (index > this.state.currentStep) {
+        return classes.indicatorInactive;
+      }
+
+      return classes.indicatorActive;
+    }
+  }, {
+    key: "getIndicatorShapeClass",
+    value: function getIndicatorShapeClass() {
+      var stepsSettings = this.getElementSettings(),
+          _this$getSettings7 = this.getSettings(),
+          classes = _this$getSettings7.classes;
+
+      return classes['indicatorShape' + this.firstLetterToUppercase(stepsSettings.step_icon_shape)];
+    }
+  }, {
+    key: "firstLetterToUppercase",
+    value: function firstLetterToUppercase(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+  }, {
+    key: "getStepNumberElement",
+    value: function getStepNumberElement(index) {
+      var _this$getSettings8 = this.getSettings(),
+          classes = _this$getSettings8.classes,
+          numberClasses = [classes.indicatorNumber, this.getIndicatorShapeClass()];
+
+      return jQuery('<div>', {
+        class: numberClasses.join(' '),
+        text: index + 1
+      });
+    }
+  }, {
+    key: "getStepIconElement",
+    value: function getStepIconElement(stepObj) {
+      var _this$getSettings9 = this.getSettings(),
+          classes = _this$getSettings9.classes,
+          iconClasses = [classes.indicatorIcon, this.getIndicatorShapeClass()],
+          $icon = jQuery('<div>', {
+        class: iconClasses.join(' ')
+      }),
+          iconType = stepObj.iconLibrary ? '<i>' : '<img>',
+          iconAttrObj = stepObj.iconLibrary ? {
+        class: stepObj.iconLibrary
+      } : {
+        src: stepObj.iconUrl
+      };
+
+      $icon.append(jQuery(iconType, iconAttrObj));
+      return $icon;
+    }
+  }, {
+    key: "getStepLabelElement",
+    value: function getStepLabelElement(label) {
+      var _this$getSettings10 = this.getSettings(),
+          classes = _this$getSettings10.classes;
+
+      return jQuery('<label>', {
+        class: classes.indicatorLabel,
+        text: label
+      });
+    }
+  }, {
+    key: "getStepSeparator",
+    value: function getStepSeparator() {
+      var _this$getSettings11 = this.getSettings(),
+          classes = _this$getSettings11.classes;
+
+      return jQuery('<div>', {
+        class: classes.indicatorSeparator
+      });
+    }
+  }, {
+    key: "createStepsButtons",
+    value: function createStepsButtons() {
+      var _this$getSettings12 = this.getSettings(),
+          selectors = _this$getSettings12.selectors,
+          stepsElements = {};
+
+      this.injectButtonsToSteps(stepsElements);
+      stepsElements.$buttonsContainer = this.elements.$stepWrapper.find(selectors.buttons);
+      stepsElements.$buttonsWrappers = stepsElements.$buttonsContainer.children(selectors.buttonWrapper);
+      return stepsElements;
+    }
+  }, {
+    key: "injectButtonsToSteps",
+    value: function injectButtonsToSteps() {
+      var _this3 = this;
+
+      var totalSteps = this.elements.$stepWrapper.length;
+      this.elements.$stepWrapper.each(function (index, el) {
+        var $el = jQuery(el),
+            $container = _this3.getButtonsContainer();
+
+        var $nextButton;
+
+        if (index) {
+          $container.append(_this3.getStepButton('previous', index));
+          $nextButton = index === totalSteps - 1 ? _this3.getSubmitButton() : _this3.getStepButton('next', index);
+        } else {
+          $nextButton = _this3.getStepButton('next', index);
+        }
+
+        $container.append($nextButton);
+        $el.append($container);
+      });
+    }
+  }, {
+    key: "getButtonsContainer",
+    value: function getButtonsContainer() {
+      var _this$getSettings13 = this.getSettings(),
+          classes = _this$getSettings13.classes,
+          stepsSettings = this.getElementSettings(),
+          buttonColumnWidthClasses = [classes.buttons, classes.column, 'elementor-col-' + stepsSettings.button_width];
+
+      return jQuery('<div>', {
+        class: buttonColumnWidthClasses.join(' ')
+      });
+    }
+  }, {
+    key: "extractResponsiveSizeFromSubmitWrapper",
+    value: function extractResponsiveSizeFromSubmitWrapper() {
+      var sizeClasses = [];
+      this.elements.$submitWrapper.removeClass(function (index, className) {
+        var _className$match;
+
+        sizeClasses = (_className$match = className.match(/elementor-(sm|md)-[0-9]+/g)) === null || _className$match === void 0 ? void 0 : _className$match.join(' ');
+        return sizeClasses;
+      });
+      this.elements.$buttonsContainer.addClass(sizeClasses);
+    }
+  }, {
+    key: "getStepButton",
+    value: function getStepButton(buttonType, index) {
+      var _this4 = this;
+
+      var _this$getSettings14 = this.getSettings(),
+          classes = _this$getSettings14.classes,
+          $button = this.getButton(buttonType, index).on('click', function () {
+        return _this4.applyStep(buttonType);
+      }),
+          buttonWrapperClasses = [classes.fieldGroup, classes.buttonWrapper, 'elementor-field-type-' + buttonType];
+
+      return jQuery('<div>', {
+        class: buttonWrapperClasses.join(' ')
+      }).append($button);
+    }
+  }, {
+    key: "getSubmitButton",
+    value: function getSubmitButton() {
+      var _this5 = this;
+
+      var _this$getSettings15 = this.getSettings(),
+          classes = _this$getSettings15.classes;
+
+      this.elements.$submitButton.addClass(classes.button); // TODO: When a solution for the conditions will be found, check if can remove the elementor-col-x manipulation.
+
+      return this.elements.$submitWrapper.attr('class', function (index, className) {
+        return _this5.replaceClassNameColSize(className, '');
+      }).removeClass(classes.column).removeClass(classes.buttons).addClass(classes.buttonWrapper);
+    }
+  }, {
+    key: "replaceClassNameColSize",
+    value: function replaceClassNameColSize(className, value) {
+      return className.replace(/elementor-col-([0-9]+)/g, value);
+    }
+  }, {
+    key: "getButton",
+    value: function getButton(buttonType, index) {
+      var _this$getSettings16 = this.getSettings(),
+          classes = _this$getSettings16.classes,
+          submitSizeClass = this.elements.$submitButton.attr('class').match(/elementor-size-([^\W\d]+)/g),
+          buttonClasses = [classes.elementorButton, submitSizeClass, classes.button, classes.button + '-' + buttonType];
+
+      return jQuery('<input>', {
+        type: 'button',
+        val: this.getButtonLabel(buttonType, index),
+        class: buttonClasses.join(' ')
+      });
+    }
+  }, {
+    key: "getButtonLabel",
+    value: function getButtonLabel(buttonType, index) {
+      var stepsSettings = this.getElementSettings(),
+          stepData = this.data.steps[index],
+          buttonName = buttonType + 'Button',
+          buttonSettingsProp = "step_".concat(buttonType, "_label");
+      return stepData[buttonName] || stepsSettings[buttonSettingsProp];
+    }
+  }, {
+    key: "applyStep",
+    value: function applyStep(direction) {
+      var nextIndex = 'next' === direction ? this.state.currentStep + 1 : this.state.currentStep - 1;
+
+      if ('next' === direction && !this.isFieldsValid(this.elements.$stepWrapper)) {
+        return false;
+      }
+
+      this.goToStep(nextIndex);
+      this.state.currentStep = nextIndex;
+
+      if ('progress_bar' === this.state.stepsType) {
+        this.setProgressBar();
+      } else {
+        this.updateIndicatorsState(direction);
+      }
+    }
+  }, {
+    key: "goToStep",
+    value: function goToStep(index) {
+      var _this$getSettings17 = this.getSettings(),
+          classes = _this$getSettings17.classes;
+
+      this.elements.$stepWrapper.eq(this.state.currentStep).addClass(classes.hidden);
+      this.elements.$stepWrapper.eq(index).removeClass(classes.hidden);
+    }
+  }, {
+    key: "isFieldsValid",
+    value: function isFieldsValid($stepWrapper) {
+      var isValid = true;
+      $stepWrapper.eq(this.state.currentStep).find('.elementor-field-group [required]').each(function (index, el) {
+        if (!el.checkValidity()) {
+          el.reportValidity();
+          return isValid = false;
+        }
+      });
+      return isValid;
+    }
+  }, {
+    key: "handleFormSubmit",
+    value: function handleFormSubmit() {
+      var _this6 = this;
+
+      this.elements.$form.submit(function () {
+        return _this6.resetForm();
+      });
+    }
+  }, {
+    key: "resetForm",
+    value: function resetForm() {
+      this.state.currentStep = 0;
+      this.elements.$currentIndicator = this.elements.$indicators.eq(this.state.currentStep);
+      this.resetSteps();
+
+      if ('progress_bar' === this.state.stepsType) {
+        this.setProgressBar();
+      } else {
+        this.resetIndicators();
+      }
+    }
+  }, {
+    key: "resetSteps",
+    value: function resetSteps() {
+      var _this$getSettings18 = this.getSettings(),
+          classes = _this$getSettings18.classes;
+
+      this.elements.$stepWrapper.addClass(classes.hidden).eq(0).removeClass(classes.hidden);
+    }
+  }, {
+    key: "resetIndicators",
+    value: function resetIndicators() {
+      var _this$getSettings19 = this.getSettings(),
+          classes = _this$getSettings19.classes,
+          stateTypes = ['inactive', 'active', 'completed'],
+          stateClasses = stateTypes.map(function (state) {
+        return classes.indicator + '--state-' + state;
+      });
+
+      this.elements.$indicators.removeClass(stateClasses.join(' ')).not(':eq(0)').addClass(classes.indicatorInactive);
+      this.elements.$indicators.eq(0).addClass(classes.indicatorActive);
+    }
+  }, {
+    key: "updateIndicatorsState",
+    value: function updateIndicatorsState(direction) {
+      var _this$getSettings20 = this.getSettings(),
+          classes = _this$getSettings20.classes,
+          indicatorsClasses = {
+        current: {
+          remove: classes.indicatorActive,
+          add: 'next' === direction ? classes.indicatorCompleted : classes.indicatorInactive
+        },
+        next: {
+          remove: 'next' === direction ? classes.indicatorInactive : classes.indicatorCompleted,
+          add: classes.indicatorActive
+        }
+      };
+
+      this.elements.$currentIndicator.removeClass(indicatorsClasses.current.remove).addClass(indicatorsClasses.current.add);
+      this.elements.$currentIndicator = this.elements.$indicators.eq(this.state.currentStep);
+      this.elements.$currentIndicator.removeClass(indicatorsClasses.next.remove).addClass(indicatorsClasses.next.add);
+    }
+  }, {
+    key: "updateValue",
+    value: function updateValue(updatedValue) {
+      var _this7 = this;
+
+      var actionsMap = {
+        step_type: function step_type() {
+          return _this7.updateStepsType();
+        },
+        step_icon_shape: function step_icon_shape() {
+          return _this7.updateStepsShape();
+        },
+        step_next_label: function step_next_label() {
+          return _this7.updateStepButtonsLabel('next');
+        },
+        step_previous_label: function step_previous_label() {
+          return _this7.updateStepButtonsLabel('previous');
+        }
+      };
+
+      if (actionsMap[updatedValue]) {
+        actionsMap[updatedValue]();
+      }
+    }
+  }, {
+    key: "updateStepsType",
+    value: function updateStepsType() {
+      var stepsSettings = this.getElementSettings();
+
+      if (this.elements.$indicatorsWrapper) {
+        this.elements.$indicatorsWrapper.remove();
+      }
+
+      if ('none' !== stepsSettings.step_type) {
+        this.rebuildIndicators();
+      }
+
+      this.state.stepsType = stepsSettings.step_type;
+    }
+  }, {
+    key: "rebuildIndicators",
+    value: function rebuildIndicators() {
+      this.elements = (0, _objectSpread2.default)({}, this.elements, {}, this.createStepsIndicators());
+      this.initProgressBar();
+    }
+  }, {
+    key: "updateStepsShape",
+    value: function updateStepsShape() {
+      var stepsSettings = this.getElementSettings(),
+          _this$getSettings21 = this.getSettings(),
+          selectors = _this$getSettings21.selectors,
+          classes = _this$getSettings21.classes,
+          shapeClassStart = classes.indicator + '--shape-',
+          currentShapeClass = shapeClassStart + this.state.stepsShape,
+          newShapeClass = shapeClassStart + stepsSettings.step_icon_shape;
+
+      var elementsTargetType = '';
+
+      if (stepsSettings.step_type.includes('icon')) {
+        elementsTargetType = 'icon';
+      } else if (stepsSettings.step_type.includes('number')) {
+        elementsTargetType = 'number';
+      }
+
+      this.elements.$indicators.children(selectors.indicator + '__' + elementsTargetType).removeClass(currentShapeClass).addClass(newShapeClass);
+      this.state.stepsShape = stepsSettings.step_icon_shape;
+    }
+  }, {
+    key: "updateStepButtonsLabel",
+    value: function updateStepButtonsLabel(buttonType) {
+      var _this8 = this;
+
+      var _this$getSettings22 = this.getSettings(),
+          selectors = _this$getSettings22.selectors,
+          buttonSelector = {
+        previous: selectors.button + '-previous',
+        next: selectors.button + '-next'
+      };
+
+      this.elements.$stepWrapper.each(function (index, el) {
+        jQuery(el).find(buttonSelector[buttonType]).val(_this8.getButtonLabel(buttonType, index));
+      });
+    }
+  }, {
+    key: "onElementChange",
+    value: function onElementChange(updatedValue) {
+      if (!this.isStepsExist()) {
+        return;
+      }
+
+      this.updateValue(updatedValue);
+    }
+  }]);
+  return FormSteps;
+}(elementorModules.frontend.handlers.Base);
+
+exports.default = FormSteps;
+
+/***/ }),
+/* 171 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5330,7 +7194,7 @@ module.exports = elementorModules.frontend.handlers.Base.extend({
 });
 
 /***/ }),
-/* 165 */
+/* 172 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5361,7 +7225,7 @@ module.exports = elementorModules.frontend.handlers.Base.extend({
 });
 
 /***/ }),
-/* 166 */
+/* 173 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5427,7 +7291,7 @@ module.exports = function ($scope) {
 };
 
 /***/ }),
-/* 167 */
+/* 174 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5459,7 +7323,7 @@ module.exports = function ($scope, $) {
 };
 
 /***/ }),
-/* 168 */
+/* 175 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5490,7 +7354,7 @@ module.exports = function ($scope, $) {
 };
 
 /***/ }),
-/* 169 */
+/* 176 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5508,11 +7372,11 @@ module.exports = function () {
     }
   }
 
-  elementorFrontend.hooks.addAction('frontend/element_ready/nav-menu.default', __webpack_require__(170));
+  elementorFrontend.hooks.addAction('frontend/element_ready/nav-menu.default', __webpack_require__(177));
 };
 
 /***/ }),
-/* 170 */
+/* 177 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5664,16 +7528,16 @@ module.exports = function ($scope) {
 };
 
 /***/ }),
-/* 171 */
+/* 178 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = function () {
-  var PostsModule = __webpack_require__(15),
-      CardsModule = __webpack_require__(21),
-      PortfolioModule = __webpack_require__(172);
+  var PostsModule = __webpack_require__(16),
+      CardsModule = __webpack_require__(23),
+      PortfolioModule = __webpack_require__(179);
 
   elementorFrontend.hooks.addAction('frontend/element_ready/posts.classic', function ($scope) {
     new PostsModule({
@@ -5702,13 +7566,13 @@ module.exports = function () {
 };
 
 /***/ }),
-/* 172 */
+/* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var PostsHandler = __webpack_require__(15);
+var PostsHandler = __webpack_require__(16);
 
 module.exports = PostsHandler.extend({
   getSkinPrefix: function getSkinPrefix() {
@@ -5916,7 +7780,7 @@ module.exports = PostsHandler.extend({
 });
 
 /***/ }),
-/* 173 */
+/* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5924,12 +7788,12 @@ module.exports = PostsHandler.extend({
 
 module.exports = function () {
   if (!elementorFrontend.isEditMode()) {
-    elementorFrontend.hooks.addAction('frontend/element_ready/share-buttons.default', __webpack_require__(174));
+    elementorFrontend.hooks.addAction('frontend/element_ready/share-buttons.default', __webpack_require__(181));
   }
 };
 
 /***/ }),
-/* 174 */
+/* 181 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5989,18 +7853,18 @@ module.exports = function ($scope) {
 };
 
 /***/ }),
-/* 175 */
+/* 182 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = function () {
-  elementorFrontend.hooks.addAction('frontend/element_ready/slides.default', __webpack_require__(176));
+  elementorFrontend.hooks.addAction('frontend/element_ready/slides.default', __webpack_require__(183));
 };
 
 /***/ }),
-/* 176 */
+/* 183 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6117,6 +7981,15 @@ var SlidesHandler = elementorModules.frontend.handlers.Base.extend({
 
     this.$activeImageBg.addClass(settings.classes.kenBurnsActive);
   },
+  initSingleSlideAnimations: function initSingleSlideAnimations() {
+    var settings = this.getSettings(),
+        animation = this.elements.$slider.data(settings.attributes.dataAnimation);
+    this.elements.$slider.find(settings.selectors.slideBackground).addClass(settings.classes.kenBurnsActive); // If there is an animation, get the container of the slide's inner contents and add the animation classes to it
+
+    if (animation) {
+      this.elements.$slider.find(settings.selectors.slideInnerContents).addClass(settings.classes.animated + ' ' + animation);
+    }
+  },
   initSlider: function initSlider() {
     var _this2 = this;
 
@@ -6137,21 +8010,10 @@ var SlidesHandler = elementorModules.frontend.handlers.Base.extend({
 
     this.swipers.main = new Swiper($slider, this.getSwiperOptions()); // Expose the swiper instance in the frontend
 
-    $slider.data('swiper', this.swipers.main);
-
-    if (!animation) {
-      return;
-    }
+    $slider.data('swiper', this.swipers.main); // The Ken Burns effect will only apply on the specific slides that toggled the effect ON,
+    // since it depends on an additional class besides 'elementor-ken-burns--active'
 
     this.handleKenBurns();
-    this.swipers.main.on('slideChangeTransitionStart', function () {
-      var $sliderContent = $slider.find(settings.selectors.slideInnerContents);
-      $sliderContent.removeClass(settings.classes.animated + ' ' + animation).hide();
-    });
-    this.swipers.main.on('slideChangeTransitionEnd', function () {
-      var $currentSlide = $slider.find(settings.selectors.slideInnerContents);
-      $currentSlide.show().addClass(settings.classes.animated + ' ' + animation);
-    });
 
     if (elementSettings.pause_on_hover) {
       $slider.on({
@@ -6163,11 +8025,25 @@ var SlidesHandler = elementorModules.frontend.handlers.Base.extend({
         }
       });
     }
+
+    if (!animation) {
+      return;
+    }
+
+    this.swipers.main.on('slideChangeTransitionStart', function () {
+      var $sliderContent = $slider.find(settings.selectors.slideInnerContents);
+      $sliderContent.removeClass(settings.classes.animated + ' ' + animation).hide();
+    });
+    this.swipers.main.on('slideChangeTransitionEnd', function () {
+      var $currentSlide = $slider.find(settings.selectors.slideInnerContents);
+      $currentSlide.show().addClass(settings.classes.animated + ' ' + animation);
+    });
   },
   onInit: function onInit() {
     elementorModules.frontend.handlers.Base.prototype.onInit.apply(this, arguments);
 
     if (2 > this.getSlidesCount()) {
+      this.initSingleSlideAnimations();
       return;
     }
 
@@ -6200,13 +8076,13 @@ module.exports = function ($scope) {
 };
 
 /***/ }),
-/* 177 */
+/* 184 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var facebookHandler = __webpack_require__(178);
+var facebookHandler = __webpack_require__(185);
 
 module.exports = function () {
   elementorFrontend.hooks.addAction('frontend/element_ready/facebook-button.default', facebookHandler);
@@ -6216,7 +8092,7 @@ module.exports = function () {
 };
 
 /***/ }),
-/* 178 */
+/* 185 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6263,27 +8139,27 @@ module.exports = function ($scope) {
 };
 
 /***/ }),
-/* 179 */
+/* 186 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = function () {
-  elementorFrontend.hooks.addAction('frontend/element_ready/section', __webpack_require__(22));
-  elementorFrontend.hooks.addAction('frontend/element_ready/widget', __webpack_require__(22));
+  elementorFrontend.hooks.addAction('frontend/element_ready/section', __webpack_require__(24));
+  elementorFrontend.hooks.addAction('frontend/element_ready/widget', __webpack_require__(24));
 };
 
 /***/ }),
-/* 180 */
+/* 187 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = function () {
-  var PostsArchiveClassic = __webpack_require__(181),
-      PostsArchiveCards = __webpack_require__(182);
+  var PostsArchiveClassic = __webpack_require__(188),
+      PostsArchiveCards = __webpack_require__(189);
 
   elementorFrontend.hooks.addAction('frontend/element_ready/archive-posts.archive_classic', function ($scope) {
     new PostsArchiveClassic({
@@ -6314,13 +8190,13 @@ module.exports = function () {
 };
 
 /***/ }),
-/* 181 */
+/* 188 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var PostsClassicHandler = __webpack_require__(15);
+var PostsClassicHandler = __webpack_require__(16);
 
 module.exports = PostsClassicHandler.extend({
   getSkinPrefix: function getSkinPrefix() {
@@ -6329,13 +8205,13 @@ module.exports = PostsClassicHandler.extend({
 });
 
 /***/ }),
-/* 182 */
+/* 189 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var PostsCardHandler = __webpack_require__(21);
+var PostsCardHandler = __webpack_require__(23);
 
 module.exports = PostsCardHandler.extend({
   getSkinPrefix: function getSkinPrefix() {
@@ -6344,18 +8220,18 @@ module.exports = PostsCardHandler.extend({
 });
 
 /***/ }),
-/* 183 */
+/* 190 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = function () {
-  elementorFrontend.hooks.addAction('frontend/element_ready/search-form.default', __webpack_require__(184));
+  elementorFrontend.hooks.addAction('frontend/element_ready/search-form.default', __webpack_require__(191));
 };
 
 /***/ }),
-/* 184 */
+/* 191 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6455,14 +8331,14 @@ module.exports = function ($scope) {
 };
 
 /***/ }),
-/* 185 */
+/* 192 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = function () {
-  elementorFrontend.hooks.addAction('frontend/element_ready/woocommerce-menu-cart.default', __webpack_require__(186));
+  elementorFrontend.hooks.addAction('frontend/element_ready/woocommerce-menu-cart.default', __webpack_require__(193));
 
   if (elementorFrontend.isEditMode()) {
     return;
@@ -6476,7 +8352,7 @@ module.exports = function () {
 };
 
 /***/ }),
-/* 186 */
+/* 193 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

@@ -463,6 +463,11 @@ the source property is coming from element/dev/scss...
 .elementor-button.elementor-hidden {
   display: none; }
 
+/* Temporary Patch */
+.elementor-form-fields-wrapper.elementor-labels-above .elementor-field-group > input, .elementor-form-fields-wrapper.elementor-labels-above .elementor-field-group > textarea, .elementor-form-fields-wrapper.elementor-labels-above .elementor-field-group > .elementor-select-wrapper, .elementor-form-fields-wrapper.elementor-labels-above .elementor-field-group .elementor-field-subgroup {
+  flex-basis: 100%;
+  max-width: 100%; }
+
 .e-form__step {
   width: 100%; }
   .e-form__step:not(.elementor-hidden) {
@@ -4170,6 +4175,7 @@ ul.elementor-nav-menu--dropdown a, ul.elementor-nav-menu--dropdown a:hover, ul.e
   .elementor-popup-modal .dialog-close-button {
     display: none;
     top: 20px;
+    margin-top: 0;
     left: 20px;
     opacity: 1;
     z-index: 9999;

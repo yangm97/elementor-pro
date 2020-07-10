@@ -138,7 +138,7 @@ class Form extends Form_Base {
 								'recaptcha_v3',
 								'hidden',
 								'html',
-								'step'
+								'step',
 							],
 						],
 					],
@@ -277,7 +277,7 @@ class Form extends Form_Base {
 								'hidden',
 								'recaptcha',
 								'recaptcha_v3',
-								'step'
+								'step',
 							],
 						],
 					],
@@ -1606,7 +1606,7 @@ class Form extends Form_Base {
 				'type' => Controls_Manager::SLIDER,
 				'default' => [
 					'size' => 15,
-					'unit' => 'px'
+					'unit' => 'px',
 				],
 				'range' => [
 					'px' => [
@@ -1614,7 +1614,7 @@ class Form extends Form_Base {
 						'max' => 100,
 					],
 				],
-				'size_units' => [ 'px'],
+				'size_units' => [ 'px' ],
 				'conditions' => [
 					'terms' => [
 						[

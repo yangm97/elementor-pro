@@ -1,4 +1,4 @@
-/*! elementor-pro - v2.10.0 - 07-06-2020 */
+/*! elementor-pro - v2.10.3 - 29-06-2020 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -564,15 +564,13 @@ var _default = /*#__PURE__*/function (_elementorModules$edi) {
 
   (0, _createClass2.default)(_default, [{
     key: "addCustomCss",
-    value: function addCustomCss(css, container) {
-      var model = container.model; // TODO: BC since 2.10.0
-      // The `container` parameter was previously `view`
-
-      if (container.getEditModel) {
-        model = container.getEditModel();
+    value: function addCustomCss(css, context) {
+      if (!context) {
+        return;
       }
 
-      var customCSS = model.get('settings').get('custom_css');
+      var model = context.model,
+          customCSS = model.get('settings').get('custom_css');
       var selector = '.elementor-element.elementor-element-' + model.get('id');
 
       if ('document' === model.get('elType')) {

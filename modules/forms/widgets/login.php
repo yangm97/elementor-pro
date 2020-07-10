@@ -247,7 +247,7 @@ class Login extends Base_Widget {
 			[
 				'label' => __( 'Username Label', 'elementor-pro' ),
 				'type' => Controls_Manager::TEXT,
-				'default' => __( ' Username or Email Address', 'elementor-pro' ),
+				'default' => __( 'Username or Email Address', 'elementor-pro' ),
 				'condition' => [
 					'show_labels' => 'yes',
 					'custom_labels' => 'yes',
@@ -260,7 +260,7 @@ class Login extends Base_Widget {
 			[
 				'label' => __( 'Username Placeholder', 'elementor-pro' ),
 				'type' => Controls_Manager::TEXT,
-				'default' => __( ' Username or Email Address', 'elementor-pro' ),
+				'default' => __( 'Username or Email Address', 'elementor-pro' ),
 				'condition' => [
 					'custom_labels' => 'yes',
 				],
@@ -736,6 +736,9 @@ class Login extends Base_Widget {
 						'elementor-field-textual',
 						'elementor-size-' . $settings['input_size'],
 					],
+				],
+				'password_label' => [
+					'for' => 'password',
 				],
 				'password_input' => [
 					'type' => 'password',

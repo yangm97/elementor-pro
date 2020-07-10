@@ -223,7 +223,7 @@ class Utils {
 		global $authordata;
 		if ( ! isset( $authordata->ID ) ) {
 			$post = get_post();
-			$authordata = get_userdata( $post->post_author ); // WPCS: override ok.
+			$authordata = get_userdata( $post->post_author ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 		}
 	}
 

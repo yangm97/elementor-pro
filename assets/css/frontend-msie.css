@@ -1,4 +1,4 @@
-/*! elementor-pro - v2.10.0 - 07-06-2020 */
+/*! elementor-pro - v2.10.3 - 29-06-2020 */
 @charset "UTF-8";
 .elementor-bg-transform .elementor-bg {
   will-change: transform; }
@@ -625,6 +625,12 @@ the source property is coming from element/dev/scss...
 .elementor-hidden,
 .elementor-button.elementor-hidden {
   display: none; }
+
+/* Temporary Patch */
+.elementor-form-fields-wrapper.elementor-labels-above .elementor-field-group > input, .elementor-form-fields-wrapper.elementor-labels-above .elementor-field-group > textarea, .elementor-form-fields-wrapper.elementor-labels-above .elementor-field-group > .elementor-select-wrapper, .elementor-form-fields-wrapper.elementor-labels-above .elementor-field-group .elementor-field-subgroup {
+  -ms-flex-preferred-size: 100%;
+      flex-basis: 100%;
+  max-width: 100%; }
 
 .e-form__step {
   width: 100%; }
@@ -5395,6 +5401,7 @@ ul.elementor-nav-menu--dropdown a, ul.elementor-nav-menu--dropdown a:hover, ul.e
   .elementor-popup-modal .dialog-close-button {
     display: none;
     top: 20px;
+    margin-top: 0;
     right: 20px;
     opacity: 1;
     z-index: 9999;

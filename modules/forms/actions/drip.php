@@ -53,7 +53,7 @@ class Drip extends Integration_Base {
 		$widget->add_control(
 			'drip_api_token_source',
 			[
-				'label' => __( 'API Token', 'elementor-pro' ),
+				'label' => __( 'API Key', 'elementor-pro' ),
 				'type' => Controls_Manager::SELECT,
 				'label_block' => false,
 				'options' => [
@@ -67,12 +67,12 @@ class Drip extends Integration_Base {
 		$widget->add_control(
 			'drip_custom_api_token',
 			[
-				'label' => __( 'Custom API Token', 'elementor-pro' ),
+				'label' => __( 'Custom API Key', 'elementor-pro' ),
 				'type' => Controls_Manager::TEXT,
 				'condition' => [
 					'drip_api_token_source' => 'custom',
 				],
-				'description' => __( 'Use this field to set a custom API token for the current form', 'elementor-pro' ),
+				'description' => __( 'Use this field to set a custom API key for the current form', 'elementor-pro' ),
 			]
 		);
 
@@ -351,7 +351,7 @@ class Drip extends Integration_Base {
 			},
 			'fields' => [
 				self::OPTION_NAME_API_KEY => [
-					'label' => __( 'API Token', 'elementor-pro' ),
+					'label' => __( 'API Key', 'elementor-pro' ),
 					'field_args' => [
 						'type' => 'text',
 						'desc' => sprintf( __( 'To integrate with our forms you need an <a href="%s" target="_blank">API Key</a>.', 'elementor-pro' ), 'http://kb.getdrip.com/general/where-can-i-find-my-api-token/' ),
@@ -360,7 +360,7 @@ class Drip extends Integration_Base {
 				'validate_api_data' => [
 					'field_args' => [
 						'type' => 'raw_html',
-						'html' => sprintf( '<button data-action="%s" data-nonce="%s" class="button elementor-button-spinner" id="elementor_pro_drip_api_token_button">%s</button>', self::OPTION_NAME_API_KEY . '_validate', wp_create_nonce( self::OPTION_NAME_API_KEY ), __( 'Validate API Token', 'elementor-pro' ) ),
+						'html' => sprintf( '<button data-action="%s" data-nonce="%s" class="button elementor-button-spinner" id="elementor_pro_drip_api_token_button">%s</button>', self::OPTION_NAME_API_KEY . '_validate', wp_create_nonce( self::OPTION_NAME_API_KEY ), __( 'Validate API Key', 'elementor-pro' ) ),
 					],
 				],
 			],

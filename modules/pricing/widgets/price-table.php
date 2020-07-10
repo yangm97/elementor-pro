@@ -61,7 +61,7 @@ class Price_Table extends Base_Widget {
 		$this->add_control(
 			'heading_tag',
 			[
-				'label' => __( 'Heading Tag', 'elementor-pro' ),
+				'label' => __( 'Title HTML Tag', 'elementor-pro' ),
 				'type' => Controls_Manager::SELECT,
 				'options' => [
 					'h2' => 'H2',

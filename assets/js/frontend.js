@@ -1,4 +1,4 @@
-/*! elementor-pro - v2.10.0 - 07-06-2020 */
+/*! elementor-pro - v2.10.3 - 29-06-2020 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -6492,7 +6492,28 @@ var FormSteps = /*#__PURE__*/function (_elementorModules$fro) {
       this.elements = (0, _objectSpread2.default)({}, this.elements, {}, this.createStepsIndicators(), {}, this.createStepsButtons());
       this.initProgressBar();
       this.extractResponsiveSizeFromSubmitWrapper();
-      this.handleFormSubmit();
+    }
+  }, {
+    key: "bindEvents",
+    value: function bindEvents() {
+      var _this = this;
+
+      if (!this.isStepsExist()) {
+        return;
+      }
+
+      this.elements.$form.on({
+        submit: function submit() {
+          return _this.resetForm();
+        },
+        keydown: function keydown(e) {
+          if (13 === e.keyCode && !_this.isLastStep()) {
+            e.preventDefault();
+
+            _this.applyStep('next');
+          }
+        }
+      });
     }
   }, {
     key: "isStepsExist",
@@ -6511,12 +6532,12 @@ var FormSteps = /*#__PURE__*/function (_elementorModules$fro) {
   }, {
     key: "buildSteps",
     value: function buildSteps() {
-      var _this = this;
+      var _this2 = this;
 
       this.elements.$stepWrapper.each(function (index, el) {
-        var _this$getSettings2 = _this.getSettings(),
-            selectors = _this$getSettings2.selectors,
-            classes = _this$getSettings2.classes,
+        var _this2$getSettings = _this2.getSettings(),
+            selectors = _this2$getSettings.selectors,
+            classes = _this2$getSettings.classes,
             $currentStep = jQuery(el);
 
         $currentStep.addClass(classes.step).removeClass(classes.fieldGroup, classes.column);
@@ -6525,9 +6546,9 @@ var FormSteps = /*#__PURE__*/function (_elementorModules$fro) {
           $currentStep.addClass(classes.hidden);
         }
 
-        _this.setStepData($currentStep.children(selectors.stepField));
+        _this2.setStepData($currentStep.children(selectors.stepField));
 
-        $currentStep.append($currentStep.nextUntil(_this.elements.$stepWrapper).not(_this.elements.$submitWrapper));
+        $currentStep.append($currentStep.nextUntil(_this2.elements.$stepWrapper).not(_this2.elements.$submitWrapper));
       });
     }
   }, {
@@ -6551,9 +6572,9 @@ var FormSteps = /*#__PURE__*/function (_elementorModules$fro) {
           stepsElements = {};
 
       if ('none' !== stepsSettings.step_type) {
-        var _this$getSettings3 = this.getSettings(),
-            selectors = _this$getSettings3.selectors,
-            classes = _this$getSettings3.classes,
+        var _this$getSettings2 = this.getSettings(),
+            selectors = _this$getSettings2.selectors,
+            classes = _this$getSettings2.classes,
             indicatorsTypeClass = classes.indicators + '--type-' + stepsSettings.step_type,
             indicatorsClasses = [classes.indicators, indicatorsTypeClass];
 
@@ -6584,8 +6605,8 @@ var FormSteps = /*#__PURE__*/function (_elementorModules$fro) {
   }, {
     key: "buildProgressBar",
     value: function buildProgressBar() {
-      var _this$getSettings4 = this.getSettings(),
-          classes = _this$getSettings4.classes,
+      var _this$getSettings3 = this.getSettings(),
+          classes = _this$getSettings3.classes,
           $progressBar = jQuery('<div>', {
         class: classes.indicatorProgress
       }),
@@ -6629,23 +6650,23 @@ var FormSteps = /*#__PURE__*/function (_elementorModules$fro) {
   }, {
     key: "buildIndicatorsFromStepsData",
     value: function buildIndicatorsFromStepsData() {
-      var _this2 = this;
+      var _this3 = this;
 
       var indicators = [];
       this.data.steps.forEach(function (stepObj, index) {
         if (index) {
-          indicators.push(_this2.getStepSeparator());
+          indicators.push(_this3.getStepSeparator());
         }
 
-        indicators.push(_this2.getStepIndicatorElement(stepObj, index));
+        indicators.push(_this3.getStepIndicatorElement(stepObj, index));
       });
       return indicators;
     }
   }, {
     key: "getStepIndicatorElement",
     value: function getStepIndicatorElement(stepObj, index) {
-      var _this$getSettings5 = this.getSettings(),
-          classes = _this$getSettings5.classes,
+      var _this$getSettings4 = this.getSettings(),
+          classes = _this$getSettings4.classes,
           stepsSettings = this.getElementSettings(),
           indicatorStateClass = this.getIndicatorStateClass(index),
           indicatorClasses = [classes.indicator, indicatorStateClass],
@@ -6670,8 +6691,8 @@ var FormSteps = /*#__PURE__*/function (_elementorModules$fro) {
   }, {
     key: "getIndicatorStateClass",
     value: function getIndicatorStateClass(index) {
-      var _this$getSettings6 = this.getSettings(),
-          classes = _this$getSettings6.classes;
+      var _this$getSettings5 = this.getSettings(),
+          classes = _this$getSettings5.classes;
 
       if (index < this.state.currentStep) {
         return classes.indicatorCompleted;
@@ -6685,8 +6706,8 @@ var FormSteps = /*#__PURE__*/function (_elementorModules$fro) {
     key: "getIndicatorShapeClass",
     value: function getIndicatorShapeClass() {
       var stepsSettings = this.getElementSettings(),
-          _this$getSettings7 = this.getSettings(),
-          classes = _this$getSettings7.classes;
+          _this$getSettings6 = this.getSettings(),
+          classes = _this$getSettings6.classes;
 
       return classes['indicatorShape' + this.firstLetterToUppercase(stepsSettings.step_icon_shape)];
     }
@@ -6698,8 +6719,8 @@ var FormSteps = /*#__PURE__*/function (_elementorModules$fro) {
   }, {
     key: "getStepNumberElement",
     value: function getStepNumberElement(index) {
-      var _this$getSettings8 = this.getSettings(),
-          classes = _this$getSettings8.classes,
+      var _this$getSettings7 = this.getSettings(),
+          classes = _this$getSettings7.classes,
           numberClasses = [classes.indicatorNumber, this.getIndicatorShapeClass()];
 
       return jQuery('<div>', {
@@ -6710,8 +6731,8 @@ var FormSteps = /*#__PURE__*/function (_elementorModules$fro) {
   }, {
     key: "getStepIconElement",
     value: function getStepIconElement(stepObj) {
-      var _this$getSettings9 = this.getSettings(),
-          classes = _this$getSettings9.classes,
+      var _this$getSettings8 = this.getSettings(),
+          classes = _this$getSettings8.classes,
           iconClasses = [classes.indicatorIcon, this.getIndicatorShapeClass()],
           $icon = jQuery('<div>', {
         class: iconClasses.join(' ')
@@ -6729,8 +6750,8 @@ var FormSteps = /*#__PURE__*/function (_elementorModules$fro) {
   }, {
     key: "getStepLabelElement",
     value: function getStepLabelElement(label) {
-      var _this$getSettings10 = this.getSettings(),
-          classes = _this$getSettings10.classes;
+      var _this$getSettings9 = this.getSettings(),
+          classes = _this$getSettings9.classes;
 
       return jQuery('<label>', {
         class: classes.indicatorLabel,
@@ -6740,8 +6761,8 @@ var FormSteps = /*#__PURE__*/function (_elementorModules$fro) {
   }, {
     key: "getStepSeparator",
     value: function getStepSeparator() {
-      var _this$getSettings11 = this.getSettings(),
-          classes = _this$getSettings11.classes;
+      var _this$getSettings10 = this.getSettings(),
+          classes = _this$getSettings10.classes;
 
       return jQuery('<div>', {
         class: classes.indicatorSeparator
@@ -6750,8 +6771,8 @@ var FormSteps = /*#__PURE__*/function (_elementorModules$fro) {
   }, {
     key: "createStepsButtons",
     value: function createStepsButtons() {
-      var _this$getSettings12 = this.getSettings(),
-          selectors = _this$getSettings12.selectors,
+      var _this$getSettings11 = this.getSettings(),
+          selectors = _this$getSettings11.selectors,
           stepsElements = {};
 
       this.injectButtonsToSteps(stepsElements);
@@ -6762,20 +6783,20 @@ var FormSteps = /*#__PURE__*/function (_elementorModules$fro) {
   }, {
     key: "injectButtonsToSteps",
     value: function injectButtonsToSteps() {
-      var _this3 = this;
+      var _this4 = this;
 
       var totalSteps = this.elements.$stepWrapper.length;
       this.elements.$stepWrapper.each(function (index, el) {
         var $el = jQuery(el),
-            $container = _this3.getButtonsContainer();
+            $container = _this4.getButtonsContainer();
 
         var $nextButton;
 
         if (index) {
-          $container.append(_this3.getStepButton('previous', index));
-          $nextButton = index === totalSteps - 1 ? _this3.getSubmitButton() : _this3.getStepButton('next', index);
+          $container.append(_this4.getStepButton('previous', index));
+          $nextButton = index === totalSteps - 1 ? _this4.getSubmitButton() : _this4.getStepButton('next', index);
         } else {
-          $nextButton = _this3.getStepButton('next', index);
+          $nextButton = _this4.getStepButton('next', index);
         }
 
         $container.append($nextButton);
@@ -6785,8 +6806,8 @@ var FormSteps = /*#__PURE__*/function (_elementorModules$fro) {
   }, {
     key: "getButtonsContainer",
     value: function getButtonsContainer() {
-      var _this$getSettings13 = this.getSettings(),
-          classes = _this$getSettings13.classes,
+      var _this$getSettings12 = this.getSettings(),
+          classes = _this$getSettings12.classes,
           stepsSettings = this.getElementSettings(),
           buttonColumnWidthClasses = [classes.buttons, classes.column, 'elementor-col-' + stepsSettings.button_width];
 
@@ -6809,12 +6830,12 @@ var FormSteps = /*#__PURE__*/function (_elementorModules$fro) {
   }, {
     key: "getStepButton",
     value: function getStepButton(buttonType, index) {
-      var _this4 = this;
+      var _this5 = this;
 
-      var _this$getSettings14 = this.getSettings(),
-          classes = _this$getSettings14.classes,
+      var _this$getSettings13 = this.getSettings(),
+          classes = _this$getSettings13.classes,
           $button = this.getButton(buttonType, index).on('click', function () {
-        return _this4.applyStep(buttonType);
+        return _this5.applyStep(buttonType);
       }),
           buttonWrapperClasses = [classes.fieldGroup, classes.buttonWrapper, 'elementor-field-type-' + buttonType];
 
@@ -6825,15 +6846,15 @@ var FormSteps = /*#__PURE__*/function (_elementorModules$fro) {
   }, {
     key: "getSubmitButton",
     value: function getSubmitButton() {
-      var _this5 = this;
+      var _this6 = this;
 
-      var _this$getSettings15 = this.getSettings(),
-          classes = _this$getSettings15.classes;
+      var _this$getSettings14 = this.getSettings(),
+          classes = _this$getSettings14.classes;
 
       this.elements.$submitButton.addClass(classes.button); // TODO: When a solution for the conditions will be found, check if can remove the elementor-col-x manipulation.
 
       return this.elements.$submitWrapper.attr('class', function (index, className) {
-        return _this5.replaceClassNameColSize(className, '');
+        return _this6.replaceClassNameColSize(className, '');
       }).removeClass(classes.column).removeClass(classes.buttons).addClass(classes.buttonWrapper);
     }
   }, {
@@ -6844,8 +6865,8 @@ var FormSteps = /*#__PURE__*/function (_elementorModules$fro) {
   }, {
     key: "getButton",
     value: function getButton(buttonType, index) {
-      var _this$getSettings16 = this.getSettings(),
-          classes = _this$getSettings16.classes,
+      var _this$getSettings15 = this.getSettings(),
+          classes = _this$getSettings15.classes,
           submitSizeClass = this.elements.$submitButton.attr('class').match(/elementor-size-([^\W\d]+)/g),
           buttonClasses = [classes.elementorButton, submitSizeClass, classes.button, classes.button + '-' + buttonType];
 
@@ -6878,18 +6899,18 @@ var FormSteps = /*#__PURE__*/function (_elementorModules$fro) {
 
       if ('progress_bar' === this.state.stepsType) {
         this.setProgressBar();
-      } else {
+      } else if ('none' !== this.state.stepsType) {
         this.updateIndicatorsState(direction);
       }
     }
   }, {
     key: "goToStep",
     value: function goToStep(index) {
-      var _this$getSettings17 = this.getSettings(),
-          classes = _this$getSettings17.classes;
+      var _this$getSettings16 = this.getSettings(),
+          classes = _this$getSettings16.classes;
 
       this.elements.$stepWrapper.eq(this.state.currentStep).addClass(classes.hidden);
-      this.elements.$stepWrapper.eq(index).removeClass(classes.hidden);
+      this.elements.$stepWrapper.eq(index).removeClass(classes.hidden).children(this.getSettings('selectors.fieldGroup')).first().find(':input').first().focus();
     }
   }, {
     key: "isFieldsValid",
@@ -6904,40 +6925,36 @@ var FormSteps = /*#__PURE__*/function (_elementorModules$fro) {
       return isValid;
     }
   }, {
-    key: "handleFormSubmit",
-    value: function handleFormSubmit() {
-      var _this6 = this;
-
-      this.elements.$form.submit(function () {
-        return _this6.resetForm();
-      });
+    key: "isLastStep",
+    value: function isLastStep() {
+      return this.state.currentStep === this.data.steps.length - 1;
     }
   }, {
     key: "resetForm",
     value: function resetForm() {
       this.state.currentStep = 0;
-      this.elements.$currentIndicator = this.elements.$indicators.eq(this.state.currentStep);
       this.resetSteps();
 
       if ('progress_bar' === this.state.stepsType) {
         this.setProgressBar();
-      } else {
+      } else if ('none' !== this.state.stepsType) {
+        this.elements.$currentIndicator = this.elements.$indicators.eq(this.state.currentStep);
         this.resetIndicators();
       }
     }
   }, {
     key: "resetSteps",
     value: function resetSteps() {
-      var _this$getSettings18 = this.getSettings(),
-          classes = _this$getSettings18.classes;
+      var _this$getSettings17 = this.getSettings(),
+          classes = _this$getSettings17.classes;
 
       this.elements.$stepWrapper.addClass(classes.hidden).eq(0).removeClass(classes.hidden);
     }
   }, {
     key: "resetIndicators",
     value: function resetIndicators() {
-      var _this$getSettings19 = this.getSettings(),
-          classes = _this$getSettings19.classes,
+      var _this$getSettings18 = this.getSettings(),
+          classes = _this$getSettings18.classes,
           stateTypes = ['inactive', 'active', 'completed'],
           stateClasses = stateTypes.map(function (state) {
         return classes.indicator + '--state-' + state;
@@ -6949,8 +6966,8 @@ var FormSteps = /*#__PURE__*/function (_elementorModules$fro) {
   }, {
     key: "updateIndicatorsState",
     value: function updateIndicatorsState(direction) {
-      var _this$getSettings20 = this.getSettings(),
-          classes = _this$getSettings20.classes,
+      var _this$getSettings19 = this.getSettings(),
+          classes = _this$getSettings19.classes,
           indicatorsClasses = {
         current: {
           remove: classes.indicatorActive,
@@ -7015,9 +7032,9 @@ var FormSteps = /*#__PURE__*/function (_elementorModules$fro) {
     key: "updateStepsShape",
     value: function updateStepsShape() {
       var stepsSettings = this.getElementSettings(),
-          _this$getSettings21 = this.getSettings(),
-          selectors = _this$getSettings21.selectors,
-          classes = _this$getSettings21.classes,
+          _this$getSettings20 = this.getSettings(),
+          selectors = _this$getSettings20.selectors,
+          classes = _this$getSettings20.classes,
           shapeClassStart = classes.indicator + '--shape-',
           currentShapeClass = shapeClassStart + this.state.stepsShape,
           newShapeClass = shapeClassStart + stepsSettings.step_icon_shape;
@@ -7038,8 +7055,8 @@ var FormSteps = /*#__PURE__*/function (_elementorModules$fro) {
     value: function updateStepButtonsLabel(buttonType) {
       var _this8 = this;
 
-      var _this$getSettings22 = this.getSettings(),
-          selectors = _this$getSettings22.selectors,
+      var _this$getSettings21 = this.getSettings(),
+          selectors = _this$getSettings21.selectors,
           buttonSelector = {
         previous: selectors.button + '-previous',
         next: selectors.button + '-next'

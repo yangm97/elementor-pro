@@ -107,7 +107,7 @@ class Product extends Single {
 
 	public function print_content() {
 		if ( post_password_required() ) {
-			echo get_the_password_form(); // WPCS: XSS ok.
+			echo get_the_password_form();
 			return;
 		}
 

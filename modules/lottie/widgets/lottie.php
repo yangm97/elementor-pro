@@ -54,7 +54,7 @@ class Lottie extends Base_Widget {
 
 	protected function _register_controls() {
 		$this->start_controls_section( 'lottie', [
-			'label' => __( 'Lottie', 'elementor-pro' )
+			'label' => __( 'Lottie', 'elementor-pro' ),
 		] );
 
 		$this->add_control(
@@ -103,19 +103,19 @@ class Lottie extends Base_Widget {
 		$this->add_responsive_control(
 			'align',
 			[
-				'label' => __( 'Alignment', 'elementor' ),
+				'label' => __( 'Alignment', 'elementor-pro' ),
 				'type' => Controls_Manager::CHOOSE,
 				'options' => [
 					'left'    => [
-						'title' => __( 'Left', 'elementor' ),
+						'title' => __( 'Left', 'elementor-pro' ),
 						'icon' => 'eicon-text-align-left',
 					],
 					'center' => [
-						'title' => __( 'Center', 'elementor' ),
+						'title' => __( 'Center', 'elementor-pro' ),
 						'icon' => 'eicon-text-align-center',
 					],
 					'right' => [
-						'title' => __( 'Right', 'elementor' ),
+						'title' => __( 'Right', 'elementor-pro' ),
 						'icon' => 'eicon-text-align-right',
 					],
 				],
@@ -147,11 +147,9 @@ class Lottie extends Base_Widget {
 		$this->add_control(
 			'caption',
 			[
-				'label' => __( 'Custom Caption', 'elementor' ),
+				'label' => __( 'Custom Caption', 'elementor-pro' ),
 				'type' => Controls_Manager::TEXT,
 				'render_type' => 'none',
-				'default' => '',
-				'placeholder' => __( '', 'elementor-pro' ),
 				'conditions' => [
 					'relation' => 'or',
 					'terms' => [
@@ -212,7 +210,7 @@ class Lottie extends Base_Widget {
 		$this->end_controls_section();
 
 		$this->start_controls_section( 'settings', [
-			'label' => __( 'Settings', 'elementor-pro' )
+			'label' => __( 'Settings', 'elementor-pro' ),
 		] );
 
 		$this->add_control(
@@ -273,7 +271,7 @@ class Lottie extends Base_Widget {
 		$this->add_control(
 			'effects_relative_to',
 			[
-				'label' => __( 'Effects Relative to', 'elementor-pro' ),
+				'label' => __( 'Effects Relative To', 'elementor-pro' ),
 				'type' => Controls_Manager::SELECT,
 				'render_type' => 'none',
 				'condition' => [
@@ -306,7 +304,7 @@ class Lottie extends Base_Widget {
 		$this->add_control(
 			'number_of_times',
 			[
-				'label' => __( 'Number of Times', 'elementor-pro' ),
+				'label' => __( 'Times', 'elementor-pro' ),
 				'type' => Controls_Manager::NUMBER,
 				'render_type' => 'none',
 				'conditions' => [
@@ -331,64 +329,9 @@ class Lottie extends Base_Widget {
 		);
 
 		$this->add_control(
-			'play_speed',
-			[
-				'label' => __( 'Play Speed (x)', 'elementor' ),
-				'type' => Controls_Manager::SLIDER,
-				'render_type' => 'none',
-				'condition' => [
-					'trigger!' => 'bind_to_scroll',
-				],
-				'default' => [
-					'unit' => 'px',
-					'size' => 1,
-				],
-				'range' => [
-					'px' => [
-						'min' => 0.1,
-						'max' => 5,
-						'step' => 0.1
-					],
-				],
-				'size_units' => [ 'px' ],
-				'dynamic' => [
-					'active' => true,
-				],
-				'frontend_available' => true,
-			]
-		);
-
-		$this->add_control(
-			'reverse_animation',
-			[
-				'label' => __( 'Reverse Animation', 'elementor-pro' ),
-				'type' => Controls_Manager::SWITCHER,
-				'render_type' => 'none',
-				'conditions' => [
-					'relation' => 'and',
-					'terms' => [
-						[
-							'name' => 'trigger',
-							'operator' => '!==',
-							'value' => 'bind_to_scroll',
-						],
-						[
-							'name' => 'trigger',
-							'operator' => '!==',
-							'value' => 'on_hover',
-						],
-					],
-				],
-				'return_value' => 'yes',
-				'default' => '',
-				'frontend_available' => true,
-			]
-		);
-
-		$this->add_control(
 			'link_timeout',
 			[
-				'label' => __( 'Link Timeout (ms)', 'elementor-pro' ),
+				'label' => __( 'Link Timeout', 'elementor-pro' ) . ' (ms)',
 				'type' => Controls_Manager::NUMBER,
 				'render_type' => 'none',
 				'conditions' => [
@@ -458,9 +401,37 @@ class Lottie extends Base_Widget {
 		);
 
 		$this->add_control(
+			'play_speed',
+			[
+				'label' => __( 'Play Speed', 'elementor-pro' ) . ' (x)',
+				'type' => Controls_Manager::SLIDER,
+				'render_type' => 'none',
+				'condition' => [
+					'trigger!' => 'bind_to_scroll',
+				],
+				'default' => [
+					'unit' => 'px',
+					'size' => 1,
+				],
+				'range' => [
+					'px' => [
+						'min' => 0.1,
+						'max' => 5,
+						'step' => 0.1,
+					],
+				],
+				'size_units' => [ 'px' ],
+				'dynamic' => [
+					'active' => true,
+				],
+				'frontend_available' => true,
+			]
+		);
+
+		$this->add_control(
 			'start_point',
 			[
-				'label' => __( 'Start Point', 'elementor' ),
+				'label' => __( 'Start Point', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
 				'frontend_available' => true,
 				'render_type' => 'none',
@@ -475,7 +446,7 @@ class Lottie extends Base_Widget {
 		$this->add_control(
 			'end_point',
 			[
-				'label' => __( 'End Point', 'elementor' ),
+				'label' => __( 'End Point', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
 				'frontend_available' => true,
 				'render_type' => 'none',
@@ -484,6 +455,33 @@ class Lottie extends Base_Widget {
 					'unit' => '%',
 				],
 				'size_units' => [ '%' ],
+			]
+		);
+
+		$this->add_control(
+			'reverse_animation',
+			[
+				'label' => __( 'Reverse', 'elementor-pro' ),
+				'type' => Controls_Manager::SWITCHER,
+				'render_type' => 'none',
+				'conditions' => [
+					'relation' => 'and',
+					'terms' => [
+						[
+							'name' => 'trigger',
+							'operator' => '!==',
+							'value' => 'bind_to_scroll',
+						],
+						[
+							'name' => 'trigger',
+							'operator' => '!==',
+							'value' => 'on_hover',
+						],
+					],
+				],
+				'return_value' => 'yes',
+				'default' => '',
+				'frontend_available' => true,
 			]
 		);
 
@@ -505,7 +503,7 @@ class Lottie extends Base_Widget {
 		$this->add_control(
 			'lazyload',
 			[
-				'label' => __( 'Lazyload', 'elementor-pro' ),
+				'label' => __( 'Lazy Load', 'elementor-pro' ),
 				'type' => Controls_Manager::SWITCHER,
 				'return_value' => 'yes',
 				'default' => '',
@@ -519,7 +517,7 @@ class Lottie extends Base_Widget {
 		$this->start_controls_section(
 			'style',
 			[
-				'label' => __( 'Lottie', 'elementor' ),
+				'label' => __( 'Lottie', 'elementor-pro' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -527,7 +525,7 @@ class Lottie extends Base_Widget {
 		$this->add_responsive_control(
 			'width',
 			[
-				'label' => __( 'Width', 'elementor' ),
+				'label' => __( 'Width', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
 				'default' => [
 					'unit' => '%',
@@ -562,7 +560,7 @@ class Lottie extends Base_Widget {
 		$this->add_responsive_control(
 			'space',
 			[
-				'label' => __( 'Max Width', 'elementor' ),
+				'label' => __( 'Max Width', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
 				'default' => [
 					'unit' => '%',
@@ -606,14 +604,14 @@ class Lottie extends Base_Widget {
 
 			$this->start_controls_tab( 'normal',
 				[
-					'label' => __( 'Normal', 'elementor' ),
+					'label' => __( 'Normal', 'elementor-pro' ),
 				]
 			);
 
 			$this->add_control(
 				'opacity',
 				[
-					'label' => __( 'Opacity', 'elementor' ),
+					'label' => __( 'Opacity', 'elementor-pro' ),
 					'type' => Controls_Manager::SLIDER,
 					'range' => [
 						'px' => [
@@ -641,14 +639,14 @@ class Lottie extends Base_Widget {
 
 			$this->start_controls_tab( 'hover',
 				[
-					'label' => __( 'Hover', 'elementor' ),
+					'label' => __( 'Hover', 'elementor-pro' ),
 				]
 			);
 
 			$this->add_control(
 				'opacity_hover',
 				[
-					'label' => __( 'Opacity', 'elementor' ),
+					'label' => __( 'Opacity', 'elementor-pro' ),
 					'type' => Controls_Manager::SLIDER,
 					'range' => [
 						'px' => [
@@ -674,7 +672,7 @@ class Lottie extends Base_Widget {
 			$this->add_control(
 				'background_hover_transition',
 				[
-					'label' => __( 'Transition Duration', 'elementor' ),
+					'label' => __( 'Transition Duration', 'elementor-pro' ),
 					'type' => Controls_Manager::SLIDER,
 					'range' => [
 						'px' => [
@@ -700,7 +698,7 @@ class Lottie extends Base_Widget {
 		$this->start_controls_section(
 			'section_style_caption',
 			[
-				'label' => __( 'Caption', 'elementor' ),
+				'label' => __( 'Caption', 'elementor-pro' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'caption_source!' => 'none',
@@ -711,19 +709,19 @@ class Lottie extends Base_Widget {
 		$this->add_control(
 			'caption_align',
 			[
-				'label' => __( 'Alignment', 'elementor' ),
+				'label' => __( 'Alignment', 'elementor-pro' ),
 				'type' => Controls_Manager::CHOOSE,
 				'options' => [
 					'left' => [
-						'title' => __( 'Left', 'elementor' ),
+						'title' => __( 'Left', 'elementor-pro' ),
 						'icon' => 'eicon-text-align-left',
 					],
 					'center' => [
-						'title' => __( 'Center', 'elementor' ),
+						'title' => __( 'Center', 'elementor-pro' ),
 						'icon' => 'eicon-text-align-center',
 					],
 					'right' => [
-						'title' => __( 'Right', 'elementor' ),
+						'title' => __( 'Right', 'elementor-pro' ),
 						'icon' => 'eicon-text-align-right',
 					],
 				],
@@ -737,7 +735,7 @@ class Lottie extends Base_Widget {
 		$this->add_control(
 			'text_color',
 			[
-				'label' => __( 'Text Color', 'elementor' ),
+				'label' => __( 'Text Color', 'elementor-pro' ),
 				'type' => Controls_Manager::COLOR,
 				'default' => '',
 				'selectors' => [
@@ -762,7 +760,7 @@ class Lottie extends Base_Widget {
 		$this->add_responsive_control(
 			'caption_space',
 			[
-				'label' => __( 'Spacing', 'elementor' ),
+				'label' => __( 'Spacing', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
 				'range' => [
 					'px' => [

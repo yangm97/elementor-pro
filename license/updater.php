@@ -76,6 +76,12 @@ class Updater {
 			return $_transient_data;
 		}
 
+		if ( ! empty( $version_info['elementor_requires'] ) ) {
+			if ( version_compare( ELEMENTOR_VERSION, $version_info['elementor_requires'], '<' ) ) {
+				return $_transient_data;
+			}
+		}
+
 		if ( version_compare( $this->plugin_version, $version_info['new_version'], '<' ) ) {
 			$plugin_info = (object) $version_info;
 			unset( $plugin_info->sections );

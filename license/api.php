@@ -102,10 +102,10 @@ class API {
 		if ( null === $expiration ) {
 			$expiration = '+12 hours';
 
-			self::set_transient( '_elementor_pro_license_data_fallback', $license_data, '+24 hours' );
+			self::set_transient( Admin::LICENSE_DATA_FALLBACK_OPTION_NAME, $license_data, '+24 hours' );
 		}
 
-		self::set_transient( '_elementor_pro_license_data', $license_data, $expiration );
+		self::set_transient( Admin::LICENSE_DATA_OPTION_NAME, $license_data, $expiration );
 	}
 
 	public static function get_license_data( $force_request = false ) {
@@ -123,7 +123,7 @@ class API {
 			return $license_data_error;
 		}
 
-		$license_data = self::get_transient( '_elementor_pro_license_data' );
+		$license_data = self::get_transient( Admin::LICENSE_DATA_OPTION_NAME );
 
 		if ( false === $license_data || $force_request ) {
 			$body_args = [
@@ -134,7 +134,7 @@ class API {
 			$license_data = self::remote_post( $body_args );
 
 			if ( is_wp_error( $license_data ) ) {
-				$license_data = self::get_transient( '_elementor_pro_license_data_fallback' );
+				$license_data = self::get_transient( Admin::LICENSE_DATA_FALLBACK_OPTION_NAME );
 				if ( false === $license_data ) {
 					$license_data = $license_data_error;
 				}

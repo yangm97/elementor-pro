@@ -137,7 +137,7 @@ class Controls_Group extends Group_Control_Base {
 		];
 
 		$fields['range'] = [
-			'label' => __( 'Effects relative to', 'elementor-pro' ),
+			'label' => __( 'Effects Relative To', 'elementor-pro' ),
 			'type' => Controls_Manager::SELECT,
 			'options' => [
 				'' => __( 'Default', 'elementor-pro' ),

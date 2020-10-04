@@ -7,6 +7,7 @@ use ElementorPro\Modules\Forms\Actions;
 use ElementorPro\Modules\Forms\Classes;
 use ElementorPro\Modules\Forms\Fields;
 use ElementorPro\Modules\Forms\Controls\Fields_Map;
+use ElementorPro\Modules\Forms\Controls\Fields_Repeater;
 use ElementorPro\Plugin;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -65,6 +66,7 @@ class Module extends Module_Base {
 	public function register_controls() {
 		$controls_manager = Plugin::elementor()->controls_manager;
 
+		$controls_manager->register_control( Fields_Repeater::CONTROL_TYPE, new Fields_Repeater() );
 		$controls_manager->register_control( Fields_Map::CONTROL_TYPE, new Fields_Map() );
 	}
 
@@ -130,6 +132,7 @@ class Module extends Module_Base {
 		$this->add_form_field_type( 'number', new Fields\Number() );
 		$this->add_form_field_type( 'acceptance', new Fields\Acceptance() );
 		$this->add_form_field_type( 'upload', new Fields\Upload() );
+		$this->add_form_field_type( 'step', new Fields\Step() );
 
 		$this->add_component( 'recaptcha', new Classes\Recaptcha_Handler() );
 		$this->add_component( 'recaptcha_v3', new Classes\Recaptcha_V3_Handler() );

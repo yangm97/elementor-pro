@@ -221,7 +221,7 @@ class Upgrades {
 		if ( isset( $GLOBALS['post'] ) ) {
 			$global_post = $GLOBALS['post'];
 		}
-		$GLOBALS['post'] = get_post( $post_id ); // WPCS: override ok.
+		$GLOBALS['post'] = get_post( $post_id ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 
 		$editor_data = self::get_editor_data( $posted );
 
@@ -236,7 +236,7 @@ class Upgrades {
 
 		// Restore global post
 		if ( isset( $global_post ) ) {
-			$GLOBALS['post'] = $global_post; // WPCS: override ok.
+			$GLOBALS['post'] = $global_post; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 		} else {
 			unset( $GLOBALS['post'] );
 		}
@@ -510,9 +510,9 @@ class Upgrades {
 			"SELECT pm1.post_id
 					FROM {$wpdb->postmeta} AS pm1
 					LEFT JOIN {$wpdb->postmeta} AS pm2 ON (pm1.post_id = pm2.post_id)
-					WHERE pm1.meta_key = '_elementor_template_type' 
-					AND pm1.meta_value = 'popup' 
-					AND pm2.`meta_key` = '" . Document::PAGE_META_KEY . "' 
+					WHERE pm1.meta_key = '_elementor_template_type'
+					AND pm1.meta_value = 'popup'
+					AND pm2.`meta_key` = '" . Document::PAGE_META_KEY . "'
 					AND pm2.`meta_value` LIKE '%border_radius%';"
 		);
 
@@ -629,9 +629,9 @@ class Upgrades {
 		global $wpdb;
 
 		$post_ids = $updater->query_col(
-			'SELECT `post_id` 
-					FROM `' . $wpdb->postmeta . '` 
-					WHERE `meta_key` = "_elementor_data" 
+			'SELECT `post_id`
+					FROM `' . $wpdb->postmeta . '`
+					WHERE `meta_key` = "_elementor_data"
 					AND `meta_value` LIKE \'%"widgetType":"' . $widget_id . '"%\';'
 		);
 

@@ -21,16 +21,6 @@ class Activate extends Common_App {
 		$this->action_activate_license();
 	}
 
-	public function render_admin_widget() {
-		parent::render_admin_widget();
-
-		$license = License\Admin::get_license_key();
-
-		$status = $license ? 'Exist' : 'Missing';
-
-		echo sprintf( '<p>License Key: <strong>%s</strong></p>', $status );
-	}
-
 	/**
 	 * @since 2.3.0
 	 * @access public
@@ -116,5 +106,27 @@ class Activate extends Common_App {
 
 		$this->redirect_to_admin_page( License\Admin::get_url() );
 		die;
+	}
+
+	public function action_reset() {
+		if ( current_user_can( 'manage_options' ) ) {
+			delete_option( 'elementor_pro_license_key' );
+			delete_transient( 'elementor_pro_license_data' );
+		}
+
+		$this->redirect_to_admin_page();
+	}
+
+	protected function get_app_info() {
+		return [
+			'license_data' => [
+				'label' => 'License Data',
+				'value' => get_option( 'elementor_pro_license_data' ),
+			],
+			'license_key' => [
+				'label' => 'License Key',
+				'value' => get_option( 'elementor_pro_license_key' ),
+			],
+		];
 	}
 }

@@ -222,7 +222,7 @@ class Products extends Products_Base {
 
 		// For Products_Renderer.
 		if ( ! isset( $GLOBALS['post'] ) ) {
-			$GLOBALS['post'] = null; // WPCS: override ok.
+			$GLOBALS['post'] = null; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 		}
 
 		$settings = $this->get_settings();

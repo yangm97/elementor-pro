@@ -79,35 +79,67 @@ class API {
 		return $license_data;
 	}
 
-	public static function set_license_data( $license_data, $expiration = null ) {
-		if ( null === $expiration ) {
-			$expiration = 12 * HOUR_IN_SECONDS;
+	public static function set_transient( $cache_key, $value, $expiration = '+12 hours' ) {
+		$data = [
+			'timeout' => strtotime( $expiration, current_time( 'timestamp' ) ),
+			'value' => json_encode( $value ),
+		];
+
+		update_option( $cache_key, $data );
+	}
+
+	private static function get_transient( $cache_key ) {
+		$cache = get_option( $cache_key );
+
+		if ( empty( $cache['timeout'] ) || current_time( 'timestamp' ) > $cache['timeout'] ) {
+			return false;
 		}
 
-		set_transient( 'elementor_pro_license_data', $license_data, $expiration );
+		return json_decode( $cache['value'], true );
+	}
+
+	public static function set_license_data( $license_data, $expiration = null ) {
+		if ( null === $expiration ) {
+			$expiration = '+12 hours';
+
+			self::set_transient( Admin::LICENSE_DATA_FALLBACK_OPTION_NAME, $license_data, '+24 hours' );
+		}
+
+		self::set_transient( Admin::LICENSE_DATA_OPTION_NAME, $license_data, $expiration );
 	}
 
 	public static function get_license_data( $force_request = false ) {
-		$license_data = get_transient( 'elementor_pro_license_data' );
+		$license_data_error = [
+			'license' => 'http_error',
+			'payment_id' => '0',
+			'license_limit' => '0',
+			'site_count' => '0',
+			'activations_left' => '0',
+			'success' => false,
+		];
+
+		$license_key = Admin::get_license_key();
+		if ( empty( $license_key ) ) {
+			return $license_data_error;
+		}
+
+		$license_data = self::get_transient( Admin::LICENSE_DATA_OPTION_NAME );
 
 		if ( false === $license_data || $force_request ) {
 			$body_args = [
 				'edd_action' => 'check_license',
-				'license' => Admin::get_license_key(),
+				'license' => $license_key,
 			];
 
 			$license_data = self::remote_post( $body_args );
 
 			if ( is_wp_error( $license_data ) ) {
-				$license_data = [
-					'license' => 'http_error',
-					'payment_id' => '0',
-					'license_limit' => '0',
-					'site_count' => '0',
-					'activations_left' => '0',
-				];
+				$license_data = self::get_transient( Admin::LICENSE_DATA_FALLBACK_OPTION_NAME );
+				if ( false === $license_data ) {
+					$license_data = $license_data_error;
+				}
 
-				self::set_license_data( $license_data, 30 * MINUTE_IN_SECONDS );
+				self::set_license_data( $license_data, '+30 minutes' );
 			} else {
 				self::set_license_data( $license_data );
 			}

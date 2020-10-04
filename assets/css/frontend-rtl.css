@@ -1,4 +1,4 @@
-/*! elementor-pro - v2.9.2 - 25-03-2020 */
+/*! elementor-pro - v3.0.5 - 23-09-2020 */
 @charset "UTF-8";
 .elementor-bg-transform .elementor-bg {
   will-change: transform; }
@@ -614,6 +614,160 @@ body.elementor-editor-active .elementor-posts--show-thumbnail .elementor-post__t
 .elementor ul li.elementor-portfolio__filter {
   list-style-type: none; }
 
+/*
+Multi Steps Form
+
+Currently manually overwriting  - need to find a better solution,
+the source property is coming from element/dev/scss...
+
+*/
+/* TODO: check why elementor-hidden class is not working */
+.elementor-hidden,
+.elementor-button.elementor-hidden {
+  display: none; }
+
+.e-form__step {
+  width: 100%; }
+  .e-form__step:not(.elementor-hidden) {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap; }
+
+.e-form__buttons, .e-form__buttons__wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex; }
+
+.e-form__indicators {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  font-size: 13px;
+  margin-bottom: var(--e-form-steps-indicators-spacing); }
+  .e-form__indicators__indicator {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -ms-flex-preferred-size: 0;
+        flex-basis: 0;
+    padding: 0 var(--e-form-steps-divider-gap); }
+    .e-form__indicators__indicator__progress {
+      width: 100%;
+      position: relative;
+      background-color: var(--e-form-steps-indicator-progress-background-color);
+      border-radius: var(--e-form-steps-indicator-progress-border-radius);
+      overflow: hidden; }
+      .e-form__indicators__indicator__progress__meter {
+        width: var(--e-form-steps-indicator-progress-meter-width, 0);
+        height: var(--e-form-steps-indicator-progress-height);
+        line-height: var(--e-form-steps-indicator-progress-height);
+        padding-right: 15px;
+        border-radius: var(--e-form-steps-indicator-progress-border-radius);
+        background-color: var(--e-form-steps-indicator-progress-color);
+        color: var(--e-form-steps-indicator-progress-meter-color);
+        text-align: right;
+        -webkit-transition: width 0.1s linear;
+        -o-transition: width 0.1s linear;
+        transition: width 0.1s linear; }
+    .e-form__indicators__indicator:first-child {
+      padding-left: 0; }
+    .e-form__indicators__indicator:last-child {
+      padding-right: 0; }
+    .e-form__indicators__indicator--state-inactive {
+      color: var(--e-form-steps-indicator-inactive-primary-color, #C2CBD2); }
+      .e-form__indicators__indicator--state-inactive [class*="indicator--shape-"]:not(.e-form__indicators__indicator--shape-none) {
+        background-color: var(--e-form-steps-indicator-inactive-secondary-color, #FFF); }
+    .e-form__indicators__indicator--state-active {
+      color: var(--e-form-steps-indicator-active-primary-color, #39B54A);
+      border-color: var(--e-form-steps-indicator-active-secondary-color, #FFF); }
+      .e-form__indicators__indicator--state-active [class*="indicator--shape-"]:not(.e-form__indicators__indicator--shape-none) {
+        background-color: var(--e-form-steps-indicator-active-secondary-color, #FFF); }
+    .e-form__indicators__indicator--state-completed {
+      color: var(--e-form-steps-indicator-completed-secondary-color, #FFF); }
+      .e-form__indicators__indicator--state-completed [class*="indicator--shape-"]:not(.e-form__indicators__indicator--shape-none) {
+        background-color: var(--e-form-steps-indicator-completed-primary-color, #39B54A); }
+      .e-form__indicators__indicator--state-completed .e-form__indicators__indicator__label {
+        color: var(--e-form-steps-indicator-completed-primary-color, #39B54A); }
+      .e-form__indicators__indicator--state-completed .e-form__indicators__indicator--shape-none {
+        color: var(--e-form-steps-indicator-completed-primary-color, #39B54A);
+        background-color: initial; }
+    .e-form__indicators__indicator__icon {
+      width: var(--e-form-steps-indicator-padding, 30px);
+      height: var(--e-form-steps-indicator-padding, 30px);
+      font-size: var(--e-form-steps-indicator-icon-size);
+      border-width: 1px;
+      border-style: solid;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: center;
+          -ms-flex-pack: center;
+              justify-content: center;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center;
+      overflow: hidden;
+      margin-bottom: 10px; }
+      .e-form__indicators__indicator__icon img {
+        width: var(--e-form-steps-indicator-icon-size);
+        height: auto; }
+    .e-form__indicators__indicator__number {
+      width: var(--e-form-steps-indicator-padding, 30px);
+      height: var(--e-form-steps-indicator-padding, 30px);
+      border-width: 1px;
+      border-style: solid;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: center;
+          -ms-flex-pack: center;
+              justify-content: center;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center;
+      margin-bottom: 10px; }
+    .e-form__indicators__indicator--shape-circle {
+      border-radius: 50%; }
+    .e-form__indicators__indicator--shape-square {
+      border-radius: 0; }
+    .e-form__indicators__indicator--shape-rounded {
+      border-radius: 5px; }
+    .e-form__indicators__indicator--shape-none {
+      border: 0; }
+    .e-form__indicators__indicator__label {
+      text-align: center; }
+    .e-form__indicators__indicator__separator {
+      width: 100%;
+      height: var(--e-form-steps-divider-width);
+      background-color: #c2cbd2; }
+  .e-form__indicators--type-number, .e-form__indicators--type-number_text, .e-form__indicators--type-icon, .e-form__indicators--type-icon_text {
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start; }
+    .e-form__indicators--type-number .e-form__indicators__indicator__separator, .e-form__indicators--type-number_text .e-form__indicators__indicator__separator, .e-form__indicators--type-icon .e-form__indicators__indicator__separator, .e-form__indicators--type-icon_text .e-form__indicators__indicator__separator {
+      margin-top: calc(var(--e-form-steps-indicator-padding, 30px) / 2 - var(--e-form-steps-divider-width, 1px) / 2); }
+
+/* End OF Multi Steps Form */
 .elementor-field-type-hidden {
   display: none; }
 
@@ -648,6 +802,9 @@ body.elementor-editor-active .elementor-posts--show-thumbnail .elementor-post__t
   -webkit-box-flex: 0;
       -ms-flex-positive: 0;
           flex-grow: 0; }
+
+.elementor-form .elementor-button svg {
+  height: auto; }
 
 .elementor-widget-price-list .elementor-price-list {
   list-style: none;
@@ -1621,6 +1778,12 @@ body.rtl .elementor-widget-slides .elementor-swiper-button-prev {
 .elementor-share-buttons--color-official.elementor-share-buttons--skin-flat .elementor-share-btn_vk, .elementor-share-buttons--color-official.elementor-share-buttons--skin-gradient .elementor-share-btn_vk {
   background-color: #45668e; }
 
+.elementor-share-buttons--color-official.elementor-share-buttons--skin-flat .elementor-share-btn_weixin, .elementor-share-buttons--color-official.elementor-share-buttons--skin-gradient .elementor-share-btn_weixin {
+  background-color: #31A918; }
+
+.elementor-share-buttons--color-official.elementor-share-buttons--skin-flat .elementor-share-btn_weibo, .elementor-share-buttons--color-official.elementor-share-buttons--skin-gradient .elementor-share-btn_weibo {
+  background-color: #DD2430; }
+
 .elementor-share-buttons--color-official.elementor-share-buttons--skin-flat .elementor-share-btn_whatsapp, .elementor-share-buttons--color-official.elementor-share-buttons--skin-gradient .elementor-share-btn_whatsapp {
   background-color: #25d366; }
 
@@ -1695,6 +1858,12 @@ body.rtl .elementor-widget-slides .elementor-swiper-button-prev {
 
 .elementor-share-buttons--color-official.elementor-share-buttons--skin-framed .elementor-share-btn_vk, .elementor-share-buttons--color-official.elementor-share-buttons--skin-boxed .elementor-share-btn_vk {
   color: #45668e; }
+
+.elementor-share-buttons--color-official.elementor-share-buttons--skin-framed .elementor-share-btn_weixin, .elementor-share-buttons--color-official.elementor-share-buttons--skin-boxed .elementor-share-btn_weixin {
+  color: #31A918; }
+
+.elementor-share-buttons--color-official.elementor-share-buttons--skin-framed .elementor-share-btn_weibo, .elementor-share-buttons--color-official.elementor-share-buttons--skin-boxed .elementor-share-btn_weibo {
+  color: #DD2430; }
 
 .elementor-share-buttons--color-official.elementor-share-buttons--skin-framed .elementor-share-btn_whatsapp, .elementor-share-buttons--color-official.elementor-share-buttons--skin-boxed .elementor-share-btn_whatsapp {
   color: #25d366; }
@@ -1771,6 +1940,12 @@ body.rtl .elementor-widget-slides .elementor-swiper-button-prev {
 .elementor-share-buttons--color-official.elementor-share-buttons--skin-boxed .elementor-share-btn_vk .elementor-share-btn__icon, .elementor-share-buttons--color-official.elementor-share-buttons--skin-minimal .elementor-share-btn_vk .elementor-share-btn__icon {
   background-color: #45668e; }
 
+.elementor-share-buttons--color-official.elementor-share-buttons--skin-boxed .elementor-share-btn_weixin .elementor-share-btn__icon, .elementor-share-buttons--color-official.elementor-share-buttons--skin-minimal .elementor-share-btn_weixin .elementor-share-btn__icon {
+  background-color: #31A918; }
+
+.elementor-share-buttons--color-official.elementor-share-buttons--skin-boxed .elementor-share-btn_weibo .elementor-share-btn__icon, .elementor-share-buttons--color-official.elementor-share-buttons--skin-minimal .elementor-share-btn_weibo .elementor-share-btn__icon {
+  background-color: #DD2430; }
+
 .elementor-share-buttons--color-official.elementor-share-buttons--skin-boxed .elementor-share-btn_whatsapp .elementor-share-btn__icon, .elementor-share-buttons--color-official.elementor-share-buttons--skin-minimal .elementor-share-btn_whatsapp .elementor-share-btn__icon {
   background-color: #25d366; }
 
@@ -1812,9 +1987,6 @@ body.rtl .elementor-widget-slides .elementor-swiper-button-prev {
 
 .elementor-share-buttons--skin-minimal.elementor-share-buttons--shape-circle .elementor-share-btn__icon {
   border-radius: 99.9em; }
-
-.elementor-share-buttons--skin-minimal .elementor-share-btn__text {
-  color: #222; }
 
 .elementor-share-buttons--view-text .elementor-share-btn__text {
   padding-right: 1em; }
@@ -1982,50 +2154,6 @@ body.rtl.woocommerce-page div.product .elementor-widget-woocommerce-product-imag
   display: flex;
   -ms-flex-wrap: nowrap;
       flex-wrap: nowrap; }
-
-.woocommerce div.product.elementor form.cart table.variations {
-  --variation-select-width: 75%; }
-  .woocommerce div.product.elementor form.cart table.variations tbody {
-    display: block; }
-  .woocommerce div.product.elementor form.cart table.variations tr {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex; }
-    .woocommerce div.product.elementor form.cart table.variations tr:not(:last-child) {
-      margin-bottom: 10px; }
-  .woocommerce div.product.elementor form.cart table.variations td {
-    line-height: 1;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    padding: 0; }
-  .woocommerce div.product.elementor form.cart table.variations td.label {
-    width: 25%; }
-  .woocommerce div.product.elementor form.cart table.variations td.value {
-    position: relative;
-    width: 75%; }
-    .woocommerce div.product.elementor form.cart table.variations td.value select, .woocommerce div.product.elementor form.cart table.variations td.value:before {
-      display: block;
-      font-size: 1em;
-      height: 2em; }
-    .woocommerce div.product.elementor form.cart table.variations td.value:before {
-      content: '-';
-      color: transparent;
-      background-color: #fff;
-      position: relative;
-      max-width: 100%;
-      width: var(--variation-select-width);
-      margin-left: 1em; }
-    .woocommerce div.product.elementor form.cart table.variations td.value select {
-      border: 0;
-      position: absolute;
-      background: transparent;
-      top: 0;
-      padding: 0;
-      width: var(--variation-select-width); }
 
 .woocommerce div.product.elementor .quantity .qty {
   vertical-align: top;
@@ -3179,9 +3307,9 @@ body.rtl.woocommerce-page div.product .elementor-widget-woocommerce-product-imag
   .elementor-widget-reviews .elementor-testimonial__icon.elementor-icon-vk {
     color: #45668e; }
   .elementor-widget-reviews .elementor-testimonial__icon.elementor-icon-weibo {
-    color: #df2029; }
+    color: #DD2430; }
   .elementor-widget-reviews .elementor-testimonial__icon.elementor-icon-weixin {
-    color: #7bb32e; }
+    color: #31A918; }
   .elementor-widget-reviews .elementor-testimonial__icon.elementor-icon-whatsapp {
     color: #25d366; }
   .elementor-widget-reviews .elementor-testimonial__icon.elementor-icon-wordpress {
@@ -5195,6 +5323,9 @@ ul.elementor-nav-menu--dropdown a, ul.elementor-nav-menu--dropdown a:hover, ul.e
 .elementor-post-info .elementor-icon-list-icon .elementor-avatar {
   border-radius: 100%; }
 
+.elementor-widget-post-info.elementor-align-center .elementor-icon-list-item:after {
+  margin: initial; }
+
 .elementor-icon-list-items .elementor-icon-list-item .elementor-icon-list-text {
   display: inline-block; }
   .elementor-icon-list-items .elementor-icon-list-item .elementor-icon-list-text a, .elementor-icon-list-items .elementor-icon-list-item .elementor-icon-list-text span {
@@ -5217,7 +5348,7 @@ ul.elementor-nav-menu--dropdown a, ul.elementor-nav-menu--dropdown a:hover, ul.e
 .elementor-sticky--active {
   z-index: 99; }
 
-[data-elementor-type="popup"]:not(.elementor-edit-mode) {
+[data-elementor-type="popup"]:not(.elementor-edit-area) {
   display: none; }
 
 [data-elementor-type="popup"] .elementor-section-wrap:not(:empty) + #elementor-add-new-section {
@@ -5238,6 +5369,7 @@ ul.elementor-nav-menu--dropdown a, ul.elementor-nav-menu--dropdown a:hover, ul.e
   .elementor-popup-modal .dialog-close-button {
     display: none;
     top: 20px;
+    margin-top: 0;
     left: 20px;
     opacity: 1;
     z-index: 9999;
@@ -5583,4 +5715,25 @@ ol.elementor-toc__list-wrapper {
 @media only screen and (max-width: 767px) {
   .elementor-toc--minimized-on-mobile .elementor-toc__body {
     display: none; } }
+
+.e-lottie__container {
+  display: inline-block;
+  max-width: var(--lottie-container-max-width);
+  width: var(--lottie-container-width);
+  opacity: var(--lottie-container-opacity); }
+  .e-lottie__container:hover {
+    opacity: var(--lottie-container-opacity-hover);
+    -webkit-transition-duration: var(--lottie-container-transition-duration-hover);
+         -o-transition-duration: var(--lottie-container-transition-duration-hover);
+            transition-duration: var(--lottie-container-transition-duration-hover); }
+  .e-lottie__container svg,
+  .e-lottie__container svg * {
+    -webkit-transition: none !important;
+    -o-transition: none !important;
+    transition: none !important; }
+
+.e-lottie__caption {
+  color: var(--caption-color);
+  margin-top: var(--caption-margin-top);
+  text-align: var(--caption-text-align); }
 /*# sourceMappingURL=frontend-rtl.css.map */

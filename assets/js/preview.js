@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.0.9 - 28-12-2020 */
+/*! elementor-pro - v3.0.10 - 20-01-2021 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -2940,7 +2940,7 @@ var Preview = /*#__PURE__*/function (_elementorModules$Vie) {
             documentTitle = $documentElement.data('elementor-title'),
             $handleTitle = jQuery('<div>', {
           class: 'elementor-document-handle__title'
-        }).text(elementor.translate('edit_element', [documentTitle]));
+        }).text(elementorPro.translate('edit_element', [documentTitle]));
         $handle.append($handleIcon, $handleTitle);
         $handle.on('click', function () {
           return _this2.onDocumentHandleClick(document);

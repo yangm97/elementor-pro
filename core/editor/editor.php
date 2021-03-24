@@ -36,7 +36,10 @@ class Editor extends App {
 
 	public function get_init_settings() {
 		$settings = [
-			'i18n' => [],
+			'i18n' => [
+				// 'edit_element' is here for Backwards Compatibility for Elementor Pro versions <3.1.0
+				'edit_element' => __( 'Edit %s', 'elementor-pro' ),
+			],
 			'isActive' => License_API::is_license_active(),
 			'urls' => [
 				'modules' => ELEMENTOR_PRO_MODULES_URL,

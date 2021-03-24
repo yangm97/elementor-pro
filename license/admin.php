@@ -397,6 +397,11 @@ class Admin {
 		add_filter( 'elementor/admin/dashboard_overview_widget/footer_actions', function( $additions_actions ) {
 			unset( $additions_actions['go-pro'] );
 
+			// Keep Visible to administrator role or for the Pro license owner, remove for non-owner lower-level user types.
+			if ( ! current_user_can( 'manage_options' ) && isset( $additions_actions['find_an_expert'] ) ) {
+				unset( $additions_actions['find_an_expert'] );
+			}
+
 			return $additions_actions;
 		}, 550 );
 	}

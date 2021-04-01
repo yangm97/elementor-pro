@@ -3,6 +3,7 @@ namespace ElementorPro\Modules\GlobalWidget\Documents;
 
 use Elementor\Modules\Library\Documents\Library_Document;
 use Elementor\User;
+use ElementorPro\Modules\GlobalWidget\Module;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -30,5 +31,11 @@ class Widget extends Library_Document {
 
 	public function is_editable_by_current_user() {
 		return User::is_current_user_can_edit( $this->get_main_id() );
+	}
+
+	public function import( array $data ) {
+		parent::import( $data );
+
+		$this->update_main_meta( Module::WIDGET_TYPE_META_KEY, $data['content'][0]['widgetType'] );
 	}
 }

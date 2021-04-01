@@ -10,6 +10,7 @@ use Elementor\Group_Control_Typography;
 use Elementor\Icons_Manager;
 use Elementor\Repeater;
 use ElementorPro\Base\Base_Widget;
+use ElementorPro\Core\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -97,23 +98,23 @@ class Price_Table extends Base_Widget {
 				'type' => Controls_Manager::SELECT,
 				'options' => [
 					'' => __( 'None', 'elementor-pro' ),
-					'dollar' => '&#36; ' . _x( 'Dollar', 'Currency Symbol', 'elementor-pro' ),
-					'euro' => '&#128; ' . _x( 'Euro', 'Currency Symbol', 'elementor-pro' ),
-					'baht' => '&#3647; ' . _x( 'Baht', 'Currency Symbol', 'elementor-pro' ),
-					'franc' => '&#8355; ' . _x( 'Franc', 'Currency Symbol', 'elementor-pro' ),
-					'guilder' => '&fnof; ' . _x( 'Guilder', 'Currency Symbol', 'elementor-pro' ),
-					'krona' => 'kr ' . _x( 'Krona', 'Currency Symbol', 'elementor-pro' ),
-					'lira' => '&#8356; ' . _x( 'Lira', 'Currency Symbol', 'elementor-pro' ),
-					'peseta' => '&#8359 ' . _x( 'Peseta', 'Currency Symbol', 'elementor-pro' ),
-					'peso' => '&#8369; ' . _x( 'Peso', 'Currency Symbol', 'elementor-pro' ),
-					'pound' => '&#163; ' . _x( 'Pound Sterling', 'Currency Symbol', 'elementor-pro' ),
-					'real' => 'R$ ' . _x( 'Real', 'Currency Symbol', 'elementor-pro' ),
-					'ruble' => '&#8381; ' . _x( 'Ruble', 'Currency Symbol', 'elementor-pro' ),
-					'rupee' => '&#8360; ' . _x( 'Rupee', 'Currency Symbol', 'elementor-pro' ),
-					'indian_rupee' => '&#8377; ' . _x( 'Rupee (Indian)', 'Currency Symbol', 'elementor-pro' ),
-					'shekel' => '&#8362; ' . _x( 'Shekel', 'Currency Symbol', 'elementor-pro' ),
-					'yen' => '&#165; ' . _x( 'Yen/Yuan', 'Currency Symbol', 'elementor-pro' ),
-					'won' => '&#8361; ' . _x( 'Won', 'Currency Symbol', 'elementor-pro' ),
+					'dollar' => '&#36; ' . _x( 'Dollar', 'Currency', 'elementor-pro' ),
+					'euro' => '&#128; ' . _x( 'Euro', 'Currency', 'elementor-pro' ),
+					'baht' => '&#3647; ' . _x( 'Baht', 'Currency', 'elementor-pro' ),
+					'franc' => '&#8355; ' . _x( 'Franc', 'Currency', 'elementor-pro' ),
+					'guilder' => '&fnof; ' . _x( 'Guilder', 'Currency', 'elementor-pro' ),
+					'krona' => 'kr ' . _x( 'Krona', 'Currency', 'elementor-pro' ),
+					'lira' => '&#8356; ' . _x( 'Lira', 'Currency', 'elementor-pro' ),
+					'peseta' => '&#8359 ' . _x( 'Peseta', 'Currency', 'elementor-pro' ),
+					'peso' => '&#8369; ' . _x( 'Peso', 'Currency', 'elementor-pro' ),
+					'pound' => '&#163; ' . _x( 'Pound Sterling', 'Currency', 'elementor-pro' ),
+					'real' => 'R$ ' . _x( 'Real', 'Currency', 'elementor-pro' ),
+					'ruble' => '&#8381; ' . _x( 'Ruble', 'Currency', 'elementor-pro' ),
+					'rupee' => '&#8360; ' . _x( 'Rupee', 'Currency', 'elementor-pro' ),
+					'indian_rupee' => '&#8377; ' . _x( 'Rupee (Indian)', 'Currency', 'elementor-pro' ),
+					'shekel' => '&#8362; ' . _x( 'Shekel', 'Currency', 'elementor-pro' ),
+					'yen' => '&#165; ' . _x( 'Yen/Yuan', 'Currency', 'elementor-pro' ),
+					'won' => '&#8361; ' . _x( 'Won', 'Currency', 'elementor-pro' ),
 					'custom' => __( 'Custom', 'elementor-pro' ),
 				],
 				'default' => 'dollar',
@@ -1447,7 +1448,7 @@ class Price_Table extends Base_Widget {
 
 		$period_position = $settings['period_position'];
 		$period_element = '<span ' . $this->get_render_attribute_string( 'period' ) . '>' . $settings['period'] . '</span>';
-		$heading_tag = $settings['heading_tag'];
+		$heading_tag = Utils::validate_html_tag( $settings['heading_tag'] );
 
 		$migration_allowed = Icons_Manager::is_migration_allowed();
 		?>
@@ -1633,7 +1634,8 @@ class Price_Table extends Base_Widget {
 			<# if ( settings.heading || settings.sub_heading ) { #>
 				<div class="elementor-price-table__header">
 					<# if ( settings.heading ) { #>
-						<{{ settings.heading_tag }} {{{ view.getRenderAttributeString( 'heading' ) }}}>{{{ settings.heading }}}</{{ settings.heading_tag }}>
+						<# var headingTag = elementorPro.validateHTMLTag( settings.heading_tag ) #>
+						<{{ headingTag }} {{{ view.getRenderAttributeString( 'heading' ) }}}>{{{ settings.heading }}}</{{ headingTag }}>
 					<# } #>
 					<# if ( settings.sub_heading ) { #>
 						<span {{{ view.getRenderAttributeString( 'sub_heading' ) }}}>{{{ settings.sub_heading }}}</span>

@@ -310,15 +310,20 @@ class Module extends Module_Base {
 	}
 
 	private function maybe_render_blank_state( $which ) {
-		/** @var Source_Local $source */
-		$source = Plugin::elementor()->templates_manager->get_source( 'local' );
+		$counts = (array) wp_count_posts( self::CPT );
+		unset( $counts['auto-draft'] );
 
-		return $source->maybe_render_blank_state( $which, [
-			'post_type' => self::DOCUMENT_TYPE,
-			'cpt' => self::CPT,
-			'description' => __( 'Add pixels, meta tags and any other scripts to your site.<br /><a target="_blank" href="https://go.elementor.com/wp-dash-custom-code">Learn more about adding custom code</a>', 'elementor-pro' ),
-			'href' => esc_url( admin_url( '/post-new.php?post_type=' . self::CPT ) ),
-		] );
+		if ( ! array_sum( $counts ) ) {
+			/** @var Source_Local $source */
+			$source = Plugin::elementor()->templates_manager->get_source( 'local' );
+
+			return $source->maybe_render_blank_state( $which, [
+				'post_type' => self::DOCUMENT_TYPE,
+				'cpt' => self::CPT,
+				'description' => __( 'Add pixels, meta tags and any other scripts to your site.<br /><a target="_blank" href="https://go.elementor.com/wp-dash-custom-code">Learn more about adding custom code</a>', 'elementor-pro' ),
+				'href' => esc_url( admin_url( '/post-new.php?post_type=' . self::CPT ) ),
+			] );
+		}
 	}
 
 	private function manage_posts_columns( $columns ) {

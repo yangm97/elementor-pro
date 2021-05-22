@@ -1,6 +1,8 @@
 <?php
 namespace ElementorPro\License;
 
+use Elementor\Core\Common\Modules\Connect\Module as ConnectModule;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
@@ -340,5 +342,35 @@ class API {
 		}
 
 		return time() > strtotime( '-28 days', strtotime( $license_data['expires'] ) );
+	}
+
+	/**
+	 * @return int
+	 */
+	public static function get_library_access_level() {
+		$license_data = static::get_license_data();
+
+		$access_level = ConnectModule::ACCESS_LEVEL_CORE;
+
+		if ( static::is_license_active() ) {
+			$access_level = ConnectModule::ACCESS_LEVEL_PRO;
+		}
+
+		// For BC: making sure that it returns the correct access_level even if "features" is not defined in the license data.
+		if ( ! isset( $license_data['features'] ) || ! is_array( $license_data['features'] ) ) {
+			return $access_level;
+		}
+
+		$library_access_level_prefix = 'template_access_level_';
+
+		foreach ( $license_data['features'] as $feature ) {
+			if ( strpos( $feature, $library_access_level_prefix ) !== 0 ) {
+				continue;
+			}
+
+			$access_level = (int) str_replace( $library_access_level_prefix, '', $feature );
+		}
+
+		return $access_level;
 	}
 }

@@ -11,6 +11,7 @@ use ElementorPro\Core\Editor\Editor;
 use ElementorPro\Core\Modules_Manager;
 use ElementorPro\Core\Preview\Preview;
 use ElementorPro\Core\Upgrade\Manager as UpgradeManager;
+use ElementorPro\License\API;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -332,6 +333,15 @@ class Plugin {
 		return ELEMENTOR_PRO_ASSETS_PATH . 'css/templates/';
 	}
 
+	private function add_subscription_template_access_level_to_settings( $settings ) {
+		// Core >= 3.2.0
+		if ( isset( $settings['library_connect']['current_access_level'] ) ) {
+			$settings['library_connect']['current_access_level'] = API::get_library_access_level();
+		}
+
+		return $settings;
+	}
+
 	private function setup_hooks() {
 		add_action( 'elementor/init', [ $this, 'on_elementor_init' ] );
 
@@ -343,6 +353,10 @@ class Plugin {
 
 		add_filter( 'elementor/core/responsive/get_stylesheet_templates', [ $this, 'get_responsive_stylesheet_templates' ] );
 		add_action( 'elementor/document/save_version', [ $this, 'on_document_save_version' ] );
+
+		add_filter( 'elementor/editor/localize_settings', function ( $settings ) {
+			return $this->add_subscription_template_access_level_to_settings( $settings );
+		}, 11 /** After Elementor Core (Library) */ );
 	}
 
 	/**

@@ -485,10 +485,6 @@ span.font-variations-count {
 .eps-theme-dark {
   --color-box-shadow-color: rgba(0, 0, 0, 0.1); }
 
-.eps-grid {
-  --grid-spacing-gutters: calc(2 * var(--grid-spacing-gutter));
-  --grid-spacing-width: calc(100% + var(--grid-spacing-gutters)); }
-
 .eps-grid-container {
   display: flex;
   flex-wrap: wrap;
@@ -498,11 +494,11 @@ span.font-variations-count {
   .eps-grid-container--wrap-reverse {
     flex-wrap: wrap-reverse; }
   .eps-grid-container--spacing {
-    --grid-row-gutter: calc(var(--grid-spacing-gutter) * -0.0625rem);
+    --grid-row-gutter: calc(-1 * calc( var(--grid-spacing-gutter) * 0.0625rem));
     width: var(--grid-spacing-width);
     margin: var(--grid-row-gutter); }
     .eps-grid-container--spacing > .eps-grid-item {
-      padding: calc(var(--grid-spacing-gutter) * 0.0625rem); }
+      padding: var(--grid-spacing-gutter); }
 
 .eps-grid--direction-row {
   flex-direction: row; }
@@ -597,6 +593,66 @@ span.font-variations-count {
     flex-grow: 1;
     max-width: 100%;
     flex-basis: 0; } }
+
+.eps-grid-item-xs-1 {
+  flex-grow: 0;
+  max-width: 8.33333%;
+  flex-basis: 8.33333%; }
+
+.eps-grid-item-xs-2 {
+  flex-grow: 0;
+  max-width: 16.66667%;
+  flex-basis: 16.66667%; }
+
+.eps-grid-item-xs-3 {
+  flex-grow: 0;
+  max-width: 25%;
+  flex-basis: 25%; }
+
+.eps-grid-item-xs-4 {
+  flex-grow: 0;
+  max-width: 33.33333%;
+  flex-basis: 33.33333%; }
+
+.eps-grid-item-xs-5 {
+  flex-grow: 0;
+  max-width: 41.66667%;
+  flex-basis: 41.66667%; }
+
+.eps-grid-item-xs-6 {
+  flex-grow: 0;
+  max-width: 50%;
+  flex-basis: 50%; }
+
+.eps-grid-item-xs-7 {
+  flex-grow: 0;
+  max-width: 58.33333%;
+  flex-basis: 58.33333%; }
+
+.eps-grid-item-xs-8 {
+  flex-grow: 0;
+  max-width: 66.66667%;
+  flex-basis: 66.66667%; }
+
+.eps-grid-item-xs-9 {
+  flex-grow: 0;
+  max-width: 75%;
+  flex-basis: 75%; }
+
+.eps-grid-item-xs-10 {
+  flex-grow: 0;
+  max-width: 83.33333%;
+  flex-basis: 83.33333%; }
+
+.eps-grid-item-xs-11 {
+  flex-grow: 0;
+  max-width: 91.66667%;
+  flex-basis: 91.66667%; }
+
+.eps-grid-item-xs-12 {
+  flex-grow: 0;
+  max-width: 100%;
+  flex-basis: 100%; }
 
 @media screen and (min-width: 480px) {
   .eps-grid-item-sm-1 {

@@ -770,7 +770,7 @@ the source property is coming from element/dev/scss...
   position: relative;
   perspective: 1000px;
   transform-style: preserve-3d; }
-  @media (max-device-width: ELEMENTOR_SCREEN_MD_MAX) {
+  @media (max-device-width: ELEMENTOR_SCREEN_TABLET_MAX) {
     .elementor-flip-box {
       cursor: pointer; } }
   .elementor-flip-box__front {
@@ -1033,11 +1033,11 @@ the source property is coming from element/dev/scss...
   .elementor-cta:hover .elementor-cta__bg-overlay {
     background-color: rgba(0, 0, 0, 0.3); }
 
-@media (max-device-width: ELEMENTOR_SCREEN_MD_MAX) {
+@media (max-device-width: ELEMENTOR_SCREEN_TABLET_MAX) {
   .elementor-cta {
     cursor: pointer; } }
 
-@media (min-width: ELEMENTOR_SCREEN_LG_MIN) {
+@media (min-width: ELEMENTOR_SCREEN_DESKTOP_MIN) {
   .elementor-cta--desktop-layout-image-above .elementor-cta {
     flex-wrap: wrap; }
     .elementor-cta--desktop-layout-image-above .elementor-cta__bg-wrapper {
@@ -1054,7 +1054,7 @@ the source property is coming from element/dev/scss...
   .elementor-cta--desktop-layout-image-right .elementor-cta {
     flex-direction: row-reverse; } }
 
-@media (max-width: ELEMENTOR_SCREEN_MD_MAX) {
+@media (max-width: ELEMENTOR_SCREEN_TABLET_MAX) {
   .elementor-cta--tablet-layout-image-above .elementor-cta {
     flex-wrap: wrap; }
     .elementor-cta--tablet-layout-image-above .elementor-cta__bg-wrapper {
@@ -1071,7 +1071,7 @@ the source property is coming from element/dev/scss...
   .elementor-cta--tablet-layout-image-right .elementor-cta {
     flex-direction: row-reverse; } }
 
-@media (max-width: ELEMENTOR_SCREEN_SM_MAX) {
+@media (max-width: ELEMENTOR_SCREEN_MOBILE_MAX) {
   .elementor-cta--mobile-layout-image-above .elementor-cta {
     flex-wrap: wrap; }
     .elementor-cta--mobile-layout-image-above .elementor-cta__bg-wrapper {
@@ -1244,7 +1244,7 @@ body.rtl .elementor-widget-slides .elementor-swiper-button-prev {
 .elementor-slides-wrapper div:not(.swiper-slide) > .swiper-slide-inner {
   display: none; }
 
-@media (max-width: ELEMENTOR_SCREEN_SM_MAX) {
+@media (max-width: ELEMENTOR_SCREEN_MOBILE_MAX) {
   .elementor-slides .swiper-slide-inner {
     padding: 30px; }
     .elementor-slides .swiper-slide-inner .elementor-slide-heading {
@@ -1633,7 +1633,7 @@ body.rtl.woocommerce-page div.product .elementor-widget-woocommerce-product-imag
   .woocommerce div.product.elementor .elementor-add-to-cart--align-justify form.cart.variations_form .woocommerce-variation-add-to-cart button {
     flex-basis: 100%; }
 
-@media (max-width: ELEMENTOR_SCREEN_MD_MAX) {
+@media (max-width: ELEMENTOR_SCREEN_TABLET_MAX) {
   .woocommerce div.product.elementor .elementor-add-to-cart-tablet--align-left form.cart:not(.grouped_form):not(.variations_form),
   .woocommerce div.product.elementor .elementor-add-to-cart-tablet--align-left form.cart.variations_form .woocommerce-variation-add-to-cart {
     justify-content: flex-start; }
@@ -1663,7 +1663,7 @@ body.rtl.woocommerce-page div.product .elementor-widget-woocommerce-product-imag
     .woocommerce div.product.elementor .elementor-add-to-cart-tablet--align-justify form.cart.variations_form .woocommerce-variation-add-to-cart button {
       flex-basis: 100%; } }
 
-@media (max-width: ELEMENTOR_SCREEN_SM_MAX) {
+@media (max-width: ELEMENTOR_SCREEN_MOBILE_MAX) {
   .woocommerce div.product.elementor .elementor-add-to-cart-mobile--align-left form.cart:not(.grouped_form):not(.variations_form),
   .woocommerce div.product.elementor .elementor-add-to-cart-mobile--align-left form.cart.variations_form .woocommerce-variation-add-to-cart {
     justify-content: flex-start; }
@@ -1817,7 +1817,7 @@ body.rtl.woocommerce-page div.product .elementor-widget-woocommerce-product-imag
 .elementor-product-rating--align-justify .woocommerce-product-rating .woocommerce-review-link {
   margin-left: auto; }
 
-@media (min-width: ELEMENTOR_SCREEN_LG_MIN) {
+@media (min-width: ELEMENTOR_SCREEN_DESKTOP_MIN) {
   .elementor-element.elementor-products-grid ul.products.columns-2 {
     grid-template-columns: repeat(2, 1fr); }
   .elementor-element.elementor-products-grid .woocommerce.columns-2 ul.products {
@@ -1863,15 +1863,15 @@ body.rtl.woocommerce-page div.product .elementor-widget-woocommerce-product-imag
   .elementor-element.elementor-products-grid .woocommerce.columns-12 ul.products {
     grid-template-columns: repeat(12, 1fr); } }
 
-@media (max-width: ELEMENTOR_SCREEN_MD_MAX) {
+@media (max-width: ELEMENTOR_SCREEN_TABLET_MAX) {
   .elementor-element.elementor-products-grid ul.products {
     grid-template-columns: repeat(3, 1fr); } }
 
-@media (max-width: ELEMENTOR_SCREEN_SM_MAX) {
+@media (max-width: ELEMENTOR_SCREEN_MOBILE_MAX) {
   .elementor-element.elementor-products-grid ul.products {
     grid-template-columns: repeat(2, 1fr); } }
 
-@media (min-width: ELEMENTOR_SCREEN_LG_MIN) {
+@media (min-width: ELEMENTOR_SCREEN_DESKTOP_MIN) {
   .elementor-element.elementor-products-grid.elementor-products-columns-1 ul.products {
     grid-template-columns: repeat(1, 1fr); }
   .elementor-element.elementor-products-grid.elementor-products-columns-2 ul.products {
@@ -1897,7 +1897,7 @@ body.rtl.woocommerce-page div.product .elementor-widget-woocommerce-product-imag
   .elementor-element.elementor-products-grid.elementor-products-columns-12 ul.products {
     grid-template-columns: repeat(12, 1fr); } }
 
-@media (max-width: ELEMENTOR_SCREEN_MD_MAX) {
+@media (max-width: ELEMENTOR_SCREEN_TABLET_MAX) {
   .elementor-element.elementor-products-grid.elementor-products-columns-tablet-1 ul.products {
     grid-template-columns: repeat(1, 1fr); }
   .elementor-element.elementor-products-grid.elementor-products-columns-tablet-2 ul.products {
@@ -1923,7 +1923,7 @@ body.rtl.woocommerce-page div.product .elementor-widget-woocommerce-product-imag
   .elementor-element.elementor-products-grid.elementor-products-columns-tablet-12 ul.products {
     grid-template-columns: repeat(12, 1fr); } }
 
-@media (max-width: ELEMENTOR_SCREEN_SM_MAX) {
+@media (max-width: ELEMENTOR_SCREEN_MOBILE_MAX) {
   .elementor-element.elementor-products-grid.elementor-products-columns-mobile-1 ul.products {
     grid-template-columns: repeat(1, 1fr); }
   .elementor-element.elementor-products-grid.elementor-products-columns-mobile-2 ul.products {
@@ -3813,19 +3813,19 @@ ul.elementor-nav-menu--dropdown a, ul.elementor-nav-menu--dropdown a:hover, ul.e
   position: absolute;
   z-index: 9997; }
 
-@media (min-width: ELEMENTOR_SCREEN_MD_MIN) {
+@media (min-width: ELEMENTOR_SCREEN_TABLET_MIN) {
   .elementor-nav-menu--dropdown-mobile .elementor-nav-menu--dropdown, .elementor-nav-menu--dropdown-mobile .elementor-menu-toggle {
     display: none; } }
 
-@media (min-width: ELEMENTOR_SCREEN_LG_MIN) {
+@media (min-width: ELEMENTOR_SCREEN_DESKTOP_MIN) {
   .elementor-nav-menu--dropdown-tablet .elementor-nav-menu--dropdown, .elementor-nav-menu--dropdown-tablet .elementor-menu-toggle {
     display: none; } }
 
-@media (max-width: ELEMENTOR_SCREEN_MD_MAX) {
+@media (max-width: ELEMENTOR_SCREEN_TABLET_MAX) {
   .elementor-nav-menu--dropdown-tablet .elementor-nav-menu--main {
     display: none; } }
 
-@media (max-width: ELEMENTOR_SCREEN_SM_MAX) {
+@media (max-width: ELEMENTOR_SCREEN_MOBILE_MAX) {
   .elementor-nav-menu--dropdown-mobile .elementor-nav-menu--main {
     display: none; } }
 
@@ -4406,11 +4406,11 @@ ol.elementor-toc__list-wrapper {
     ol.elementor-toc__list-wrapper .elementor-toc__list-item-text-wrapper:before {
       content: counters(item, ".") ". "; }
 
-@media only screen and (max-width: ELEMENTOR_SCREEN_MD_MAX) {
+@media only screen and (max-width: ELEMENTOR_SCREEN_TABLET_MAX) {
   .elementor-toc--minimized-on-tablet .elementor-toc__body {
     display: none; } }
 
-@media only screen and (max-width: ELEMENTOR_SCREEN_SM_MAX) {
+@media only screen and (max-width: ELEMENTOR_SCREEN_MOBILE_MAX) {
   .elementor-toc--minimized-on-mobile .elementor-toc__body {
     display: none; } }
 

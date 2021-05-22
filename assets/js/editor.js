@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.2.1 - 21-03-2021 */
+/*! elementor-pro - v3.2.2 - 05-05-2021 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -12659,7 +12659,27 @@ var ElementorPro = Marionette.Application.extend({
   },
   libraryRemoveGetProButtons: function libraryRemoveGetProButtons() {
     elementor.hooks.addFilter('elementor/editor/template-library/template/action-button', function (viewID, templateData) {
-      return templateData.isPro && !elementorPro.config.isActive ? '#tmpl-elementor-pro-template-library-activate-license-button' : '#tmpl-elementor-template-library-insert-button';
+      var _elementor$config, _elementor$config$lib;
+
+      // eslint-disable-next-line camelcase
+      if (templateData.accessLevel === undefined || ((_elementor$config = elementor.config) === null || _elementor$config === void 0 ? void 0 : (_elementor$config$lib = _elementor$config.library_connect) === null || _elementor$config$lib === void 0 ? void 0 : _elementor$config$lib.current_access_level) === undefined) {
+        // BC support.
+        return templateData.isPro && !elementorPro.config.isActive ? '#tmpl-elementor-pro-template-library-activate-license-button' : '#tmpl-elementor-template-library-insert-button';
+      } // When the template should be at least "pro" and the license is not active.
+
+
+      if (templateData.accessLevel > 0 && !elementorPro.config.isActive) {
+        return '#tmpl-elementor-pro-template-library-activate-license-button';
+      } // When the template access levels is greater than the current license access level it should
+      // return the "core" view template which is by default "go pro" or "go expert" button.
+
+
+      if (templateData.accessLevel > elementor.config.library_connect.current_access_level) {
+        return viewID;
+      } // When the current license can insert the template.
+
+
+      return '#tmpl-elementor-template-library-insert-button';
     });
   },
   onActivateSuccess: function onActivateSuccess() {

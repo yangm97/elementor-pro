@@ -45,10 +45,6 @@ class Paypal_Button extends Payment_Button {
 		return [ 'paypal', 'payment', 'sell', 'donate' ];
 	}
 
-	public function get_categories() {
-		return [ 'pro-elements' ];
-	}
-
 	protected function get_merchant_name() {
 		return 'PayPal';
 	}
@@ -295,5 +291,23 @@ class Paypal_Button extends Payment_Button {
 				],
 			]
 		);
+	}
+
+	// This widget extends the button core widget and therefore needs to overwrite the widget-base core CSS config.
+	public function get_css_config() {
+		$widget_name = 'payments';
+
+		$direction = is_rtl() ? '-rtl' : '';
+
+		$css_file_path = 'css/widget-' . $widget_name . $direction . '.min.css';
+
+		return [
+			'key' => $widget_name,
+			'version' => ELEMENTOR_PRO_VERSION,
+			'file_path' => ELEMENTOR_PRO_ASSETS_PATH . $css_file_path,
+			'data' => [
+				'file_url' => ELEMENTOR_PRO_ASSETS_URL . $css_file_path,
+			],
+		];
 	}
 }

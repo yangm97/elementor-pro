@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.2.2 - 05-05-2021 */
+/*! elementor-pro - v3.3.0 - 06-06-2021 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -6748,7 +6748,7 @@ var GlobalWidgetsView = elementor.modules.layouts.panel.pages.elements.views.Glo
 module.exports = GlobalWidgetsView.extend({
   template: '#tmpl-elementor-panel-global-widget-no-templates',
   id: 'elementor-panel-global-widget-no-templates',
-  className: 'elementor-nerd-box elementor-panel-nerd-box'
+  className: 'elementor-nerd-box elementor-panel-nerd-box e-responsive-panel-stretch'
 });
 
 /***/ }),
@@ -10406,6 +10406,250 @@ module.exports = elementorModules.editor.utils.Module.extend({
 
 /***/ }),
 
+/***/ "../modules/video-playlist/assets/js/editor/component.js":
+/*!***************************************************************!*\
+  !*** ../modules/video-playlist/assets/js/editor/component.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _interopRequireWildcard = __webpack_require__(/*! @babel/runtime-corejs2/helpers/interopRequireWildcard */ "../node_modules/@babel/runtime-corejs2/helpers/interopRequireWildcard.js");
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime-corejs2/helpers/interopRequireDefault */ "../node_modules/@babel/runtime-corejs2/helpers/interopRequireDefault.js");
+
+var _Object$defineProperty = __webpack_require__(/*! @babel/runtime-corejs2/core-js/object/define-property */ "../node_modules/@babel/runtime-corejs2/core-js/object/define-property.js");
+
+_Object$defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = void 0;
+
+var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/classCallCheck */ "../node_modules/@babel/runtime-corejs2/helpers/classCallCheck.js"));
+
+var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/createClass */ "../node_modules/@babel/runtime-corejs2/helpers/createClass.js"));
+
+var _inherits2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/inherits */ "../node_modules/@babel/runtime-corejs2/helpers/inherits.js"));
+
+var _createSuper2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/createSuper */ "../node_modules/@babel/runtime-corejs2/helpers/createSuper.js"));
+
+var hooks = _interopRequireWildcard(__webpack_require__(/*! ./hooks/ui */ "../modules/video-playlist/assets/js/editor/hooks/ui/index.js"));
+
+var VideoPlaylistComponent = /*#__PURE__*/function (_$e$modules$Component) {
+  (0, _inherits2.default)(VideoPlaylistComponent, _$e$modules$Component);
+
+  var _super = (0, _createSuper2.default)(VideoPlaylistComponent);
+
+  function VideoPlaylistComponent() {
+    (0, _classCallCheck2.default)(this, VideoPlaylistComponent);
+    return _super.apply(this, arguments);
+  }
+
+  (0, _createClass2.default)(VideoPlaylistComponent, [{
+    key: "getNamespace",
+    value: function getNamespace() {
+      return 'video-playlist';
+    }
+  }, {
+    key: "defaultHooks",
+    value: function defaultHooks() {
+      return this.importHooks(hooks);
+    }
+  }]);
+  return VideoPlaylistComponent;
+}($e.modules.ComponentBase);
+
+exports.default = VideoPlaylistComponent;
+
+/***/ }),
+
+/***/ "../modules/video-playlist/assets/js/editor/hooks/ui/document/elements/settings/active-tab.js":
+/*!****************************************************************************************************!*\
+  !*** ../modules/video-playlist/assets/js/editor/hooks/ui/document/elements/settings/active-tab.js ***!
+  \****************************************************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime-corejs2/helpers/interopRequireDefault */ "../node_modules/@babel/runtime-corejs2/helpers/interopRequireDefault.js");
+
+var _Object$defineProperty = __webpack_require__(/*! @babel/runtime-corejs2/core-js/object/define-property */ "../node_modules/@babel/runtime-corejs2/core-js/object/define-property.js");
+
+_Object$defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = exports.ActiveTab = void 0;
+
+var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/classCallCheck */ "../node_modules/@babel/runtime-corejs2/helpers/classCallCheck.js"));
+
+var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/createClass */ "../node_modules/@babel/runtime-corejs2/helpers/createClass.js"));
+
+var _inherits2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/inherits */ "../node_modules/@babel/runtime-corejs2/helpers/inherits.js"));
+
+var _createSuper2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/createSuper */ "../node_modules/@babel/runtime-corejs2/helpers/createSuper.js"));
+
+/**
+ * Hook fired when template: 'single' page layout changed.
+ */
+var ActiveTab = /*#__PURE__*/function (_$e$modules$hookData$) {
+  (0, _inherits2.default)(ActiveTab, _$e$modules$hookData$);
+
+  var _super = (0, _createSuper2.default)(ActiveTab);
+
+  function ActiveTab() {
+    (0, _classCallCheck2.default)(this, ActiveTab);
+    return _super.apply(this, arguments);
+  }
+
+  (0, _createClass2.default)(ActiveTab, [{
+    key: "getCommand",
+    value: function getCommand() {
+      return 'document/elements/settings';
+    }
+  }, {
+    key: "getId",
+    value: function getId() {
+      return 'active-tab--document/elements/settings';
+    }
+  }, {
+    key: "getContainerType",
+    value: function getContainerType() {
+      return 'repeater';
+    }
+  }, {
+    key: "getConditions",
+    value: function getConditions(args) {
+      return args.settings.inner_tab_content_1 || args.settings.inner_tab_content_2;
+    }
+  }, {
+    key: "apply",
+    value: function apply(args) {
+      if (args.settings.inner_tab_content_1) {
+        args.container.view.model.get('editSettings').set('innerActiveIndex', 0);
+      } else if (args.settings.inner_tab_content_2) {
+        args.container.view.model.get('editSettings').set('innerActiveIndex', 1);
+      }
+    }
+  }]);
+  return ActiveTab;
+}($e.modules.hookData.After);
+
+exports.ActiveTab = ActiveTab;
+var _default = ActiveTab;
+exports.default = _default;
+
+/***/ }),
+
+/***/ "../modules/video-playlist/assets/js/editor/hooks/ui/index.js":
+/*!********************************************************************!*\
+  !*** ../modules/video-playlist/assets/js/editor/hooks/ui/index.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _Object$defineProperty = __webpack_require__(/*! @babel/runtime-corejs2/core-js/object/define-property */ "../node_modules/@babel/runtime-corejs2/core-js/object/define-property.js");
+
+_Object$defineProperty(exports, "__esModule", {
+  value: true
+});
+
+_Object$defineProperty(exports, "ActiveTab", {
+  enumerable: true,
+  get: function get() {
+    return _activeTab.ActiveTab;
+  }
+});
+
+var _activeTab = __webpack_require__(/*! ./document/elements/settings/active-tab */ "../modules/video-playlist/assets/js/editor/hooks/ui/document/elements/settings/active-tab.js");
+
+/***/ }),
+
+/***/ "../modules/video-playlist/assets/js/editor/module.js":
+/*!************************************************************!*\
+  !*** ../modules/video-playlist/assets/js/editor/module.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime-corejs2/helpers/interopRequireDefault */ "../node_modules/@babel/runtime-corejs2/helpers/interopRequireDefault.js");
+
+var _Object$defineProperty = __webpack_require__(/*! @babel/runtime-corejs2/core-js/object/define-property */ "../node_modules/@babel/runtime-corejs2/core-js/object/define-property.js");
+
+_Object$defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = void 0;
+
+var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/classCallCheck */ "../node_modules/@babel/runtime-corejs2/helpers/classCallCheck.js"));
+
+var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/createClass */ "../node_modules/@babel/runtime-corejs2/helpers/createClass.js"));
+
+var _get2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/get */ "../node_modules/@babel/runtime-corejs2/helpers/get.js"));
+
+var _getPrototypeOf2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/getPrototypeOf */ "../node_modules/@babel/runtime-corejs2/helpers/getPrototypeOf.js"));
+
+var _inherits2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/inherits */ "../node_modules/@babel/runtime-corejs2/helpers/inherits.js"));
+
+var _createSuper2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/createSuper */ "../node_modules/@babel/runtime-corejs2/helpers/createSuper.js"));
+
+var _component = _interopRequireDefault(__webpack_require__(/*! ./component */ "../modules/video-playlist/assets/js/editor/component.js"));
+
+var Module = /*#__PURE__*/function (_elementorModules$edi) {
+  (0, _inherits2.default)(Module, _elementorModules$edi);
+
+  var _super = (0, _createSuper2.default)(Module);
+
+  function Module() {
+    (0, _classCallCheck2.default)(this, Module);
+    return _super.apply(this, arguments);
+  }
+
+  (0, _createClass2.default)(Module, [{
+    key: "onInit",
+
+    /**
+     * Init
+     */
+    value: function onInit() {
+      (0, _get2.default)((0, _getPrototypeOf2.default)(Module.prototype), "onInit", this).call(this);
+      $e.components.register(new _component.default());
+    }
+  }, {
+    key: "onElementorLoaded",
+    value: function onElementorLoaded() {
+      elementor.channels.editor.on('elementorPlaylistWidget:setData', function (e) {
+        $e.run('document/elements/settings', {
+          container: e.container,
+          settings: {
+            thumbnail: {
+              url: e.currentItem.thumbnail ? e.currentItem.thumbnail.url : ''
+            },
+            title: e.currentItem.video_title ? e.currentItem.video_title : '',
+            duration: e.currentItem.duration ? e.currentItem.duration : ''
+          },
+          options: {
+            external: true
+          }
+        });
+      });
+    }
+  }]);
+  return Module;
+}(elementorModules.editor.utils.Module);
+
+exports.default = Module;
+
+/***/ }),
+
 /***/ "../node_modules/core-js/modules/_a-function.js":
 /*!******************************************************!*\
   !*** ../node_modules/core-js/modules/_a-function.js ***!
@@ -12592,6 +12836,8 @@ var _module5 = _interopRequireDefault(__webpack_require__(/*! modules/screenshot
 
 var _editor3 = _interopRequireDefault(__webpack_require__(/*! ../../../../core/app/modules/site-editor/assets/js/editor */ "../core/app/modules/site-editor/assets/js/editor.js"));
 
+var _module6 = _interopRequireDefault(__webpack_require__(/*! modules/video-playlist/assets/js/editor/module */ "../modules/video-playlist/assets/js/editor/module.js"));
+
 var ElementorPro = Marionette.Application.extend({
   config: {},
   modules: {},
@@ -12618,7 +12864,8 @@ var ElementorPro = Marionette.Application.extend({
       siteEditor: new _editor3.default(),
       screenshots: new _module5.default(),
       // Popup is depended on Theme Builder.
-      popup: new _module.default()
+      popup: new _module.default(),
+      videoPlaylistModule: new _module6.default()
     };
   },
   ajax: {

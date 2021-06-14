@@ -2,7 +2,7 @@
 namespace ElementorPro\Modules\Forms\Submissions\Database;
 
 use Elementor\Core\Base\Base_Object;
-use ElementorPro\Core\Utils\Collection;
+use Elementor\Core\Utils\Collection;
 
 class Migration extends Base_Object {
 	const OPTION_DB_VERSION = 'elementor_submissions_db_version';

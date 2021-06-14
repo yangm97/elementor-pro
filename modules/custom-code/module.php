@@ -107,8 +107,8 @@ class Module extends Module_Base {
 
 	private function register_custom_post_type() {
 		$labels = [
-			'name' => _x( 'Custom code', 'Template Library', 'elementor-pro' ),
-			'singular_name' => _x( 'Custom code', 'Template Library', 'elementor-pro' ),
+			'name' => __( 'Custom Code', 'elementor-pro' ),
+			'singular_name' => __( 'Custom Code', 'elementor-pro' ),
 			'add_new' => __( 'Add new', 'elementor-pro' ),
 			'add_new_item' => __( 'New code', 'elementor-pro' ),
 			'edit_item' => __( 'Edit code', 'elementor-pro' ),
@@ -285,7 +285,7 @@ class Module extends Module_Base {
 	}
 
 	private function add_admin_menu() {
-		$menu_title = _x( 'Custom Code', 'Custom Code', 'elementor-pro' );
+		$menu_title = __( 'Custom Code', 'elementor-pro' );
 		add_submenu_page(
 			Settings::PAGE_ID,
 			$menu_title,

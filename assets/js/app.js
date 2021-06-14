@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.2.2 - 05-05-2021 */
+/*! elementor-pro - v3.3.0 - 06-06-2021 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -8728,12 +8728,11 @@ function Import() {
     return isImport && action.error;
   }, [action]);
 
-  var upload = _react.default.useCallback(function (files) {
+  var upload = _react.default.useCallback(function (file) {
     if (isUploading) {
       return;
     }
 
-    var file = files[0];
     readFile(file).then(function (fileData) {
       return importTemplates({
         fileName: file.name,
@@ -8772,7 +8771,8 @@ function Import() {
     text: __('Drag & Drop your .JSON or .zip template file', 'elementor-pro'),
     secondaryText: __('or', 'elementor-pro'),
     onFileSelect: upload,
-    isLoading: isUploading
+    isLoading: isUploading,
+    filetypes: ['zip', 'json']
   }));
 }
 

@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.2.2 - 05-05-2021 */
+/*! elementor-pro - v3.3.0 - 06-06-2021 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -5848,7 +5848,6 @@ var shallowCompare = function shallowCompare(obj1, obj2) {
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
-/* provided dependency */ var __ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n")["__"];
 
 
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime-corejs2/helpers/interopRequireDefault */ "../node_modules/@babel/runtime-corejs2/helpers/interopRequireDefault.js");
@@ -5877,15 +5876,12 @@ var _pages = _interopRequireDefault(__webpack_require__(/*! ./pages */ "../modul
 
 var _reachRouterHashHistory = __webpack_require__(/*! reach-router-hash-history */ "../node_modules/reach-router-hash-history/index.js");
 
-var _pageTitle = _interopRequireDefault(__webpack_require__(/*! ./components/page-title */ "../modules/forms/submissions/assets/js/admin/components/page-title.js"));
-
 var history = (0, _router.createHistory)((0, _reachRouterHashHistory.createHashSource)());
 
 function App() {
   return /*#__PURE__*/_react.default.createElement("div", {
-    className: "wrap",
     id: "elementor-form-submissions"
-  }, /*#__PURE__*/_react.default.createElement(_pageTitle.default, null, __('Submissions', 'elementor-pro')), /*#__PURE__*/_react.default.createElement(_settingsContext.SettingsProvider, {
+  }, /*#__PURE__*/_react.default.createElement(_settingsContext.SettingsProvider, {
     value: window.elementorSubmissionsConfig
   }, /*#__PURE__*/_react.default.createElement(_noticesContext.NoticesProvider, null, /*#__PURE__*/_react.default.createElement(_notices.default, null), /*#__PURE__*/_react.default.createElement(_router.LocationProvider, {
     history: history
@@ -6595,42 +6591,6 @@ function Notices() {
     });
   });
 }
-
-/***/ }),
-
-/***/ "../modules/forms/submissions/assets/js/admin/components/page-title.js":
-/*!*****************************************************************************!*\
-  !*** ../modules/forms/submissions/assets/js/admin/components/page-title.js ***!
-  \*****************************************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-/* provided dependency */ var PropTypes = __webpack_require__(/*! prop-types */ "../node_modules/prop-types/index.js");
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime-corejs2/helpers/interopRequireDefault */ "../node_modules/@babel/runtime-corejs2/helpers/interopRequireDefault.js");
-
-var _Object$defineProperty = __webpack_require__(/*! @babel/runtime-corejs2/core-js/object/define-property */ "../node_modules/@babel/runtime-corejs2/core-js/object/define-property.js");
-
-_Object$defineProperty(exports, "__esModule", {
-  value: true
-});
-
-exports.default = PageTitle;
-
-var _react = _interopRequireDefault(__webpack_require__(/*! react */ "react"));
-
-function PageTitle(props) {
-  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("h1", {
-    className: "wp-heading-inline"
-  }, props.children), /*#__PURE__*/_react.default.createElement("hr", {
-    className: "wp-header-end"
-  }));
-}
-
-PageTitle.propTypes = {
-  children: PropTypes.any
-};
 
 /***/ }),
 

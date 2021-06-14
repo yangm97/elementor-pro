@@ -19,6 +19,10 @@ class Section extends Theme_Section_Document {
 		return __( 'Section', 'elementor-pro' );
 	}
 
+	public static function get_plural_title() {
+		return __( 'Sections', 'elementor-pro' );
+	}
+
 	public static function get_properties() {
 		$properties = parent::get_properties();
 

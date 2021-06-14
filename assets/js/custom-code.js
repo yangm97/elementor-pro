@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.2.2 - 05-05-2021 */
+/*! elementor-pro - v3.3.0 - 06-06-2021 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -6225,7 +6225,7 @@ _Object$defineProperty(exports, "__esModule", {
   value: true
 });
 
-exports.default = exports.Modal = void 0;
+exports.default = void 0;
 
 var _react = _interopRequireDefault(__webpack_require__(/*! react */ "react"));
 
@@ -6247,13 +6247,9 @@ var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/run
 
 var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/createClass */ "../node_modules/@babel/runtime-corejs2/helpers/createClass.js"));
 
-var _assertThisInitialized2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/assertThisInitialized */ "../node_modules/@babel/runtime-corejs2/helpers/assertThisInitialized.js"));
-
 var _inherits2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/inherits */ "../node_modules/@babel/runtime-corejs2/helpers/inherits.js"));
 
 var _createSuper2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/createSuper */ "../node_modules/@babel/runtime-corejs2/helpers/createSuper.js"));
-
-var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/defineProperty */ "../node_modules/@babel/runtime-corejs2/helpers/defineProperty.js"));
 
 var _appUi = __webpack_require__(/*! @elementor/app-ui */ "@elementor/app-ui");
 
@@ -6262,127 +6258,29 @@ var _conditions = _interopRequireDefault(__webpack_require__(/*! ./conditions */
 var _conditionsConfig = _interopRequireDefault(__webpack_require__(/*! elementor-pro-app-modules/site-editor/assets/js/context/services/conditions-config */ "../core/app/modules/site-editor/assets/js/context/services/conditions-config.js"));
 
 /**
- * @TODO: Remove - On release 3.2.0.
- */
-var Modal = /*#__PURE__*/function (_React$Component) {
-  (0, _inherits2.default)(Modal, _React$Component);
-
-  var _super = (0, _createSuper2.default)(Modal);
-
-  function Modal() {
-    var _this;
-
-    (0, _classCallCheck2.default)(this, Modal);
-
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _this = _super.call.apply(_super, [this].concat(args));
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "modalRef", _react.default.createRef());
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "closeRef", _react.default.createRef());
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "closeModal", function (e) {
-      var modalProps = _this.props.modalProps;
-      var node = _this.modalRef.current,
-          closeNode = _this.closeRef.current,
-          isInCloseNode = closeNode && closeNode.contains(e.target); // ignore if click is inside the modal
-
-      if (node && node.contains(e.target) && !isInCloseNode) {
-        return;
-      }
-
-      modalProps.hideModal();
-    });
-    return _this;
-  }
-
-  (0, _createClass2.default)(Modal, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      document.addEventListener('mousedown', this.closeModal, false);
-    }
-  }, {
-    key: "componentWillUnmount",
-    value: function componentWillUnmount() {
-      document.removeEventListener('mousedown', this.closeModal, false);
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this$props = this.props,
-          modalProps = _this$props.modalProps,
-          children = _this$props.children,
-          icon = _this$props.icon;
-      return modalProps.show ? /*#__PURE__*/_react.default.createElement("div", {
-        className: "eps-modal__overlay",
-        onClick: this.closeModal
-      }, /*#__PURE__*/_react.default.createElement("div", {
-        className: "eps-modal",
-        ref: this.modalRef
-      }, /*#__PURE__*/_react.default.createElement(_appUi.Grid, {
-        container: true,
-        className: "eps-modal__header",
-        justify: "space-between",
-        alignItems: "center"
-      }, /*#__PURE__*/_react.default.createElement(_appUi.Grid, {
-        item: true
-      }, /*#__PURE__*/_react.default.createElement(_appUi.Icon, {
-        className: "eps-modal__icon ".concat(icon)
-      }), /*#__PURE__*/_react.default.createElement(_appUi.Text, {
-        className: "title",
-        tag: "span"
-      }, this.props.title)), /*#__PURE__*/_react.default.createElement(_appUi.Grid, {
-        item: true
-      }, /*#__PURE__*/_react.default.createElement("div", {
-        className: "eps-modal__close-wrapper",
-        ref: this.closeRef
-      }, /*#__PURE__*/_react.default.createElement(_appUi.Button, {
-        text: __('Close', 'elementor'),
-        hideText: true,
-        icon: "eicon-close",
-        onClick: this.closeModal
-      })))), /*#__PURE__*/_react.default.createElement("div", {
-        className: "eps-modal__body"
-      }, children))) : null;
-    }
-  }]);
-  return Modal;
-}(_react.default.Component);
-
-exports.Modal = Modal;
-Modal.propTypes = {
-  modalProps: PropTypes.object.isRequired,
-  children: PropTypes.any.isRequired,
-  title: PropTypes.string.isRequired,
-  icon: PropTypes.string
-};
-/* End of remove */
-
-/**
  * Publish metabox conditions ( 'Edit' modal ).
  */
-
 var ConditionsModal = /*#__PURE__*/function (_ModalProvider) {
   (0, _inherits2.default)(ConditionsModal, _ModalProvider);
 
-  var _super2 = (0, _createSuper2.default)(ConditionsModal);
+  var _super = (0, _createSuper2.default)(ConditionsModal);
 
   function ConditionsModal(props) {
-    var _this2;
+    var _this;
 
     (0, _classCallCheck2.default)(this, ConditionsModal);
-    _this2 = _super2.call(this, props);
-    _this2.state.conditions = null;
-    _this2.state.instances = null;
-    _this2.isSavedOnce = false;
-    return _this2;
+    _this = _super.call(this, props);
+    _this.state.conditions = null;
+    _this.state.instances = null;
+    _this.isSavedOnce = false;
+    return _this;
   }
 
   (0, _createClass2.default)(ConditionsModal, [{
     key: "componentDidMount",
     value: function () {
       var _componentDidMount = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
-        var _this3 = this;
+        var _this2 = this;
 
         return _regenerator.default.wrap(function _callee$(_context) {
           while (1) {
@@ -6409,9 +6307,9 @@ var ConditionsModal = /*#__PURE__*/function (_ModalProvider) {
                     };
                   });
 
-                  _this3.setState({
+                  _this2.setState({
                     conditions: conditions,
-                    instances: (0, _values.default)(_this3.conditionsConfig.calculateInstances(conditions)).join(',')
+                    instances: (0, _values.default)(_this2.conditionsConfig.calculateInstances(conditions)).join(',')
                   });
                 });
                 this.elements = {
@@ -6514,7 +6412,7 @@ var ConditionsModal = /*#__PURE__*/function (_ModalProvider) {
         className: "post-conditions-display"
       }, /*#__PURE__*/_react.default.createElement("b", null, this.state.instances)), "\xA0", /*#__PURE__*/_react.default.createElement(_appUi.Button, (0, _extends2.default)({}, toggleButtonProps, {
         onClick: this.state.showModal
-      })), /*#__PURE__*/_react.default.createElement(Modal, (0, _extends2.default)({
+      })), /*#__PURE__*/_react.default.createElement(_appUi.Modal, (0, _extends2.default)({
         modalProps: this.state
       }, modalProps), /*#__PURE__*/_react.default.createElement(_appUi.CssGrid, {
         columns: 1,

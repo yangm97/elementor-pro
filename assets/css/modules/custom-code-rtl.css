@@ -1255,10 +1255,11 @@ span.font-variations-count {
   background: #f1f3f5;
   max-width: 1200px;
   max-height: 800px;
-  width: 90%;
-  height: 90%;
-  min-height: 800px;
-  min-width: 860px; }
+  width: 90vw;
+  height: 88vh;
+  min-height: 706px;
+  min-width: 766px;
+  margin: auto; }
   .post-conditions .eps-modal .eps-h1 {
     font-size: 30px;
     font-weight: 300; }
@@ -1294,7 +1295,7 @@ span.font-variations-count {
     .post-conditions .eps-modal__header .eps-button {
       font-size: 18px; }
   .post-conditions .eps-modal .e-site-editor-conditions__header {
-    padding-top: 60px; }
+    padding-top: 5vh; }
   .post-conditions .eps-modal .e-site-editor-conditions__rows {
     overflow-y: auto;
     max-height: 27vh;
@@ -1304,7 +1305,8 @@ span.font-variations-count {
     .post-conditions .eps-modal .e-site-editor-conditions__rows:not(:empty) {
       margin-bottom: 20px; }
     .post-conditions .eps-modal .e-site-editor-conditions__rows .e-site-editor-conditions__row {
-      margin-top: 15px; }
+      margin-top: 15px;
+      padding: 0 14px; }
       .post-conditions .eps-modal .e-site-editor-conditions__rows .e-site-editor-conditions__row-controls {
         border-radius: 0; }
         .post-conditions .eps-modal .e-site-editor-conditions__rows .e-site-editor-conditions__row-controls select {
@@ -1368,14 +1370,28 @@ span.font-variations-count {
     #elementor-custom-code .inside .elementor-custom-code-codemirror-holder .elementor-field-label {
       margin: 0; }
     #elementor-custom-code .inside .elementor-custom-code-codemirror-holder .elementor-custom-code-codemirror {
-      border: 1px solid #ccd0d4; }
-      #elementor-custom-code .inside .elementor-custom-code-codemirror-holder .elementor-custom-code-codemirror .CodeMirror.CodeMirror-wrap {
+      border: 1px solid #ccd0d4;
+      resize: vertical;
+      overflow: auto;
+      max-width: 100%; }
+      #elementor-custom-code .inside .elementor-custom-code-codemirror-holder .elementor-custom-code-codemirror .elementor-field-textarea,
+      #elementor-custom-code .inside .elementor-custom-code-codemirror-holder .elementor-custom-code-codemirror .CodeMirror.CodeMirror-wrap,
+      #elementor-custom-code .inside .elementor-custom-code-codemirror-holder .elementor-custom-code-codemirror .CodeMirror-scroll {
         height: 100%; }
       #elementor-custom-code .inside .elementor-custom-code-codemirror-holder .elementor-custom-code-codemirror .CodeMirror-sizer {
-        min-height: 300px !important; }
+        min-height: 300px !important;
+        border-right: 0; }
 
 .post-type-elementor_snippet #minor-publishing-actions,
 .post-type-elementor_snippet #save-action {
   display: none; }
+
+.e--ua-safari #elementor-custom-code .elementor-custom-code-codemirror {
+  background-color: #ffffff;
+  display: flex; }
+  .e--ua-safari #elementor-custom-code .elementor-custom-code-codemirror .elementor-field-textarea {
+    width: calc(100% - 8px); }
+  .e--ua-safari #elementor-custom-code .elementor-custom-code-codemirror .CodeMirror-sizer {
+    box-sizing: border-box; }
 
 /*# sourceMappingURL=custom-code-rtl.css.map */

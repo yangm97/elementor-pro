@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.2.2 - 05-05-2021 */
+/*! elementor-pro - v3.3.0 - 06-06-2021 */
 (self["webpackChunkelementor_pro"] = self["webpackChunkelementor_pro"] || []).push([["nav-menu"],{
 
 /***/ "../modules/nav-menu/assets/js/frontend/handlers/nav-menu.js":
@@ -40,6 +40,7 @@ var _default = elementorModules.frontend.handlers.Base.extend({
     elements.$dropdownMenu = this.$element.find(selectors.dropdownMenu);
     elements.$dropdownMenuFinalItems = elements.$dropdownMenu.find('.menu-item:not(.menu-item-has-children) > a');
     elements.$menuToggle = this.$element.find(selectors.menuToggle);
+    elements.$links = elements.$dropdownMenu.find('a.elementor-item');
     return elements;
   },
   bindEvents: function bindEvents() {
@@ -60,6 +61,10 @@ var _default = elementorModules.frontend.handlers.Base.extend({
       element: this.elements.$dropdownMenu
     });
   },
+  toggleNavLinksTabIndex: function toggleNavLinksTabIndex() {
+    var enabled = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+    this.elements.$links.attr('tabindex', enabled ? 0 : -1);
+  },
   toggleMenu: function toggleMenu(show) {
     var isDropdownVisible = this.elements.$menuToggle.hasClass('elementor-active');
 
@@ -70,6 +75,7 @@ var _default = elementorModules.frontend.handlers.Base.extend({
     this.elements.$menuToggle.attr('aria-expanded', show);
     this.elements.$dropdownMenu.attr('aria-hidden', !show);
     this.elements.$menuToggle.toggleClass('elementor-active', show);
+    this.toggleNavLinksTabIndex(show);
 
     if (show && this.getElementSettings('full_width')) {
       this.stretchElement.stretch();
@@ -140,8 +146,13 @@ var _default = elementorModules.frontend.handlers.Base.extend({
       return;
     }
 
+    var elementSettings = this.getElementSettings(),
+        subIndicatorsContent = "<i class=\"".concat(elementSettings.submenu_icon.value, "\"></i>"); // subIndicators param - Added for backwards compatibility:
+    // If the old 'indicator' control value = 'none', the <span class="sub-arrow"> wrapper element is removed
+
     this.elements.$menu.smartmenus({
-      subIndicatorsText: '<i class="fa"></i>',
+      subIndicators: '' !== subIndicatorsContent,
+      subIndicatorsText: subIndicatorsContent,
       subIndicatorsPos: 'append',
       subMenusMaxWidth: '1000px'
     });
@@ -164,4 +175,4 @@ exports.default = _default;
 /***/ })
 
 }]);
-//# sourceMappingURL=nav-menu.dc9954b5562a6a182c99.bundle.js.map
+//# sourceMappingURL=nav-menu.0846c84d2d390c6d6b16.bundle.js.map

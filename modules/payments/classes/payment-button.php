@@ -6,12 +6,14 @@ use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 use Elementor\Group_Control_Typography;
 use Elementor\Modules\DynamicTags\Module as TagsModule;
 use Elementor\Widget_Button;
+use ElementorPro\Base\Base_Widget_Trait;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
 abstract class Payment_Button extends Widget_Button {
+	use Base_Widget_Trait;
 
 	// Payment types.
 	const PAYMENT_TYPE_CHECKOUT = 'checkout';
@@ -41,35 +43,39 @@ abstract class Payment_Button extends Widget_Button {
 	// Custom sandbox controls.
 	abstract protected function register_sandbox_controls();
 
+	public function get_group_name() {
+		return 'payments';
+	}
+
 	// Render custom controls after product type.
 	protected function after_product_type() { }
 
 	// Return an array of supported currencies.
 	protected function get_currencies() {
 		return [
-			'AUD' => _x( 'Australian Dollar', 'Currency', 'elementor-pro' ),
-			'CAD' => _x( 'Canadian Dollar', 'Currency', 'elementor-pro' ),
-			'CZK' => _x( 'Czech Koruna', 'Currency', 'elementor-pro' ),
-			'DKK' => _x( 'Danish Krone', 'Currency', 'elementor-pro' ),
-			'EUR' => _x( 'European Euro', 'Currency', 'elementor-pro' ),
-			'HKD' => _x( 'Hong Kong Dollar', 'Currency', 'elementor-pro' ),
-			'HUF' => _x( 'Hungarian Forint', 'Currency', 'elementor-pro' ),
-			'ILS' => _x( 'Israeli New Sheqel', 'Currency', 'elementor-pro' ),
-			'JPY' => _x( 'Japanese Yen', 'Currency', 'elementor-pro' ),
-			'MXN' => _x( 'Mexican Peso', 'Currency', 'elementor-pro' ),
-			'NOK' => _x( 'Norwegian Krone', 'Currency', 'elementor-pro' ),
-			'NZD' => _x( 'New Zealand Dollar', 'Currency', 'elementor-pro' ),
-			'PHP' => _x( 'Philippine Peso', 'Currency', 'elementor-pro' ),
-			'PLN' => _x( 'Polish Zloty', 'Currency', 'elementor-pro' ),
+			'AUD' => _x( 'AUD', 'Currency', 'elementor-pro' ),
+			'CAD' => _x( 'CAD', 'Currency', 'elementor-pro' ),
+			'CZK' => _x( 'CZK', 'Currency', 'elementor-pro' ),
+			'DKK' => _x( 'DKK', 'Currency', 'elementor-pro' ),
+			'EUR' => _x( 'EUR', 'Currency', 'elementor-pro' ),
+			'HKD' => _x( 'HKD', 'Currency', 'elementor-pro' ),
+			'HUF' => _x( 'HUF', 'Currency', 'elementor-pro' ),
+			'ILS' => _x( 'ILS', 'Currency', 'elementor-pro' ),
+			'JPY' => _x( 'JPY', 'Currency', 'elementor-pro' ),
+			'MXN' => _x( 'MXN', 'Currency', 'elementor-pro' ),
+			'NOK' => _x( 'NOK', 'Currency', 'elementor-pro' ),
+			'NZD' => _x( 'NZD', 'Currency', 'elementor-pro' ),
+			'PHP' => _x( 'PHP', 'Currency', 'elementor-pro' ),
+			'PLN' => _x( 'PLN', 'Currency', 'elementor-pro' ),
 			'GBP' => _x( 'GBP', 'Currency', 'elementor-pro' ),
-			'RUB' => _x( 'Russian Ruble', 'Currency', 'elementor-pro' ),
-			'SGD' => _x( 'Singapore Dollar', 'Currency', 'elementor-pro' ),
-			'SEK' => _x( 'Swedish Krona', 'Currency', 'elementor-pro' ),
-			'CHF' => _x( 'Swiss Franc', 'Currency', 'elementor-pro' ),
-			'TWD' => _x( 'Taiwan New Dollar', 'Currency', 'elementor-pro' ),
-			'THB' => _x( 'Thai Baht', 'Currency', 'elementor-pro' ),
-			'TRY' => _x( 'Turkish Lira', 'Currency', 'elementor-pro' ),
-			'USD' => _x( 'U.S. Dollar', 'Currency', 'elementor-pro' ),
+			'RUB' => _x( 'RUB', 'Currency', 'elementor-pro' ),
+			'SGD' => _x( 'SGD', 'Currency', 'elementor-pro' ),
+			'SEK' => _x( 'SEK', 'Currency', 'elementor-pro' ),
+			'CHF' => _x( 'CHF', 'Currency', 'elementor-pro' ),
+			'TWD' => _x( 'TWD', 'Currency', 'elementor-pro' ),
+			'THB' => _x( 'THB', 'Currency', 'elementor-pro' ),
+			'TRY' => _x( 'TRY', 'Currency', 'elementor-pro' ),
+			'USD' => _x( 'USD', 'Currency', 'elementor-pro' ),
 		];
 	}
 

@@ -482,6 +482,9 @@ class Video_Playlist extends Base_Widget {
 				],
 				'label_block' => false,
 				'skin' => 'inline',
+				'condition' => [
+					'show_image_overlay' => 'yes',
+				],
 			]
 		);
 
@@ -856,7 +859,7 @@ class Video_Playlist extends Base_Widget {
 				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .e-tab-title i' => 'color: {{VALUE}};',
-					'{{WRAPPER}} .e-tab-title svg' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .e-tab-title svg' => 'fill: {{VALUE}};',
 					'{{WRAPPER}} .e-tab-title svg path' => 'fill: {{VALUE}};',
 				],
 			]
@@ -1490,7 +1493,7 @@ class Video_Playlist extends Base_Widget {
 				$is_already_activated_tab = true;
 
 				$tab_index = $index + 1;
-				$playlist_item_tab_content_object->tab_content_setting_key = $this->get_repeater_setting_key( 'tab_content_' . $tab_index, 'items', $playlist_item_index );
+				$playlist_item_tab_content_object->tab_content_setting_key = $this->get_repeater_setting_key( 'inner_tab_content_' . $tab_index, 'tabs', $playlist_item_index );
 
 			}
 
@@ -1803,7 +1806,7 @@ class Video_Playlist extends Base_Widget {
 					isAlreadyActivatedTab = true;
 
 					var tabIndex = index + 1;
-					playlistItemTabContentObject.tabContentSettingKey = view.getRepeaterSettingKey( 'tab_content_' + tabIndex, 'items', playlistItemIndex );
+					playlistItemTabContentObject.tabContentSettingKey = view.getRepeaterSettingKey( 'inner_tab_content_' + tabIndex, 'tabs', playlistItemIndex );
 				}
 
 				playlistItemTabsArray.push(playlistItemTabContentObject);
@@ -2076,6 +2079,7 @@ class Video_Playlist extends Base_Widget {
 										</div>
 										<div {{{ tab.tabAttribute }}} class="e-inner-tab-content {{{ tab.tabClass }}} {{{ item.tabCollapsible }}}">
 											<div class="e-inner-tab-text">
+												<# view.addInlineEditingAttributes( tab.tabContentSettingKey, 'advanced' ); #>
 												<div {{{ view.getRenderAttributeString( tab.tabContentSettingKey ) }}}>
 													{{{ tab.tab_content }}}
 												</div>

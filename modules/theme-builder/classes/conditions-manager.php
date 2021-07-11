@@ -490,8 +490,6 @@ class Conditions_Manager {
 			$document = $theme_builder_module->get_document( $theme_template_id );
 			if ( $document ) {
 				$documents[ $theme_template_id ] = $document;
-			} else {
-				$this->purge_post_from_cache( $theme_template_id );
 			}
 
 			if ( empty( $location_settings['multiple'] ) ) {

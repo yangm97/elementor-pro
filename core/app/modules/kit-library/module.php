@@ -40,7 +40,7 @@ class Module extends BaseModule {
 			'is_pro' => true,
 			'is_library_connected' => API::is_license_active(),
 			'library_connect_url' => $activate->get_admin_url( 'authorize' ),
-			'access_level' => API::get_library_access_level(),
+			'access_level' => API::get_library_access_level( 'kit' ),
 		] ) );
 	}
 

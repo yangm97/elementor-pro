@@ -58,6 +58,7 @@ class Toolset_Gallery extends Data_Tag {
 			foreach ( $galley_images as $image_url ) {
 				$images[] = [
 					'id' => $this->get_cached_attachment_url_to_post_id( $image_url ),
+					'url' => $image_url,
 				];
 			}
 		}

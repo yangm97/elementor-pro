@@ -120,7 +120,8 @@ class Activate extends Common_App {
 
 	protected function get_popup_success_event_data() {
 		return [
-			'access_level' => API::get_library_access_level(),
+			'templates_access_level' => API::get_library_access_level( 'template' ),
+			'kits_access_level' => API::get_library_access_level( 'kit' ),
 		];
 	}
 

@@ -345,9 +345,11 @@ class API {
 	}
 
 	/**
+	 * @param string $library_type
+	 *
 	 * @return int
 	 */
-	public static function get_library_access_level() {
+	public static function get_library_access_level( $library_type = 'template' ) {
 		$license_data = static::get_license_data();
 
 		$access_level = ConnectModule::ACCESS_LEVEL_CORE;
@@ -361,7 +363,7 @@ class API {
 			return $access_level;
 		}
 
-		$library_access_level_prefix = 'template_access_level_';
+		$library_access_level_prefix = "{$library_type}_access_level_";
 
 		foreach ( $license_data['features'] as $feature ) {
 			if ( strpos( $feature, $library_access_level_prefix ) !== 0 ) {

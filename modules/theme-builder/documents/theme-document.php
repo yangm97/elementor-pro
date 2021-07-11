@@ -249,7 +249,7 @@ abstract class Theme_Document extends Library_Document {
 		$conditions = $theme_builder->get_conditions_manager()->get_document_conditions( $this );
 
 		foreach ( $conditions as $condition ) {
-			if ( 'include' === $condition['type'] && ! $condition['sub_name'] && ! $condition['sub_id'] ) {
+			if ( 'include' === $condition['type'] && ! $condition['sub_id'] ) {
 				$summary['conditions'][] = $condition;
 
 				break;

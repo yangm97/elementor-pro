@@ -159,7 +159,7 @@ class Admin {
 
 		?>
 		<div class="wrap elementor-admin-page-license">
-			<h2><?php _e( 'License Settings', 'elementor-pro' ); ?></h2>
+			<h2 class="wp-heading-inline"><?php _e( 'License Settings', 'elementor-pro' ); ?></h2>
 
 			<form class="elementor-license-box" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
 				<?php wp_nonce_field( 'elementor-pro-license' ); ?>

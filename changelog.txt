@@ -1,5 +1,21 @@
 # Elementor Pro - by Elementor.com
 
+#### 3.3.1 - 2021-06-20
+* Tweak: Added support for more Theme Builder display conditions in Export / Import experiment
+* Tweak: Adjusted License page heading structure for future feature
+* Tweak: Adjusted Font Awesome icon for allowing support for future feature
+* Fix: `frontend.min.js` file size increased in Elementor Pro 3.3.0 ([#15278](https://github.com/elementor/elementor/issues/15278))
+* Fix: Prevent conditions from being reset when object cache is enabled in site ([#13299](https://github.com/elementor/elementor/issues/13299))
+* Fix: Custom Code publish modal responsiveness issues ([#14519](https://github.com/elementor/elementor/issues/14519))
+* Fix: Populating fields with options programmatically doesn't appear in Submissions screen ([#10671](https://github.com/elementor/elementor/issues/10671))
+* Fix: Large images are not shown on the Image Carousel widget when set via Toolset dynamic tag
+* Fix: Enable inline editing to the inner content tabs in Video Playlist widget
+* Fix: Clicking on the video list doesn't play videos properly in Video Playlist widget 
+* Fix: Hide Play Icon control when Image overlay is toggled off in Video Playlist widget
+* Fix: Removed extra space below the player when viewing from mobile view in Video Playlist widget
+* Fix: Import button is not working properly in Theme Builder interface
+* Fix: Preview Dynamic Content as control is not updating preview and throws an error in Popup Builder
+
 #### 3.3.0 - 2021-06-08
 * New: Video Playlist widget - Add Engaging Video Content to Your Website ([#11859](https://github.com/elementor/elementor/issues/11859), [#7803](https://github.com/elementor/elementor/issues/7803))
 * New: Hotspot widget - Create Interactive Images With Contextually Relevant Information ([#7282](https://github.com/elementor/elementor/issues/7282), [#2768](https://github.com/elementor/elementor/issues/2768))

@@ -850,7 +850,7 @@ class Price_Table extends Base_Widget {
 				],
 				'separator' => 'before',
 				'selectors' => [
-					'{{WRAPPER}} .elementor-price-table__features-list' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .elementor-price-table__features-list' => '--e-price-table-features-list-color: {{VALUE}}',
 				],
 			]
 		);

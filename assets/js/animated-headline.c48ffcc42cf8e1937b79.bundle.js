@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.3.1 - 20-06-2021 */
+/*! elementor-pro - v3.3.8 - 23-08-2021 */
 (self["webpackChunkelementor_pro"] = self["webpackChunkelementor_pro"] || []).push([["animated-headline"],{
 
 /***/ "../assets/dev/js/frontend/utils/scroll.js":

@@ -247,9 +247,9 @@ trait Skin_Content_Base {
 			// Print manually (and don't use `the_content()`) because it's within another `the_content` filter, and the Elementor filter has been removed to avoid recursion.
 			$content = Plugin::elementor()->frontend->get_builder_content( $post->ID, true );
 
-			if ( empty( $content ) ) {
-				Plugin::elementor()->frontend->remove_content_filter();
+			Plugin::elementor()->frontend->remove_content_filter();
 
+			if ( empty( $content ) ) {
 				// Split to pages.
 				setup_postdata( $post );
 
@@ -269,7 +269,11 @@ trait Skin_Content_Base {
 
 				return;
 			} else {
+				// Temporary solution - after core 3.4.0: $this->remove_content_filters() should be replaced with: Plugin::elementor()->frontend->remove_content_filters();
+				$this->remove_content_filters();
 				$content = apply_filters( 'the_content', $content );
+				// Temporary solution - after core 3.4.0: $this->restore_content_filters() should be replaced with: Plugin::elementor()->frontend->restore_content_filters();
+				$this->restore_content_filters();
 			}
 		} // End if().
 
@@ -292,5 +296,35 @@ trait Skin_Content_Base {
 		$this->render_post_content( true );
 		$this->render_text_footer();
 		$this->render_post_footer();
+	}
+
+	/**
+	 * The following code is a temporary solution that should be removed after Core 3.4.0:
+	 * $content_removed_filters, remove_content_filters(), restore_content_filters().
+	 */
+	private $content_removed_filters = [];
+
+	private function remove_content_filters() {
+		$filters = [
+			'wpautop',
+			'shortcode_unautop',
+			'wptexturize',
+		];
+
+		foreach ( $filters as $filter ) {
+			// Check if another plugin/theme do not already removed the filter.
+			if ( has_filter( 'the_content', $filter ) ) {
+				remove_filter( 'the_content', $filter );
+				$this->content_removed_filters[] = $filter;
+			}
+		}
+	}
+
+	private function restore_content_filters() {
+		foreach ( $this->content_removed_filters as $filter ) {
+			add_filter( 'the_content', $filter );
+		}
+
+		$this->content_removed_filters = [];
 	}
 }

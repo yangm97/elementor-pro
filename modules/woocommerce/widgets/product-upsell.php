@@ -5,6 +5,7 @@ use Elementor\Controls_Manager;
 use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
 use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 use Elementor\Group_Control_Typography;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
@@ -36,17 +37,7 @@ class Product_Upsell extends Products_Base {
 			]
 		);
 
-		$this->add_responsive_control(
-			'columns',
-			[
-				'label' => __( 'Columns', 'elementor-pro' ),
-				'type' => Controls_Manager::NUMBER,
-				'prefix_class' => 'elementor-products-columns%s-',
-				'default' => 4,
-				'min' => 1,
-				'max' => 12,
-			]
-		);
+		$this->add_columns_responsive_control();
 
 		$this->add_control(
 			'orderby',
@@ -207,7 +198,17 @@ class Product_Upsell extends Products_Base {
 			$order = $settings['order'];
 		}
 
+		ob_start();
+
 		woocommerce_upsell_display( $limit, $columns, $orderby, $order );
+
+		$upsells_html = ob_get_clean();
+
+		if ( $upsells_html ) {
+			$upsells_html = str_replace( '<ul class="products', '<ul class="products elementor-grid', $upsells_html );
+
+			echo $upsells_html;
+		}
 	}
 
 	public function render_plain_content() {}

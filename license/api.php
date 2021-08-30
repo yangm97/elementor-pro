@@ -25,6 +25,8 @@ class API {
 	const REQUEST_LOCK_TTL = MINUTE_IN_SECONDS;
 	const REQUEST_LOCK_OPTION_NAME = '_elementor_pro_api_requests_lock';
 
+	const TRANSIENT_KEY_PREFIX = 'elementor_pro_remote_info_api_data_';
+
 	/**
 	 * @param array $body_args
 	 *
@@ -180,7 +182,7 @@ class API {
 	}
 
 	public static function get_version( $force_update = true ) {
-		$cache_key = 'elementor_pro_remote_info_api_data_' . ELEMENTOR_PRO_VERSION;
+		$cache_key = self::TRANSIENT_KEY_PREFIX . ELEMENTOR_PRO_VERSION;
 
 		$info_data = self::get_transient( $cache_key );
 

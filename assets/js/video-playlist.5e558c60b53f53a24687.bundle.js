@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.3.1 - 20-06-2021 */
+/*! elementor-pro - v3.3.8 - 23-08-2021 */
 (self["webpackChunkelementor_pro"] = self["webpackChunkelementor_pro"] || []).push([["video-playlist"],{
 
 /***/ "../node_modules/@babel/runtime-corejs2/core-js/array/from.js":
@@ -384,13 +384,6 @@ var baseTabs = /*#__PURE__*/function (_elementorModules$fro) {
 
     }
   }, {
-    key: "onEditSettingsChange",
-    value: function onEditSettingsChange(propertyName) {
-      if ('activeItemIndex' === propertyName) {
-        this.activateDefaultTab();
-      }
-    }
-  }, {
     key: "changeActiveTab",
     value: function changeActiveTab(tabIndex) {
       var isActiveTab = this.isActiveTab(tabIndex),
@@ -687,6 +680,26 @@ var VideoPlaylistHandler = /*#__PURE__*/function (_TabsModule) {
       this.activateInitialVideo(); // Handle Inner Tab activation in edit mode.
 
       this.activateInnerTabInEditMode();
+    }
+  }, {
+    key: "onEditSettingsChange",
+    value: function onEditSettingsChange(propertyName) {
+      // The condition will be true when the user clicks the widget to open the edit panel.
+      if ('panel' === propertyName) {
+        // The boolean below will prevent running twice the activateDefaultTab function when widget first load and user click the item to play it.
+        this.preventTabActivation = true;
+      }
+
+      if ('activeItemIndex' !== propertyName) {
+        return;
+      }
+
+      if (this.preventTabActivation) {
+        this.preventTabActivation = false;
+        return;
+      }
+
+      this.activateDefaultTab();
     }
   }, {
     key: "activateInitialVideo",
@@ -3381,4 +3394,4 @@ $export($export.P + $export.F * WEBKIT_BUG, 'String', {
 /***/ })
 
 }]);
-//# sourceMappingURL=video-playlist.1b36054052aa15db889b.bundle.js.map
+//# sourceMappingURL=video-playlist.5e558c60b53f53a24687.bundle.js.map

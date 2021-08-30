@@ -316,7 +316,14 @@ class Custom_Code_Metabox extends Assets_Base {
 			$conditions = (array) json_decode( wp_unslash( $_POST['_conditions'] ) );
 
 			foreach ( $conditions as $key => $item ) {
-				$conditions[ $key ] = array_values( (array) $item );
+				$item_assoc_array = (array) $item;
+
+				$conditions[ $key ] = [
+					$item_assoc_array['type'],
+					$item_assoc_array['name'],
+					$item_assoc_array['sub'],
+					$item_assoc_array['subId'],
+				];
 			}
 
 			/** @var \ElementorPro\Modules\ThemeBuilder\Module $theme_builder */

@@ -367,155 +367,23 @@ body.rtl.woocommerce-page div.product .elementor-widget-woocommerce-product-imag
 .elementor-product-rating--align-justify .woocommerce-product-rating .woocommerce-review-link {
   margin-left: auto; }
 
-@media (min-width: ELEMENTOR_SCREEN_DESKTOP_MIN) {
-  .elementor-element.elementor-products-grid ul.products.columns-2 {
-    grid-template-columns: repeat(2, 1fr); }
-  .elementor-element.elementor-products-grid .woocommerce.columns-2 ul.products {
-    grid-template-columns: repeat(2, 1fr); }
-  .elementor-element.elementor-products-grid ul.products.columns-3 {
-    grid-template-columns: repeat(3, 1fr); }
-  .elementor-element.elementor-products-grid .woocommerce.columns-3 ul.products {
-    grid-template-columns: repeat(3, 1fr); }
-  .elementor-element.elementor-products-grid ul.products.columns-4 {
-    grid-template-columns: repeat(4, 1fr); }
-  .elementor-element.elementor-products-grid .woocommerce.columns-4 ul.products {
-    grid-template-columns: repeat(4, 1fr); }
-  .elementor-element.elementor-products-grid ul.products.columns-5 {
-    grid-template-columns: repeat(5, 1fr); }
-  .elementor-element.elementor-products-grid .woocommerce.columns-5 ul.products {
-    grid-template-columns: repeat(5, 1fr); }
-  .elementor-element.elementor-products-grid ul.products.columns-6 {
-    grid-template-columns: repeat(6, 1fr); }
-  .elementor-element.elementor-products-grid .woocommerce.columns-6 ul.products {
-    grid-template-columns: repeat(6, 1fr); }
-  .elementor-element.elementor-products-grid ul.products.columns-7 {
-    grid-template-columns: repeat(7, 1fr); }
-  .elementor-element.elementor-products-grid .woocommerce.columns-7 ul.products {
-    grid-template-columns: repeat(7, 1fr); }
-  .elementor-element.elementor-products-grid ul.products.columns-8 {
-    grid-template-columns: repeat(8, 1fr); }
-  .elementor-element.elementor-products-grid .woocommerce.columns-8 ul.products {
-    grid-template-columns: repeat(8, 1fr); }
-  .elementor-element.elementor-products-grid ul.products.columns-9 {
-    grid-template-columns: repeat(9, 1fr); }
-  .elementor-element.elementor-products-grid .woocommerce.columns-9 ul.products {
-    grid-template-columns: repeat(9, 1fr); }
-  .elementor-element.elementor-products-grid ul.products.columns-10 {
-    grid-template-columns: repeat(10, 1fr); }
-  .elementor-element.elementor-products-grid .woocommerce.columns-10 ul.products {
-    grid-template-columns: repeat(10, 1fr); }
-  .elementor-element.elementor-products-grid ul.products.columns-11 {
-    grid-template-columns: repeat(11, 1fr); }
-  .elementor-element.elementor-products-grid .woocommerce.columns-11 ul.products {
-    grid-template-columns: repeat(11, 1fr); }
-  .elementor-element.elementor-products-grid ul.products.columns-12 {
-    grid-template-columns: repeat(12, 1fr); }
-  .elementor-element.elementor-products-grid .woocommerce.columns-12 ul.products {
-    grid-template-columns: repeat(12, 1fr); } }
-
-@media (max-width: ELEMENTOR_SCREEN_TABLET_MAX) {
-  .elementor-element.elementor-products-grid ul.products {
-    grid-template-columns: repeat(3, 1fr); } }
-
-@media (max-width: ELEMENTOR_SCREEN_MOBILE_MAX) {
-  .elementor-element.elementor-products-grid ul.products {
-    grid-template-columns: repeat(2, 1fr); } }
-
-@media (min-width: ELEMENTOR_SCREEN_DESKTOP_MIN) {
-  .elementor-element.elementor-products-grid.elementor-products-columns-1 ul.products {
-    grid-template-columns: repeat(1, 1fr); }
-  .elementor-element.elementor-products-grid.elementor-products-columns-2 ul.products {
-    grid-template-columns: repeat(2, 1fr); }
-  .elementor-element.elementor-products-grid.elementor-products-columns-3 ul.products {
-    grid-template-columns: repeat(3, 1fr); }
-  .elementor-element.elementor-products-grid.elementor-products-columns-4 ul.products {
-    grid-template-columns: repeat(4, 1fr); }
-  .elementor-element.elementor-products-grid.elementor-products-columns-5 ul.products {
-    grid-template-columns: repeat(5, 1fr); }
-  .elementor-element.elementor-products-grid.elementor-products-columns-6 ul.products {
-    grid-template-columns: repeat(6, 1fr); }
-  .elementor-element.elementor-products-grid.elementor-products-columns-7 ul.products {
-    grid-template-columns: repeat(7, 1fr); }
-  .elementor-element.elementor-products-grid.elementor-products-columns-8 ul.products {
-    grid-template-columns: repeat(8, 1fr); }
-  .elementor-element.elementor-products-grid.elementor-products-columns-9 ul.products {
-    grid-template-columns: repeat(9, 1fr); }
-  .elementor-element.elementor-products-grid.elementor-products-columns-10 ul.products {
-    grid-template-columns: repeat(10, 1fr); }
-  .elementor-element.elementor-products-grid.elementor-products-columns-11 ul.products {
-    grid-template-columns: repeat(11, 1fr); }
-  .elementor-element.elementor-products-grid.elementor-products-columns-12 ul.products {
-    grid-template-columns: repeat(12, 1fr); } }
-
-@media (max-width: ELEMENTOR_SCREEN_TABLET_MAX) {
-  .elementor-element.elementor-products-grid.elementor-products-columns-tablet-1 ul.products {
-    grid-template-columns: repeat(1, 1fr); }
-  .elementor-element.elementor-products-grid.elementor-products-columns-tablet-2 ul.products {
-    grid-template-columns: repeat(2, 1fr); }
-  .elementor-element.elementor-products-grid.elementor-products-columns-tablet-3 ul.products {
-    grid-template-columns: repeat(3, 1fr); }
-  .elementor-element.elementor-products-grid.elementor-products-columns-tablet-4 ul.products {
-    grid-template-columns: repeat(4, 1fr); }
-  .elementor-element.elementor-products-grid.elementor-products-columns-tablet-5 ul.products {
-    grid-template-columns: repeat(5, 1fr); }
-  .elementor-element.elementor-products-grid.elementor-products-columns-tablet-6 ul.products {
-    grid-template-columns: repeat(6, 1fr); }
-  .elementor-element.elementor-products-grid.elementor-products-columns-tablet-7 ul.products {
-    grid-template-columns: repeat(7, 1fr); }
-  .elementor-element.elementor-products-grid.elementor-products-columns-tablet-8 ul.products {
-    grid-template-columns: repeat(8, 1fr); }
-  .elementor-element.elementor-products-grid.elementor-products-columns-tablet-9 ul.products {
-    grid-template-columns: repeat(9, 1fr); }
-  .elementor-element.elementor-products-grid.elementor-products-columns-tablet-10 ul.products {
-    grid-template-columns: repeat(10, 1fr); }
-  .elementor-element.elementor-products-grid.elementor-products-columns-tablet-11 ul.products {
-    grid-template-columns: repeat(11, 1fr); }
-  .elementor-element.elementor-products-grid.elementor-products-columns-tablet-12 ul.products {
-    grid-template-columns: repeat(12, 1fr); } }
-
-@media (max-width: ELEMENTOR_SCREEN_MOBILE_MAX) {
-  .elementor-element.elementor-products-grid.elementor-products-columns-mobile-1 ul.products {
-    grid-template-columns: repeat(1, 1fr); }
-  .elementor-element.elementor-products-grid.elementor-products-columns-mobile-2 ul.products {
-    grid-template-columns: repeat(2, 1fr); }
-  .elementor-element.elementor-products-grid.elementor-products-columns-mobile-3 ul.products {
-    grid-template-columns: repeat(3, 1fr); }
-  .elementor-element.elementor-products-grid.elementor-products-columns-mobile-4 ul.products {
-    grid-template-columns: repeat(4, 1fr); }
-  .elementor-element.elementor-products-grid.elementor-products-columns-mobile-5 ul.products {
-    grid-template-columns: repeat(5, 1fr); }
-  .elementor-element.elementor-products-grid.elementor-products-columns-mobile-6 ul.products {
-    grid-template-columns: repeat(6, 1fr); }
-  .elementor-element.elementor-products-grid.elementor-products-columns-mobile-7 ul.products {
-    grid-template-columns: repeat(7, 1fr); }
-  .elementor-element.elementor-products-grid.elementor-products-columns-mobile-8 ul.products {
-    grid-template-columns: repeat(8, 1fr); }
-  .elementor-element.elementor-products-grid.elementor-products-columns-mobile-9 ul.products {
-    grid-template-columns: repeat(9, 1fr); }
-  .elementor-element.elementor-products-grid.elementor-products-columns-mobile-10 ul.products {
-    grid-template-columns: repeat(10, 1fr); }
-  .elementor-element.elementor-products-grid.elementor-products-columns-mobile-11 ul.products {
-    grid-template-columns: repeat(11, 1fr); }
-  .elementor-element.elementor-products-grid.elementor-products-columns-mobile-12 ul.products {
-    grid-template-columns: repeat(12, 1fr); } }
-
-.elementor-element.elementor-products-grid ul.products {
+.elementor-products-grid ul.products.elementor-grid {
   display: grid;
   margin: 0;
   grid-column-gap: 20px;
   grid-row-gap: 40px; }
-  .elementor-element.elementor-products-grid ul.products:before, .elementor-element.elementor-products-grid ul.products:after {
+  .elementor-products-grid ul.products.elementor-grid:before, .elementor-products-grid ul.products.elementor-grid:after {
     content: none;
     display: none; }
-  .elementor-element.elementor-products-grid ul.products li.product {
+  .elementor-products-grid ul.products.elementor-grid li.product {
     width: auto;
     padding: 0;
     margin: 0;
     float: none; }
-    .elementor-element.elementor-products-grid ul.products li.product .onsale {
+    .elementor-products-grid ul.products.elementor-grid li.product .onsale {
       padding: 0;
       display: none; }
-    .elementor-element.elementor-products-grid ul.products li.product a.woocommerce-loop-product__link {
+    .elementor-products-grid ul.products.elementor-grid li.product a.woocommerce-loop-product__link {
       display: block;
       position: relative; }
 
@@ -548,6 +416,38 @@ body.rtl.woocommerce-page div.product .elementor-widget-woocommerce-product-imag
 .woocommerce div.product .elementor-element.elementor-products-grid .related.products ul.products li.product,
 .woocommerce div.product .elementor-element.elementor-products-grid .upsells.products ul.products li.product {
   width: auto; }
+
+@media (min-width: ELEMENTOR_SCREEN_TABLET_NEXT) {
+  .elementor-widget-wc-archive-products .woocommerce.columns-2 ul.products {
+    grid-template-columns: repeat(2, 1fr); }
+  .elementor-widget-wc-archive-products .woocommerce.columns-3 ul.products {
+    grid-template-columns: repeat(3, 1fr); }
+  .elementor-widget-wc-archive-products .woocommerce.columns-4 ul.products {
+    grid-template-columns: repeat(4, 1fr); }
+  .elementor-widget-wc-archive-products .woocommerce.columns-5 ul.products {
+    grid-template-columns: repeat(5, 1fr); }
+  .elementor-widget-wc-archive-products .woocommerce.columns-6 ul.products {
+    grid-template-columns: repeat(6, 1fr); }
+  .elementor-widget-wc-archive-products .woocommerce.columns-7 ul.products {
+    grid-template-columns: repeat(7, 1fr); }
+  .elementor-widget-wc-archive-products .woocommerce.columns-8 ul.products {
+    grid-template-columns: repeat(8, 1fr); }
+  .elementor-widget-wc-archive-products .woocommerce.columns-9 ul.products {
+    grid-template-columns: repeat(9, 1fr); }
+  .elementor-widget-wc-archive-products .woocommerce.columns-10 ul.products {
+    grid-template-columns: repeat(10, 1fr); }
+  .elementor-widget-wc-archive-products .woocommerce.columns-11 ul.products {
+    grid-template-columns: repeat(11, 1fr); }
+  .elementor-widget-wc-archive-products .woocommerce.columns-12 ul.products {
+    grid-template-columns: repeat(12, 1fr); } }
+
+@media (max-width: ELEMENTOR_SCREEN_TABLET_MAX) {
+  .elementor-widget-wc-archive-products .products {
+    grid-template-columns: repeat(3, 1fr); } }
+
+@media (max-width: ELEMENTOR_SCREEN_MOBILE_MAX) {
+  .elementor-widget-wc-archive-products .products {
+    grid-template-columns: repeat(2, 1fr); } }
 
 .elementor.product .woocommerce-product-gallery__trigger + .woocommerce-product-gallery__wrapper {
   overflow: hidden; }

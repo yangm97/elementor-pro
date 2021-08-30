@@ -34,6 +34,26 @@ class Post_Info extends Base {
 		return [ 'post', 'info', 'date', 'time', 'author', 'taxonomy', 'comments', 'terms', 'avatar' ];
 	}
 
+	public function get_style_depends() {
+		if ( Icons_Manager::is_migration_allowed() ) {
+			return [
+				'elementor-icons-fa-regular',
+				'elementor-icons-fa-solid',
+			];
+		}
+
+		return [];
+	}
+
+	public function get_inline_css_depends() {
+		return [
+			[
+				'name' => 'icon-list',
+				'is_core_dependency' => true,
+			],
+		];
+	}
+
 	protected function register_controls() {
 		$this->start_controls_section(
 			'section_icon',

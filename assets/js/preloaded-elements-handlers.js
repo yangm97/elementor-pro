@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.3.1 - 20-06-2021 */
+/*! elementor-pro - v3.3.8 - 23-08-2021 */
 (self["webpackChunkelementor_pro"] = self["webpackChunkelementor_pro"] || []).push([["preloaded-elements-handlers"],{
 
 /***/ "../node_modules/@babel/runtime-corejs2/core-js/object/define-properties.js":
@@ -712,6 +712,8 @@ exports.default = void 0;
 
 var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ "../node_modules/@babel/runtime/regenerator/index.js"));
 
+var _keys = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/object/keys */ "../node_modules/@babel/runtime-corejs2/core-js/object/keys.js"));
+
 __webpack_require__(/*! core-js/modules/es6.array.find.js */ "../node_modules/core-js/modules/es6.array.find.js");
 
 __webpack_require__(/*! core-js/modules/es6.regexp.match.js */ "../node_modules/core-js/modules/es6.regexp.match.js");
@@ -745,8 +747,12 @@ var CarouselBase = /*#__PURE__*/function (_elementorModules$fro) {
           swiperSlide: '.swiper-slide'
         },
         slidesPerView: {
+          widescreen: 3,
           desktop: 3,
+          laptop: 3,
+          tablet_extra: 3,
           tablet: 2,
+          mobile_extra: 2,
           mobile: 1
         }
       };
@@ -810,6 +816,8 @@ var CarouselBase = /*#__PURE__*/function (_elementorModules$fro) {
   }, {
     key: "getSwiperOptions",
     value: function getSwiperOptions() {
+      var _this = this;
+
       var elementSettings = this.getElementSettings();
       var swiperOptions = {
         grabCursor: true,
@@ -842,17 +850,14 @@ var CarouselBase = /*#__PURE__*/function (_elementorModules$fro) {
 
       if ('cube' !== this.getEffect()) {
         var breakpointsSettings = {},
-            breakpoints = elementorFrontend.config.breakpoints;
-        breakpointsSettings[breakpoints.lg - 1] = {
-          slidesPerView: this.getSlidesPerView('tablet'),
-          slidesPerGroup: this.getSlidesToScroll('tablet'),
-          spaceBetween: this.getSpaceBetween('tablet')
-        };
-        breakpointsSettings[breakpoints.md - 1] = {
-          slidesPerView: this.getSlidesPerView('mobile'),
-          slidesPerGroup: this.getSlidesToScroll('mobile'),
-          spaceBetween: this.getSpaceBetween('mobile')
-        };
+            breakpoints = elementorFrontend.config.responsive.activeBreakpoints;
+        (0, _keys.default)(breakpoints).forEach(function (breakpointName) {
+          breakpointsSettings[breakpoints[breakpointName].value] = {
+            slidesPerView: _this.getSlidesPerView(breakpointName),
+            slidesPerGroup: _this.getSlidesToScroll(breakpointName),
+            spaceBetween: _this.getSpaceBetween(breakpointName)
+          };
+        });
         swiperOptions.breakpoints = breakpointsSettings;
       }
 
@@ -866,19 +871,29 @@ var CarouselBase = /*#__PURE__*/function (_elementorModules$fro) {
       return swiperOptions;
     }
   }, {
+    key: "getDeviceBreakpointValue",
+    value: function getDeviceBreakpointValue(device) {
+      var _this2 = this;
+
+      if (!this.breakpointsDictionary) {
+        var breakpoints = elementorFrontend.config.responsive.activeBreakpoints;
+        this.breakpointsDictionary = {};
+        (0, _keys.default)(breakpoints).forEach(function (breakpointName) {
+          _this2.breakpointsDictionary[breakpointName] = breakpoints[breakpointName].value;
+        });
+      }
+
+      return this.breakpointsDictionary[device];
+    }
+  }, {
     key: "updateSpaceBetween",
     value: function updateSpaceBetween(propertyName) {
       var deviceMatch = propertyName.match('space_between_(.*)'),
           device = deviceMatch ? deviceMatch[1] : 'desktop',
-          newSpaceBetween = this.getSpaceBetween(device),
-          breakpoints = elementorFrontend.config.breakpoints;
+          newSpaceBetween = this.getSpaceBetween(device);
 
       if ('desktop' !== device) {
-        var breakpointDictionary = {
-          tablet: breakpoints.lg - 1,
-          mobile: breakpoints.md - 1
-        };
-        this.swiper.params.breakpoints[breakpointDictionary[device]].spaceBetween = newSpaceBetween;
+        this.swiper.params.breakpoints[this.getDeviceBreakpointValue(device)].spaceBetween = newSpaceBetween;
       } else {
         this.swiper.params.spaceBetween = newSpaceBetween;
       }
@@ -1072,6 +1087,8 @@ var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime
 
 __webpack_require__(/*! core-js/modules/es6.array.find.js */ "../node_modules/core-js/modules/es6.array.find.js");
 
+var _keys = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/object/keys */ "../node_modules/@babel/runtime-corejs2/core-js/object/keys.js"));
+
 var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/asyncToGenerator */ "../node_modules/@babel/runtime-corejs2/helpers/asyncToGenerator.js"));
 
 var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/classCallCheck */ "../node_modules/@babel/runtime-corejs2/helpers/classCallCheck.js"));
@@ -1117,8 +1134,12 @@ var MediaCarousel = /*#__PURE__*/function (_CarouselBase) {
       if (this.isSlideshow()) {
         defaultSettings.selectors.thumbsSwiper = '.elementor-thumbnails-swiper';
         defaultSettings.slidesPerView = {
+          widescreen: 5,
           desktop: 5,
+          laptop: 5,
+          tablet_extra: 5,
           tablet: 4,
+          mobile_extra: 4,
           mobile: 3
         };
       }
@@ -1126,11 +1147,24 @@ var MediaCarousel = /*#__PURE__*/function (_CarouselBase) {
       return defaultSettings;
     }
   }, {
+    key: "getSlidesPerViewSettingNames",
+    value: function getSlidesPerViewSettingNames() {
+      var _this = this;
+
+      if (!this.slideshowElementSettings) {
+        this.slideshowElementSettings = ['slides_per_view'];
+        var activeBreakpoints = elementorFrontend.config.responsive.activeBreakpoints;
+        (0, _keys.default)(activeBreakpoints).forEach(function (breakpointName) {
+          _this.slideshowElementSettings.push('slides_per_view_' + breakpointName);
+        });
+      }
+
+      return this.slideshowElementSettings;
+    }
+  }, {
     key: "getElementSettings",
     value: function getElementSettings(setting) {
-      var slideshowSpecialElementSettings = ['slides_per_view', 'slides_per_view_tablet', 'slides_per_view_mobile'];
-
-      if (-1 !== slideshowSpecialElementSettings.indexOf(setting) && this.isSlideshow()) {
+      if (-1 !== this.getSlidesPerViewSettingNames().indexOf(setting) && this.isSlideshow()) {
         setting = 'slideshow_' + setting;
       }
 
@@ -1193,6 +1227,8 @@ var MediaCarousel = /*#__PURE__*/function (_CarouselBase) {
     key: "onInit",
     value: function () {
       var _onInit = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        var _this2 = this;
+
         var slidesCount, elementSettings, loop, breakpointsSettings, breakpoints, desktopSlidesPerView, thumbsSliderOptions, Swiper;
         return _regenerator.default.wrap(function _callee$(_context) {
           while (1) {
@@ -1209,15 +1245,13 @@ var MediaCarousel = /*#__PURE__*/function (_CarouselBase) {
                 return _context.abrupt("return");
 
               case 4:
-                elementSettings = this.getElementSettings(), loop = 'yes' === elementSettings.loop, breakpointsSettings = {}, breakpoints = elementorFrontend.config.breakpoints, desktopSlidesPerView = this.getDeviceSlidesPerView('desktop');
-                breakpointsSettings[breakpoints.lg - 1] = {
-                  slidesPerView: this.getDeviceSlidesPerView('tablet'),
-                  spaceBetween: this.getSpaceBetween('tablet')
-                };
-                breakpointsSettings[breakpoints.md - 1] = {
-                  slidesPerView: this.getDeviceSlidesPerView('mobile'),
-                  spaceBetween: this.getSpaceBetween('mobile')
-                };
+                elementSettings = this.getElementSettings(), loop = 'yes' === elementSettings.loop, breakpointsSettings = {}, breakpoints = elementorFrontend.config.responsive.activeBreakpoints, desktopSlidesPerView = this.getDeviceSlidesPerView('desktop');
+                (0, _keys.default)(breakpoints).forEach(function (breakpointName) {
+                  breakpointsSettings[breakpoints[breakpointName].value] = {
+                    slidesPerView: _this2.getDeviceSlidesPerView(breakpointName),
+                    spaceBetween: _this2.getSpaceBetween(breakpointName)
+                  };
+                });
                 thumbsSliderOptions = {
                   slidesPerView: desktopSlidesPerView,
                   initialSlide: this.getInitialSlide(),
@@ -1230,16 +1264,16 @@ var MediaCarousel = /*#__PURE__*/function (_CarouselBase) {
                   handleElementorBreakpoints: true
                 };
                 Swiper = elementorFrontend.utils.swiper;
-                _context.next = 11;
+                _context.next = 10;
                 return new Swiper(this.elements.$thumbsSwiper, thumbsSliderOptions);
 
-              case 11:
+              case 10:
                 this.swiper.controller.control = this.thumbsSwiper = _context.sent;
                 // Expose the swiper instance in the frontend
                 this.elements.$thumbsSwiper.data('swiper', this.thumbsSwiper);
                 this.thumbsSwiper.controller.control = this.swiper;
 
-              case 14:
+              case 13:
               case "end":
                 return _context.stop();
             }
@@ -1280,6 +1314,8 @@ _Object$defineProperty(exports, "__esModule", {
 
 exports.default = void 0;
 
+var _keys = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/object/keys */ "../node_modules/@babel/runtime-corejs2/core-js/object/keys.js"));
+
 var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/classCallCheck */ "../node_modules/@babel/runtime-corejs2/helpers/classCallCheck.js"));
 
 var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/createClass */ "../node_modules/@babel/runtime-corejs2/helpers/createClass.js"));
@@ -1309,10 +1345,11 @@ var TestimonialCarousel = /*#__PURE__*/function (_CarouselBase) {
     value: function getDefaultSettings() {
       var defaultSettings = (0, _get2.default)((0, _getPrototypeOf2.default)(TestimonialCarousel.prototype), "getDefaultSettings", this).call(this);
       defaultSettings.slidesPerView = {
-        desktop: 1,
-        tablet: 1,
-        mobile: 1
+        desktop: 1
       };
+      (0, _keys.default)(elementorFrontend.config.responsive.activeBreakpoints).forEach(function (breakpointName) {
+        defaultSettings.slidesPerView[breakpointName] = 1;
+      });
 
       if (defaultSettings.loop) {
         defaultSettings.loopedSlides = this.getSlidesCount();
@@ -2938,9 +2975,14 @@ var Recaptcha = /*#__PURE__*/function (_elementorModules$fro) {
               name: 'g-recaptcha-response'
             });
             $form.append(_this2.elements.$recaptchaResponse);
-          }
+          } // Support old browsers.
 
-          $form.trigger('submit');
+
+          var bcSupport = !$form[0].reportValidity || 'function' !== typeof $form[0].reportValidity;
+
+          if (bcSupport || $form[0].reportValidity()) {
+            $form.trigger('submit');
+          }
         });
       });
     }
@@ -3033,6 +3075,8 @@ _Object$defineProperty(exports, "__esModule", {
 
 exports.default = void 0;
 
+var _keys = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/object/keys */ "../node_modules/@babel/runtime-corejs2/core-js/object/keys.js"));
+
 __webpack_require__(/*! core-js/modules/es6.array.find.js */ "../node_modules/core-js/modules/es6.array.find.js");
 
 __webpack_require__(/*! core-js/modules/es6.regexp.match.js */ "../node_modules/core-js/modules/es6.regexp.match.js");
@@ -3096,26 +3140,25 @@ var galleryHandler = /*#__PURE__*/function (_elementorModules$fro) {
     key: "getGallerySettings",
     value: function getGallerySettings() {
       var settings = this.getElementSettings(),
-          breakpoints = elementorFrontend.config.breakpoints,
-          breakPointSettings = {};
-      breakPointSettings[breakpoints.lg - 1] = {
-        horizontalGap: elementorFrontend.getDeviceSetting('tablet', settings, 'gap').size,
-        verticalGap: elementorFrontend.getDeviceSetting('tablet', settings, 'gap').size,
-        columns: elementorFrontend.getDeviceSetting('tablet', settings, 'columns')
-      };
-      breakPointSettings[breakpoints.md - 1] = {
-        horizontalGap: elementorFrontend.getDeviceSetting('mobile', settings, 'gap').size,
-        verticalGap: elementorFrontend.getDeviceSetting('mobile', settings, 'gap').size,
-        columns: elementorFrontend.getDeviceSetting('mobile', settings, 'columns')
-      };
-      var desktopIdealRowHeight = elementorFrontend.getDeviceSetting('desktop', settings, 'ideal_row_height'),
-          tabletIdealRowHeight = elementorFrontend.getDeviceSetting('tablet', settings, 'ideal_row_height'),
-          mobileIdealRowHeight = elementorFrontend.getDeviceSetting('mobile', settings, 'ideal_row_height');
-      breakPointSettings[breakpoints.lg - 1].idealRowHeight = tabletIdealRowHeight && tabletIdealRowHeight.size ? tabletIdealRowHeight.size : null;
-      breakPointSettings[breakpoints.md - 1].idealRowHeight = mobileIdealRowHeight && mobileIdealRowHeight.size ? mobileIdealRowHeight.size : null;
+          activeBreakpoints = elementorFrontend.config.responsive.activeBreakpoints,
+          activeBreakpointsKeys = (0, _keys.default)(activeBreakpoints),
+          breakPointSettings = {},
+          desktopIdealRowHeight = elementorFrontend.getDeviceSetting('desktop', settings, 'ideal_row_height');
+      activeBreakpointsKeys.forEach(function (breakpoint) {
+        // The Gallery widget currently does not support widescreen.
+        if ('widescreen' !== breakpoint) {
+          var idealRowHeight = elementorFrontend.getDeviceSetting(breakpoint, settings, 'ideal_row_height');
+          breakPointSettings[activeBreakpoints[breakpoint].value] = {
+            horizontalGap: elementorFrontend.getDeviceSetting(breakpoint, settings, 'gap').size,
+            verticalGap: elementorFrontend.getDeviceSetting(breakpoint, settings, 'gap').size,
+            columns: elementorFrontend.getDeviceSetting(breakpoint, settings, 'columns'),
+            idealRowHeight: idealRowHeight === null || idealRowHeight === void 0 ? void 0 : idealRowHeight.size
+          };
+        }
+      });
       return {
         type: settings.gallery_layout,
-        idealRowHeight: desktopIdealRowHeight && desktopIdealRowHeight.size ? desktopIdealRowHeight.size : null,
+        idealRowHeight: desktopIdealRowHeight === null || desktopIdealRowHeight === void 0 ? void 0 : desktopIdealRowHeight.size,
         container: this.elements.$container,
         columns: settings.columns,
         aspectRatio: settings.aspect_ratio,
@@ -3270,6 +3313,34 @@ var galleryHandler = /*#__PURE__*/function (_elementorModules$fro) {
       this.elements.$titles.first().trigger('click');
     }
   }, {
+    key: "getSettingsDictionary",
+    value: function getSettingsDictionary() {
+      if (this.settingsDictionary) {
+        return this.settingsDictionary;
+      }
+
+      var activeBreakpoints = elementorFrontend.config.responsive.activeBreakpoints,
+          activeBreakpointsKeys = (0, _keys.default)(activeBreakpoints);
+      var settingsDictionary = {
+        columns: ['columns'],
+        gap: ['horizontalGap', 'verticalGap'],
+        ideal_row_height: ['idealRowHeight']
+      };
+      activeBreakpointsKeys.forEach(function (breakpoint) {
+        // The Gallery widget currently does not support widescreen.
+        if ('widescreen' === breakpoint) {
+          return;
+        }
+
+        settingsDictionary['columns_' + breakpoint] = ['breakpoints.' + activeBreakpoints[breakpoint].value + '.columns'];
+        settingsDictionary['gap_' + breakpoint] = ['breakpoints.' + activeBreakpoints[breakpoint].value + '.horizontalGap', 'breakpoints.' + activeBreakpoints[breakpoint].value + '.verticalGap'];
+        settingsDictionary['ideal_row_height_' + breakpoint] = ['breakpoints.' + activeBreakpoints[breakpoint].value + '.idealRowHeight'];
+      });
+      settingsDictionary.aspect_ratio = ['aspectRatio'];
+      this.settingsDictionary = settingsDictionary;
+      return this.settingsDictionary;
+    }
+  }, {
     key: "onElementChange",
     value: function onElementChange(settingKey) {
       var _this2 = this;
@@ -3279,19 +3350,7 @@ var galleryHandler = /*#__PURE__*/function (_elementorModules$fro) {
         return;
       }
 
-      var elementorBreakpoints = elementorFrontend.config.breakpoints;
-      var settingsDictionary = {
-        columns: ['columns'],
-        columns_tablet: ['breakpoints.' + (elementorBreakpoints.lg - 1) + '.columns'],
-        columns_mobile: ['breakpoints.' + (elementorBreakpoints.md - 1) + '.columns'],
-        gap: ['horizontalGap', 'verticalGap'],
-        gap_tablet: ['breakpoints.' + (elementorBreakpoints.lg - 1) + '.horizontalGap', 'breakpoints.' + (elementorBreakpoints.lg - 1) + '.verticalGap'],
-        gap_mobile: ['breakpoints.' + (elementorBreakpoints.md - 1) + '.horizontalGap', 'breakpoints.' + (elementorBreakpoints.md - 1) + '.verticalGap'],
-        aspect_ratio: ['aspectRatio'],
-        ideal_row_height: ['idealRowHeight'],
-        ideal_row_height_tablet: ['breakpoints.' + (elementorBreakpoints.lg - 1) + '.idealRowHeight'],
-        ideal_row_height_mobile: ['breakpoints.' + (elementorBreakpoints.md - 1) + '.idealRowHeight']
-      };
+      var settingsDictionary = this.getSettingsDictionary();
       var settingsToUpdate = settingsDictionary[settingKey];
 
       if (settingsToUpdate) {
@@ -4698,7 +4757,9 @@ var _default = elementorModules.frontend.handlers.Base.extend({
     }
 
     var elementSettings = this.getElementSettings(),
-        subIndicatorsContent = "<i class=\"".concat(elementSettings.submenu_icon.value, "\"></i>"); // subIndicators param - Added for backwards compatibility:
+        iconValue = elementSettings.submenu_icon.value,
+        // The value of iconValue can be either className inside the editor or a markup in the frontend.
+    subIndicatorsContent = iconValue.indexOf('<') > -1 ? iconValue : "<i class=\"".concat(iconValue, "\"></i>"); // subIndicators param - Added for backwards compatibility:
     // If the old 'indicator' control value = 'none', the <span class="sub-arrow"> wrapper element is removed
 
     this.elements.$menu.smartmenus({

@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.3.1 - 20-06-2021 */
+/*! elementor-pro - v3.3.8 - 23-08-2021 */
 (self["webpackChunkelementor_pro"] = self["webpackChunkelementor_pro"] || []).push([["nav-menu"],{
 
 /***/ "../modules/nav-menu/assets/js/frontend/handlers/nav-menu.js":
@@ -147,7 +147,9 @@ var _default = elementorModules.frontend.handlers.Base.extend({
     }
 
     var elementSettings = this.getElementSettings(),
-        subIndicatorsContent = "<i class=\"".concat(elementSettings.submenu_icon.value, "\"></i>"); // subIndicators param - Added for backwards compatibility:
+        iconValue = elementSettings.submenu_icon.value,
+        // The value of iconValue can be either className inside the editor or a markup in the frontend.
+    subIndicatorsContent = iconValue.indexOf('<') > -1 ? iconValue : "<i class=\"".concat(iconValue, "\"></i>"); // subIndicators param - Added for backwards compatibility:
     // If the old 'indicator' control value = 'none', the <span class="sub-arrow"> wrapper element is removed
 
     this.elements.$menu.smartmenus({
@@ -175,4 +177,4 @@ exports.default = _default;
 /***/ })
 
 }]);
-//# sourceMappingURL=nav-menu.1047f3cf542aebc7eea1.bundle.js.map
+//# sourceMappingURL=nav-menu.a7c3e03c3a9e6246573c.bundle.js.map

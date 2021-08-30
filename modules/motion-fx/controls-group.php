@@ -4,6 +4,7 @@ namespace ElementorPro\Modules\MotionFX;
 
 use Elementor\Controls_Manager;
 use Elementor\Group_Control_Base;
+use ElementorPro\Plugin;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -118,17 +119,33 @@ class Controls_Group extends Group_Control_Base {
 			'toggle' => false,
 		];
 
+		// TODO: Once Core 3.4.0 is out, get the active devices using Breakpoints/Manager::get_active_devices_list().
+		$active_breakpoint_instances = Plugin::elementor()->breakpoints->get_active_breakpoints();
+		// Devices need to be ordered from largest to smallest.
+		$active_devices = array_reverse( array_keys( $active_breakpoint_instances ) );
+
+		// Add desktop in the correct position.
+		if ( in_array( 'widescreen', $active_devices, true ) ) {
+			$active_devices = array_merge( array_slice( $active_devices, 0, 1 ), [ 'desktop' ], array_slice( $active_devices, 1 ) );
+		} else {
+			$active_devices = array_merge( [ 'desktop' ], $active_devices );
+		}
+
+		$devices_options = [];
+
+		foreach ( $active_devices as $device_key ) {
+			$device_label = 'desktop' === $device_key ? esc_html__( 'Desktop', 'elementor-pro' ) : $active_breakpoint_instances[ $device_key ]->get_label();
+
+			$devices_options[ $device_key ] = $device_label;
+		}
+
 		$fields['devices'] = [
 			'label' => __( 'Apply Effects On', 'elementor-pro' ),
 			'type' => Controls_Manager::SELECT2,
 			'multiple' => true,
 			'label_block' => true,
-			'default' => [ 'desktop', 'tablet', 'mobile' ],
-			'options' => [
-				'desktop' => __( 'Desktop', 'elementor-pro' ),
-				'tablet' => __( 'Tablet', 'elementor-pro' ),
-				'mobile' => __( 'Mobile', 'elementor-pro' ),
-			],
+			'default' => $active_devices,
+			'options' => $devices_options,
 			'condition' => [
 				'motion_fx_scrolling' => 'yes',
 			],

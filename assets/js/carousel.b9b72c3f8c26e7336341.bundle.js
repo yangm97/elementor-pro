@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.3.1 - 20-06-2021 */
+/*! elementor-pro - v3.3.8 - 23-08-2021 */
 (self["webpackChunkelementor_pro"] = self["webpackChunkelementor_pro"] || []).push([["carousel"],{
 
 /***/ "../modules/carousel/assets/js/frontend/handlers/testimonial-carousel.js":
@@ -19,6 +19,8 @@ _Object$defineProperty(exports, "__esModule", {
 });
 
 exports.default = void 0;
+
+var _keys = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/object/keys */ "../node_modules/@babel/runtime-corejs2/core-js/object/keys.js"));
 
 var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/classCallCheck */ "../node_modules/@babel/runtime-corejs2/helpers/classCallCheck.js"));
 
@@ -49,10 +51,11 @@ var TestimonialCarousel = /*#__PURE__*/function (_CarouselBase) {
     value: function getDefaultSettings() {
       var defaultSettings = (0, _get2.default)((0, _getPrototypeOf2.default)(TestimonialCarousel.prototype), "getDefaultSettings", this).call(this);
       defaultSettings.slidesPerView = {
-        desktop: 1,
-        tablet: 1,
-        mobile: 1
+        desktop: 1
       };
+      (0, _keys.default)(elementorFrontend.config.responsive.activeBreakpoints).forEach(function (breakpointName) {
+        defaultSettings.slidesPerView[breakpointName] = 1;
+      });
 
       if (defaultSettings.loop) {
         defaultSettings.loopedSlides = this.getSlidesCount();
@@ -74,4 +77,4 @@ exports.default = TestimonialCarousel;
 /***/ })
 
 }]);
-//# sourceMappingURL=carousel.df077bfcc92a01b2a71b.bundle.js.map
+//# sourceMappingURL=carousel.b9b72c3f8c26e7336341.bundle.js.map

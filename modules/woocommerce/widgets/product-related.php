@@ -50,17 +50,7 @@ class Product_Related extends Products_Base {
 			]
 		);
 
-		$this->add_responsive_control(
-			'columns',
-			[
-				'label' => __( 'Columns', 'elementor-pro' ),
-				'type' => Controls_Manager::NUMBER,
-				'prefix_class' => 'elementor-products-columns%s-',
-				'default' => 4,
-				'min' => 1,
-				'max' => 12,
-			]
-		);
+		$this->add_columns_responsive_control();
 
 		$this->add_control(
 			'orderby',
@@ -234,7 +224,17 @@ class Product_Related extends Products_Base {
 		// Handle orderby.
 		$args['related_products'] = wc_products_array_orderby( $args['related_products'], $args['orderby'], $args['order'] );
 
+		ob_start();
+
 		wc_get_template( 'single-product/related.php', $args );
+
+		$related_products_html = ob_get_clean();
+
+		if ( $related_products_html ) {
+			$related_products_html = str_replace( '<ul class="products', '<ul class="products elementor-grid', $related_products_html );
+
+			echo $related_products_html;
+		}
 
 	}
 

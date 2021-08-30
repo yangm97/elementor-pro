@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.3.1 - 20-06-2021 */
+/*! elementor-pro - v3.3.8 - 23-08-2021 */
 (self["webpackChunkelementor_pro"] = self["webpackChunkelementor_pro"] || []).push([["media-carousel"],{
 
 /***/ "../modules/carousel/assets/js/frontend/handlers/media-carousel.js":
@@ -23,6 +23,8 @@ exports.default = void 0;
 var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ "../node_modules/@babel/runtime/regenerator/index.js"));
 
 __webpack_require__(/*! core-js/modules/es6.array.find.js */ "../node_modules/core-js/modules/es6.array.find.js");
+
+var _keys = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/object/keys */ "../node_modules/@babel/runtime-corejs2/core-js/object/keys.js"));
 
 var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/asyncToGenerator */ "../node_modules/@babel/runtime-corejs2/helpers/asyncToGenerator.js"));
 
@@ -69,8 +71,12 @@ var MediaCarousel = /*#__PURE__*/function (_CarouselBase) {
       if (this.isSlideshow()) {
         defaultSettings.selectors.thumbsSwiper = '.elementor-thumbnails-swiper';
         defaultSettings.slidesPerView = {
+          widescreen: 5,
           desktop: 5,
+          laptop: 5,
+          tablet_extra: 5,
           tablet: 4,
+          mobile_extra: 4,
           mobile: 3
         };
       }
@@ -78,11 +84,24 @@ var MediaCarousel = /*#__PURE__*/function (_CarouselBase) {
       return defaultSettings;
     }
   }, {
+    key: "getSlidesPerViewSettingNames",
+    value: function getSlidesPerViewSettingNames() {
+      var _this = this;
+
+      if (!this.slideshowElementSettings) {
+        this.slideshowElementSettings = ['slides_per_view'];
+        var activeBreakpoints = elementorFrontend.config.responsive.activeBreakpoints;
+        (0, _keys.default)(activeBreakpoints).forEach(function (breakpointName) {
+          _this.slideshowElementSettings.push('slides_per_view_' + breakpointName);
+        });
+      }
+
+      return this.slideshowElementSettings;
+    }
+  }, {
     key: "getElementSettings",
     value: function getElementSettings(setting) {
-      var slideshowSpecialElementSettings = ['slides_per_view', 'slides_per_view_tablet', 'slides_per_view_mobile'];
-
-      if (-1 !== slideshowSpecialElementSettings.indexOf(setting) && this.isSlideshow()) {
+      if (-1 !== this.getSlidesPerViewSettingNames().indexOf(setting) && this.isSlideshow()) {
         setting = 'slideshow_' + setting;
       }
 
@@ -145,6 +164,8 @@ var MediaCarousel = /*#__PURE__*/function (_CarouselBase) {
     key: "onInit",
     value: function () {
       var _onInit = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        var _this2 = this;
+
         var slidesCount, elementSettings, loop, breakpointsSettings, breakpoints, desktopSlidesPerView, thumbsSliderOptions, Swiper;
         return _regenerator.default.wrap(function _callee$(_context) {
           while (1) {
@@ -161,15 +182,13 @@ var MediaCarousel = /*#__PURE__*/function (_CarouselBase) {
                 return _context.abrupt("return");
 
               case 4:
-                elementSettings = this.getElementSettings(), loop = 'yes' === elementSettings.loop, breakpointsSettings = {}, breakpoints = elementorFrontend.config.breakpoints, desktopSlidesPerView = this.getDeviceSlidesPerView('desktop');
-                breakpointsSettings[breakpoints.lg - 1] = {
-                  slidesPerView: this.getDeviceSlidesPerView('tablet'),
-                  spaceBetween: this.getSpaceBetween('tablet')
-                };
-                breakpointsSettings[breakpoints.md - 1] = {
-                  slidesPerView: this.getDeviceSlidesPerView('mobile'),
-                  spaceBetween: this.getSpaceBetween('mobile')
-                };
+                elementSettings = this.getElementSettings(), loop = 'yes' === elementSettings.loop, breakpointsSettings = {}, breakpoints = elementorFrontend.config.responsive.activeBreakpoints, desktopSlidesPerView = this.getDeviceSlidesPerView('desktop');
+                (0, _keys.default)(breakpoints).forEach(function (breakpointName) {
+                  breakpointsSettings[breakpoints[breakpointName].value] = {
+                    slidesPerView: _this2.getDeviceSlidesPerView(breakpointName),
+                    spaceBetween: _this2.getSpaceBetween(breakpointName)
+                  };
+                });
                 thumbsSliderOptions = {
                   slidesPerView: desktopSlidesPerView,
                   initialSlide: this.getInitialSlide(),
@@ -182,16 +201,16 @@ var MediaCarousel = /*#__PURE__*/function (_CarouselBase) {
                   handleElementorBreakpoints: true
                 };
                 Swiper = elementorFrontend.utils.swiper;
-                _context.next = 11;
+                _context.next = 10;
                 return new Swiper(this.elements.$thumbsSwiper, thumbsSliderOptions);
 
-              case 11:
+              case 10:
                 this.swiper.controller.control = this.thumbsSwiper = _context.sent;
                 // Expose the swiper instance in the frontend
                 this.elements.$thumbsSwiper.data('swiper', this.thumbsSwiper);
                 this.thumbsSwiper.controller.control = this.swiper;
 
-              case 14:
+              case 13:
               case "end":
                 return _context.stop();
             }
@@ -214,4 +233,4 @@ exports.default = MediaCarousel;
 /***/ })
 
 }]);
-//# sourceMappingURL=media-carousel.c358c67478f0b64157d8.bundle.js.map
+//# sourceMappingURL=media-carousel.d877c2cf1d33fedbe8cd.bundle.js.map

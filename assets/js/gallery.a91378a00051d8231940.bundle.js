@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.3.1 - 20-06-2021 */
+/*! elementor-pro - v3.3.8 - 23-08-2021 */
 (self["webpackChunkelementor_pro"] = self["webpackChunkelementor_pro"] || []).push([["gallery"],{
 
 /***/ "../modules/gallery/assets/js/frontend/handler.js":
@@ -19,6 +19,8 @@ _Object$defineProperty(exports, "__esModule", {
 });
 
 exports.default = void 0;
+
+var _keys = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/object/keys */ "../node_modules/@babel/runtime-corejs2/core-js/object/keys.js"));
 
 __webpack_require__(/*! core-js/modules/es6.array.find.js */ "../node_modules/core-js/modules/es6.array.find.js");
 
@@ -83,26 +85,25 @@ var galleryHandler = /*#__PURE__*/function (_elementorModules$fro) {
     key: "getGallerySettings",
     value: function getGallerySettings() {
       var settings = this.getElementSettings(),
-          breakpoints = elementorFrontend.config.breakpoints,
-          breakPointSettings = {};
-      breakPointSettings[breakpoints.lg - 1] = {
-        horizontalGap: elementorFrontend.getDeviceSetting('tablet', settings, 'gap').size,
-        verticalGap: elementorFrontend.getDeviceSetting('tablet', settings, 'gap').size,
-        columns: elementorFrontend.getDeviceSetting('tablet', settings, 'columns')
-      };
-      breakPointSettings[breakpoints.md - 1] = {
-        horizontalGap: elementorFrontend.getDeviceSetting('mobile', settings, 'gap').size,
-        verticalGap: elementorFrontend.getDeviceSetting('mobile', settings, 'gap').size,
-        columns: elementorFrontend.getDeviceSetting('mobile', settings, 'columns')
-      };
-      var desktopIdealRowHeight = elementorFrontend.getDeviceSetting('desktop', settings, 'ideal_row_height'),
-          tabletIdealRowHeight = elementorFrontend.getDeviceSetting('tablet', settings, 'ideal_row_height'),
-          mobileIdealRowHeight = elementorFrontend.getDeviceSetting('mobile', settings, 'ideal_row_height');
-      breakPointSettings[breakpoints.lg - 1].idealRowHeight = tabletIdealRowHeight && tabletIdealRowHeight.size ? tabletIdealRowHeight.size : null;
-      breakPointSettings[breakpoints.md - 1].idealRowHeight = mobileIdealRowHeight && mobileIdealRowHeight.size ? mobileIdealRowHeight.size : null;
+          activeBreakpoints = elementorFrontend.config.responsive.activeBreakpoints,
+          activeBreakpointsKeys = (0, _keys.default)(activeBreakpoints),
+          breakPointSettings = {},
+          desktopIdealRowHeight = elementorFrontend.getDeviceSetting('desktop', settings, 'ideal_row_height');
+      activeBreakpointsKeys.forEach(function (breakpoint) {
+        // The Gallery widget currently does not support widescreen.
+        if ('widescreen' !== breakpoint) {
+          var idealRowHeight = elementorFrontend.getDeviceSetting(breakpoint, settings, 'ideal_row_height');
+          breakPointSettings[activeBreakpoints[breakpoint].value] = {
+            horizontalGap: elementorFrontend.getDeviceSetting(breakpoint, settings, 'gap').size,
+            verticalGap: elementorFrontend.getDeviceSetting(breakpoint, settings, 'gap').size,
+            columns: elementorFrontend.getDeviceSetting(breakpoint, settings, 'columns'),
+            idealRowHeight: idealRowHeight === null || idealRowHeight === void 0 ? void 0 : idealRowHeight.size
+          };
+        }
+      });
       return {
         type: settings.gallery_layout,
-        idealRowHeight: desktopIdealRowHeight && desktopIdealRowHeight.size ? desktopIdealRowHeight.size : null,
+        idealRowHeight: desktopIdealRowHeight === null || desktopIdealRowHeight === void 0 ? void 0 : desktopIdealRowHeight.size,
         container: this.elements.$container,
         columns: settings.columns,
         aspectRatio: settings.aspect_ratio,
@@ -257,6 +258,34 @@ var galleryHandler = /*#__PURE__*/function (_elementorModules$fro) {
       this.elements.$titles.first().trigger('click');
     }
   }, {
+    key: "getSettingsDictionary",
+    value: function getSettingsDictionary() {
+      if (this.settingsDictionary) {
+        return this.settingsDictionary;
+      }
+
+      var activeBreakpoints = elementorFrontend.config.responsive.activeBreakpoints,
+          activeBreakpointsKeys = (0, _keys.default)(activeBreakpoints);
+      var settingsDictionary = {
+        columns: ['columns'],
+        gap: ['horizontalGap', 'verticalGap'],
+        ideal_row_height: ['idealRowHeight']
+      };
+      activeBreakpointsKeys.forEach(function (breakpoint) {
+        // The Gallery widget currently does not support widescreen.
+        if ('widescreen' === breakpoint) {
+          return;
+        }
+
+        settingsDictionary['columns_' + breakpoint] = ['breakpoints.' + activeBreakpoints[breakpoint].value + '.columns'];
+        settingsDictionary['gap_' + breakpoint] = ['breakpoints.' + activeBreakpoints[breakpoint].value + '.horizontalGap', 'breakpoints.' + activeBreakpoints[breakpoint].value + '.verticalGap'];
+        settingsDictionary['ideal_row_height_' + breakpoint] = ['breakpoints.' + activeBreakpoints[breakpoint].value + '.idealRowHeight'];
+      });
+      settingsDictionary.aspect_ratio = ['aspectRatio'];
+      this.settingsDictionary = settingsDictionary;
+      return this.settingsDictionary;
+    }
+  }, {
     key: "onElementChange",
     value: function onElementChange(settingKey) {
       var _this2 = this;
@@ -266,19 +295,7 @@ var galleryHandler = /*#__PURE__*/function (_elementorModules$fro) {
         return;
       }
 
-      var elementorBreakpoints = elementorFrontend.config.breakpoints;
-      var settingsDictionary = {
-        columns: ['columns'],
-        columns_tablet: ['breakpoints.' + (elementorBreakpoints.lg - 1) + '.columns'],
-        columns_mobile: ['breakpoints.' + (elementorBreakpoints.md - 1) + '.columns'],
-        gap: ['horizontalGap', 'verticalGap'],
-        gap_tablet: ['breakpoints.' + (elementorBreakpoints.lg - 1) + '.horizontalGap', 'breakpoints.' + (elementorBreakpoints.lg - 1) + '.verticalGap'],
-        gap_mobile: ['breakpoints.' + (elementorBreakpoints.md - 1) + '.horizontalGap', 'breakpoints.' + (elementorBreakpoints.md - 1) + '.verticalGap'],
-        aspect_ratio: ['aspectRatio'],
-        ideal_row_height: ['idealRowHeight'],
-        ideal_row_height_tablet: ['breakpoints.' + (elementorBreakpoints.lg - 1) + '.idealRowHeight'],
-        ideal_row_height_mobile: ['breakpoints.' + (elementorBreakpoints.md - 1) + '.idealRowHeight']
-      };
+      var settingsDictionary = this.getSettingsDictionary();
       var settingsToUpdate = settingsDictionary[settingKey];
 
       if (settingsToUpdate) {
@@ -306,4 +323,4 @@ exports.default = galleryHandler;
 /***/ })
 
 }]);
-//# sourceMappingURL=gallery.044b1c02fe2971304f4b.bundle.js.map
+//# sourceMappingURL=gallery.a91378a00051d8231940.bundle.js.map

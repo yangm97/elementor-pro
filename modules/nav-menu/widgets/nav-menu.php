@@ -299,7 +299,24 @@ class Nav_Menu extends Base_Widget {
 			]
 		);
 
-		$breakpoints = Responsive::get_breakpoints();
+		$breakpoints = Plugin::elementor()->breakpoints->get_active_breakpoints();
+		$dropdown_options = [];
+		$excluded_breakpoints = [
+			'laptop',
+			'widescreen',
+		];
+
+		foreach ( $breakpoints as $breakpoint_key => $breakpoint_instance ) {
+			// Do not include laptop and widscreen in the options since this feature is for mobile devices.
+			if ( in_array( $breakpoint_key, $excluded_breakpoints, true ) ) {
+				continue;
+			}
+
+			/* translators: %1$s: Breakpoint Label, %2$d: Breakpoint value. */
+			$dropdown_options[ $breakpoint_key ] = sprintf( esc_html__( '%1$s (< %2$dpx)', 'elementor-pro' ), $breakpoint_instance->get_label(), $breakpoint_instance->get_value() );
+		}
+
+		$dropdown_options['none'] = esc_html__( 'None', 'elementor-pro' );
 
 		$this->add_control(
 			'dropdown',
@@ -307,13 +324,7 @@ class Nav_Menu extends Base_Widget {
 				'label' => __( 'Breakpoint', 'elementor-pro' ),
 				'type' => Controls_Manager::SELECT,
 				'default' => 'tablet',
-				'options' => [
-					/* translators: %d: Breakpoint number. */
-					'mobile' => sprintf( __( 'Mobile (< %dpx)', 'elementor-pro' ), $breakpoints['md'] ),
-					/* translators: %d: Breakpoint number. */
-					'tablet' => sprintf( __( 'Tablet (< %dpx)', 'elementor-pro' ), $breakpoints['lg'] ),
-					'none' => __( 'None', 'elementor-pro' ),
-				],
+				'options' => $dropdown_options,
 				'prefix_class' => 'elementor-nav-menu--dropdown-',
 				'condition' => [
 					'layout!' => 'dropdown',
@@ -451,7 +462,7 @@ class Nav_Menu extends Base_Widget {
 				],
 				'default' => '',
 				'selectors' => [
-					'{{WRAPPER}} .elementor-nav-menu--main .elementor-item' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .elementor-nav-menu--main .elementor-item' => 'color: {{VALUE}}; fill: {{VALUE}};',
 				],
 			]
 		);
@@ -477,7 +488,7 @@ class Nav_Menu extends Base_Widget {
 					'{{WRAPPER}} .elementor-nav-menu--main .elementor-item:hover,
 					{{WRAPPER}} .elementor-nav-menu--main .elementor-item.elementor-item-active,
 					{{WRAPPER}} .elementor-nav-menu--main .elementor-item.highlighted,
-					{{WRAPPER}} .elementor-nav-menu--main .elementor-item:focus' => 'color: {{VALUE}}',
+					{{WRAPPER}} .elementor-nav-menu--main .elementor-item:focus' => 'color: {{VALUE}}; fill: {{VALUE}};',
 				],
 				'condition' => [
 					'pointer!' => 'background',
@@ -1066,6 +1077,16 @@ class Nav_Menu extends Base_Widget {
 		if ( 'fa ' === substr( $frontend_settings['submenu_icon']['value'], 0, 3 ) && Icons_Manager::is_migration_allowed() ) {
 			$frontend_settings['submenu_icon']['value'] = str_replace( 'fa ', 'fas ', $frontend_settings['submenu_icon']['value'] );
 		}
+
+		// Determine the submenu icon markup.
+		if ( Plugin::elementor()->experiments->is_feature_active( 'e_font_icon_svg' ) ) {
+			$icon_content = Icons_Manager::render_font_icon( $frontend_settings['submenu_icon'] );
+		} else {
+			$icon_content = sprintf( '<i class="%s"></i>', $frontend_settings['submenu_icon']['value'] );
+		}
+
+		// Passing the entire icon markup to the frontend settings because it can be either <i> or <svg> tag.
+		$frontend_settings['submenu_icon']['value'] = $icon_content;
 
 		return $frontend_settings;
 	}

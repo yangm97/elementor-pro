@@ -49,6 +49,14 @@ class Gallery extends Base_Widget {
 		return 'eicon-gallery-justified';
 	}
 
+	public function get_inline_css_depends() {
+		if ( 'multiple' === $this->get_settings_for_display( 'gallery_type' ) ) {
+			return [ 'nav-menu' ];
+		}
+
+		return [];
+	}
+
 	protected function register_controls() {
 		$this->start_controls_section( 'settings', [ 'label' => __( 'Settings', 'elementor-pro' ) ] );
 
@@ -178,6 +186,27 @@ class Gallery extends Base_Widget {
 			]
 		);
 
+		$active_breakpoints = Plugin::elementor()->breakpoints->get_active_breakpoints();
+		$ideal_row_height_device_args = [];
+		$gap_device_args = [];
+
+		// Add default values for all active breakpoints.
+		foreach ( $active_breakpoints as $breakpoint_name => $breakpoint_instance ) {
+			if ( 'widescreen' !== $breakpoint_name ) {
+				$ideal_row_height_device_args[ $breakpoint_name ] = [
+					'default' => [
+						'size' => 150,
+					],
+				];
+
+				$gap_device_args[ $breakpoint_name ] = [
+					'default' => [
+						'size' => 10,
+					],
+				];
+			}
+		}
+
 		$this->add_responsive_control(
 			'ideal_row_height',
 			[
@@ -192,12 +221,7 @@ class Gallery extends Base_Widget {
 				'default' => [
 					'size' => 200,
 				],
-				'tablet_default' => [
-					'size' => 150,
-				],
-				'mobile_default' => [
-					'size' => 150,
-				],
+				'device_args' => $ideal_row_height_device_args,
 				'condition' => [
 					'gallery_layout' => 'justified',
 				],
@@ -215,12 +239,7 @@ class Gallery extends Base_Widget {
 				'default' => [
 					'size' => 10,
 				],
-				'tablet_default' => [
-					'size' => 10,
-				],
-				'mobile_default' => [
-					'size' => 10,
-				],
+				'device_args' => $gap_device_args,
 				'required' => true,
 				'render_type' => 'none',
 				'frontend_available' => true,

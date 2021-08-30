@@ -87,7 +87,10 @@ class Locations_Manager {
 		}
 
 		if ( ! empty( $css_files ) ) {
+			// Enqueue the frontend styles manually also for pages that don't built with Elementor.
 			Plugin::elementor()->frontend->enqueue_styles();
+
+			// Enqueue after the frontend styles to override them.
 			foreach ( $css_files as $css_file ) {
 				$css_file->enqueue();
 			}

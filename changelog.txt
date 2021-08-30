@@ -1,5 +1,48 @@
 # Elementor Pro - by Elementor.com
 
+#### 3.3.8 - 2021-08-23
+* Fix: Products grid width issue when adjusting columns and rows in Products widget ([#16001](https://github.com/elementor/elementor/issues/16001))
+* Fix: Font Awesome Inline experiment causes icons glitch in Price Table widget ([#16045](https://github.com/elementor/elementor/issues/16045))
+* Fix: reCAPTCHA v3 `z-index` is lower than the Section's background color
+* Fix: Style missing when Font Awesome inline experiment is active in Post Info widget
+* Fix: Font Awesome icons were not loaded in Post Info widget
+* Fix: Zero character can't be used as a placeholder in Number field in Form widget
+* Fix: Carousels are not working properly in the Editor when Additional Custom Breakpoints experiment is active
+
+#### 3.3.7 - 2021-08-15
+* Tweak: Added support for Additional Custom Breakpoints in Nav Menu widget
+* Tweak: Added support for Additional Custom breakpoints in Motion Effects
+* Fix: Columns didn't respond to changes in Gallery widget if Additional Custom Breakpoints Experiment is active
+
+#### 3.3.6 - 2021-08-10
+* Tweak: Added support for future feature in Nav Menu widget
+* Fix: WooCommerce responsive grid styles are not being reflected in Product Related widget ([#15857](https://github.com/elementor/elementor/issues/15857))
+* Fix: WooCommerce responsive grid styles are not being reflected in Upsells widget ([#15857](https://github.com/elementor/elementor/issues/15857))
+* Fix: WooCommerce responsive grid styles are not being reflected in Product Categories widget ([#15857](https://github.com/elementor/elementor/issues/15857))
+
+#### 3.3.5 - 2021-08-01
+* Fix: Responsive layout glitches in Products and Products Archive widgets ([#15773](https://github.com/elementor/elementor/issues/15773))
+* Fix: reCAPTCHA V3 integration conflict with required fields validation in Forms widget
+
+#### 3.3.4 - 2021-07-21
+* Fix: Grid layout glitch in WooCommerce Products Archive widget ([#15718](https://github.com/elementor/elementor/issues/15718))
+
+#### 3.3.3 - 2021-07-20
+* Tweak: Added a descriptive message in Collect Submissions action after submit
+* Tweak: Added future compatibility for Additional Custom Breakpoints for Pro widgets
+* Fix: Some widget style breaks when Improved CSS Loading Experiment is active in certain cases ([#15632](https://github.com/elementor/elementor/issues/15632), [#15683](https://github.com/elementor/elementor/issues/15683), [#15660](https://github.com/elementor/elementor/issues/15660))
+* Fix: Translation update keep appearing as available after install ([#14297](https://github.com/elementor/elementor/issues/14297))
+* Fix: Wrong default icon color when using Font Awesome icons as inline SVG in Call to Action widget
+
+#### 3.3.2 - 2021-07-13
+* Tweak: Updated plugin description
+* Fix: MailChimp tags in form widget replaced existing tags ([#11111](https://github.com/elementor/elementor/issues/11111))
+* Fix: Clicking videos from the items list in edit mode doesn’t initiate videos properly
+* Fix: User unauthorized message when activated but not connected in Kit Library
+* Fix: Carousel widgets did not support additional custom breakpoint responsive values
+* Fix: Tab border is overridden by the Section background color in Video Playlist widget
+* Fix: Widgets style breaks when Improved CSS Load experiment is active in a Single Page template and Post Content widget
+
 #### 3.3.1 - 2021-06-20
 * Tweak: Added support for more Theme Builder display conditions in Export / Import experiment
 * Tweak: Adjusted License page heading structure for future feature

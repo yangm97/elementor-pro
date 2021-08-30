@@ -1,6 +1,7 @@
 <?php
 namespace ElementorPro\Modules\Forms\Classes;
 
+use Elementor\Utils;
 use ElementorPro\Base\Base_Widget;
 use ElementorPro\Modules\Forms\Module;
 
@@ -217,7 +218,8 @@ abstract class Form_Base extends Base_Widget {
 			$this->add_render_attribute( 'field-group' . $i, 'class', 'elementor-sm-' . $item['width_mobile'] );
 		}
 
-		if ( ! empty( $item['placeholder'] ) ) {
+		// Allow zero as placeholder.
+		if ( ! Utils::is_empty( $item['placeholder'] ) ) {
 			$this->add_render_attribute( 'input' . $i, 'placeholder', $item['placeholder'] );
 		}
 

@@ -30,6 +30,14 @@ class Updater {
 
 		remove_action( 'after_plugin_row_' . $this->plugin_name, 'wp_plugin_update_row' );
 		add_action( 'after_plugin_row_' . $this->plugin_name, [ $this, 'show_update_notification' ], 10, 2 );
+
+		add_action( 'update_option_WPLANG', function () {
+			$this->clean_get_version_cache();
+		} );
+
+		add_action( 'upgrader_process_complete', function () {
+			$this->clean_get_version_cache();
+		} );
 	}
 
 	public function delete_transients() {
@@ -222,6 +230,13 @@ class Updater {
 	}
 
 	protected function delete_transient( $cache_key ) {
+		delete_option( $cache_key );
+	}
+
+	private function clean_get_version_cache() {
+		// Since `API::get_version` holds the old language.
+		$cache_key = API::TRANSIENT_KEY_PREFIX . ELEMENTOR_PRO_VERSION;
+
 		delete_option( $cache_key );
 	}
 }

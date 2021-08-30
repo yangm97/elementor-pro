@@ -27,7 +27,6 @@ final class Modules_Manager {
 			'usage',
 			'screenshots',
 			'compatibility-tag',
-			'license',
 
 			// Modules with Widgets.
 			'theme-builder',

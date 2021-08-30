@@ -5,6 +5,7 @@ use Elementor\Controls_Manager;
 use Elementor\Group_Control_Image_Size;
 use Elementor\Repeater;
 use ElementorPro\Base\Base_Widget;
+use ElementorPro\Plugin;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -273,28 +274,39 @@ abstract class Base extends Base_Widget {
 			]
 		);
 
+		$space_between_config = [
+			'label' => __( 'Space Between', 'elementor-pro' ),
+			'type' => Controls_Manager::SLIDER,
+			'range' => [
+				'px' => [
+					'max' => 50,
+				],
+			],
+			'render_type' => 'none',
+			'frontend_available' => true,
+		];
+
+		// TODO: Once Core 3.4.0 is out, get the active devices using Breakpoints/Manager::get_active_devices_list().
+		$active_breakpoint_instances = Plugin::elementor()->breakpoints->get_active_breakpoints();
+		// Devices need to be ordered from largest to smallest.
+		$active_devices = array_reverse( array_keys( $active_breakpoint_instances ) );
+
+		// Add desktop in the correct position.
+		if ( in_array( 'widescreen', $active_devices, true ) ) {
+			$active_devices = array_merge( array_slice( $active_devices, 0, 1 ), [ 'desktop' ], array_slice( $active_devices, 1 ) );
+		} else {
+			$active_devices = array_merge( [ 'desktop' ], $active_devices );
+		}
+
+		foreach ( $active_devices as $active_device ) {
+			$space_between_config[ $active_device . '_default' ] = [
+				'size' => 10,
+			];
+		}
+
 		$this->add_responsive_control(
 			'space_between',
-			[
-				'label' => __( 'Space Between', 'elementor-pro' ),
-				'type' => Controls_Manager::SLIDER,
-				'range' => [
-					'px' => [
-						'max' => 50,
-					],
-				],
-				'desktop_default' => [
-					'size' => 10,
-				],
-				'tablet_default' => [
-					'size' => 10,
-				],
-				'mobile_default' => [
-					'size' => 10,
-				],
-				'render_type' => 'none',
-				'frontend_available' => true,
-			]
+			$space_between_config
 		);
 
 		$this->add_control(

@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.3.1 - 20-06-2021 */
+/*! elementor-pro - v3.3.8 - 23-08-2021 */
 (self["webpackChunkelementor_pro"] = self["webpackChunkelementor_pro"] || []).push([["modules_carousel_assets_js_frontend_handlers_base_js"],{
 
 /***/ "../modules/carousel/assets/js/frontend/handlers/base.js":
@@ -21,6 +21,8 @@ _Object$defineProperty(exports, "__esModule", {
 exports.default = void 0;
 
 var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ "../node_modules/@babel/runtime/regenerator/index.js"));
+
+var _keys = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/object/keys */ "../node_modules/@babel/runtime-corejs2/core-js/object/keys.js"));
 
 __webpack_require__(/*! core-js/modules/es6.array.find.js */ "../node_modules/core-js/modules/es6.array.find.js");
 
@@ -55,8 +57,12 @@ var CarouselBase = /*#__PURE__*/function (_elementorModules$fro) {
           swiperSlide: '.swiper-slide'
         },
         slidesPerView: {
+          widescreen: 3,
           desktop: 3,
+          laptop: 3,
+          tablet_extra: 3,
           tablet: 2,
+          mobile_extra: 2,
           mobile: 1
         }
       };
@@ -120,6 +126,8 @@ var CarouselBase = /*#__PURE__*/function (_elementorModules$fro) {
   }, {
     key: "getSwiperOptions",
     value: function getSwiperOptions() {
+      var _this = this;
+
       var elementSettings = this.getElementSettings();
       var swiperOptions = {
         grabCursor: true,
@@ -152,17 +160,14 @@ var CarouselBase = /*#__PURE__*/function (_elementorModules$fro) {
 
       if ('cube' !== this.getEffect()) {
         var breakpointsSettings = {},
-            breakpoints = elementorFrontend.config.breakpoints;
-        breakpointsSettings[breakpoints.lg - 1] = {
-          slidesPerView: this.getSlidesPerView('tablet'),
-          slidesPerGroup: this.getSlidesToScroll('tablet'),
-          spaceBetween: this.getSpaceBetween('tablet')
-        };
-        breakpointsSettings[breakpoints.md - 1] = {
-          slidesPerView: this.getSlidesPerView('mobile'),
-          slidesPerGroup: this.getSlidesToScroll('mobile'),
-          spaceBetween: this.getSpaceBetween('mobile')
-        };
+            breakpoints = elementorFrontend.config.responsive.activeBreakpoints;
+        (0, _keys.default)(breakpoints).forEach(function (breakpointName) {
+          breakpointsSettings[breakpoints[breakpointName].value] = {
+            slidesPerView: _this.getSlidesPerView(breakpointName),
+            slidesPerGroup: _this.getSlidesToScroll(breakpointName),
+            spaceBetween: _this.getSpaceBetween(breakpointName)
+          };
+        });
         swiperOptions.breakpoints = breakpointsSettings;
       }
 
@@ -176,19 +181,29 @@ var CarouselBase = /*#__PURE__*/function (_elementorModules$fro) {
       return swiperOptions;
     }
   }, {
+    key: "getDeviceBreakpointValue",
+    value: function getDeviceBreakpointValue(device) {
+      var _this2 = this;
+
+      if (!this.breakpointsDictionary) {
+        var breakpoints = elementorFrontend.config.responsive.activeBreakpoints;
+        this.breakpointsDictionary = {};
+        (0, _keys.default)(breakpoints).forEach(function (breakpointName) {
+          _this2.breakpointsDictionary[breakpointName] = breakpoints[breakpointName].value;
+        });
+      }
+
+      return this.breakpointsDictionary[device];
+    }
+  }, {
     key: "updateSpaceBetween",
     value: function updateSpaceBetween(propertyName) {
       var deviceMatch = propertyName.match('space_between_(.*)'),
           device = deviceMatch ? deviceMatch[1] : 'desktop',
-          newSpaceBetween = this.getSpaceBetween(device),
-          breakpoints = elementorFrontend.config.breakpoints;
+          newSpaceBetween = this.getSpaceBetween(device);
 
       if ('desktop' !== device) {
-        var breakpointDictionary = {
-          tablet: breakpoints.lg - 1,
-          mobile: breakpoints.md - 1
-        };
-        this.swiper.params.breakpoints[breakpointDictionary[device]].spaceBetween = newSpaceBetween;
+        this.swiper.params.breakpoints[this.getDeviceBreakpointValue(device)].spaceBetween = newSpaceBetween;
       } else {
         this.swiper.params.spaceBetween = newSpaceBetween;
       }
@@ -360,4 +375,4 @@ exports.default = CarouselBase;
 /***/ })
 
 }]);
-//# sourceMappingURL=3333af8bf530102aec5b.bundle.js.map
+//# sourceMappingURL=66e1effc33a6138a1bb9.bundle.js.map

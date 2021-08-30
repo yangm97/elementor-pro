@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.3.1 - 20-06-2021 */
+/*! elementor-pro - v3.3.8 - 23-08-2021 */
 (self["webpackChunkelementor_pro"] = self["webpackChunkelementor_pro"] || []).push([["form"],{
 
 /***/ "../node_modules/@babel/runtime-corejs2/core-js/parse-int.js":
@@ -1335,9 +1335,14 @@ var Recaptcha = /*#__PURE__*/function (_elementorModules$fro) {
               name: 'g-recaptcha-response'
             });
             $form.append(_this2.elements.$recaptchaResponse);
-          }
+          } // Support old browsers.
 
-          $form.trigger('submit');
+
+          var bcSupport = !$form[0].reportValidity || 'function' !== typeof $form[0].reportValidity;
+
+          if (bcSupport || $form[0].reportValidity()) {
+            $form.trigger('submit');
+          }
         });
       });
     }
@@ -1733,4 +1738,4 @@ __webpack_require__(/*! ./_add-to-unscopables */ "../node_modules/core-js/module
 /***/ })
 
 }]);
-//# sourceMappingURL=form.a1a56dc07903de7da0f4.bundle.js.map
+//# sourceMappingURL=form.81150a02a67b8cf217dc.bundle.js.map

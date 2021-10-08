@@ -972,6 +972,7 @@ class Nav_Menu extends Base_Widget {
 				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} div.elementor-menu-toggle' => 'color: {{VALUE}}', // Harder selector to override text color control
+					'{{WRAPPER}} div.elementor-menu-toggle svg' => 'fill: {{VALUE}}',
 				],
 			]
 		);
@@ -1080,7 +1081,13 @@ class Nav_Menu extends Base_Widget {
 
 		// Determine the submenu icon markup.
 		if ( Plugin::elementor()->experiments->is_feature_active( 'e_font_icon_svg' ) ) {
-			$icon_content = Icons_Manager::render_font_icon( $frontend_settings['submenu_icon'] );
+			$icon_classes = [];
+
+			if ( false !== strpos( $frontend_settings['submenu_icon']['value'], 'chevron-down' ) ) {
+				$icon_classes['class'] = 'fa-svg-chevron-down';
+			}
+
+			$icon_content = Icons_Manager::render_font_icon( $frontend_settings['submenu_icon'], $icon_classes );
 		} else {
 			$icon_content = sprintf( '<i class="%s"></i>', $frontend_settings['submenu_icon']['value'] );
 		}
@@ -1183,7 +1190,16 @@ class Nav_Menu extends Base_Widget {
 		endif;
 		?>
 		<div <?php echo $this->get_render_attribute_string( 'menu-toggle' ); ?>>
-			<i class="eicon-menu-bar" aria-hidden="true" role="presentation"></i>
+			<?php Icons_Manager::render_icon(
+				[
+					'library' => 'eicons',
+					'value' => 'eicon-menu-bar',
+				],
+				[
+					'aria-hidden' => 'true',
+					'role' => 'presentation',
+				]
+			); ?>
 			<span class="elementor-screen-only"><?php _e( 'Menu', 'elementor-pro' ); ?></span>
 		</div>
 			<nav class="elementor-nav-menu--dropdown elementor-nav-menu__container" role="navigation" aria-hidden="true"><?php echo $dropdown_menu_html; ?></nav>

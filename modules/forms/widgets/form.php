@@ -430,6 +430,7 @@ class Form extends Form_Base {
 				'type' => Controls_Manager::TEXT,
 				'description' => __( 'Please make sure the ID is unique and not used elsewhere in this form. This field allows <code>A-z 0-9</code> & underscore chars without spaces.', 'elementor-pro' ),
 				'render_type' => 'none',
+				'required' => true,
 			]
 		);
 

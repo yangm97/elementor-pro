@@ -10,6 +10,7 @@ use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 use Elementor\Icons_Manager;
 use ElementorPro\Base\Base_Widget;
 use ElementorPro\Core\Utils;
+use ElementorPro\Plugin;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -35,6 +36,26 @@ class Table_Of_Contents extends Base_Widget {
 
 	public function get_keywords() {
 		return [ 'toc' ];
+	}
+
+	/**
+	 * Get Frontend Settings
+	 *
+	 * In the TOC widget, this implementation is used to pass a pre-rendered version of the icon to the front end,
+	 * which is required in case the FontAwesome SVG experiment is active.
+	 *
+	 * @since 3.4.0
+	 *
+	 * @return array
+	 */
+	public function get_frontend_settings() {
+		$frontend_settings = parent::get_frontend_settings();
+
+		if ( Plugin::elementor()->experiments->is_feature_active( 'e_font_icon_svg' ) && ! empty( $frontend_settings['icon']['value'] ) ) {
+			$frontend_settings['icon']['rendered_tag'] = Icons_Manager::render_font_icon( $frontend_settings['icon'] );
+		}
+
+		return $frontend_settings;
 	}
 
 	protected function register_controls() {
@@ -346,6 +367,18 @@ class Table_Of_Contents extends Base_Widget {
 				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}}' => '--box-border-color: {{VALUE}}',
+				],
+			]
+		);
+
+		$this->add_control(
+			'loader_color',
+			[
+				'label' => __( 'Loader Color', 'elementor-pro' ),
+				'type' => Controls_Manager::COLOR,
+				'selectors' => [
+					// Not using CSS var for BC, when not configured: the loader should get the color from the body tag.
+					'{{WRAPPER}} .elementor-toc__spinner' => 'color: {{VALUE}}; fill: {{VALUE}};',
 				],
 			]
 		);
@@ -694,7 +727,20 @@ class Table_Of_Contents extends Base_Widget {
 		</div>
 		<div <?php echo $this->get_render_attribute_string( 'body' ); ?>>
 			<div class="elementor-toc__spinner-container">
-				<i class="elementor-toc__spinner eicon-loading eicon-animation-spin" aria-hidden="true"></i>
+				<?php
+					Icons_Manager::render_icon(
+						[
+							'library' => 'eicons',
+							'value' => 'eicon-loading',
+						],
+						[
+							'class' => [
+								'elementor-toc__spinner',
+								'eicon-animation-spin',
+							],
+							'aria-hidden' => 'true',
+						]
+					); ?>
 			</div>
 		</div>
 		<?php

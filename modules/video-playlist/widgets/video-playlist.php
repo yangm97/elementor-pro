@@ -74,6 +74,7 @@ class Video_Playlist extends Base_Widget {
 				'default' => 'youtube',
 				'options' => [
 					'youtube' => __( 'YouTube', 'elementor-pro' ),
+					'vimeo' => __( 'Vimeo', 'elementor-pro' ),
 					'hosted' => __( 'Self Hosted', 'elementor-pro' ),
 					'section' => __( 'Section', 'elementor-pro' ),
 				],
@@ -97,15 +98,36 @@ class Video_Playlist extends Base_Widget {
 		);
 
 		$repeater->add_control(
-			'fetch_data',
+			'vimeo_url',
+			[
+				'label' => __( 'Link', 'elementor-pro' ),
+				'type' => Controls_Manager::TEXT,
+				'dynamic' => [
+					'active' => true,
+					'categories' => [
+						TagsModule::POST_META_CATEGORY,
+						TagsModule::URL_CATEGORY,
+					],
+				],
+				'placeholder' => __( 'Enter your URL', 'elementor-pro' ) . ' (Vimeo)',
+				'default' => 'https://vimeo.com/235215203',
+				'label_block' => true,
+				'condition' => [
+					'type' => 'vimeo',
+				],
+			]
+		);
+
+		$repeater->add_control(
+			'vimeo_fetch_data',
 			[
 				'type' => Controls_Manager::BUTTON,
 				'label_block' => true,
 				'text' => __( 'Get Video Data', 'elementor-pro' ),
 				'separator' => 'none',
-				'event' => 'elementorPlaylistWidget:fetchData',
+				'event' => 'elementorPlaylistWidget:fetchVideoData',
 				'condition' => [
-					'type' => 'youtube',
+					'type' => [ 'youtube', 'vimeo' ],
 				],
 			]
 		);
@@ -187,7 +209,7 @@ class Video_Playlist extends Base_Widget {
 				'placeholder' => '1:05',
 				'default' => '',
 				'condition' => [
-					'type' => [ 'youtube', 'hosted' ],
+					'type!' => 'section',
 				],
 			]
 		);
@@ -204,7 +226,7 @@ class Video_Playlist extends Base_Widget {
 					'url' => Utils::get_placeholder_image_src(),
 				],
 				'condition' => [
-					'type' => [ 'youtube', 'hosted' ],
+					'type!' => 'section',
 				],
 			]
 		);
@@ -594,8 +616,8 @@ class Video_Playlist extends Base_Widget {
 				'type' => Controls_Manager::ICONS,
 				'fa4compatibility' => 'icon',
 				'default' => [
-					'value' => 'far fa-play-circle',
-					'library' => 'fa-regular',
+					'value' => 'fas fa-play-circle',
+					'library' => 'fa-solid',
 				],
 				'label_block' => false,
 				'skin' => 'inline',
@@ -609,8 +631,8 @@ class Video_Playlist extends Base_Widget {
 				'type' => Controls_Manager::ICONS,
 				'fa4compatibility' => 'icon',
 				'default' => [
-					'value' => 'far fa-check-circle',
-					'library' => 'fa-regular',
+					'value' => 'fas fa-check-circle',
+					'library' => 'fa-solid',
 				],
 				'label_block' => false,
 				'skin' => 'inline',
@@ -719,7 +741,7 @@ class Video_Playlist extends Base_Widget {
 		$this->add_control(
 			'heading_videos_amount',
 			[
-				'label' => __( 'Videos Amount', 'elementor-pro' ),
+				'label' => __( 'Video Count', 'elementor-pro' ),
 				'type' => Controls_Manager::HEADING,
 			]
 		);
@@ -732,6 +754,8 @@ class Video_Playlist extends Base_Widget {
 				'default' => '',
 				'selectors' => [
 					'{{WRAPPER}} .e-tabs-header .e-tabs-videos-count' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .e-tabs-header .e-tabs-header-right-side i' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .e-tabs-header .e-tabs-header-right-side svg' => 'fill: {{VALUE}};',
 				],
 				'global' => [
 					'default' => Global_Colors::COLOR_TEXT,
@@ -874,8 +898,13 @@ class Video_Playlist extends Base_Widget {
 					'text_shadow_type' => [
 						'label' => _x( 'Shadow', 'Text Shadow Control', 'elementor-pro' ),
 					],
+					'text_shadow' => [
+						'selectors' => [
+							'{{WRAPPER}} .e-tab-title i' => 'text-shadow: {{HORIZONTAL}}px {{VERTICAL}}px {{BLUR}}px {{COLOR}};',
+							'{{WRAPPER}} .e-tab-title svg' => 'filter: drop-shadow({{HORIZONTAL}}px {{VERTICAL}}px {{BLUR}}px {{COLOR}});',
+						],
+					],
 				],
-				'selector' => '{{WRAPPER}} .e-tab-title i, {{WRAPPER}} .e-tab-title svg',
 			]
 		);
 
@@ -884,16 +913,13 @@ class Video_Playlist extends Base_Widget {
 			[
 				'label' => __( 'Size', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
-				'default' => [
-					'size' => '16',
-				],
 				'range' => [
 					'min' => 10,
 					'max' => 30,
 				],
 				'selectors' => [
-					'{{WRAPPER}} .e-tab-title i' => 'font-size: {{SIZE}}px',
-					'{{WRAPPER}} .e-tab-title svg' => 'width: {{SIZE}}px;height: {{SIZE}}px;',
+					'{{WRAPPER}}' => '--playlist-item-icon-size: {{SIZE}}px',
+					'{{WRAPPER}}' => '--playlist-item-icon-size: {{SIZE}}px',
 				],
 			]
 		);
@@ -1084,9 +1110,6 @@ class Video_Playlist extends Base_Widget {
 			[
 				'label' => __( 'Size', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
-				'default' => [
-					'size' => '16',
-				],
 				'range' => [
 					'min' => 10,
 					'max' => 30,
@@ -1559,12 +1582,15 @@ class Video_Playlist extends Base_Widget {
 
 			switch ( $playlist_item['type'] ) {
 				case 'youtube':
+				case 'vimeo':
 				case 'hosted':
 					$playlist_item_object->type = $playlist_item['type'];
 					$playlist_item_object->video_title = $playlist_item['title'];
 
 					if ( $playlist_item['youtube_url'] && 'youtube' === $playlist_item['type'] ) {
 						$playlist_item_object->video_url = $playlist_item['youtube_url'];
+					} elseif ( $playlist_item['vimeo_url'] && 'vimeo' === $playlist_item['type'] ) {
+						$playlist_item_object->video_url = $playlist_item['vimeo_url'];
 					} elseif ( $playlist_item['external_url'] && 'hosted' === $playlist_item['type'] && 'yes' === $playlist_item['is_external_url'] ) {
 						$playlist_item_object->video_url = $playlist_item['external_url']['url'];
 					} elseif ( $playlist_item['hosted_url'] && 'hosted' === $playlist_item['type'] && 'yes' !== $playlist_item['is_external_url'] ) {
@@ -1669,7 +1695,21 @@ class Video_Playlist extends Base_Widget {
 							<?php if ( $playlist_object->is_show_video_count ) : ?>
 								<span class="e-tabs-videos-count"><?php echo $playlist_object->video_count; ?> <?php echo __( 'Videos', 'elementor-pro' ); ?></span>
 							<?php endif; ?>
-							<i class="e-tabs-toggle-videos-display-button eicon-caret-down rotate-down" aria-hidden="true"></i>
+							<?php
+								Icons_Manager::render_icon(
+									[
+										'library' => 'eicons',
+										'value' => 'eicon-caret-down',
+									],
+									[
+										'aria-hidden' => 'true',
+										'class' => [
+											'e-tabs-toggle-videos-display-button',
+											'rotate-down',
+										],
+									]
+								);
+							?>
 						</div>
 					</div>
 					<div class="e-tabs-items-wrapper">
@@ -1872,12 +1912,15 @@ class Video_Playlist extends Base_Widget {
 
 				switch ( playlistItem.type ) {
 					case 'youtube':
+					case 'vimeo':
 					case 'hosted':
 						playlistItemObject.type = playlistItem.type;
 						playlistItemObject.videoTitle = playlistItem.title;
 
 						if ( playlistItem.youtube_url && 'youtube' === playlistItem.type ) {
 							playlistItemObject.videoUrl = playlistItem.youtube_url;
+						} else if ( playlistItem.vimeo_url && 'vimeo' === playlistItem.type ) {
+							playlistItemObject.videoUrl = playlistItem.vimeo_url;
 						} else if ( playlistItem.external_url && 'hosted' === playlistItem.type && 'yes' === playlistItem.is_external_url ) {
 							playlistItemObject.videoUrl = playlistItem.external_url.url;
 						} else if ( playlistItem.hosted_url && 'hosted' === playlistItem.type && 'yes' !== playlistItem.is_external_url ) {

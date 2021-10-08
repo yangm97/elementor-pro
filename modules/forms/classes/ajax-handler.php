@@ -159,9 +159,13 @@ class Ajax_Handler {
 			} catch ( \Exception $e ) {
 				$exception = $e;
 
+				// Add an admin error.
 				if ( ! in_array( $exception->getMessage(), $this->messages['admin_error'], true ) ) {
 					$this->add_admin_error_message( "{$action->get_label()} {$exception->getMessage()}" );
 				}
+
+				// Add a user error.
+				$this->add_error_message( $this->get_default_message( self::ERROR, $this->current_form['settings'] ) );
 			}
 
 			$errors = array_merge( $this->messages['error'], $this->messages['admin_error'] );

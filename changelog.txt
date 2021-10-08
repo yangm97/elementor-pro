@@ -1,5 +1,54 @@
 # Elementor Pro - by Elementor.com
 
+#### 3.4.1 - 2021-09-01
+
+* Fix: Sticky functionality is not working if the Additional Custom Breakpoints experiment is active ([#16186](https://github.com/elementor/elementor/issues/16186))
+* Fix: Slideshow skin UI glitch in Media Carousel widget
+* Fix: Product price typography weight control is not working as expected in Menu Cart widget
+
+#### 3.4.0 - 2021-09-01
+* Tweak: Added new Mini Cart layout type in Menu Cart widget ([#11312](https://github.com/elementor/elementor/issues/11312))
+* Tweak: Added styling options for Cart, Products, and Cart buttons in Menu Cart widget ([#14952](https://github.com/elementor/elementor/issues/14952))
+* Tweak: Added the ability to open cart automatically when an item is added in Menu Cart widget ([#14119](https://github.com/elementor/elementor/issues/14119))
+* Tweak: Added the ability to remove an item from cart without reloading the page with an AJAX request ([#9531](https://github.com/elementor/elementor/issues/9531), [#10875](https://github.com/elementor/elementor/issues/10875), [#11309](https://github.com/elementor/elementor/issues/11309))
+* Tweak: Added Load More AJAX functionality to Posts widget ([#12126](https://github.com/elementor/elementor/issues/12126), [#1284](https://github.com/elementor/elementor/issues/1284), [#14557](https://github.com/elementor/elementor/issues/14557))
+* Tweak: Added Vimeo support to the Video Playlist widget ([#15319](https://github.com/elementor/elementor/issues/15319))
+* Tweak: Improved asset loading performance by serving lighter JS files ([#8572](https://github.com/elementor/elementor/issues/8572))
+* Tweak: Added query string to the URL only after the first video is played in Video Playlist widget ([#15348](https://github.com/elementor/elementor/issues/15348))
+* Tweak: Added various layout options with more responsive controls and cart structure options in Menu Cart widget
+* Tweak: Added the option to open the menu cart by click or hover in Menu Cart widget
+* Tweak: Added the ability to choose a specific product to draw data from in WooCommerce Dynamic tags
+* Tweak: Removed auto-scroll to the widget location when arriving from external URL in Video Playlist widget
+* Tweak: Removed the Video Playlist widget from the Experiments list
+* Tweak: Added descriptive error messages for MailChimp action after submit and on form submit in Forms widget
+* Tweak: Added tooltip trigger None and Hover for link in Hotspot widget
+* Tweak: Added responsive controls to Offset and Effects Offset in Sticky options
+* Tweak: Added responsive control to Alignment in Testimonial Carousel widget
+* Tweak: Adjusted Motion Effects module to support future feature
+* Tweak: Added future compatibility to support better loading of `eicons` font
+* Tweak: Changed Rename Part title and button color in Theme Builder
+* Fix: Products don't appear on the cart while editing in Menu Cart widget ([#15451](https://github.com/elementor/elementor/issues/15451))
+* Fix: Videos always start muted in the Video Playlist widget ([#15292](https://github.com/elementor/elementor/issues/15292))
+* Fix: Unnecessary spacing if submenu indicator is set to None in Nav Menu widget ([#15365](https://github.com/elementor/elementor/issues/15365))
+* Fix: MailChimp double opt-in feature doesn't work in Forms widget
+* Fix: Fetching MailChimp groups field blocks the loading of the rest of the fields in the Form widget
+* Fix: Missing field IDs causes forms not to be sent in Forms widget
+* Fix: Full Content Skin is not working properly when inserted twice on the same page in Posts widget
+* Fix: Avoid Duplicates option doesn't exclude manual selections in Posts widget
+* Fix: Submenu indicator alignment issue in Nav menu widget
+* Fix: Query control deprecated message appears when debug mode is defined
+* Fix: Tweet Button icon incorrect color and size when the icon is rendered as SVG in Blockquote widget
+* Fix: Video icon size is not changing on Active state in Video Playlist widget
+* Fix: Header icon color is not working in Table Of Content widget
+* Fix: Icons style glitches when Font Awesome Inline experiment is active in Video Playlist widget
+* Fix: Bullet markers are not visible on preview mode when Font Awesome Inline experiment is active in Table of Content widget
+* Fix: UI Glitch when Font-Awesome Inline experiment is active in Price Table widget
+* Fix: Submenu Indicator appears larger when Font Awesome Inline experiment is active in Nav Menu widget
+* Fix: Part name is deleted when clicking on the "Change" Button without changing the name in Theme Builder
+* Fix: Redundant pagination queries in the Editor
+* Deprecated: Remove all usages of `Elementor\Utils::get_create_new_post_url()`
+* Deprecated: See all deprecations to this version in our [Developers Deprecations Post](https://developers.elementor.com/v3-4-planned-deprecations/)
+
 #### 3.3.8 - 2021-08-23
 * Fix: Products grid width issue when adjusting columns and rows in Products widget ([#16001](https://github.com/elementor/elementor/issues/16001))
 * Fix: Font Awesome Inline experiment causes icons glitch in Price Table widget ([#16045](https://github.com/elementor/elementor/issues/16045))

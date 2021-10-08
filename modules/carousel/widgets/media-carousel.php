@@ -316,7 +316,12 @@ class Media_Carousel extends Base {
 		<div <?php echo $this->get_render_attribute_string( $element_key . '-image' ); ?>>
 			<?php if ( 'video' === $slide['type'] && $settings['video_play_icon'] ) : ?>
 				<div class="elementor-custom-embed-play">
-					<i class="eicon-play" aria-hidden="true"></i>
+					<?php
+						Icons_Manager::render_icon( [
+							'library' => 'eicons',
+							'value' => 'eicon-play',
+						], [ 'aria-hidden' => 'true' ] );
+					?>
 					<span class="elementor-screen-only"><?php _e( 'Play', 'elementor-pro' ); ?></span>
 				</div>
 			<?php endif; ?>
@@ -327,8 +332,7 @@ class Media_Carousel extends Base {
 				if ( 'text' === $settings['overlay'] ) {
 					echo wp_kses_post( $this->get_image_caption( $slide ) );
 				} else {
-					// TODO: replace with print_unescaped_string.
-					echo $this->get_overlay_icon( $settings['icon'] );
+					$this->render_overlay_icon( $settings['icon'] );
 				}
 				?>
 			</div>
@@ -404,6 +408,7 @@ class Media_Carousel extends Base {
 				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .elementor-custom-embed-play i' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .elementor-custom-embed-play svg' => 'fill: {{VALUE}}',
 				],
 			]
 		);
@@ -765,18 +770,14 @@ class Media_Carousel extends Base {
 		return 'carousel';
 	}
 
-	private function get_overlay_icon( $icon_name ) {
+	private function render_overlay_icon( $icon_name ) {
 		$icon_value = 'fas fa-' . $icon_name;
 
-		if ( Plugin::elementor()->experiments->is_feature_active( 'e_font_icon_svg' ) ) {
-			$icon = [
-				'library' => 'fa-solid',
-				'value' => $icon_value,
-			];
+		$icon = [
+			'library' => 'fa-solid',
+			'value' => $icon_value,
+		];
 
-			return Icons_Manager::render_font_icon( $icon );
-		}
-
-		return sprintf( '<i class="%s"></i>', $icon_value );
+		Icons_Manager::render_icon( $icon );
 	}
 }

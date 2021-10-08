@@ -386,7 +386,7 @@ class Price_Table extends Base_Widget {
 					'default' => Global_Colors::COLOR_SECONDARY,
 				],
 				'selectors' => [
-					'{{WRAPPER}} .elementor-price-table__header' => 'background-color: {{VALUE}}',
+					'{{WRAPPER}}' => '--e-price-table-header-background-color: {{VALUE}}',
 				],
 			]
 		);
@@ -515,7 +515,8 @@ class Price_Table extends Base_Widget {
 			Group_Control_Typography::get_type(),
 			[
 				'name' => 'price_typography',
-				'selector' => '{{WRAPPER}} .elementor-price-table__price',
+				// Targeting also the .elementor-price-table class in order to get a higher specificity from the inline CSS.
+				'selector' => '{{WRAPPER}} .elementor-price-table .elementor-price-table__price',
 				'global' => [
 					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
 				],

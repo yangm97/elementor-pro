@@ -45,20 +45,21 @@ if ( ! function_exists( 'elementor_pro_render_mini_cart_item' ) ) {
 			</div>
 
 			<div class="elementor-menu-cart__product-price product-price" data-title="<?php esc_attr_e( 'Price', 'elementor-pro' ); ?>">
-				<?php echo apply_filters( 'woocommerce_widget_cart_item_quantity', '<span class="quantity">' . sprintf( '%s &times; %s', $cart_item['quantity'], $product_price ) . '</span>', $cart_item, $cart_item_key ); ?>
+				<?php echo apply_filters( 'woocommerce_widget_cart_item_quantity', '<span class="quantity">' . sprintf( '<span class="product-quantity">%s &times;</span> %s', $cart_item['quantity'], $product_price ) . '</span>', $cart_item, $cart_item_key ); ?>
 			</div>
 
 			<div class="elementor-menu-cart__product-remove product-remove">
-				<?php
-				echo apply_filters( 'woocommerce_cart_item_remove_link', sprintf(
-					'<a href="%s" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s"></a>',
-					esc_url( wc_get_cart_remove_url( $cart_item_key ) ),
-					__( 'Remove this item', 'elementor-pro' ),
-					esc_attr( $product_id ),
-					esc_attr( $cart_item_key ),
-					esc_attr( $_product->get_sku() )
-				), $cart_item_key );
-				?>
+				<?php foreach ( [ 'elementor_remove_from_cart_button', 'remove_from_cart_button' ] as $class ) {
+					echo apply_filters( 'woocommerce_cart_item_remove_link', sprintf(
+						'<a href="%s" class="%s" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s"></a>',
+						esc_url( wc_get_cart_remove_url( $cart_item_key ) ),
+						$class,
+						__( 'Remove this item', 'elementor-pro' ),
+						esc_attr( $product_id ),
+						esc_attr( $cart_item_key ),
+						esc_attr( $_product->get_sku() )
+					), $cart_item_key );
+				} ?>
 			</div>
 		</div>
 		<?php

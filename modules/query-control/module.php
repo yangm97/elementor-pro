@@ -3,16 +3,16 @@ namespace ElementorPro\Modules\QueryControl;
 
 use Elementor\Controls_Manager;
 use Elementor\Core\Common\Modules\Ajax\Module as Ajax;
+use Elementor\TemplateLibrary\Source_Local;
 use Elementor\Widget_Base;
 use ElementorPro\Base\Module_Base;
+use ElementorPro\Modules\QueryControl\Classes\Elementor_Post_Query;
+use ElementorPro\Modules\QueryControl\Classes\Elementor_Related_Query;
 use ElementorPro\Modules\QueryControl\Controls\Group_Control_Posts;
 use ElementorPro\Modules\QueryControl\Controls\Group_Control_Query;
 use ElementorPro\Modules\QueryControl\Controls\Group_Control_Related;
-use ElementorPro\Modules\QueryControl\Classes\Elementor_Post_Query;
-use ElementorPro\Modules\QueryControl\Classes\Elementor_Related_Query;
 use ElementorPro\Modules\QueryControl\Controls\Query;
 use ElementorPro\Plugin;
-use Elementor\TemplateLibrary\Source_Local;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -526,6 +526,7 @@ class Module extends Module_Base {
 		$results = [];
 		$display = $query_data['display'];
 		$query_args = $query_data['query'];
+		$query_args['no_found_rows'] = true;
 
 		switch ( $query_data['object'] ) {
 			case self::QUERY_OBJECT_TAX:
@@ -676,6 +677,7 @@ class Module extends Module_Base {
 		}
 		$display = $query_data['display'];
 		$query_args = $query_data['query'];
+		$query_args['no_found_rows'] = true;
 
 		$results = [];
 		switch ( $query_data['object'] ) {

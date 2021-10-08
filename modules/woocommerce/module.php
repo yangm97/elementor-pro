@@ -143,23 +143,21 @@ class Module extends Module_Base {
 		$product_count = WC()->cart->get_cart_contents_count();
 		$sub_total = WC()->cart->get_cart_subtotal();
 		$counter_attr = 'data-counter="' . $product_count . '"';
-
 		?>
 		<div class="elementor-menu-cart__toggle elementor-button-wrapper">
-			<a id="elementor-menu-cart__toggle_button" href="#" class="elementor-button elementor-size-sm">
+			<a id="elementor-menu-cart__toggle_button" href="#" class="elementor-menu-cart__toggle_button elementor-button elementor-size-sm" aria-expanded="false">
 				<span class="elementor-button-text"><?php echo $sub_total; ?></span>
 				<span class="elementor-button-icon" <?php echo $counter_attr; ?>>
-					<i class="eicon" aria-hidden="true"></i>
+					<i class="eicon"></i>
 					<span class="elementor-screen-only"><?php esc_html_e( 'Cart', 'elementor-pro' ); ?></span>
 				</span>
 			</a>
 		</div>
-
 		<?php
 	}
 
 	/**
-	 * Render menu cart markup.
+	 * Render menu cart.
 	 * The `widget_shopping_cart_content` div will be populated by woocommerce js.
 	 */
 	public static function render_menu_cart() {
@@ -171,15 +169,19 @@ class Module extends Module_Base {
 		?>
 		<div class="elementor-menu-cart__wrapper">
 			<?php if ( ! $widget_cart_is_hidden ) : ?>
-			<div class="elementor-menu-cart__container elementor-lightbox" aria-expanded="false">
-				<div class="elementor-menu-cart__main" aria-expanded="false">
-					<div class="elementor-menu-cart__close-button"></div>
-					<div class="widget_shopping_cart_content"></div>
+				<div class="elementor-menu-cart__toggle_wrapper">
+					<div class="elementor-menu-cart__container elementor-lightbox" aria-hidden="true">
+						<div class="elementor-menu-cart__main" aria-hidden="true">
+							<div class="elementor-menu-cart__close-button"></div>
+							<div class="widget_shopping_cart_content">
+								<?php woocommerce_mini_cart(); ?>
+							</div>
+						</div>
+					</div>
+					<?php self::render_menu_cart_toggle_button(); ?>
 				</div>
-			</div>
-				<?php self::render_menu_cart_toggle_button(); ?>
 			<?php endif; ?>
-			</div> <!-- close elementor-menu-cart__wrapper -->
+		</div> <!-- close elementor-menu-cart__wrapper -->
 		<?php
 	}
 
@@ -202,7 +204,7 @@ class Module extends Module_Base {
 		$menu_cart_toggle_button_html = ob_get_clean();
 
 		if ( ! empty( $menu_cart_toggle_button_html ) ) {
-			$fragments['body:not(.elementor-editor-active) div.elementor-element.elementor-widget.elementor-widget-woocommerce-menu-cart div.elementor-menu-cart__toggle.elementor-button-wrapper'] = $menu_cart_toggle_button_html;
+			$fragments['body div.elementor-widget.elementor-widget-woocommerce-menu-cart div.elementor-menu-cart__toggle'] = $menu_cart_toggle_button_html;
 		}
 
 		return $fragments;

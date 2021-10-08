@@ -768,7 +768,12 @@ class Search_Form extends Base {
 				<?php endif; ?>
 				<?php if ( 'full_screen' === $settings['skin'] ) : ?>
 				<div class="dialog-lightbox-close-button dialog-close-button">
-					<i class="eicon-close" aria-hidden="true"></i>
+					<?php
+						Icons_Manager::render_icon( [
+							'library' => 'eicons',
+							'value' => 'eicon-close',
+						], [ 'aria-hidden' => 'true' ] );
+					?>
 					<span class="elementor-screen-only"><?php esc_html_e( 'Close', 'elementor-pro' ); ?></span>
 				</div>
 				<?php endif ?>

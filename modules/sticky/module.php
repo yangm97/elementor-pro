@@ -60,6 +60,25 @@ class Module extends Module_Base {
 			]
 		);
 
+		// TODO: In Pro 3.5.0, get the active devices using Breakpoints/Manager::get_active_devices_list().
+		$active_breakpoint_instances = Plugin::elementor()->breakpoints->get_active_breakpoints();
+		// Devices need to be ordered from largest to smallest.
+		$active_devices = array_reverse( array_keys( $active_breakpoint_instances ) );
+
+		// Add desktop in the correct position.
+		if ( in_array( 'widescreen', $active_devices, true ) ) {
+			$active_devices = array_merge( array_slice( $active_devices, 0, 1 ), [ 'desktop' ], array_slice( $active_devices, 1 ) );
+		} else {
+			$active_devices = array_merge( [ 'desktop' ], $active_devices );
+		}
+
+		$sticky_device_options = [];
+
+		foreach ( $active_devices as $device ) {
+			$label = 'desktop' === $device ? esc_html__( 'Desktop', 'elementor-pro' ) : $active_breakpoint_instances[ $device ]->get_label();
+			$sticky_device_options[ $device ] = $label;
+		}
+
 		$element->add_control(
 			'sticky_on',
 			[
@@ -67,12 +86,8 @@ class Module extends Module_Base {
 				'type' => Controls_Manager::SELECT2,
 				'multiple' => true,
 				'label_block' => true,
-				'default' => [ 'desktop', 'tablet', 'mobile' ],
-				'options' => [
-					'desktop' => __( 'Desktop', 'elementor-pro' ),
-					'tablet' => __( 'Tablet', 'elementor-pro' ),
-					'mobile' => __( 'Mobile', 'elementor-pro' ),
-				],
+				'default' => $active_devices,
+				'options' => $sticky_device_options,
 				'condition' => [
 					'sticky!' => '',
 				],
@@ -81,7 +96,7 @@ class Module extends Module_Base {
 			]
 		);
 
-		$element->add_control(
+		$element->add_responsive_control(
 			'sticky_offset',
 			[
 				'label' => __( 'Offset', 'elementor-pro' ),
@@ -98,7 +113,7 @@ class Module extends Module_Base {
 			]
 		);
 
-		$element->add_control(
+		$element->add_responsive_control(
 			'sticky_effects_offset',
 			[
 				'label' => __( 'Effects Offset', 'elementor-pro' ),

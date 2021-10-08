@@ -1,6 +1,9 @@
-/*! elementor-pro - v3.3.8 - 23-08-2021 */
+/*! elementor-pro - v3.4.1 - 01-09-2021 */
 #elementor-panel-get-pro-elements {
   display: none; }
+
+.elementor-panel .elementor-control .e-control-error {
+  color: #b01b1b; }
 
 .elementor-panel .elementor-control.forms-field-shortcode .elementor-control-content {
   -webkit-box-orient: horizontal;

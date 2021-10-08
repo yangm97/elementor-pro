@@ -3,6 +3,7 @@ namespace ElementorPro\Modules\Carousel\Widgets;
 
 use Elementor\Controls_Manager;
 use Elementor\Group_Control_Image_Size;
+use Elementor\Icons_Manager;
 use Elementor\Repeater;
 use ElementorPro\Base\Base_Widget;
 use ElementorPro\Plugin;
@@ -417,6 +418,7 @@ abstract class Base extends Base_Widget {
 				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .elementor-swiper-button' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .elementor-swiper-button svg' => 'fill: {{VALUE}}',
 				],
 			]
 		);
@@ -501,10 +503,6 @@ abstract class Base extends Base_Widget {
 		$settings = array_merge( $default_settings, $settings );
 
 		$slides_count = count( $settings['slides'] );
-
-		$is_rtl = is_rtl();
-		$prev_arrow_direction = $is_rtl ? 'right' : 'left';
-		$next_arrow_direction = $is_rtl ? 'left' : 'right';
 		?>
 		<div class="elementor-swiper">
 			<div class="<?php echo esc_attr( $settings['container_class'] ); ?> swiper-container">
@@ -524,11 +522,11 @@ abstract class Base extends Base_Widget {
 					<?php endif; ?>
 					<?php if ( $settings['show_arrows'] ) : ?>
 						<div class="elementor-swiper-button elementor-swiper-button-prev">
-							<i class="eicon-chevron-<?php echo $prev_arrow_direction; ?>" aria-hidden="true"></i>
+							<?php $this->render_swiper_button( 'previous' ); ?>
 							<span class="elementor-screen-only"><?php _e( 'Previous', 'elementor-pro' ); ?></span>
 						</div>
 						<div class="elementor-swiper-button elementor-swiper-button-next">
-							<i class="eicon-chevron-<?php echo $next_arrow_direction; ?>" aria-hidden="true"></i>
+							<?php $this->render_swiper_button( 'next' ); ?>
 							<span class="elementor-screen-only"><?php _e( 'Next', 'elementor-pro' ); ?></span>
 						</div>
 					<?php endif; ?>
@@ -546,5 +544,20 @@ abstract class Base extends Base_Widget {
 		}
 
 		return $image_url;
+	}
+
+	private function render_swiper_button( $type ) {
+		$direction = 'next' === $type ? 'right' : 'left';
+
+		if ( is_rtl() ) {
+			$direction = 'right' === $direction ? 'left' : 'right';
+		}
+
+		$icon_value = 'eicon-chevron-' . $direction;
+
+		Icons_Manager::render_icon( [
+			'library' => 'eicons',
+			'value' => $icon_value,
+		], [ 'aria-hidden' => 'true' ] );
 	}
 }

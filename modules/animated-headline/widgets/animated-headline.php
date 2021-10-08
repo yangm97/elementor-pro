@@ -580,7 +580,7 @@ class Animated_Headline extends Base_Widget {
 						}
 
 						else if ( 'highlight' === settings.headline_style && settings.highlighted_text ) { #>
-							<span class="elementor-headline-dynamic-text elementor-headline-text-active">{{ settings.highlighted_text }}</span>
+							<span class="elementor-headline-dynamic-text elementor-headline-text-active">{{{ settings.highlighted_text }}}</span>
 						<# } #>
 						</span>
 					<# } #>

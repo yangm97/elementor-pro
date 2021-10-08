@@ -70,7 +70,7 @@ class Testimonial_Carousel extends Base {
 			]
 		);
 
-		$this->add_control(
+		$this->add_responsive_control(
 			'alignment',
 			[
 				'label' => __( 'Alignment', 'elementor-pro' ),

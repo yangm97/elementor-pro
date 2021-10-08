@@ -7,16 +7,20 @@ use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 use Elementor\Group_Control_Css_Filter;
 use Elementor\Group_Control_Image_Size;
 use Elementor\Group_Control_Typography;
+use Elementor\Icons_Manager;
 use Elementor\Skin_Base as Elementor_Skin_Base;
 use Elementor\Widget_Base;
 use ElementorPro\Core\Utils;
+use ElementorPro\Modules\Posts\Traits\Button_Widget_Trait;
 use ElementorPro\Plugin;
+use ElementorPro\Modules\Posts\Widgets\Posts_Base;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
 abstract class Skin_Base extends Elementor_Skin_Base {
+	use Button_Widget_Trait;
 
 	/**
 	 * @var string Save current permalink to avoid conflict with plugins the filters the permalink during the post render.
@@ -957,12 +961,31 @@ abstract class Skin_Base extends Elementor_Skin_Base {
 		<?php
 	}
 
+	protected function render_message() {
+		$settings = $this->parent->get_settings();
+		?>
+		<div class="e-load-more-message"><?php echo esc_html( $settings['load_more_no_posts_custom_message'] ); ?></div>
+		<?php
+	}
+
 	protected function render_loop_footer() {
+		$parent_settings = $this->parent->get_settings();
+		$using_ajax_pagination = in_array( $parent_settings['pagination_type'], [
+			Posts_Base::LOAD_MORE_ON_CLICK,
+			Posts_Base::LOAD_MORE_INFINITE_SCROLL,
+		], true);
 		?>
 		</div>
+
+
+		<?php if ( $using_ajax_pagination && ! empty( $parent_settings['load_more_spinner']['value'] ) ) : ?>
+			<span class="e-load-more-spinner">
+				<?php Icons_Manager::render_icon( $parent_settings['load_more_spinner'], [ 'aria-hidden' => 'true' ] ); ?>
+			</span>
+		<?php endif; ?>
+
 		<?php
 
-		$parent_settings = $this->parent->get_settings();
 		if ( '' === $parent_settings['pagination_type'] ) {
 			return;
 		}
@@ -980,6 +1003,29 @@ abstract class Skin_Base extends Elementor_Skin_Base {
 
 		$has_numbers = in_array( $parent_settings['pagination_type'], [ 'numbers', 'numbers_and_prev_next' ] );
 		$has_prev_next = in_array( $parent_settings['pagination_type'], [ 'prev_next', 'numbers_and_prev_next' ] );
+
+		$load_more_type = $parent_settings['pagination_type'];
+
+		$this->parent->add_render_attribute( 'load_more_anchor', [
+			'data-page' => $this->parent->get_current_page(),
+			'data-max-page' => $this->parent->get_query()->max_num_pages,
+		] );
+
+		?>
+		<div class="e-load-more-anchor" <?php $this->parent->print_render_attribute_string( 'load_more_anchor' ); ?>></div>
+		<?php
+
+		if ( $using_ajax_pagination ) {
+			if ( 'load_more_on_click' === $load_more_type ) {
+				// The link-url control is hidden, so default value is added to keep the same style like button widget.
+				$this->parent->set_settings( 'link', [ 'url' => '#' ] );
+
+				$this->render_button( $this->parent );
+			}
+
+			$this->render_message();
+			return;
+		}
 
 		$links = [];
 

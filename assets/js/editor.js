@@ -1,6 +1,26 @@
-/*! elementor-pro - v3.3.8 - 23-08-2021 */
+/*! elementor-pro - v3.4.1 - 01-09-2021 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
+
+/***/ "../node_modules/@babel/runtime-corejs2/core-js/array/from.js":
+/*!********************************************************************!*\
+  !*** ../node_modules/@babel/runtime-corejs2/core-js/array/from.js ***!
+  \********************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__(/*! core-js/library/fn/array/from */ "../node_modules/core-js/library/fn/array/from.js");
+
+/***/ }),
+
+/***/ "../node_modules/@babel/runtime-corejs2/core-js/array/is-array.js":
+/*!************************************************************************!*\
+  !*** ../node_modules/@babel/runtime-corejs2/core-js/array/is-array.js ***!
+  \************************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__(/*! core-js/library/fn/array/is-array */ "../node_modules/core-js/library/fn/array/is-array.js");
+
+/***/ }),
 
 /***/ "../node_modules/@babel/runtime-corejs2/core-js/json/stringify.js":
 /*!************************************************************************!*\
@@ -72,6 +92,16 @@ module.exports = __webpack_require__(/*! core-js/library/fn/object/set-prototype
 
 /***/ }),
 
+/***/ "../node_modules/@babel/runtime-corejs2/core-js/object/values.js":
+/*!***********************************************************************!*\
+  !*** ../node_modules/@babel/runtime-corejs2/core-js/object/values.js ***!
+  \***********************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__(/*! core-js/library/fn/object/values */ "../node_modules/core-js/library/fn/object/values.js");
+
+/***/ }),
+
 /***/ "../node_modules/@babel/runtime-corejs2/core-js/reflect/construct.js":
 /*!***************************************************************************!*\
   !*** ../node_modules/@babel/runtime-corejs2/core-js/reflect/construct.js ***!
@@ -119,6 +149,46 @@ module.exports = __webpack_require__(/*! core-js/library/fn/symbol/iterator */ "
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 module.exports = __webpack_require__(/*! core-js/library/fn/weak-map */ "../node_modules/core-js/library/fn/weak-map.js");
+
+/***/ }),
+
+/***/ "../node_modules/@babel/runtime-corejs2/helpers/arrayLikeToArray.js":
+/*!**************************************************************************!*\
+  !*** ../node_modules/@babel/runtime-corejs2/helpers/arrayLikeToArray.js ***!
+  \**************************************************************************/
+/***/ ((module) => {
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+
+module.exports = _arrayLikeToArray;
+module.exports.default = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ "../node_modules/@babel/runtime-corejs2/helpers/arrayWithoutHoles.js":
+/*!***************************************************************************!*\
+  !*** ../node_modules/@babel/runtime-corejs2/helpers/arrayWithoutHoles.js ***!
+  \***************************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var _Array$isArray = __webpack_require__(/*! @babel/runtime-corejs2/core-js/array/is-array */ "../node_modules/@babel/runtime-corejs2/core-js/array/is-array.js");
+
+var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ "../node_modules/@babel/runtime-corejs2/helpers/arrayLikeToArray.js");
+
+function _arrayWithoutHoles(arr) {
+  if (_Array$isArray(arr)) return arrayLikeToArray(arr);
+}
+
+module.exports = _arrayWithoutHoles;
+module.exports.default = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
@@ -458,6 +528,42 @@ module.exports.default = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
+/***/ "../node_modules/@babel/runtime-corejs2/helpers/iterableToArray.js":
+/*!*************************************************************************!*\
+  !*** ../node_modules/@babel/runtime-corejs2/helpers/iterableToArray.js ***!
+  \*************************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var _Symbol = __webpack_require__(/*! @babel/runtime-corejs2/core-js/symbol */ "../node_modules/@babel/runtime-corejs2/core-js/symbol.js");
+
+var _Symbol$iterator = __webpack_require__(/*! @babel/runtime-corejs2/core-js/symbol/iterator */ "../node_modules/@babel/runtime-corejs2/core-js/symbol/iterator.js");
+
+var _Array$from = __webpack_require__(/*! @babel/runtime-corejs2/core-js/array/from */ "../node_modules/@babel/runtime-corejs2/core-js/array/from.js");
+
+function _iterableToArray(iter) {
+  if (typeof _Symbol !== "undefined" && iter[_Symbol$iterator] != null || iter["@@iterator"] != null) return _Array$from(iter);
+}
+
+module.exports = _iterableToArray;
+module.exports.default = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ "../node_modules/@babel/runtime-corejs2/helpers/nonIterableSpread.js":
+/*!***************************************************************************!*\
+  !*** ../node_modules/@babel/runtime-corejs2/helpers/nonIterableSpread.js ***!
+  \***************************************************************************/
+/***/ ((module) => {
+
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+module.exports = _nonIterableSpread;
+module.exports.default = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
 /***/ "../node_modules/@babel/runtime-corejs2/helpers/possibleConstructorReturn.js":
 /*!***********************************************************************************!*\
   !*** ../node_modules/@babel/runtime-corejs2/helpers/possibleConstructorReturn.js ***!
@@ -526,6 +632,29 @@ module.exports.default = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
+/***/ "../node_modules/@babel/runtime-corejs2/helpers/toConsumableArray.js":
+/*!***************************************************************************!*\
+  !*** ../node_modules/@babel/runtime-corejs2/helpers/toConsumableArray.js ***!
+  \***************************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var arrayWithoutHoles = __webpack_require__(/*! ./arrayWithoutHoles.js */ "../node_modules/@babel/runtime-corejs2/helpers/arrayWithoutHoles.js");
+
+var iterableToArray = __webpack_require__(/*! ./iterableToArray.js */ "../node_modules/@babel/runtime-corejs2/helpers/iterableToArray.js");
+
+var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray.js */ "../node_modules/@babel/runtime-corejs2/helpers/unsupportedIterableToArray.js");
+
+var nonIterableSpread = __webpack_require__(/*! ./nonIterableSpread.js */ "../node_modules/@babel/runtime-corejs2/helpers/nonIterableSpread.js");
+
+function _toConsumableArray(arr) {
+  return arrayWithoutHoles(arr) || iterableToArray(arr) || unsupportedIterableToArray(arr) || nonIterableSpread();
+}
+
+module.exports = _toConsumableArray;
+module.exports.default = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
 /***/ "../node_modules/@babel/runtime-corejs2/helpers/typeof.js":
 /*!****************************************************************!*\
   !*** ../node_modules/@babel/runtime-corejs2/helpers/typeof.js ***!
@@ -557,6 +686,30 @@ function _typeof(obj) {
 }
 
 module.exports = _typeof;
+module.exports.default = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ "../node_modules/@babel/runtime-corejs2/helpers/unsupportedIterableToArray.js":
+/*!************************************************************************************!*\
+  !*** ../node_modules/@babel/runtime-corejs2/helpers/unsupportedIterableToArray.js ***!
+  \************************************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var _Array$from = __webpack_require__(/*! @babel/runtime-corejs2/core-js/array/from */ "../node_modules/@babel/runtime-corejs2/core-js/array/from.js");
+
+var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ "../node_modules/@babel/runtime-corejs2/helpers/arrayLikeToArray.js");
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return _Array$from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
+}
+
+module.exports = _unsupportedIterableToArray;
 module.exports.default = module.exports, module.exports.__esModule = true;
 
 /***/ }),
@@ -593,21 +746,83 @@ module.exports = elementorModules.editor.utils.Module.extend({
       });
     }
   },
-  addControlSpinner: function addControlSpinner(name) {
-    var $el = this.getEditorControlView(name).$el,
-        $input = $el.find(':input');
 
-    if ($input.attr('disabled')) {
+  /**
+   * Add a spinner to a control inside its control title.
+   *
+   * @param {string} controlName - The control name to add the spinner to.
+   *
+   * @return {void}
+   */
+  addControlSpinner: function addControlSpinner(controlName) {
+    var $el = this.getEditorControlView(controlName).$el,
+        $input = $el.find(':input'); // Exit if there is a spinner already.
+
+    if ($el.find('.elementor-control-spinner').length) {
       return;
     }
 
     $input.attr('disabled', true);
     $el.find('.elementor-control-title').after('<span class="elementor-control-spinner"><i class="eicon-spinner eicon-animation-spin"></i>&nbsp;</span>');
   },
-  removeControlSpinner: function removeControlSpinner(name) {
-    var $controlEl = this.getEditorControlView(name).$el;
+
+  /**
+   * Remove a spinner from a control.
+   *
+   * @param {string} controlName - The control name to remove the spinner from.
+   *
+   * @return {void}
+   */
+  removeControlSpinner: function removeControlSpinner(controlName) {
+    var $controlEl = this.getEditorControlView(controlName).$el;
     $controlEl.find(':input').attr('disabled', false);
     $controlEl.find('.elementor-control-spinner').remove();
+  },
+
+  /**
+   * Add an error message under the control.
+   *
+   * @param {string} controlName - The control name to add the error to.
+   * @param {string} error - Set an error message.
+   * @param {string} location - A CSS selector to the element which the error will be appended to.
+   *
+   * @return {void}
+   */
+  addControlError: function addControlError(controlName, error) {
+    var location = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '.elementor-control-content';
+    var $el = this.getEditorControlView(controlName).$el; // Remove any existing error in order to override it.
+
+    if ($el.find('.e-control-error').length) {
+      $el.find('.e-control-error').remove();
+    } // Select only the first elements to prevent cases where the error is added to many elements.
+    // (usually in repeater controls).
+
+
+    $el.find(location).first().after("<span class=\"elementor-control-field-description e-control-error\">".concat(error, "</span>"));
+  },
+
+  /**
+   * Remove the control error message.
+   *
+   * @param {string} controlName - The control name to add the error to.
+   *
+   * @return {void}
+   */
+  removeControlError: function removeControlError(controlName) {
+    var $el = this.getEditorControlView(controlName).$el;
+    $el.find('.e-control-error').remove();
+  },
+
+  /**
+   * Remove any indicators that are related to the control. (e.g. spinner, error, etc.)
+   *
+   * @param {string} controlName - The control name to reset.
+   *
+   * @return {void}
+   */
+  resetControlIndicators: function resetControlIndicators(controlName) {
+    this.removeControlSpinner(controlName);
+    this.removeControlError(controlName);
   },
   addSectionListener: function addSectionListener(section, callback) {
     var self = this;
@@ -2589,6 +2804,7 @@ module.exports = ElementEditorModule.extend({
   fetchCache: function fetchCache(type, cacheKey, requestArgs) {
     var _this = this;
 
+    var immediately = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
     return elementorPro.ajax.addRequest('forms_panel_action_data', {
       unique_id: 'integrations_' + this.getName(),
       data: requestArgs,
@@ -2596,7 +2812,7 @@ module.exports = ElementEditorModule.extend({
         _this.cache[type] = _.extend({}, _this.cache[type]);
         _this.cache[type][cacheKey] = data[type];
       }
-    });
+    }, immediately);
   },
   updateOptions: function updateOptions(name, options) {
     var controlView = this.getEditorControlView(name);
@@ -2892,6 +3108,12 @@ module.exports = BaseIntegrationModule.extend({
 "use strict";
 
 
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime-corejs2/helpers/interopRequireDefault */ "../node_modules/@babel/runtime-corejs2/helpers/interopRequireDefault.js");
+
+var _values = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/object/values */ "../node_modules/@babel/runtime-corejs2/core-js/object/values.js"));
+
+var _toConsumableArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/toConsumableArray */ "../node_modules/@babel/runtime-corejs2/helpers/toConsumableArray.js"));
+
 var BaseIntegrationModule = __webpack_require__(/*! ./base */ "../modules/forms/assets/js/editor/integrations/base.js");
 
 module.exports = BaseIntegrationModule.extend({
@@ -2919,16 +3141,23 @@ module.exports = BaseIntegrationModule.extend({
       self.updateOptions('mailchimp_list', []);
       self.getEditorControlView('mailchimp_list').setValue('');
       return;
-    }
+    } // Add a spinner to the `Audience` list control.
 
+
+    self.resetControlIndicators('mailchimp_list');
     self.addControlSpinner('mailchimp_list');
     var cacheKey = this.getCacheKey({
       type: 'lists',
       controls: [controlView.getControlValue(), GlobalApiKeycontrolView.getControlValue()]
-    });
+    }); // Fetch data
+
     self.getMailchimpCache('lists', 'lists', cacheKey).done(function (data) {
       self.updateOptions('mailchimp_list', data.lists);
       self.updatMailchimpList();
+    }).fail(function (error) {
+      self.addControlError('mailchimp_list', error);
+    }).always(function () {
+      self.removeControlSpinner('mailchimp_list');
     });
   },
   onMailchimpListUpdate: function onMailchimpListUpdate() {
@@ -2942,21 +3171,45 @@ module.exports = BaseIntegrationModule.extend({
 
     if (!controlView.getControlValue()) {
       return;
-    }
+    } // Add a spinner to the groups select box.
 
+
+    self.resetControlIndicators('mailchimp_groups');
     self.addControlSpinner('mailchimp_groups');
     this.getCacheKey({
       type: 'list_details',
       controls: [controlView.getControlValue()]
-    });
+    }); // Fetch The data
+
     self.getMailchimpCache('list_details', 'list_details', controlView.getControlValue(), {
       mailchimp_list: controlView.getControlValue()
     }).done(function (data) {
       self.updateOptions('mailchimp_groups', data.list_details.groups);
       self.getEditorControlView('mailchimp_fields_map').updateMap(data.list_details.fields);
+    }).fail(function (error) {
+      self.addControlError('mailchimp_groups', error);
+    }).always(function () {
+      self.removeControlSpinner('mailchimp_groups');
+    }); // Get list fields.
+    // The requests needed to be executed immediately in order to fill the `Field Mapping` select-boxes
+    // without waiting for other requests to finish.
+
+    var args = {
+      type: 'fields',
+      action: 'fields',
+      cacheKey: controlView.getControlValue(),
+      args: {
+        mailchimp_list: controlView.getControlValue()
+      },
+      immediately: true
+    };
+    self.getMailchimpCache.apply(self, (0, _toConsumableArray2.default)((0, _values.default)(args))).done(function (data) {
+      self.getEditorControlView('mailchimp_fields_map').updateMap(data.fields);
     });
   },
   getMailchimpCache: function getMailchimpCache(type, action, cacheKey, requestArgs) {
+    var immediately = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false;
+
     if (_.has(this.cache[type], cacheKey)) {
       var data = {};
       data[type] = this.cache[type][cacheKey];
@@ -2969,7 +3222,7 @@ module.exports = BaseIntegrationModule.extend({
       api_key: this.getEditorControlView('mailchimp_api_key').getControlValue(),
       use_global_api_key: this.getEditorControlView('mailchimp_api_key_source').getControlValue()
     });
-    return this.fetchCache(type, cacheKey, requestArgs);
+    return this.fetchCache(type, cacheKey, requestArgs, immediately);
   },
   onSectionActive: function onSectionActive() {
     BaseIntegrationModule.prototype.onSectionActive.apply(this, arguments);
@@ -8001,7 +8254,7 @@ var Module = /*#__PURE__*/function (_elementorModules$edi) {
   }, {
     key: "onElementorLoaded",
     value: function onElementorLoaded() {
-      elementor.channels.editor.on('elementorPlaylistWidget:setData', function (e) {
+      elementor.channels.editor.on('elementorPlaylistWidget:setVideoData', function (e) {
         $e.run('document/elements/settings', {
           container: e.container,
           settings: {
@@ -8022,6 +8275,31 @@ var Module = /*#__PURE__*/function (_elementorModules$edi) {
 }(elementorModules.editor.utils.Module);
 
 exports.default = Module;
+
+/***/ }),
+
+/***/ "../node_modules/core-js/library/fn/array/from.js":
+/*!********************************************************!*\
+  !*** ../node_modules/core-js/library/fn/array/from.js ***!
+  \********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+__webpack_require__(/*! ../../modules/es6.string.iterator */ "../node_modules/core-js/library/modules/es6.string.iterator.js");
+__webpack_require__(/*! ../../modules/es6.array.from */ "../node_modules/core-js/library/modules/es6.array.from.js");
+module.exports = __webpack_require__(/*! ../../modules/_core */ "../node_modules/core-js/library/modules/_core.js").Array.from;
+
+
+/***/ }),
+
+/***/ "../node_modules/core-js/library/fn/array/is-array.js":
+/*!************************************************************!*\
+  !*** ../node_modules/core-js/library/fn/array/is-array.js ***!
+  \************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+__webpack_require__(/*! ../../modules/es6.array.is-array */ "../node_modules/core-js/library/modules/es6.array.is-array.js");
+module.exports = __webpack_require__(/*! ../../modules/_core */ "../node_modules/core-js/library/modules/_core.js").Array.isArray;
+
 
 /***/ }),
 
@@ -8117,6 +8395,18 @@ module.exports = __webpack_require__(/*! ../../modules/_core */ "../node_modules
 
 __webpack_require__(/*! ../../modules/es6.object.set-prototype-of */ "../node_modules/core-js/library/modules/es6.object.set-prototype-of.js");
 module.exports = __webpack_require__(/*! ../../modules/_core */ "../node_modules/core-js/library/modules/_core.js").Object.setPrototypeOf;
+
+
+/***/ }),
+
+/***/ "../node_modules/core-js/library/fn/object/values.js":
+/*!***********************************************************!*\
+  !*** ../node_modules/core-js/library/fn/object/values.js ***!
+  \***********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+__webpack_require__(/*! ../../modules/es7.object.values */ "../node_modules/core-js/library/modules/es7.object.values.js");
+module.exports = __webpack_require__(/*! ../../modules/_core */ "../node_modules/core-js/library/modules/_core.js").Object.values;
 
 
 /***/ }),
@@ -8631,6 +8921,25 @@ module.exports = function (NAME, wrapper, methods, common, IS_MAP, IS_WEAK) {
 
 var core = module.exports = { version: '2.6.12' };
 if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
+
+
+/***/ }),
+
+/***/ "../node_modules/core-js/library/modules/_create-property.js":
+/*!*******************************************************************!*\
+  !*** ../node_modules/core-js/library/modules/_create-property.js ***!
+  \*******************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+var $defineProperty = __webpack_require__(/*! ./_object-dp */ "../node_modules/core-js/library/modules/_object-dp.js");
+var createDesc = __webpack_require__(/*! ./_property-desc */ "../node_modules/core-js/library/modules/_property-desc.js");
+
+module.exports = function (object, index, value) {
+  if (index in object) $defineProperty.f(object, index, createDesc(0, value));
+  else object[index] = value;
+};
 
 
 /***/ }),
@@ -9161,6 +9470,38 @@ module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCE
 
 /***/ }),
 
+/***/ "../node_modules/core-js/library/modules/_iter-detect.js":
+/*!***************************************************************!*\
+  !*** ../node_modules/core-js/library/modules/_iter-detect.js ***!
+  \***************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var ITERATOR = __webpack_require__(/*! ./_wks */ "../node_modules/core-js/library/modules/_wks.js")('iterator');
+var SAFE_CLOSING = false;
+
+try {
+  var riter = [7][ITERATOR]();
+  riter['return'] = function () { SAFE_CLOSING = true; };
+  // eslint-disable-next-line no-throw-literal
+  Array.from(riter, function () { throw 2; });
+} catch (e) { /* empty */ }
+
+module.exports = function (exec, skipClosing) {
+  if (!skipClosing && !SAFE_CLOSING) return false;
+  var safe = false;
+  try {
+    var arr = [7];
+    var iter = arr[ITERATOR]();
+    iter.next = function () { return { done: safe = true }; };
+    arr[ITERATOR] = function () { return iter; };
+    exec(arr);
+  } catch (e) { /* empty */ }
+  return safe;
+};
+
+
+/***/ }),
+
 /***/ "../node_modules/core-js/library/modules/_iter-step.js":
 /*!*************************************************************!*\
   !*** ../node_modules/core-js/library/modules/_iter-step.js ***!
@@ -9589,6 +9930,37 @@ module.exports = function (KEY, exec) {
 
 /***/ }),
 
+/***/ "../node_modules/core-js/library/modules/_object-to-array.js":
+/*!*******************************************************************!*\
+  !*** ../node_modules/core-js/library/modules/_object-to-array.js ***!
+  \*******************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var DESCRIPTORS = __webpack_require__(/*! ./_descriptors */ "../node_modules/core-js/library/modules/_descriptors.js");
+var getKeys = __webpack_require__(/*! ./_object-keys */ "../node_modules/core-js/library/modules/_object-keys.js");
+var toIObject = __webpack_require__(/*! ./_to-iobject */ "../node_modules/core-js/library/modules/_to-iobject.js");
+var isEnum = __webpack_require__(/*! ./_object-pie */ "../node_modules/core-js/library/modules/_object-pie.js").f;
+module.exports = function (isEntries) {
+  return function (it) {
+    var O = toIObject(it);
+    var keys = getKeys(O);
+    var length = keys.length;
+    var i = 0;
+    var result = [];
+    var key;
+    while (length > i) {
+      key = keys[i++];
+      if (!DESCRIPTORS || isEnum.call(O, key)) {
+        result.push(isEntries ? [key, O[key]] : O[key]);
+      }
+    }
+    return result;
+  };
+};
+
+
+/***/ }),
+
 /***/ "../node_modules/core-js/library/modules/_property-desc.js":
 /*!*****************************************************************!*\
   !*** ../node_modules/core-js/library/modules/_property-desc.js ***!
@@ -10010,6 +10382,68 @@ module.exports = __webpack_require__(/*! ./_core */ "../node_modules/core-js/lib
     || it['@@iterator']
     || Iterators[classof(it)];
 };
+
+
+/***/ }),
+
+/***/ "../node_modules/core-js/library/modules/es6.array.from.js":
+/*!*****************************************************************!*\
+  !*** ../node_modules/core-js/library/modules/es6.array.from.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+var ctx = __webpack_require__(/*! ./_ctx */ "../node_modules/core-js/library/modules/_ctx.js");
+var $export = __webpack_require__(/*! ./_export */ "../node_modules/core-js/library/modules/_export.js");
+var toObject = __webpack_require__(/*! ./_to-object */ "../node_modules/core-js/library/modules/_to-object.js");
+var call = __webpack_require__(/*! ./_iter-call */ "../node_modules/core-js/library/modules/_iter-call.js");
+var isArrayIter = __webpack_require__(/*! ./_is-array-iter */ "../node_modules/core-js/library/modules/_is-array-iter.js");
+var toLength = __webpack_require__(/*! ./_to-length */ "../node_modules/core-js/library/modules/_to-length.js");
+var createProperty = __webpack_require__(/*! ./_create-property */ "../node_modules/core-js/library/modules/_create-property.js");
+var getIterFn = __webpack_require__(/*! ./core.get-iterator-method */ "../node_modules/core-js/library/modules/core.get-iterator-method.js");
+
+$export($export.S + $export.F * !__webpack_require__(/*! ./_iter-detect */ "../node_modules/core-js/library/modules/_iter-detect.js")(function (iter) { Array.from(iter); }), 'Array', {
+  // 22.1.2.1 Array.from(arrayLike, mapfn = undefined, thisArg = undefined)
+  from: function from(arrayLike /* , mapfn = undefined, thisArg = undefined */) {
+    var O = toObject(arrayLike);
+    var C = typeof this == 'function' ? this : Array;
+    var aLen = arguments.length;
+    var mapfn = aLen > 1 ? arguments[1] : undefined;
+    var mapping = mapfn !== undefined;
+    var index = 0;
+    var iterFn = getIterFn(O);
+    var length, result, step, iterator;
+    if (mapping) mapfn = ctx(mapfn, aLen > 2 ? arguments[2] : undefined, 2);
+    // if object isn't iterable or it's array with default iterator - use simple case
+    if (iterFn != undefined && !(C == Array && isArrayIter(iterFn))) {
+      for (iterator = iterFn.call(O), result = new C(); !(step = iterator.next()).done; index++) {
+        createProperty(result, index, mapping ? call(iterator, mapfn, [step.value, index], true) : step.value);
+      }
+    } else {
+      length = toLength(O.length);
+      for (result = new C(length); length > index; index++) {
+        createProperty(result, index, mapping ? mapfn(O[index], index) : O[index]);
+      }
+    }
+    result.length = index;
+    return result;
+  }
+});
+
+
+/***/ }),
+
+/***/ "../node_modules/core-js/library/modules/es6.array.is-array.js":
+/*!*********************************************************************!*\
+  !*** ../node_modules/core-js/library/modules/es6.array.is-array.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+// 22.1.2.2 / 15.4.3.2 Array.isArray(arg)
+var $export = __webpack_require__(/*! ./_export */ "../node_modules/core-js/library/modules/_export.js");
+
+$export($export.S, 'Array', { isArray: __webpack_require__(/*! ./_is-array */ "../node_modules/core-js/library/modules/_is-array.js") });
 
 
 /***/ }),
@@ -10605,6 +11039,25 @@ if (NATIVE_WEAK_MAP && IS_IE11) {
     });
   });
 }
+
+
+/***/ }),
+
+/***/ "../node_modules/core-js/library/modules/es7.object.values.js":
+/*!********************************************************************!*\
+  !*** ../node_modules/core-js/library/modules/es7.object.values.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+// https://github.com/tc39/proposal-object-values-entries
+var $export = __webpack_require__(/*! ./_export */ "../node_modules/core-js/library/modules/_export.js");
+var $values = __webpack_require__(/*! ./_object-to-array */ "../node_modules/core-js/library/modules/_object-to-array.js")(false);
+
+$export($export.S, 'Object', {
+  values: function values(it) {
+    return $values(it);
+  }
+});
 
 
 /***/ }),

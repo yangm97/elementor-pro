@@ -202,6 +202,7 @@ class Plugin {
 			'nonce' => wp_create_nonce( 'elementor-pro-frontend' ),
 			'urls' => [
 				'assets' => apply_filters( 'elementor_pro/frontend/assets_url', ELEMENTOR_PRO_ASSETS_URL ),
+				'rest' => get_rest_url(),
 			],
 		];
 

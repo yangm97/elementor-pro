@@ -1,0 +1,2 @@
+/*! elementor-pro - v3.4.1 - 01-09-2021 */
+(self.webpackChunkelementor_pro=self.webpackChunkelementor_pro||[]).push([[714],{3929:(e,l)=>{"use strict";Object.defineProperty(l,"__esModule",{value:!0}),l.default=void 0;class codeHighlightHandler extends elementorModules.frontend.handlers.Base{onInit(...e){super.onInit(...e),Prism.highlightAllUnder(this.$element[0],!1)}onElementChange(){Prism.highlightAllUnder(this.$element[0],!1)}}l.default=codeHighlightHandler}}]);

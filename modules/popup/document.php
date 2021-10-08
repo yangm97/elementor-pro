@@ -347,7 +347,8 @@ class Document extends Theme_Section_Document {
 				'label_on' => __( 'Show', 'elementor-pro' ),
 				'default' => 'yes',
 				'selectors' => [
-					'{{WRAPPER}} .dialog-close-button' => 'display: block',
+					// Using flex to make sure that each icon type (i or SVG) will be vertically aligned.
+					'{{WRAPPER}} .dialog-close-button' => 'display: flex',
 				],
 			]
 		);
@@ -608,6 +609,7 @@ class Document extends Theme_Section_Document {
 				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .dialog-close-button i' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .dialog-close-button svg' => 'fill: {{VALUE}}',
 				],
 			]
 		);

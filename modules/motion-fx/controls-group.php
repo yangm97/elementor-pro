@@ -71,6 +71,22 @@ class Controls_Group extends Group_Control_Base {
 			],
 		];
 
+		if ( version_compare( ELEMENTOR_VERSION, '3.5.0', '>=' ) ) {
+
+			$css_transform_controls = [
+				[
+					'name' => 'transform_x_anchor_point',
+					'value' => '',
+				],
+				[
+					'name' => 'transform_y_anchor_point',
+					'value' => '',
+				],
+			];
+
+			$transform_origin_conditions['terms'] = array_merge( $transform_origin_conditions['terms'], $css_transform_controls );
+		}
+
 		$fields['transform_origin_x'] = [
 			'label' => __( 'X Anchor Point', 'elementor-pro' ),
 			'type' => Controls_Manager::CHOOSE,
@@ -92,6 +108,9 @@ class Controls_Group extends Group_Control_Base {
 			'conditions' => $transform_origin_conditions,
 			'toggle' => false,
 			'render_type' => 'ui',
+			'selectors' => [
+				'{{SELECTOR}}' => '--e-transform-origin-x: {{VALUE}}',
+			],
 		];
 
 		$fields['transform_origin_y'] = [
@@ -114,7 +133,7 @@ class Controls_Group extends Group_Control_Base {
 			],
 			'conditions' => $transform_origin_conditions,
 			'selectors' => [
-				'{{SELECTOR}}' => 'transform-origin: {{transform_origin_x.VALUE}} {{VALUE}}',
+				'{{SELECTOR}}' => '--e-transform-origin-y: {{VALUE}}',
 			],
 			'toggle' => false,
 		];

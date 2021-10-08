@@ -1,7 +1,9 @@
 <?php
 namespace ElementorPro\Modules\Posts;
 
+use Elementor\Utils;
 use ElementorPro\Base\Module_Base;
+use ElementorPro\Modules\Posts\Data\Controller;
 use ElementorPro\Modules\Posts\Widgets\Posts_Base;
 use ElementorPro\Plugin;
 
@@ -89,7 +91,10 @@ class Module extends Module_Base {
 	public function __construct() {
 		parent::__construct();
 
+		Plugin::elementor()->data_manager->register_controller( Controller::class );
+
 		add_filter( 'pre_handle_404', [ $this, 'allow_posts_widget_pagination' ], 10, 2 );
 	}
 
 }
+

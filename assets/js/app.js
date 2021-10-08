@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.3.8 - 23-08-2021 */
+/*! elementor-pro - v3.4.1 - 01-09-2021 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -5244,6 +5244,9 @@ function DialogDelete(props) {
     dismissButtonText: __('Cancel', 'elementor-pro'),
     dismissButtonOnClick: function dismissButtonOnClick() {
       return closeDialog();
+    },
+    onClose: function onClose() {
+      return closeDialog();
     }
   });
 }
@@ -5270,13 +5273,15 @@ var _Object$defineProperty = __webpack_require__(/*! @babel/runtime-corejs2/core
 
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime-corejs2/helpers/interopRequireDefault */ "../node_modules/@babel/runtime-corejs2/helpers/interopRequireDefault.js");
 
+var _interopRequireWildcard = __webpack_require__(/*! @babel/runtime-corejs2/helpers/interopRequireWildcard */ "../node_modules/@babel/runtime-corejs2/helpers/interopRequireWildcard.js");
+
 _Object$defineProperty(exports, "__esModule", {
   value: true
 });
 
 exports.default = DialogRename;
 
-var _react = _interopRequireDefault(__webpack_require__(/*! react */ "react"));
+var _react = _interopRequireWildcard(__webpack_require__(/*! react */ "react"));
 
 var _slicedToArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/slicedToArray */ "../node_modules/@babel/runtime-corejs2/helpers/slicedToArray.js"));
 
@@ -5290,10 +5295,17 @@ function DialogRename(props) {
       updateTemplate = _React$useContext.updateTemplate,
       template = findTemplateItemInState(props.id);
 
-  var _React$useState = _react.default.useState(false),
+  var _React$useState = _react.default.useState(''),
       _React$useState2 = (0, _slicedToArray2.default)(_React$useState, 2),
       title = _React$useState2[0],
       setTitle = _React$useState2[1];
+
+  (0, _react.useEffect)(function () {
+    // The "title" state should be updated if the template title changed.
+    if (template) {
+      setTitle(template.title);
+    }
+  }, [template]);
 
   var closeDialog = function closeDialog(shouldUpdate) {
     props.setId(null);
@@ -5310,7 +5322,7 @@ function DialogRename(props) {
   }
 
   return /*#__PURE__*/_react.default.createElement(_appUi.Dialog, {
-    title: __('Rename Part', 'elementor-pro'),
+    title: __('Rename Site Part', 'elementor-pro'),
     approveButtonText: __('Change', 'elementor-pro'),
     onSubmit: function onSubmit() {
       return closeDialog(true);
@@ -5318,15 +5330,19 @@ function DialogRename(props) {
     approveButtonOnClick: function approveButtonOnClick() {
       return closeDialog(true);
     },
+    approveButtonColor: "primary",
     dismissButtonText: __('Cancel', 'elementor-pro'),
     dismissButtonOnClick: function dismissButtonOnClick() {
+      return closeDialog();
+    },
+    onClose: function onClose() {
       return closeDialog();
     }
   }, /*#__PURE__*/_react.default.createElement("input", {
     type: "text",
     className: "eps-input eps-input-text eps-input--block",
     autoFocus: true,
-    defaultValue: template.title,
+    value: title,
     onChange: function onChange(e) {
       return setTitle(e.target.value);
     }

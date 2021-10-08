@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.3.8 - 23-08-2021 */
+/*! elementor-pro - v3.4.1 - 01-09-2021 */
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({});
@@ -55,52 +55,11 @@
 /******/ 				}
 /******/ 				if(fulfilled) {
 /******/ 					deferred.splice(i--, 1)
-/******/ 					result = fn();
+/******/ 					var r = fn();
+/******/ 					if (r !== undefined) result = r;
 /******/ 				}
 /******/ 			}
 /******/ 			return result;
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/create fake namespace object */
-/******/ 	(() => {
-/******/ 		var getProto = Object.getPrototypeOf ? (obj) => (Object.getPrototypeOf(obj)) : (obj) => (obj.__proto__);
-/******/ 		var leafPrototypes;
-/******/ 		// create a fake namespace object
-/******/ 		// mode & 1: value is a module id, require it
-/******/ 		// mode & 2: merge all properties of value into the ns
-/******/ 		// mode & 4: return value when already ns object
-/******/ 		// mode & 16: return value when it's Promise-like
-/******/ 		// mode & 8|1: behave like require
-/******/ 		__webpack_require__.t = function(value, mode) {
-/******/ 			if(mode & 1) value = this(value);
-/******/ 			if(mode & 8) return value;
-/******/ 			if(typeof value === 'object' && value) {
-/******/ 				if((mode & 4) && value.__esModule) return value;
-/******/ 				if((mode & 16) && typeof value.then === 'function') return value;
-/******/ 			}
-/******/ 			var ns = Object.create(null);
-/******/ 			__webpack_require__.r(ns);
-/******/ 			var def = {};
-/******/ 			leafPrototypes = leafPrototypes || [null, getProto({}), getProto([]), getProto(getProto)];
-/******/ 			for(var current = mode & 2 && value; typeof current == 'object' && !~leafPrototypes.indexOf(current); current = getProto(current)) {
-/******/ 				Object.getOwnPropertyNames(current).forEach((key) => (def[key] = () => (value[key])));
-/******/ 			}
-/******/ 			def['default'] = () => (value);
-/******/ 			__webpack_require__.d(ns, def);
-/******/ 			return ns;
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/define property getters */
-/******/ 	(() => {
-/******/ 		// define getter functions for harmony exports
-/******/ 		__webpack_require__.d = (exports, definition) => {
-/******/ 			for(var key in definition) {
-/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
-/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-/******/ 				}
-/******/ 			}
 /******/ 		};
 /******/ 	})();
 /******/ 	
@@ -122,29 +81,29 @@
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if (chunkId === "code-highlight") return "" + chunkId + ".36c6ab32da7b5cd4cf39.bundle.js";
-/******/ 			if (chunkId === "video-playlist") return "" + chunkId + ".5e558c60b53f53a24687.bundle.js";
-/******/ 			if (chunkId === "paypal-button") return "" + chunkId + ".e7bc00be6d37a75afa94.bundle.js";
-/******/ 			if (chunkId === "animated-headline") return "" + chunkId + ".c48ffcc42cf8e1937b79.bundle.js";
-/******/ 			if (chunkId === "modules_carousel_assets_js_frontend_handlers_base_js") return "66e1effc33a6138a1bb9.bundle.js";
-/******/ 			if (chunkId === "media-carousel") return "" + chunkId + ".d877c2cf1d33fedbe8cd.bundle.js";
-/******/ 			if (chunkId === "carousel") return "" + chunkId + ".b9b72c3f8c26e7336341.bundle.js";
-/******/ 			if (chunkId === "countdown") return "" + chunkId + ".e8b325f6654ba38a5606.bundle.js";
-/******/ 			if (chunkId === "hotspot") return "" + chunkId + ".6e5f8367844f92a2df4d.bundle.js";
-/******/ 			if (chunkId === "form") return "form.81150a02a67b8cf217dc.bundle.js";
-/******/ 			if (chunkId === "gallery") return "" + chunkId + ".a91378a00051d8231940.bundle.js";
-/******/ 			if (chunkId === "lottie") return "" + chunkId + ".56eeeacd4e8b45bf0e69.bundle.js";
-/******/ 			if (chunkId === "nav-menu") return "" + chunkId + ".a7c3e03c3a9e6246573c.bundle.js";
-/******/ 			if (chunkId === "popup") return "" + chunkId + ".11f78f8460dfd624d6fd.bundle.js";
-/******/ 			if (chunkId === "posts") return "" + chunkId + ".4b4834181e0158037844.bundle.js";
-/******/ 			if (chunkId === "portfolio") return "" + chunkId + ".1753cf6f95efb460cd6c.bundle.js";
-/******/ 			if (chunkId === "share-buttons") return "" + chunkId + ".a4ac583614766c17243b.bundle.js";
-/******/ 			if (chunkId === "slides") return "" + chunkId + ".b404bc7083be41fc917c.bundle.js";
-/******/ 			if (chunkId === "social") return "" + chunkId + ".248e7d2278f85735e210.bundle.js";
-/******/ 			if (chunkId === "table-of-contents") return "" + chunkId + ".c40874e82fb2b6d09547.bundle.js";
-/******/ 			if (chunkId === "archive-posts") return "" + chunkId + ".c5bfd0c6126737964ea3.bundle.js";
-/******/ 			if (chunkId === "search-form") return "" + chunkId + ".3930197ed1faa52a1ca6.bundle.js";
-/******/ 			if (chunkId === "woocommerce-menu-cart") return "" + chunkId + ".c85790f6adbf4d37d78a.bundle.js";
+/******/ 			if (chunkId === "code-highlight") return "" + chunkId + ".cc6c8eb49e0aff6d419e.bundle.js";
+/******/ 			if (chunkId === "video-playlist") return "" + chunkId + ".f55c7066f7ec3a866539.bundle.js";
+/******/ 			if (chunkId === "paypal-button") return "" + chunkId + ".a8f3d929735cca75a572.bundle.js";
+/******/ 			if (chunkId === "animated-headline") return "" + chunkId + ".0ccd23763059df7affcc.bundle.js";
+/******/ 			if (chunkId === "media-carousel") return "" + chunkId + ".b5cf350f530535d64364.bundle.js";
+/******/ 			if (chunkId === "carousel") return "" + chunkId + ".364bbaf018e09f58c819.bundle.js";
+/******/ 			if (chunkId === "countdown") return "" + chunkId + ".6b48da864045c1ea0edd.bundle.js";
+/******/ 			if (chunkId === "hotspot") return "" + chunkId + ".66952182f9ae91b6896c.bundle.js";
+/******/ 			if (chunkId === "form") return "form.23168c11e0d20fa0282b.bundle.js";
+/******/ 			if (chunkId === "gallery") return "" + chunkId + ".e5ba72e3c57da531df85.bundle.js";
+/******/ 			if (chunkId === "lottie") return "" + chunkId + ".dccf7257e6cc366bc6bd.bundle.js";
+/******/ 			if (chunkId === "nav-menu") return "" + chunkId + ".e248eec66bc3d5587cf6.bundle.js";
+/******/ 			if (chunkId === "popup") return "" + chunkId + ".5ddbdd46f21fc221d760.bundle.js";
+/******/ 			if (chunkId === "load-more") return "" + chunkId + ".ed8a8caa6411cba8ed86.bundle.js";
+/******/ 			if (chunkId === "posts") return "" + chunkId + ".c23c8d29f44afbd62da6.bundle.js";
+/******/ 			if (chunkId === "portfolio") return "" + chunkId + ".71a9b9fb42566ae496bd.bundle.js";
+/******/ 			if (chunkId === "share-buttons") return "" + chunkId + ".d147b71ef798e333e678.bundle.js";
+/******/ 			if (chunkId === "slides") return "" + chunkId + ".6d3f738223ac9b3c9b7a.bundle.js";
+/******/ 			if (chunkId === "social") return "" + chunkId + ".b17f5f1767e41333a1dc.bundle.js";
+/******/ 			if (chunkId === "table-of-contents") return "" + chunkId + ".0744140055afdd9bf411.bundle.js";
+/******/ 			if (chunkId === "archive-posts") return "" + chunkId + ".1d5bae5aa38b8a799cbd.bundle.js";
+/******/ 			if (chunkId === "search-form") return "" + chunkId + ".fda69e244861c6890e79.bundle.js";
+/******/ 			if (chunkId === "woocommerce-menu-cart") return "" + chunkId + ".cf8829a628c66ec7c688.bundle.js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};
@@ -210,17 +169,6 @@
 /******/ 			script.onerror = onScriptComplete.bind(null, script.onerror);
 /******/ 			script.onload = onScriptComplete.bind(null, script.onload);
 /******/ 			needAttach && document.head.appendChild(script);
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/make namespace object */
-/******/ 	(() => {
-/******/ 		// define __esModule on exports
-/******/ 		__webpack_require__.r = (exports) => {
-/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 			}
-/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 		};
 /******/ 	})();
 /******/ 	

@@ -1001,6 +1001,7 @@ class Hotspot extends Widget_Image {
 						$hotspot_position_x,
 						$hotspot_position_y,
 						$is_hotspot_link ? 'e-hotspot--link' : '',
+						( 'click' === $settings['tooltip_trigger'] && $is_hotspot_link ) ? 'e-hotspot--no-tooltip' : '',
 					],
 				]
 			);
@@ -1038,7 +1039,7 @@ class Hotspot extends Widget_Image {
 			);
 
 			//tooltip attributes
-			$tooltip_custom_position = ( $is_tooltip_direction_animation && $hotspot['hotspot_tooltip_position'] && $hotspot['hotspot_position'] ) ? 'e-hotspot--overidde-tooltip-animation-from-' . $hotspot['hotspot_position'] : '';
+			$tooltip_custom_position = ( $is_tooltip_direction_animation && $hotspot['hotspot_tooltip_position'] && $hotspot['hotspot_position'] ) ? 'e-hotspot--override-tooltip-animation-from-' . $hotspot['hotspot_position'] : '';
 			$tooltip_repeater_setting_key = $this->get_repeater_setting_key( 'tooltip', 'hotspots', $key );
 			$this->add_render_attribute(
 				$tooltip_repeater_setting_key, [
@@ -1071,7 +1072,7 @@ class Hotspot extends Widget_Image {
 				</div>
 
 				<?php // Hotspot Tooltip ?>
-				<?php if ( $hotspot['hotspot_tooltip_content'] && ! $is_hotspot_link ) : ?>
+				<?php if ( $hotspot['hotspot_tooltip_content'] && ! ( 'click' === $settings['tooltip_trigger'] && $is_hotspot_link ) ) : ?>
 					<?php if ( $is_tooltip_direction_animation ) : ?>
 						<div <?php echo $this->get_render_attribute_string( $direction_mask_repeater_setting_key ); ?>>
 					<?php endif; ?>
@@ -1166,7 +1167,7 @@ class Hotspot extends Widget_Image {
 			});
 
 			//tooltip attributes
-			const tooltipCustomPosition = ( isTooltipDirectionAnimation && hotspot.hotspot_tooltip_position && hotspot.hotspot_position ) ? 'e-hotspot--overidde-tooltip-animation-from-' + hotspot.hotspot_position : '';
+			const tooltipCustomPosition = ( isTooltipDirectionAnimation && hotspot.hotspot_tooltip_position && hotspot.hotspot_position ) ? 'e-hotspot--override-tooltip-animation-from-' + hotspot.hotspot_position : '';
 			const tooltipRepeaterSettingKey = view.getRepeaterSettingKey('tooltip', 'hotspots', index);
 			view.addRenderAttribute( tooltipRepeaterSettingKey, {
 				'class': [
@@ -1197,7 +1198,7 @@ class Hotspot extends Widget_Image {
 					</div>
 
 					<?php // Hotspot Tooltip ?>
-					<# if( hotspot.hotspot_tooltip_content && ! hotspotLink ){ #>
+					<# if( hotspot.hotspot_tooltip_content && ! ( 'click' === settings.tooltip_trigger && hotspotLink ) ){ #>
 					<# if( isTooltipDirectionAnimation ){ #>
 					<div {{{ view.getRenderAttributeString( directionMaskRepeaterSettingKey ) }}}>
 						<# } #>

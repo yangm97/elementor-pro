@@ -2,6 +2,7 @@
 namespace ElementorPro\Modules\Woocommerce\Tags;
 
 use Elementor\Controls_Manager;
+use ElementorPro\Modules\Woocommerce\Tags\Traits\Tag_Product_Id;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -17,7 +18,7 @@ class Product_Stock extends Base_Tag {
 	}
 
 	public function render() {
-		$product = wc_get_product();
+		$product = wc_get_product( $this->get_settings( 'product_id' ) );
 		if ( ! $product ) {
 			return;
 		}
@@ -42,5 +43,7 @@ class Product_Stock extends Base_Tag {
 				'label_off' => __( 'Hide', 'elementor-pro' ),
 			]
 		);
+
+		$this->add_product_id_control();
 	}
 }

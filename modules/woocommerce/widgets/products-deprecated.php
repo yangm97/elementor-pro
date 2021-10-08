@@ -152,7 +152,46 @@ class Products_Deprecated extends Products_Base {
 			]
 		);
 
-		Module::add_exclude_controls( $this );
+		$this->add_control(
+			'exclude',
+			[
+				'label' => __( 'Exclude', 'elementor-pro' ),
+				'type' => Controls_Manager::SELECT2,
+				'multiple' => true,
+				'options' => [
+					'current_post' => __( 'Current Post', 'elementor-pro' ),
+					'manual_selection' => __( 'Manual Selection', 'elementor-pro' ),
+				],
+				'label_block' => true,
+			]
+		);
+
+		$this->add_control(
+			'exclude_ids',
+			[
+				'label' => __( 'Search & Select', 'elementor-pro' ),
+				'type' => Module::QUERY_CONTROL_ID,
+				'autocomplete' => [
+					'object' => Module::QUERY_OBJECT_POST,
+				],
+				'options' => [],
+				'label_block' => true,
+				'multiple' => true,
+				'condition' => [
+					'exclude' => 'manual_selection',
+				],
+			]
+		);
+
+		$this->add_control(
+			'avoid_duplicates',
+			[
+				'label' => __( 'Avoid Duplicates', 'elementor-pro' ),
+				'type' => Controls_Manager::SWITCHER,
+				'default' => '',
+				'description' => __( 'Set to Yes to avoid duplicate posts from showing up on the page. This only affects the frontend.', 'elementor-pro' ),
+			]
+		);
 
 		$this->end_controls_section();
 

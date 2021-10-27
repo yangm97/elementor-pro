@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.4.1 - 01-09-2021 */
+/*! elementor-pro - v3.4.2 - 12-10-2021 */
 (self["webpackChunkelementor_pro"] = self["webpackChunkelementor_pro"] || []).push([["popup"],{
 
 /***/ "../modules/popup/assets/js/frontend/handlers/forms-action.js":

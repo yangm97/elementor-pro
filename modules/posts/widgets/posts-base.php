@@ -41,7 +41,7 @@ abstract class Posts_Base extends Base_Widget {
 
 	public function render() {}
 
-	public function  register_load_more_button_style_controls() {
+	public function register_load_more_button_style_controls() {
 		$this->add_control(
 			'heading_load_more_style_button',
 			[

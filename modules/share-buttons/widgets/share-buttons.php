@@ -16,16 +16,34 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Share_Buttons extends Base_Widget {
 
 	private static $networks_class_dictionary = [
-		'google' => 'fa fa-google-plus',
-		'pocket' => 'fa fa-get-pocket',
-		'email' => 'fa fa-envelope',
+		'google' => [
+			'value' => 'fa fa-google-plus',
+		],
+		'pocket' => [
+			'value' => 'fa fa-get-pocket',
+		],
+		'email' => [
+			'value' => 'fa fa-envelope',
+		],
 	];
 
 	private static $networks_icon_mapping = [
-		'google' => 'fab fa-google-plus-g',
-		'pocket' => 'fab fa-get-pocket',
-		'email' => 'fas fa-envelope',
-		'print' => 'fas fa-print',
+		'google' => [
+			'value' => 'fab fa-google-plus-g',
+			'library' => 'fa-brands',
+		],
+		'pocket' => [
+			'value' => 'fab fa-get-pocket',
+			'library' => 'fa-brands',
+		],
+		'email' => [
+			'value' => 'fas fa-envelope',
+			'library' => 'fa-solid',
+		],
+		'print' => [
+			'value' => 'fas fa-print',
+			'library' => 'fa-solid',
+		],
 	];
 
 	public function get_style_depends() {
@@ -38,19 +56,25 @@ class Share_Buttons extends Base_Widget {
 		return [];
 	}
 
-	private static function get_network_class( $network_name ) {
+	private static function get_network_icon_data( $network_name ) {
 		$prefix = 'fa ';
+		$library = '';
+
 		if ( Icons_Manager::is_migration_allowed() ) {
 			if ( isset( self::$networks_icon_mapping[ $network_name ] ) ) {
 				return self::$networks_icon_mapping[ $network_name ];
 			}
 			$prefix = 'fab ';
+			$library = 'fa-brands';
 		}
 		if ( isset( self::$networks_class_dictionary[ $network_name ] ) ) {
 			return self::$networks_class_dictionary[ $network_name ];
 		}
 
-		return $prefix . 'fa-' . $network_name;
+		return [
+			'value' => $prefix . 'fa-' . $network_name,
+			'library' => $library,
+		];
 	}
 
 	public function get_name() {
@@ -468,13 +492,7 @@ class Share_Buttons extends Base_Widget {
 				'type' => Controls_Manager::COLOR,
 				'default' => '',
 				'selectors' => [
-					'{{WRAPPER}}.elementor-share-buttons--skin-flat .elementor-share-btn,
-					 {{WRAPPER}}.elementor-share-buttons--skin-gradient .elementor-share-btn,
-					 {{WRAPPER}}.elementor-share-buttons--skin-boxed .elementor-share-btn .elementor-share-btn__icon,
-					 {{WRAPPER}}.elementor-share-buttons--skin-minimal .elementor-share-btn .elementor-share-btn__icon' => 'background-color: {{VALUE}}',
-					'{{WRAPPER}}.elementor-share-buttons--skin-framed .elementor-share-btn,
-					 {{WRAPPER}}.elementor-share-buttons--skin-minimal .elementor-share-btn,
-					 {{WRAPPER}}.elementor-share-buttons--skin-boxed .elementor-share-btn' => 'color: {{VALUE}}; border-color: {{VALUE}}',
+					'{{WRAPPER}}' => '--e-share-buttons-primary-color: {{VALUE}}',
 				],
 			]
 		);
@@ -485,12 +503,7 @@ class Share_Buttons extends Base_Widget {
 				'label' => __( 'Secondary Color', 'elementor-pro' ),
 				'type' => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}}.elementor-share-buttons--skin-flat .elementor-share-btn__icon,
-					 {{WRAPPER}}.elementor-share-buttons--skin-flat .elementor-share-btn__text,
-					 {{WRAPPER}}.elementor-share-buttons--skin-gradient .elementor-share-btn__icon,
-					 {{WRAPPER}}.elementor-share-buttons--skin-gradient .elementor-share-btn__text,
-					 {{WRAPPER}}.elementor-share-buttons--skin-boxed .elementor-share-btn__icon,
-					 {{WRAPPER}}.elementor-share-buttons--skin-minimal .elementor-share-btn__icon' => 'color: {{VALUE}}',
+					'{{WRAPPER}}' => '--e-share-buttons-secondary-color: {{VALUE}}',
 				],
 				'separator' => 'after',
 				'condition' => [
@@ -514,13 +527,7 @@ class Share_Buttons extends Base_Widget {
 				'label' => __( 'Primary Color', 'elementor-pro' ),
 				'type' => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}}.elementor-share-buttons--skin-flat .elementor-share-btn:hover,
-					 {{WRAPPER}}.elementor-share-buttons--skin-gradient .elementor-share-btn:hover' => 'background-color: {{VALUE}}',
-					'{{WRAPPER}}.elementor-share-buttons--skin-framed .elementor-share-btn:hover,
-					 {{WRAPPER}}.elementor-share-buttons--skin-minimal .elementor-share-btn:hover,
-					 {{WRAPPER}}.elementor-share-buttons--skin-boxed .elementor-share-btn:hover' => 'color: {{VALUE}}; border-color: {{VALUE}}',
-					'{{WRAPPER}}.elementor-share-buttons--skin-boxed .elementor-share-btn:hover .elementor-share-btn__icon,
-					 {{WRAPPER}}.elementor-share-buttons--skin-minimal .elementor-share-btn:hover .elementor-share-btn__icon' => 'background-color: {{VALUE}}',
+					'{{WRAPPER}} .elementor-share-btn:hover' => '--e-share-buttons-primary-color: {{VALUE}}',
 				],
 			]
 		);
@@ -531,12 +538,7 @@ class Share_Buttons extends Base_Widget {
 				'label' => __( 'Secondary Color', 'elementor-pro' ),
 				'type' => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}}.elementor-share-buttons--skin-flat .elementor-share-btn:hover .elementor-share-btn__icon,
-					 {{WRAPPER}}.elementor-share-buttons--skin-flat .elementor-share-btn:hover .elementor-share-btn__text,
-					 {{WRAPPER}}.elementor-share-buttons--skin-gradient .elementor-share-btn:hover .elementor-share-btn__icon,
-					 {{WRAPPER}}.elementor-share-buttons--skin-gradient .elementor-share-btn:hover .elementor-share-btn__text,
-					 {{WRAPPER}}.elementor-share-buttons--skin-boxed .elementor-share-btn:hover .elementor-share-btn__icon,
-					 {{WRAPPER}}.elementor-share-buttons--skin-minimal .elementor-share-btn:hover .elementor-share-btn__icon' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .elementor-share-btn:hover' => '--e-share-buttons-secondary-color: {{VALUE}}',
 				],
 				'separator' => 'after',
 			]
@@ -676,22 +678,13 @@ class Share_Buttons extends Base_Widget {
 		<?php
 	}
 
-	private static function get_svg_icon( $icon_value ) {
-		$icon = [
-			'library' => 'fa-brands',
-			'value' => $icon_value,
-		];
-
-		return Icons_Manager::render_font_icon( $icon );
-	}
-
 	private static function get_share_icon( $network_name ) {
-		$network_class = self::get_network_class( $network_name );
+		$network_icon_data = self::get_network_icon_data( $network_name );
 
 		if ( Plugin::elementor()->experiments->is_feature_active( 'e_font_icon_svg' ) ) {
-			return self::get_svg_icon( $network_class );
+			return Icons_Manager::render_font_icon( $network_icon_data );
 		}
 
-		return sprintf( '<i class="%s" aria-hidden="true"></i>', $network_class );
+		return sprintf( '<i class="%s" aria-hidden="true"></i>', $network_icon_data['value'] );
 	}
 }

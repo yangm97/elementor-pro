@@ -1,5 +1,14 @@
 # Elementor Pro - by Elementor.com
 
+#### 3.4.2 - 2021-10-12
+
+* Fix: Icons color style conflicts when Font-Awesome Inline experiment is active in Share Buttons widget ([#16435](https://github.com/elementor/elementor/issues/16435))
+* Fix: Mini Cart hides page content when closed in Menu Cart widget ([#16305](https://github.com/elementor/elementor/issues/16305))
+* Fix: UI glitches in the Editor edit mode when inserting Post Content widget and Font-Awesome Inline experiment is active in Single Post template ([#16358](https://github.com/elementor/elementor/issues/16358))
+* Fix: Slides per view controls disappeared from multiple breakpoints in Testimonial Carousel
+* Fix: Product variations UI glitch in Menu Cart widget
+* Fix: Buttons UI glitch on Safari browser in Menu Cart widget
+
 #### 3.4.1 - 2021-09-01
 
 * Fix: Sticky functionality is not working if the Additional Custom Breakpoints experiment is active ([#16186](https://github.com/elementor/elementor/issues/16186))

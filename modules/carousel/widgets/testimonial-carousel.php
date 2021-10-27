@@ -486,7 +486,7 @@ class Testimonial_Carousel extends Base {
 			]
 		);
 
-		$this->update_control(
+		$this->update_responsive_control(
 			'slides_to_scroll',
 			[
 				'condition' => null,

@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.4.1 - 01-09-2021 */
+/*! elementor-pro - v3.4.2 - 12-10-2021 */
 (self["webpackChunkelementor_pro"] = self["webpackChunkelementor_pro"] || []).push([["nav-menu"],{
 
 /***/ "../modules/nav-menu/assets/js/frontend/handlers/nav-menu.js":

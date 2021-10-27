@@ -274,6 +274,9 @@ trait Skin_Content_Base {
 
 				$level--;
 
+				// Restore edit mode state
+				Plugin::elementor()->editor->set_edit_mode( $is_edit_mode );
+
 				return;
 			} else {
 				Plugin::elementor()->frontend->remove_content_filters();

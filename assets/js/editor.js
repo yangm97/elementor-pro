@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.4.1 - 01-09-2021 */
+/*! elementor-pro - v3.4.2 - 12-10-2021 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -6225,7 +6225,8 @@ module.exports = elementorModules.editor.utils.Module.extend({
   networksClassDictionary: {
     google: 'fab fa-google-plus',
     pocket: 'fab fa-get-pocket',
-    email: 'fas fa-envelope'
+    email: 'fas fa-envelope',
+    print: 'fas fa-print'
   },
   getNetworkClass: function getNetworkClass(networkName) {
     var networkClass = this.networksClassDictionary[networkName] || 'fab fa-' + networkName;

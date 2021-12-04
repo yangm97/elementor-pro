@@ -14,14 +14,14 @@ class Product_Sale extends Base_Tag {
 	}
 
 	public function get_title() {
-		return __( 'Product Sale', 'elementor-pro' );
+		return esc_html__( 'Product Sale', 'elementor-pro' );
 	}
 
 	protected function register_controls() {
 		$this->add_control( 'text', [
-			'label' => __( 'Text', 'elementor-pro' ),
+			'label' => esc_html__( 'Text', 'elementor-pro' ),
 			'type' => Controls_Manager::TEXT,
-			'default' => __( 'Sale!', 'elementor-pro' ),
+			'default' => esc_html__( 'Sale!', 'elementor-pro' ),
 		] );
 
 		$this->add_product_id_control();
@@ -39,6 +39,6 @@ class Product_Sale extends Base_Tag {
 			$value = $this->get_settings( 'text' );
 		}
 
-		echo $value;
+		echo wp_kses_post( $value );
 	}
 }

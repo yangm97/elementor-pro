@@ -2,8 +2,6 @@
 namespace ElementorPro\Modules\Woocommerce\Widgets;
 
 use Elementor\Controls_Manager;
-use Elementor\Controls_Stack;
-use Elementor\Core\Breakpoints\Manager as Breakpoints_Manager;
 use ElementorPro\Modules\QueryControl\Controls\Group_Control_Query;
 use ElementorPro\Modules\Woocommerce\Classes\Products_Renderer;
 use ElementorPro\Modules\Woocommerce\Classes\Current_Query_Renderer;
@@ -19,7 +17,7 @@ class Products extends Products_Base {
 	}
 
 	public function get_title() {
-		return __( 'Products', 'elementor-pro' );
+		return esc_html__( 'Products', 'elementor-pro' );
 	}
 
 	public function get_icon() {
@@ -40,7 +38,7 @@ class Products extends Products_Base {
 		$this->start_controls_section(
 			'section_query',
 			[
-				'label' => __( 'Query', 'elementor-pro' ),
+				'label' => esc_html__( 'Query', 'elementor-pro' ),
 				'tab' => Controls_Manager::TAB_CONTENT,
 			]
 		);
@@ -55,35 +53,35 @@ class Products extends Products_Base {
 					'post_type' => [
 						'default' => 'product',
 						'options' => [
-							'current_query' => __( 'Current Query', 'elementor-pro' ),
-							'product' => __( 'Latest Products', 'elementor-pro' ),
-							'sale' => __( 'Sale', 'elementor-pro' ),
-							'featured' => __( 'Featured', 'elementor-pro' ),
+							'current_query' => esc_html__( 'Current Query', 'elementor-pro' ),
+							'product' => esc_html__( 'Latest Products', 'elementor-pro' ),
+							'sale' => esc_html__( 'Sale', 'elementor-pro' ),
+							'featured' => esc_html__( 'Featured', 'elementor-pro' ),
 							'by_id' => _x( 'Manual Selection', 'Posts Query Control', 'elementor-pro' ),
 						],
 					],
 					'orderby' => [
 						'default' => 'date',
 						'options' => [
-							'date' => __( 'Date', 'elementor-pro' ),
-							'title' => __( 'Title', 'elementor-pro' ),
-							'price' => __( 'Price', 'elementor-pro' ),
-							'popularity' => __( 'Popularity', 'elementor-pro' ),
-							'rating' => __( 'Rating', 'elementor-pro' ),
-							'rand' => __( 'Random', 'elementor-pro' ),
-							'menu_order' => __( 'Menu Order', 'elementor-pro' ),
+							'date' => esc_html__( 'Date', 'elementor-pro' ),
+							'title' => esc_html__( 'Title', 'elementor-pro' ),
+							'price' => esc_html__( 'Price', 'elementor-pro' ),
+							'popularity' => esc_html__( 'Popularity', 'elementor-pro' ),
+							'rating' => esc_html__( 'Rating', 'elementor-pro' ),
+							'rand' => esc_html__( 'Random', 'elementor-pro' ),
+							'menu_order' => esc_html__( 'Menu Order', 'elementor-pro' ),
 						],
 					],
 					'exclude' => [
 						'options' => [
-							'current_post' => __( 'Current Post', 'elementor-pro' ),
-							'manual_selection' => __( 'Manual Selection', 'elementor-pro' ),
-							'terms' => __( 'Term', 'elementor-pro' ),
+							'current_post' => esc_html__( 'Current Post', 'elementor-pro' ),
+							'manual_selection' => esc_html__( 'Manual Selection', 'elementor-pro' ),
+							'terms' => esc_html__( 'Term', 'elementor-pro' ),
 						],
 					],
 					'include' => [
 						'options' => [
-							'terms' => __( 'Term', 'elementor-pro' ),
+							'terms' => esc_html__( 'Term', 'elementor-pro' ),
 						],
 					],
 				],
@@ -108,7 +106,7 @@ class Products extends Products_Base {
 		$this->start_controls_section(
 			'section_content',
 			[
-				'label' => __( 'Content', 'elementor-pro' ),
+				'label' => esc_html__( 'Content', 'elementor-pro' ),
 			]
 		);
 
@@ -117,7 +115,7 @@ class Products extends Products_Base {
 		$this->add_control(
 			'rows',
 			[
-				'label' => __( 'Rows', 'elementor-pro' ),
+				'label' => esc_html__( 'Rows', 'elementor-pro' ),
 				'type' => Controls_Manager::NUMBER,
 				'default' => Products_Renderer::DEFAULT_COLUMNS_AND_ROWS,
 				'render_type' => 'template',
@@ -132,7 +130,7 @@ class Products extends Products_Base {
 		$this->add_control(
 			'paginate',
 			[
-				'label' => __( 'Pagination', 'elementor-pro' ),
+				'label' => esc_html__( 'Pagination', 'elementor-pro' ),
 				'type' => Controls_Manager::SWITCHER,
 				'default' => '',
 			]
@@ -141,7 +139,7 @@ class Products extends Products_Base {
 		$this->add_control(
 			'allow_order',
 			[
-				'label' => __( 'Allow Order', 'elementor-pro' ),
+				'label' => esc_html__( 'Allow Order', 'elementor-pro' ),
 				'type' => Controls_Manager::SWITCHER,
 				'default' => '',
 				'condition' => [
@@ -154,7 +152,7 @@ class Products extends Products_Base {
 			'wc_notice_frontpage',
 			[
 				'type' => Controls_Manager::RAW_HTML,
-				'raw' => __( 'Ordering is not available if this widget is placed in your front page. Visible on frontend only.', 'elementor-pro' ),
+				'raw' => esc_html__( 'Ordering is not available if this widget is placed in your front page. Visible on frontend only.', 'elementor-pro' ),
 				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
 				'condition' => [
 					'paginate' => 'yes',
@@ -166,7 +164,7 @@ class Products extends Products_Base {
 		$this->add_control(
 			'show_result_count',
 			[
-				'label' => __( 'Show Result Count', 'elementor-pro' ),
+				'label' => esc_html__( 'Show Result Count', 'elementor-pro' ),
 				'type' => Controls_Manager::SWITCHER,
 				'default' => '',
 				'condition' => [
@@ -211,7 +209,8 @@ class Products extends Products_Base {
 		if ( $content ) {
 			$content = str_replace( '<ul class="products', '<ul class="products elementor-grid', $content );
 
-			echo $content;
+			// PHPCS - Woocommerce output
+			echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		} elseif ( $this->get_settings( 'nothing_found_message' ) ) {
 			echo '<div class="elementor-nothing-found elementor-products-nothing-found">' . esc_html( $this->get_settings( 'nothing_found_message' ) ) . '</div>';
 		}

@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.4.2 - 12-10-2021 */
+/*! elementor-pro - v3.5.2 - 28-11-2021 */
 (self["webpackChunkelementor_pro"] = self["webpackChunkelementor_pro"] || []).push([["video-playlist"],{
 
 /***/ "../modules/video-playlist/assets/js/frontend/base-tabs.js":
@@ -753,22 +753,23 @@ function toggleInnerTabs(event, clickedTab, widgetObject) {
 }
 
 function handleInnerTabs(event, widgetObject) {
-  event.preventDefault(); // Handle click on tab on mobile mode.
+  const clickedTarget = event.target;
+  const clickedTagType = clickedTarget.tagName; // Handle click on tab on desktop mode.
 
-  if (event.target.classList.contains('e-tab-mobile-title')) {
-    const $clickedTab = jQuery(event.target);
+  if (clickedTarget.classList.contains('e-inner-tab-title-text')) {
+    event.preventDefault();
+    const $clickedTab = jQuery(clickedTarget).parent('.e-inner-tab-title');
     toggleInnerTabs(event, $clickedTab, widgetObject);
-    return;
-  } // Handle click on tab on Desktop mode.
+  } // Handle click on tab on mobile mode.
 
 
-  if ('A' === event.target.tagName) {
-    const $clickedTab = jQuery(event.target).parent('.e-inner-tab-title');
+  if (clickedTarget.classList.contains('e-tab-mobile-title')) {
+    const $clickedTab = jQuery(clickedTarget);
     toggleInnerTabs(event, $clickedTab, widgetObject);
   } // Handle click on show-less buttons in tab content.
 
 
-  if ('BUTTON' === event.target.tagName) {
+  if ('button' === clickedTagType.toLowerCase()) {
     onTabContentButtonsClick(event, widgetObject);
   }
 }
@@ -1434,4 +1435,4 @@ function setVideoParams(playlistId, playlistItemsArray, videoId) {
 /***/ })
 
 }]);
-//# sourceMappingURL=video-playlist.f55c7066f7ec3a866539.bundle.js.map
+//# sourceMappingURL=video-playlist.5ee0445e2c9b1f2ed68f.bundle.js.map

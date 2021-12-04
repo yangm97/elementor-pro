@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.4.2 - 12-10-2021 */
+/*! elementor-pro - v3.5.2 - 28-11-2021 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -66,6 +66,16 @@
 /*!**************************************************************************!*\
   !*** ../core/app/modules/site-editor/assets/js/pages/template-type.scss ***!
   \**************************************************************************/
+/***/ (() => {
+
+
+
+/***/ }),
+
+/***/ "../core/app/modules/site-editor/assets/js/site-editor.scss":
+/*!******************************************************************!*\
+  !*** ../core/app/modules/site-editor/assets/js/site-editor.scss ***!
+  \******************************************************************/
 /***/ (() => {
 
 
@@ -5523,7 +5533,11 @@ var _router2 = _interopRequireDefault(__webpack_require__(/*! @elementor/router 
 
 var _component = _interopRequireDefault(__webpack_require__(/*! ./data/component */ "../core/app/modules/site-editor/assets/js/data/component.js"));
 
+__webpack_require__(/*! ./site-editor.scss */ "../core/app/modules/site-editor/assets/js/site-editor.scss");
+
 function SiteEditor() {
+  var _elementorAppProConfi, _elementorAppProConfi2;
+
   var headerButtons = [{
     id: 'import',
     text: __('import', 'elementor-pro'),
@@ -5565,6 +5579,12 @@ function SiteEditor() {
       url: "/site-editor"
     }),
     headerButtons: headerButtons
+  }, /*#__PURE__*/_react.default.createElement(_appUi.Grid, {
+    container: true,
+    className: "e-site-editor__content_container"
+  }, /*#__PURE__*/_react.default.createElement(_appUi.Grid, {
+    item: true,
+    className: "e-site-editor__content_container_main"
   }, /*#__PURE__*/_react.default.createElement(_templates2.default, null, /*#__PURE__*/_react.default.createElement(_router.LocationProvider, {
     history: _router2.default.appHistory
   }, /*#__PURE__*/_react.default.createElement(_router.Router, null, /*#__PURE__*/_react.default.createElement(SiteEditorDefault, {
@@ -5581,7 +5601,13 @@ function SiteEditor() {
     path: "site-editor/import"
   }), /*#__PURE__*/_react.default.createElement(_siteEditor.NotFound, {
     default: true
-  }))))));
+  }))))), /*#__PURE__*/_react.default.createElement(_appUi.Grid, {
+    item: true,
+    className: "e-site-editor__content_container_secondary"
+  }, /*#__PURE__*/_react.default.createElement(_appUi.Button, {
+    text: __('Switch to table view', 'elementor-pro'),
+    url: (_elementorAppProConfi = elementorAppProConfig['site-editor']) === null || _elementorAppProConfi === void 0 ? void 0 : (_elementorAppProConfi2 = _elementorAppProConfi.urls) === null || _elementorAppProConfi2 === void 0 ? void 0 : _elementorAppProConfi2.legacy_view
+  })))));
 }
 
 var Module = function Module() {

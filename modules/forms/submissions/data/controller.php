@@ -98,10 +98,10 @@ class Controller extends Controller_Base {
 					'options' => [
 						'type' => 'enum',
 						'labels' => [
-							'all' => __( 'All', 'elementor-pro' ),
-							'unread' => __( 'Unread', 'elementor-pro' ),
-							'read' => __( 'Read', 'elementor-pro' ),
-							'trash' => __( 'Trash', 'elementor-pro' ),
+							'all' => esc_html__( 'All', 'elementor-pro' ),
+							'unread' => esc_html__( 'Unread', 'elementor-pro' ),
+							'read' => esc_html__( 'Read', 'elementor-pro' ),
+							'trash' => esc_html__( 'Trash', 'elementor-pro' ),
 						],
 					],
 				],

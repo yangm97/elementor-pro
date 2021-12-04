@@ -1352,7 +1352,13 @@ span.font-variations-count {
       background: #ffffff; }
       #elementor-custom-code .inside .elementor-custom-code-meta-box .elementor-custom-code-panel .elementor-custom-code-panel-placement {
         padding: 5px 40px;
-        margin: 10px 0; }
+        margin: 10px 0;
+        flex-wrap: wrap;
+        gap: 10px; }
+      #elementor-custom-code .inside .elementor-custom-code-meta-box .elementor-custom-code-panel .elementor-custom-code-options-placement {
+        display: none; }
+        #elementor-custom-code .inside .elementor-custom-code-meta-box .elementor-custom-code-panel .elementor-custom-code-options-placement.show {
+          display: flex; }
       #elementor-custom-code .inside .elementor-custom-code-meta-box .elementor-custom-code-panel div {
         display: flex; }
       #elementor-custom-code .inside .elementor-custom-code-meta-box .elementor-custom-code-panel .elementor-field i {
@@ -1365,6 +1371,8 @@ span.font-variations-count {
         direction: ltr; }
       #elementor-custom-code .inside .elementor-custom-code-meta-box .elementor-custom-code-panel .elementor-field.priority {
         margin-right: auto; }
+      #elementor-custom-code .inside .elementor-custom-code-meta-box .elementor-custom-code-panel .elementor-field.location {
+        margin-inline-end: 10px; }
       #elementor-custom-code .inside .elementor-custom-code-meta-box .elementor-custom-code-panel .elementor-field-label {
         font-weight: 500;
         font-size: 14px;
@@ -1374,6 +1382,11 @@ span.font-variations-count {
         margin-left: 20px; }
       #elementor-custom-code .inside .elementor-custom-code-meta-box .elementor-custom-code-panel .elementor-field-label:nth-child(odd) {
         margin-left: 5px; }
+      #elementor-custom-code .inside .elementor-custom-code-meta-box .elementor-custom-code-panel .elementor-field-checkboxes {
+        padding-top: 18px; }
+        #elementor-custom-code .inside .elementor-custom-code-meta-box .elementor-custom-code-panel .elementor-field-checkboxes .label {
+          position: relative;
+          top: -5px; }
   #elementor-custom-code .inside .elementor-custom-code-codemirror-holder {
     border: 1px solid #eceeef;
     background: #f7f7f7;

@@ -9,9 +9,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 trait Base_Widget_Trait {
 	public function is_editable() {
-		$license_data = License_API::get_license_data();
-
-		return in_array( $license_data['license'], [ License_API::STATUS_VALID, License_API::STATUS_EXPIRED ] );
+		if ( License_API::is_license_active() ) {
+			return true;
+		}
+		return License_API::is_license_expired() && ! License_API::is_licence_pro_trial();
 	}
 
 	public function get_categories() {

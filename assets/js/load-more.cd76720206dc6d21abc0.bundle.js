@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.4.2 - 12-10-2021 */
+/*! elementor-pro - v3.5.2 - 28-11-2021 */
 (self["webpackChunkelementor_pro"] = self["webpackChunkelementor_pro"] || []).push([["load-more"],{
 
 /***/ "../modules/posts/assets/js/frontend/handlers/load-more.js":
@@ -155,15 +155,15 @@ class LoadMore extends elementorModules.frontend.handlers.Base {
 
   handleSuccessFetch(result) {
     this.handleUiAfterLoading();
-    const html = document.createElement('div');
-    html.innerHTML = result.content;
-    const posts = html.querySelectorAll('.elementor-posts-container > article'); // Converting HTMLCollection to an Array and iterate it.
+    const posts = result.querySelectorAll('.elementor-posts-container > article');
+    const nextPageUrl = result.querySelector('.e-load-more-anchor').getAttribute('data-next-page'); // Converting HTMLCollection to an Array and iterate it.
 
     const postsHTML = [...posts].reduce((accumulator, post) => {
       return accumulator + post.outerHTML;
     }, '');
     this.elements.postsContainer.insertAdjacentHTML('beforeend', postsHTML);
     this.elements.loadMoreAnchor.setAttribute('data-page', this.currentPage);
+    this.elements.loadMoreAnchor.setAttribute('data-next-page', nextPageUrl);
 
     if (this.currentPage === this.maxPage) {
       this.handleUiWhenNoPosts();
@@ -173,9 +173,14 @@ class LoadMore extends elementorModules.frontend.handlers.Base {
   handlePostsQuery() {
     this.handleUiBeforeLoading();
     this.currentPage++;
-    const restUrl = `${ElementorProFrontendConfig.urls.rest}elementor-pro/v1/posts-widget?post_id=${this.postId}&element_id=${this.elementId}&page=${this.currentPage}`;
-    return fetch(restUrl).then(response => response.json()).then(result => {
-      this.handleSuccessFetch(result);
+    const nextPageUrl = this.elements.loadMoreAnchor.getAttribute('data-next-page');
+    return fetch(nextPageUrl).then(response => response.text()).then(html => {
+      // Convert the HTML string into a document object
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+      this.handleSuccessFetch(doc);
+    }).catch(err => {
+      console.warn('Something went wrong.', err);
     });
   }
 
@@ -186,4 +191,4 @@ exports.default = LoadMore;
 /***/ })
 
 }]);
-//# sourceMappingURL=load-more.ed8a8caa6411cba8ed86.bundle.js.map
+//# sourceMappingURL=load-more.cd76720206dc6d21abc0.bundle.js.map

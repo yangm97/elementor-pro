@@ -8,7 +8,7 @@ trait Tag_Product_Id {
 		$this->add_control(
 			'product_id',
 			[
-				'label' => __( 'Product', 'elementor-pro' ),
+				'label' => esc_html__( 'Product', 'elementor-pro' ),
 				'type' => QueryControlModule::QUERY_CONTROL_ID,
 				'options' => [],
 				'label_block' => true,

@@ -16,7 +16,7 @@ class Product_Image extends Base_Data_Tag {
 	}
 
 	public function get_title() {
-		return __( 'Product Image', 'elementor-pro' );
+		return esc_html__( 'Product Image', 'elementor-pro' );
 	}
 
 	protected function register_controls() {

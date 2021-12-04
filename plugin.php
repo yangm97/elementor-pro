@@ -5,7 +5,6 @@ use ElementorPro\Core\Admin\Admin;
 use ElementorPro\Core\App\App;
 use ElementorPro\Core\Connect;
 use Elementor\Core\Responsive\Files\Frontend as FrontendFile;
-use Elementor\Core\Responsive\Responsive;
 use Elementor\Utils;
 use ElementorPro\Core\Editor\Editor;
 use ElementorPro\Core\Modules_Manager;
@@ -79,7 +78,7 @@ class Plugin {
 	 */
 	public function __clone() {
 		// Cloning instances of the class is forbidden
-		_doing_it_wrong( __FUNCTION__, __( 'Something went wrong.', 'elementor-pro' ), '1.0.0' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Something went wrong.', 'elementor-pro' ), '1.0.0' );
 	}
 
 	/**
@@ -90,7 +89,7 @@ class Plugin {
 	 */
 	public function __wakeup() {
 		// Unserializing instances of the class is forbidden
-		_doing_it_wrong( __FUNCTION__, __( 'Something went wrong.', 'elementor-pro' ), '1.0.0' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Something went wrong.', 'elementor-pro' ), '1.0.0' );
 	}
 
 	/**
@@ -438,7 +437,7 @@ class Plugin {
 	}
 
 	final public static function get_title() {
-		return __( 'Elementor Pro', 'elementor-pro' );
+		return esc_html__( 'Elementor Pro', 'elementor-pro' );
 	}
 }
 

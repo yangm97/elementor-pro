@@ -13,7 +13,7 @@ class Product_SKU extends Base_Tag {
 	}
 
 	public function get_title() {
-		return __( 'Product SKU', 'elementor-pro' );
+		return esc_html__( 'Product SKU', 'elementor-pro' );
 	}
 
 	protected function register_controls() {
@@ -29,9 +29,9 @@ class Product_SKU extends Base_Tag {
 		$value = '';
 
 		if ( $product->get_sku() ) {
-			$value = esc_html( $product->get_sku() );
+			$value = $product->get_sku();
 		}
 
-		echo $value;
+		echo esc_html( $value );
 	}
 }

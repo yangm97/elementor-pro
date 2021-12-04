@@ -24,14 +24,14 @@ class Save_To_Database extends Action_Base {
 	}
 
 	public function get_label() {
-		return __( 'Collect Submissions', 'elementor-pro' );
+		return esc_html__( 'Collect Submissions', 'elementor-pro' );
 	}
 
 	public function register_settings_section( $widget ) {
 		$widget->start_controls_section(
 			'section_submissions',
 			[
-				'label' => __( 'Collect Submissions', 'elementor-pro' ),
+				'label' => esc_html__( 'Collect Submissions', 'elementor-pro' ),
 				'condition' => [
 					'submit_actions' => $this->get_name(),
 				],

@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.4.2 - 12-10-2021 */
+/*! elementor-pro - v3.5.2 - 28-11-2021 */
 (self["webpackChunkelementor_pro"] = self["webpackChunkelementor_pro"] || []).push([["elements-handlers"],{
 
 /***/ "../assets/dev/js/frontend/elements-handlers.js":
@@ -1773,6 +1773,9 @@ exports.default = void 0;
 class _default extends elementorModules.Module {
   constructor() {
     super();
+    ['archive_classic', 'archive_full_content', 'archive_cards'].forEach(skinName => {
+      elementorFrontend.elementsHandler.attachHandler('archive-posts', () => __webpack_require__.e(/*! import() | archive-posts */ "archive-posts").then(__webpack_require__.bind(__webpack_require__, /*! ./handlers/archive-posts-load-more */ "../modules/theme-builder/assets/js/frontend/handlers/archive-posts-load-more.js")), skinName);
+    });
     elementorFrontend.elementsHandler.attachHandler('archive-posts', () => __webpack_require__.e(/*! import() | archive-posts */ "archive-posts").then(__webpack_require__.bind(__webpack_require__, /*! ./handlers/archive-posts-skin-classic */ "../modules/theme-builder/assets/js/frontend/handlers/archive-posts-skin-classic.js")), 'archive_classic');
     elementorFrontend.elementsHandler.attachHandler('archive-posts', () => __webpack_require__.e(/*! import() | archive-posts */ "archive-posts").then(__webpack_require__.bind(__webpack_require__, /*! ./handlers/archive-posts-skin-classic */ "../modules/theme-builder/assets/js/frontend/handlers/archive-posts-skin-classic.js")), 'archive_full_content');
     elementorFrontend.elementsHandler.attachHandler('archive-posts', () => __webpack_require__.e(/*! import() | archive-posts */ "archive-posts").then(__webpack_require__.bind(__webpack_require__, /*! ./handlers/archive-posts-skin-cards */ "../modules/theme-builder/assets/js/frontend/handlers/archive-posts-skin-cards.js")), 'archive_cards');
@@ -1839,6 +1842,9 @@ class _default extends elementorModules.Module {
   constructor() {
     super();
     elementorFrontend.elementsHandler.attachHandler('woocommerce-menu-cart', () => __webpack_require__.e(/*! import() | woocommerce-menu-cart */ "woocommerce-menu-cart").then(__webpack_require__.bind(__webpack_require__, /*! ./handlers/menu-cart */ "../modules/woocommerce/assets/js/frontend/handlers/menu-cart.js")));
+    elementorFrontend.elementsHandler.attachHandler('woocommerce-checkout-page', () => __webpack_require__.e(/*! import() | woocommerce-checkout-page */ "woocommerce-checkout-page").then(__webpack_require__.bind(__webpack_require__, /*! ./handlers/checkout-page */ "../modules/woocommerce/assets/js/frontend/handlers/checkout-page.js")));
+    elementorFrontend.elementsHandler.attachHandler('woocommerce-cart', () => __webpack_require__.e(/*! import() | woocommerce-cart */ "woocommerce-cart").then(__webpack_require__.bind(__webpack_require__, /*! ./handlers/cart */ "../modules/woocommerce/assets/js/frontend/handlers/cart.js")));
+    elementorFrontend.elementsHandler.attachHandler('woocommerce-my-account', () => __webpack_require__.e(/*! import() | woocommerce-my-account */ "woocommerce-my-account").then(__webpack_require__.bind(__webpack_require__, /*! ./handlers/my-account */ "../modules/woocommerce/assets/js/frontend/handlers/my-account.js")));
   }
 
 }

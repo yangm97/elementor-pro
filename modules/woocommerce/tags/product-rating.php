@@ -14,17 +14,17 @@ class Product_Rating extends Base_Tag {
 	}
 
 	public function get_title() {
-		return __( 'Product Rating', 'elementor-pro' );
+		return esc_html__( 'Product Rating', 'elementor-pro' );
 	}
 
 	protected function register_controls() {
 		$this->add_control( 'field', [
-			'label' => __( 'Format', 'elementor-pro' ),
+			'label' => esc_html__( 'Format', 'elementor-pro' ),
 			'type' => Controls_Manager::SELECT,
 			'options' => [
-				'average_rating' => __( 'Average Rating', 'elementor-pro' ),
-				'rating_count' => __( 'Rating Count', 'elementor-pro' ),
-				'review_count' => __( 'Review Count', 'elementor-pro' ),
+				'average_rating' => esc_html__( 'Average Rating', 'elementor-pro' ),
+				'rating_count' => esc_html__( 'Rating Count', 'elementor-pro' ),
+				'review_count' => esc_html__( 'Review Count', 'elementor-pro' ),
 			],
 			'default' => 'average_rating',
 		] );
@@ -52,6 +52,7 @@ class Product_Rating extends Base_Tag {
 				break;
 		}
 
-		echo $value;
+		// PHPCS - Safe WC data
+		echo $value; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 }

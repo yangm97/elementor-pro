@@ -72,12 +72,12 @@ class Module extends Module_Base {
 		$widget->add_control(
 			'exclude',
 			[
-				'label' => __( 'Exclude', 'elementor-pro' ),
+				'label' => esc_html__( 'Exclude', 'elementor-pro' ),
 				'type' => Controls_Manager::SELECT2,
 				'multiple' => true,
 				'options' => [
-					'current_post' => __( 'Current Post', 'elementor-pro' ),
-					'manual_selection' => __( 'Manual Selection', 'elementor-pro' ),
+					'current_post' => esc_html__( 'Current Post', 'elementor-pro' ),
+					'manual_selection' => esc_html__( 'Manual Selection', 'elementor-pro' ),
 				],
 				'label_block' => true,
 			]
@@ -86,7 +86,7 @@ class Module extends Module_Base {
 		$widget->add_control(
 			'exclude_ids',
 			[
-				'label' => __( 'Search & Select', 'elementor-pro' ),
+				'label' => esc_html__( 'Search & Select', 'elementor-pro' ),
 				'type' => self::QUERY_CONTROL_ID,
 				'autocomplete' => [
 					'object' => self::QUERY_OBJECT_POST,
@@ -103,10 +103,10 @@ class Module extends Module_Base {
 		$widget->add_control(
 			'avoid_duplicates',
 			[
-				'label' => __( 'Avoid Duplicates', 'elementor-pro' ),
+				'label' => esc_html__( 'Avoid Duplicates', 'elementor-pro' ),
 				'type' => Controls_Manager::SWITCHER,
 				'default' => '',
-				'description' => __( 'Set to Yes to avoid duplicate posts from showing up on the page. This only affects the frontend.', 'elementor-pro' ),
+				'description' => esc_html__( 'Set to Yes to avoid duplicate posts from showing up on the page. This only affects the frontend.', 'elementor-pro' ),
 			]
 		);
 
@@ -980,7 +980,7 @@ class Module extends Module_Base {
 	public function localize_settings( $settings ) {
 		$settings = array_replace_recursive( $settings, [
 			'i18n' => [
-				'all' => __( 'All', 'elementor-pro' ),
+				'all' => esc_html__( 'All', 'elementor-pro' ),
 			],
 		] );
 

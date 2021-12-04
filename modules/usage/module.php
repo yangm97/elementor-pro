@@ -12,6 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * Elementor usage module.
+ * @method static Module instance()
  */
 class Module extends BaseModule {
 	/**

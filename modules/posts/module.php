@@ -74,8 +74,13 @@ class Module extends Module_Base {
 			if ( isset( $element['widgetType'] ) && in_array( $element['widgetType'], $posts_widgets, true ) ) {
 				// Has pagination.
 				if ( ! empty( $element['settings']['pagination_type'] ) ) {
-					// No max pages limits.
-					if ( empty( $element['settings']['pagination_page_limit'] ) ) {
+					$using_ajax_pagination = in_array( $element['settings']['pagination_type'], [
+						Posts_Base::LOAD_MORE_ON_CLICK,
+						Posts_Base::LOAD_MORE_INFINITE_SCROLL,
+					], true);
+
+					// No max pages limits or in load more mode.
+					if ( empty( $element['settings']['pagination_page_limit'] ) || $using_ajax_pagination ) {
 						$is_valid = true;
 					} elseif ( (int) $current_page <= (int) $element['settings']['pagination_page_limit'] ) {
 						// Has page limit but current page is less than or equal to max page limit.

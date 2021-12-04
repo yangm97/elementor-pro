@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.4.2 - 12-10-2021 */
+/*! elementor-pro - v3.5.2 - 28-11-2021 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -2663,6 +2663,8 @@ var CustomCode = /*#__PURE__*/function (_elementorModules$Mod) {
       ReactDOM.render( /*#__PURE__*/_react.default.createElement(_conditionsModal.default, null), document.querySelector('.post-conditions'));
       this.addTipsyToFields();
       this.addDescription();
+      this.addLocationChangeHandler();
+      this.setOptionsPlacementVisibility('elementor_body_end' === jQuery('#location').val());
     }
   }, {
     key: "addTipsyToFields",
@@ -2681,6 +2683,21 @@ var CustomCode = /*#__PURE__*/function (_elementorModules$Mod) {
     value: function addDescription() {
       var description = '<p>' + __('Manage and create all of your custom code here.<br />Organize all of your custom code and incorporate code snippets in your site. Add tracking codes, meta titles, and other scripts. Set display conditions, locations, and priority all from one place.', 'elementor-pro') + '&nbsp;<a target="_blank" href="https://go.elementor.com/wp-dash-custom-code">' + __('Learn more', 'elementor-pro') + '</a>' + '</p>';
       jQuery(description).insertBefore('.wp-header-end');
+    }
+  }, {
+    key: "addLocationChangeHandler",
+    value: function addLocationChangeHandler() {
+      var _this2 = this;
+
+      jQuery('#location').on('change', function (e) {
+        _this2.setOptionsPlacementVisibility('elementor_body_end' === e.target.value);
+      });
+    }
+  }, {
+    key: "setOptionsPlacementVisibility",
+    value: function setOptionsPlacementVisibility(state) {
+      var $optionsPlacement = jQuery('.elementor-custom-code-options-placement');
+      $optionsPlacement.toggleClass('show', state);
     }
   }]);
   return CustomCode;

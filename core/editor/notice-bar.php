@@ -62,6 +62,11 @@ class Notice_Bar extends Base_Notice_Bar {
 				'action_url' => $license_admin->get_connect_url( [
 					'mode' => 'popup',
 					'callback_id' => 'editor-pro-activate',
+
+					// UTM
+					'utm_source' => 'editor-notice-bar',
+					'utm_medium' => 'wp-dash',
+					'utm_campaign' => 'connect-and-activate-license',
 				] ),
 				'muted_period' => 0,
 			];

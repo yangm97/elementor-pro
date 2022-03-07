@@ -57,10 +57,6 @@ class Updater {
 			$_transient_data = new \stdClass();
 		}
 
-		if ( empty( $_transient_data->checked ) ) {
-			return $_transient_data;
-		}
-
 		$version_info = API::get_version( false /* Use Cache */ );
 
 		if ( is_wp_error( $version_info ) ) {
@@ -80,15 +76,20 @@ class Updater {
 			}
 		}
 
-		if ( version_compare( $this->plugin_version, $version_info['new_version'], '<' ) ) {
-			$plugin_info = (object) $version_info;
-			unset( $plugin_info->sections );
+		$plugin_info = (object) $version_info;
+		unset( $plugin_info->sections );
 
+		$plugin_info->plugin = $this->plugin_name;
+
+		if ( version_compare( $this->plugin_version, $version_info['new_version'], '<' ) ) {
 			$_transient_data->response[ $this->plugin_name ] = $plugin_info;
+			$_transient_data->checked[ $this->plugin_name ] = $version_info['new_version'];
+		} else {
+			$_transient_data->no_update[ $this->plugin_name ] = $plugin_info;
+			$_transient_data->checked[ $this->plugin_name ] = $this->plugin_version;
 		}
 
 		$_transient_data->last_checked = current_time( 'timestamp' );
-		$_transient_data->checked[ $this->plugin_name ] = $this->plugin_version;
 
 		if ( ! isset( $_transient_data->translations ) ) {
 			$_transient_data->translations = [];
@@ -165,6 +166,7 @@ class Updater {
 				'high' => 'https://ps.w.org/elementor/assets/banner-1544x500.png?rev=1494133',
 				'low' => 'https://ps.w.org/elementor/assets/banner-1544x500.png?rev=1494133',
 			];
+			$api_request_transient->autoupdate = true;
 
 			$api_request_transient->sections = unserialize( $api_response['sections'] );
 

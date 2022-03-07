@@ -21,6 +21,9 @@ class Admin {
 	const LICENSE_DATA_OPTION_NAME = '_elementor_pro_license_data';
 	const LICENSE_DATA_FALLBACK_OPTION_NAME = self::LICENSE_DATA_OPTION_NAME . '_fallback';
 
+	/**
+	 * @deprecated 3.6.0 Use Plugin::instance()->updater instead
+	 */
 	public static $updater = null;
 
 	public static function get_errors_details() {
@@ -95,12 +98,15 @@ class Admin {
 		return $input_string;
 	}
 
+	/**
+	 * @deprecated 3.6.0 Use Plugin::instance()->updater instead
+	 *
+	 * @return \ElementorPro\License\Updater
+	 */
 	public static function get_updater_instance() {
-		if ( null === self::$updater ) {
-			self::$updater = new Updater();
-		}
+		static::$updater = Plugin::instance()->updater;
 
-		return self::$updater;
+		return static::$updater;
 	}
 
 	public static function get_license_key() {
@@ -196,8 +202,16 @@ class Admin {
 						echo wp_kses_post( $this->get_activate_message() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					?></p>
 
+					<?php
+						$connect_url = $this->get_connect_url( [
+							'utm_source' => 'license-page',
+							'utm_medium' => 'wp-dash',
+							'utm_campaign' => 'connect-and-activate-license',
+							'utm_term' => 'connect-and-activate',
+						] );
+					?>
 					<div class="elementor-box-action">
-						<a class="button button-primary" href="<?php echo esc_url( $this->get_connect_url() ); ?>">
+						<a class="button button-primary" href="<?php echo esc_url( $connect_url ); ?>">
 							<?php echo esc_html__( 'Connect & Activate', 'elementor-pro' ); ?>
 						</a>
 					</div>
@@ -273,7 +287,15 @@ class Admin {
 
 						<?php echo esc_html__( 'Want to activate this website by a different license?', 'elementor-pro' ); ?>
 						</span>
-						<a class="button button-primary" href="<?php echo esc_url( $this->get_switch_license_url() ); ?>">
+						<?php
+							$switch_license_url = $this->get_switch_license_url( [
+								'utm_source' => 'license-page',
+								'utm_medium' => 'wp-dash',
+								'utm_campaign' => 'connect-and-activate-license',
+								'utm_term' => 'switch-license',
+							] );
+						?>
+						<a class="button button-primary" href="<?php echo esc_url( $switch_license_url ); ?>">
 							<?php echo esc_html__( 'Switch Account', 'elementor-pro' ); ?>
 						</a>
 					</p>
@@ -337,7 +359,11 @@ class Admin {
 				'description' => $this->get_activate_message(),
 				'button' => [
 					'text' => '<i class="dashicons dashicons-update" aria-hidden="true"></i>' . esc_html__( 'Connect & Activate', 'elementor-pro' ),
-					'url' => $this->get_connect_url(),
+					'url' => $this->get_connect_url([
+						'utm_source' => 'wp-notification-banner',
+						'utm_medium' => 'wp-dash',
+						'utm_campaign' => 'connect-and-activate-license',
+					]),
 				],
 			] );
 
@@ -435,7 +461,7 @@ class Admin {
 		}
 	}
 
-	private function get_installed_time() {
+	public function get_installed_time() {
 		$installed_time = get_option( '_elementor_pro_installed_time' );
 
 		if ( ! $installed_time ) {
@@ -450,10 +476,28 @@ class Admin {
 		$license_key = self::get_license_key();
 
 		if ( empty( $license_key ) ) {
-			$links['active_license'] = sprintf( '<a href="%s" class="elementor-plugins-gopro">%s</a>', self::get_connect_url(), esc_html__( 'Connect & Activate', 'elementor-pro' ) );
+			$links['active_license'] = sprintf(
+				'<a href="%s" class="elementor-plugins-gopro">%s</a>',
+				self::get_connect_url([
+					'utm_source' => 'wp-plugins',
+					'utm_medium' => 'wp-dash',
+					'utm_campaign' => 'connect-and-activate-license',
+				]),
+				__( 'Connect & Activate', 'elementor-pro' )
+			);
 		}
 
 		return $links;
+	}
+
+	public function plugin_auto_update_setting_html( $html, $plugin_file ) {
+		$license_data = API::get_license_data();
+
+		if ( ELEMENTOR_PRO_PLUGIN_BASE === $plugin_file && API::STATUS_VALID !== $license_data['license'] ) {
+			return '<span class="label">' . esc_html__( '(unavailable)', 'elementor-pro' ) . '</span>';
+		}
+
+		return $html;
 	}
 
 	private function handle_dashboard_admin_widget() {
@@ -629,8 +673,8 @@ class Admin {
 		return $this->get_app()->get_admin_url( $action, $params );
 	}
 
-	private function get_switch_license_url() {
-		return $this->get_app()->get_admin_url( 'switch_license' );
+	private function get_switch_license_url( $params = [] ) {
+		return $this->get_app()->get_admin_url( 'switch_license', $params );
 	}
 
 	private function get_connected_account() {
@@ -678,9 +722,8 @@ class Admin {
 		add_filter( 'elementor/api/get_templates/body_args', [ $this, 'filter_library_get_templates_args' ] );
 		add_filter( 'elementor/finder/categories', [ $this, 'add_finder_item' ] );
 		add_filter( 'plugin_action_links_' . ELEMENTOR_PRO_PLUGIN_BASE, [ $this, 'plugin_action_links' ], 50 );
+		add_filter( 'plugin_auto_update_setting_html', [ $this, 'plugin_auto_update_setting_html' ], 10, 2 );
 
 		$this->handle_dashboard_admin_widget();
-
-		self::get_updater_instance();
 	}
 }

@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.6.3 - 28-02-2022 */
+/*! elementor-pro - v3.6.4 - 15-03-2022 */
 (self["webpackChunkelementor_pro"] = self["webpackChunkelementor_pro"] || []).push([["frontend"],{
 
 /***/ "../node_modules/@babel/runtime/helpers/interopRequireDefault.js":
@@ -955,12 +955,12 @@ class _default extends elementorModules.ViewModule {
   }
 
   bindEvents() {
-    this.onWindowResize = this.onWindowResize.bind(this);
-    elementorFrontend.elements.$window.on('resize', this.onWindowResize);
+    this.defineDimensions = this.defineDimensions.bind(this);
+    elementorFrontend.elements.$window.on('resize elementor-pro/motion-fx/recalc', this.defineDimensions);
   }
 
   unbindEvents() {
-    elementorFrontend.elements.$window.off('resize', this.onWindowResize);
+    elementorFrontend.elements.$window.off('resize elementor-pro/motion-fx/recalc', this.defineDimensions);
   }
 
   addBackgroundLayer() {
@@ -1128,10 +1128,6 @@ class _default extends elementorModules.ViewModule {
     this.actions = new _actions.default(settings);
     this.initInteractionsTypes();
     this.runInteractions();
-  }
-
-  onWindowResize() {
-    this.defineDimensions();
   }
 
 }

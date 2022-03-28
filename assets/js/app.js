@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.6.3 - 28-02-2022 */
+/*! elementor-pro - v3.6.4 - 15-03-2022 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -3300,7 +3300,9 @@ var TemplatesProvider = /*#__PURE__*/function (_BaseContext) {
       var _this5 = this;
 
       return this.executeAction(TemplatesProvider.actions.FETCH, function () {
-        return $e.data.get(_commands.Templates.signature);
+        return $e.data.get(_commands.Templates.signature, {}, {
+          refresh: true
+        });
       }).then(function (response) {
         _this5.updateTemplatesState(function () {
           return (0, _values.default)(response.data).reduce(function (current, template) {

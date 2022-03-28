@@ -1247,6 +1247,7 @@ body.rtl.woocommerce-page div.product .elementor-widget-woocommerce-product-imag
     border-color: var(--toggle-button-border-color, #818a91);
     border-radius: var(--toggle-button-border-radius, 0px);
     display: inline-flex;
+    flex-direction: row-reverse;
     align-items: center;
     padding: var(--toggle-icon-padding, 12px 24px); }
     .elementor-menu-cart__toggle .elementor-button:hover {
@@ -1256,7 +1257,7 @@ body.rtl.woocommerce-page div.product .elementor-widget-woocommerce-product-imag
       .elementor-menu-cart__toggle .elementor-button:hover .elementor-button-icon {
         color: var(--toggle-button-icon-hover-color, #818a91); }
   .elementor-menu-cart__toggle .elementor-button-text {
-    margin-right: 0.3em; }
+    margin-inline-end: 0.3em; }
   .elementor-menu-cart__toggle .elementor-button-icon {
     position: relative;
     transition: color 0.1s;
@@ -1271,7 +1272,7 @@ body.rtl.woocommerce-page div.product .elementor-widget-woocommerce-product-imag
   height: 1.6em;
   line-height: 1.5em;
   top: -0.7em;
-  right: -0.7em;
+  inset-inline-end: -0.7em;
   border-radius: 100%;
   color: var(--items-indicator-text-color, #fff);
   background-color: var(--items-indicator-background-color, #d9534f);

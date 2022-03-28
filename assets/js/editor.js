@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.6.3 - 28-02-2022 */
+/*! elementor-pro - v3.6.4 - 15-03-2022 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -5793,6 +5793,7 @@ exports["default"] = Model;
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
+/* provided dependency */ var __ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n")["__"];
 
 
 var _Object$defineProperty = __webpack_require__(/*! @babel/runtime-corejs2/core-js/object/define-property */ "../node_modules/@babel/runtime-corejs2/core-js/object/define-property.js");
@@ -5872,7 +5873,7 @@ var View = /*#__PURE__*/function (_WidgetView) {
       }
 
       var container = (0, _get2.default)((0, _getPrototypeOf2.default)(View.prototype), "getContainer", this).call(this);
-      container.label = container.label + ' (' + elementorPro.translate('global') + ')';
+      container.label = container.label + ' (' + __('global', 'elementor-pro') + ')';
       return container;
     }
   }, {

@@ -1,5 +1,15 @@
 # Elementor Pro - by Elementor.com
 
+#### 3.6.4 - 2022-03-15
+
+* Tweak: Kit import dynamic reference support for templates and dynamic tags
+* Tweak: Updated tested up to version tag to `3.6.0`
+* Fix: Sticky caused scrolling issues after clicking an element that expands the page height ([#17821](https://github.com/elementor/elementor/issues/17821), [#17839](https://github.com/elementor/elementor/issues/17839), [#18069](https://github.com/elementor/elementor/issues/18069))
+* Fix: When saving Global widget JS error is being thrown and editor fails to load ([#17954](https://github.com/elementor/elementor/issues/17954))
+* Fix: Motion effects are missing from Background section under Style tab in Container element ([#18063](https://github.com/elementor/elementor/issues/18063))
+* Fix: Imported Kit doesn't appear in the theme builder after successful import in some cases
+* Fix: Added future Pro support to fix the Cart icon that shifted aside in Menu cart widget
+
 #### 3.6.3 - 2022-02-28
 
 * Fix: Custom Code display conditions modal is not working ([#17865](https://github.com/elementor/elementor/issues/17865), [#17942](https://github.com/elementor/elementor/issues/17942), [#17994](https://github.com/elementor/elementor/issues/17994))

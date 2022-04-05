@@ -15,7 +15,7 @@ class Archive_Meta extends Tag {
 	}
 
 	public function get_title() {
-		return __( 'Archive Meta', 'elementor-pro' );
+		return esc_html__( 'Archive Meta', 'elementor-pro' );
 	}
 
 	public function get_group() {
@@ -52,11 +52,11 @@ class Archive_Meta extends Tag {
 		return 'key';
 	}
 
-	protected function _register_controls() {
+	protected function register_controls() {
 		$this->add_control(
 			'key',
 			[
-				'label' => __( 'Meta Key', 'elementor-pro' ),
+				'label' => esc_html__( 'Meta Key', 'elementor-pro' ),
 			]
 		);
 	}

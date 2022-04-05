@@ -22,7 +22,7 @@ class Child_Of extends Condition_Base {
 	}
 
 	public function get_label() {
-		return __( 'Direct Child Of', 'elementor-pro' );
+		return esc_html__( 'Direct Child Of', 'elementor-pro' );
 	}
 
 	public function check( $args ) {
@@ -36,7 +36,7 @@ class Child_Of extends Condition_Base {
 		return ( ( 0 === $id && 0 < $parent_id ) || ( $parent_id === $id ) );
 	}
 
-	protected function _register_controls() {
+	protected function register_controls() {
 		$hierarchical_post_types = get_post_types( [
 			'hierarchical' => true,
 			'public' => true,

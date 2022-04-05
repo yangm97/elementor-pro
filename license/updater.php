@@ -30,6 +30,14 @@ class Updater {
 
 		remove_action( 'after_plugin_row_' . $this->plugin_name, 'wp_plugin_update_row' );
 		add_action( 'after_plugin_row_' . $this->plugin_name, [ $this, 'show_update_notification' ], 10, 2 );
+
+		add_action( 'update_option_WPLANG', function () {
+			$this->clean_get_version_cache();
+		} );
+
+		add_action( 'upgrader_process_complete', function () {
+			$this->clean_get_version_cache();
+		} );
 	}
 
 	public function delete_transients() {
@@ -49,23 +57,9 @@ class Updater {
 			$_transient_data = new \stdClass();
 		}
 
-		if ( empty( $_transient_data->checked ) ) {
-			return $_transient_data;
-		}
+		$version_info = API::get_version( false /* Use Cache */ );
 
-		$version_info = $this->get_transient( $this->response_transient_key );
-		if ( false === $version_info ) {
-			$version_info = API::get_version();
-
-			if ( is_wp_error( $version_info ) ) {
-				$version_info = new \stdClass();
-				$version_info->error = true;
-			}
-
-			$this->set_transient( $this->response_transient_key, $version_info );
-		}
-
-		if ( ! empty( $version_info->error ) ) {
+		if ( is_wp_error( $version_info ) ) {
 			return $_transient_data;
 		}
 
@@ -82,15 +76,20 @@ class Updater {
 			}
 		}
 
-		if ( version_compare( $this->plugin_version, $version_info['new_version'], '<' ) ) {
-			$plugin_info = (object) $version_info;
-			unset( $plugin_info->sections );
+		$plugin_info = (object) $version_info;
+		unset( $plugin_info->sections );
 
+		$plugin_info->plugin = $this->plugin_name;
+
+		if ( version_compare( $this->plugin_version, $version_info['new_version'], '<' ) ) {
 			$_transient_data->response[ $this->plugin_name ] = $plugin_info;
+			$_transient_data->checked[ $this->plugin_name ] = $version_info['new_version'];
+		} else {
+			$_transient_data->no_update[ $this->plugin_name ] = $plugin_info;
+			$_transient_data->checked[ $this->plugin_name ] = $this->plugin_version;
 		}
 
 		$_transient_data->last_checked = current_time( 'timestamp' );
-		$_transient_data->checked[ $this->plugin_name ] = $this->plugin_version;
 
 		if ( ! isset( $_transient_data->translations ) ) {
 			$_transient_data->translations = [];
@@ -147,6 +146,10 @@ class Updater {
 		if ( empty( $api_request_transient ) ) {
 			$api_response = API::get_version();
 
+			if ( is_wp_error( $api_response ) ) {
+				return $_data;
+			}
+
 			$api_request_transient = new \stdClass();
 
 			$api_request_transient->name = 'Elementor Pro';
@@ -163,6 +166,7 @@ class Updater {
 				'high' => 'https://ps.w.org/elementor/assets/banner-1544x500.png?rev=1494133',
 				'low' => 'https://ps.w.org/elementor/assets/banner-1544x500.png?rev=1494133',
 			];
+			$api_request_transient->autoupdate = true;
 
 			$api_request_transient->sections = unserialize( $api_response['sections'] );
 
@@ -228,6 +232,13 @@ class Updater {
 	}
 
 	protected function delete_transient( $cache_key ) {
+		delete_option( $cache_key );
+	}
+
+	private function clean_get_version_cache() {
+		// Since `API::get_version` holds the old language.
+		$cache_key = API::TRANSIENT_KEY_PREFIX . ELEMENTOR_PRO_VERSION;
+
 		delete_option( $cache_key );
 	}
 }

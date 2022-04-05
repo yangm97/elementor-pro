@@ -38,7 +38,7 @@ class Mailchimp_Handler {
 		];
 	}
 
-	private function query( $end_point ) {
+	public function query( $end_point ) {
 		$response = wp_remote_get( $this->api_base_url . $end_point, $this->api_request_args );
 
 		if ( is_wp_error( $response ) || 200 != (int) wp_remote_retrieve_response_code( $response ) ) {
@@ -65,13 +65,16 @@ class Mailchimp_Handler {
 		}
 
 		$body = json_decode( wp_remote_retrieve_body( $response ), true );
+		$code = (int) wp_remote_retrieve_response_code( $response );
 
-		if ( ! is_array( $body ) ) {
+		// Throw an exception if there is no response body.
+		// NOTE: HTTP 204 doesn't have a body.
+		if ( 204 !== $code && ! is_array( $body ) ) {
 			throw new \Exception( 'Mailchimp Error' );
 		}
 
 		return [
-			'code' => (int) wp_remote_retrieve_response_code( $response ),
+			'code' => $code,
 			'body' => $body,
 		];
 	}

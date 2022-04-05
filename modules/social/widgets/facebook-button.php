@@ -18,7 +18,7 @@ class Facebook_Button extends Base_Widget {
 	}
 
 	public function get_title() {
-		return __( 'Facebook Button', 'elementor-pro' );
+		return esc_html__( 'Facebook Button', 'elementor-pro' );
 	}
 
 	public function get_icon() {
@@ -29,11 +29,11 @@ class Facebook_Button extends Base_Widget {
 		return [ 'facebook', 'social', 'embed', 'button', 'like', 'share', 'recommend', 'follow' ];
 	}
 
-	protected function _register_controls() {
+	protected function register_controls() {
 		$this->start_controls_section(
 			'section_content',
 			[
-				'label' => __( 'Button', 'elementor-pro' ),
+				'label' => esc_html__( 'Button', 'elementor-pro' ),
 			]
 		);
 
@@ -42,27 +42,12 @@ class Facebook_Button extends Base_Widget {
 		$this->add_control(
 			'type',
 			[
-				'label' => __( 'Type', 'elementor-pro' ),
+				'label' => esc_html__( 'Type', 'elementor-pro' ),
 				'type' => Controls_Manager::SELECT,
 				'default' => 'like',
 				'options' => [
-					'like' => __( 'Like', 'elementor-pro' ),
-					'recommend' => __( 'Recommend', 'elementor-pro' ),
-					/* TODO: remove on 2.3 */
-					'follow' => __( 'Follow', 'elementor-pro' ) . ' (' . __( 'Deprecated', 'elementor-pro' ) . ')',
-				],
-			]
-		);
-
-		/* TODO: remove on 2.3 */
-		$this->add_control(
-			'follow_description',
-			[
-				'type' => Controls_Manager::RAW_HTML,
-				'raw' => __( 'The Follow button has been deprecated by Facebook and will no longer work.', 'elementor-pro' ),
-				'content_classes' => 'elementor-descriptor',
-				'condition' => [
-					'type' => 'follow',
+					'like' => esc_html__( 'Like', 'elementor-pro' ),
+					'recommend' => esc_html__( 'Recommend', 'elementor-pro' ),
 				],
 			]
 		);
@@ -70,14 +55,14 @@ class Facebook_Button extends Base_Widget {
 		$this->add_control(
 			'layout',
 			[
-				'label' => __( 'Layout', 'elementor-pro' ),
+				'label' => esc_html__( 'Layout', 'elementor-pro' ),
 				'type' => Controls_Manager::SELECT,
 				'default' => 'standard',
 				'options' => [
-					'standard' => __( 'Standard', 'elementor-pro' ),
-					'button' => __( 'Button', 'elementor-pro' ),
-					'button_count' => __( 'Button Count', 'elementor-pro' ),
-					'box_count' => __( 'Box Count', 'elementor-pro' ),
+					'standard' => esc_html__( 'Standard', 'elementor-pro' ),
+					'button' => esc_html__( 'Button', 'elementor-pro' ),
+					'button_count' => esc_html__( 'Button Count', 'elementor-pro' ),
+					'box_count' => esc_html__( 'Box Count', 'elementor-pro' ),
 				],
 			]
 		);
@@ -85,12 +70,12 @@ class Facebook_Button extends Base_Widget {
 		$this->add_control(
 			'size',
 			[
-				'label' => __( 'Size', 'elementor-pro' ),
+				'label' => esc_html__( 'Size', 'elementor-pro' ),
 				'type' => Controls_Manager::SELECT,
 				'default' => 'small',
 				'options' => [
-					'small' => __( 'Small', 'elementor-pro' ),
-					'large' => __( 'Large', 'elementor-pro' ),
+					'small' => esc_html__( 'Small', 'elementor-pro' ),
+					'large' => esc_html__( 'Large', 'elementor-pro' ),
 				],
 			]
 		);
@@ -98,12 +83,12 @@ class Facebook_Button extends Base_Widget {
 		$this->add_control(
 			'color_scheme',
 			[
-				'label' => __( 'Color Scheme', 'elementor-pro' ),
+				'label' => esc_html__( 'Color Scheme', 'elementor-pro' ),
 				'type' => Controls_Manager::SELECT,
 				'default' => 'light',
 				'options' => [
-					'light' => __( 'Light', 'elementor-pro' ),
-					'dark' => __( 'Dark', 'elementor-pro' ),
+					'light' => esc_html__( 'Light', 'elementor-pro' ),
+					'dark' => esc_html__( 'Dark', 'elementor-pro' ),
 				],
 			]
 		);
@@ -111,7 +96,7 @@ class Facebook_Button extends Base_Widget {
 		$this->add_control(
 			'show_share',
 			[
-				'label' => __( 'Share Button', 'elementor-pro' ),
+				'label' => esc_html__( 'Share Button', 'elementor-pro' ),
 				'type' => Controls_Manager::SWITCHER,
 				'default' => '',
 				'condition' => [
@@ -123,7 +108,7 @@ class Facebook_Button extends Base_Widget {
 		$this->add_control(
 			'show_faces',
 			[
-				'label' => __( 'Faces', 'elementor-pro' ),
+				'label' => esc_html__( 'Faces', 'elementor-pro' ),
 				'type' => Controls_Manager::SWITCHER,
 				'default' => '',
 			]
@@ -132,11 +117,11 @@ class Facebook_Button extends Base_Widget {
 		$this->add_control(
 			'url_type',
 			[
-				'label' => __( 'Target URL', 'elementor-pro' ),
+				'label' => esc_html__( 'Target URL', 'elementor-pro' ),
 				'type' => Controls_Manager::SELECT,
 				'options' => [
-					Module::URL_TYPE_CURRENT_PAGE => __( 'Current Page', 'elementor-pro' ),
-					Module::URL_TYPE_CUSTOM => __( 'Custom', 'elementor-pro' ),
+					Module::URL_TYPE_CURRENT_PAGE => esc_html__( 'Current Page', 'elementor-pro' ),
+					Module::URL_TYPE_CUSTOM => esc_html__( 'Custom', 'elementor-pro' ),
 				],
 				'default' => Module::URL_TYPE_CURRENT_PAGE,
 				'separator' => 'before',
@@ -149,11 +134,11 @@ class Facebook_Button extends Base_Widget {
 		$this->add_control(
 			'url_format',
 			[
-				'label' => __( 'URL Format', 'elementor-pro' ),
+				'label' => esc_html__( 'URL Format', 'elementor-pro' ),
 				'type' => Controls_Manager::SELECT,
 				'options' => [
-					Module::URL_FORMAT_PLAIN => __( 'Plain Permalink', 'elementor-pro' ),
-					Module::URL_FORMAT_PRETTY => __( 'Pretty Permalink', 'elementor-pro' ),
+					Module::URL_FORMAT_PLAIN => esc_html__( 'Plain Permalink', 'elementor-pro' ),
+					Module::URL_FORMAT_PRETTY => esc_html__( 'Pretty Permalink', 'elementor-pro' ),
 				],
 				'default' => Module::URL_FORMAT_PLAIN,
 				'condition' => [
@@ -165,8 +150,8 @@ class Facebook_Button extends Base_Widget {
 		$this->add_control(
 			'url',
 			[
-				'label' => __( 'Link', 'elementor-pro' ),
-				'placeholder' => __( 'https://your-link.com', 'elementor-pro' ),
+				'label' => esc_html__( 'Link', 'elementor-pro' ),
+				'placeholder' => esc_html__( 'https://your-link.com', 'elementor-pro' ),
 				'label_block' => true,
 				'condition' => [
 					'type' => [ 'like', 'recommend' ],
@@ -183,18 +168,11 @@ class Facebook_Button extends Base_Widget {
 
 		// Validate URL
 		switch ( $settings['type'] ) {
-			/* TODO: remove on 2.3 */
-			case 'follow':
-				if ( Plugin::elementor()->editor->is_edit_mode() ) {
-					echo __( 'The Follow button has been deprecated by Facebook and will no longer work.', 'elementor-pro' );
-
-				}
-				return;
 			case 'like':
 			case 'recommend':
 				if ( Module::URL_TYPE_CUSTOM === $settings['url_type'] && ! filter_var( $settings['url'], FILTER_VALIDATE_URL ) ) {
 					if ( Plugin::elementor()->editor->is_edit_mode() ) {
-						echo $this->get_title() . ': ' . esc_html__( 'Please enter a valid URL', 'elementor-pro' ); // XSS ok.
+						echo $this->get_title() . ': ' . esc_html__( 'Please enter a valid URL', 'elementor-pro' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					}
 
 					return;
@@ -226,9 +204,14 @@ class Facebook_Button extends Base_Widget {
 		}
 
 		$this->add_render_attribute( 'embed_div', $attributes );
-
-		echo '<div ' . $this->get_render_attribute_string( 'embed_div' ) . '></div>'; // XSS ok.
+		?>
+		<div <?php $this->print_render_attribute_string( 'embed_div' ); ?>></div>
+		<?php
 	}
 
 	public function render_plain_content() {}
+
+	public function get_group_name() {
+		return 'social';
+	}
 }

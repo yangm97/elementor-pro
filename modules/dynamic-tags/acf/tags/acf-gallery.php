@@ -15,7 +15,7 @@ class ACF_Gallery extends Data_Tag {
 	}
 
 	public function get_title() {
-		return __( 'ACF', 'elementor-pro' ) . ' ' . __( 'Gallery Field', 'elementor-pro' );
+		return esc_html__( 'ACF', 'elementor-pro' ) . ' ' . esc_html__( 'Gallery Field', 'elementor-pro' );
 	}
 
 	public function get_categories() {
@@ -53,7 +53,7 @@ class ACF_Gallery extends Data_Tag {
 		return $images;
 	}
 
-	protected function _register_controls() {
+	protected function register_controls() {
 		Module::add_key_control( $this );
 	}
 

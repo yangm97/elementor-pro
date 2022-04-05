@@ -5,6 +5,7 @@ use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
 use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 use Elementor\Group_Control_Image_Size;
 use Elementor\Group_Control_Typography;
+use Elementor\Utils;
 use ElementorPro\Base\Base_Widget;
 use ElementorPro\Modules\QueryControl\Module as Module_Query;
 use ElementorPro\Modules\QueryControl\Controls\Group_Control_Related;
@@ -31,7 +32,7 @@ class Portfolio extends Base_Widget {
 	}
 
 	public function get_title() {
-		return __( 'Portfolio', 'elementor-pro' );
+		return esc_html__( 'Portfolio', 'elementor-pro' );
 	}
 
 	public function get_icon() {
@@ -47,7 +48,7 @@ class Portfolio extends Base_Widget {
 	}
 
 	public function on_import( $element ) {
-		if ( ! get_post_type_object( $element['settings']['posts_post_type'] ) ) {
+		if ( isset( $element['settings']['posts_post_type'] ) && ! get_post_type_object( $element['settings']['posts_post_type'] ) ) {
 			$element['settings']['posts_post_type'] = 'post';
 		}
 
@@ -58,7 +59,7 @@ class Portfolio extends Base_Widget {
 		return $this->_query;
 	}
 
-	protected function _register_controls() {
+	protected function register_controls() {
 		$this->register_query_section_controls();
 	}
 
@@ -66,7 +67,7 @@ class Portfolio extends Base_Widget {
 		$this->start_controls_section(
 			'section_layout',
 			[
-				'label' => __( 'Layout', 'elementor-pro' ),
+				'label' => esc_html__( 'Layout', 'elementor-pro' ),
 				'tab' => Controls_Manager::TAB_CONTENT,
 			]
 		);
@@ -74,7 +75,7 @@ class Portfolio extends Base_Widget {
 		$this->add_responsive_control(
 			'columns',
 			[
-				'label' => __( 'Columns', 'elementor-pro' ),
+				'label' => esc_html__( 'Columns', 'elementor-pro' ),
 				'type' => Controls_Manager::SELECT,
 				'default' => '3',
 				'tablet_default' => '2',
@@ -98,7 +99,7 @@ class Portfolio extends Base_Widget {
 		$this->add_control(
 			'posts_per_page',
 			[
-				'label' => __( 'Posts Per Page', 'elementor-pro' ),
+				'label' => esc_html__( 'Posts Per Page', 'elementor-pro' ),
 				'type' => Controls_Manager::NUMBER,
 				'default' => 6,
 			]
@@ -117,10 +118,10 @@ class Portfolio extends Base_Widget {
 		$this->add_control(
 			'masonry',
 			[
-				'label' => __( 'Masonry', 'elementor-pro' ),
+				'label' => esc_html__( 'Masonry', 'elementor-pro' ),
 				'type' => Controls_Manager::SWITCHER,
-				'label_off' => __( 'Off', 'elementor-pro' ),
-				'label_on' => __( 'On', 'elementor-pro' ),
+				'label_off' => esc_html__( 'Off', 'elementor-pro' ),
+				'label_on' => esc_html__( 'On', 'elementor-pro' ),
 				'condition' => [
 					'columns!' => '1',
 				],
@@ -132,7 +133,7 @@ class Portfolio extends Base_Widget {
 		$this->add_control(
 			'item_ratio',
 			[
-				'label' => __( 'Item Ratio', 'elementor-pro' ),
+				'label' => esc_html__( 'Item Ratio', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
 				'default' => [
 					'size' => 0.66,
@@ -158,18 +159,18 @@ class Portfolio extends Base_Widget {
 		$this->add_control(
 			'show_title',
 			[
-				'label' => __( 'Show Title', 'elementor-pro' ),
+				'label' => esc_html__( 'Show Title', 'elementor-pro' ),
 				'type' => Controls_Manager::SWITCHER,
 				'default' => 'yes',
-				'label_off' => __( 'Off', 'elementor-pro' ),
-				'label_on' => __( 'On', 'elementor-pro' ),
+				'label_off' => esc_html__( 'Off', 'elementor-pro' ),
+				'label_on' => esc_html__( 'On', 'elementor-pro' ),
 			]
 		);
 
 		$this->add_control(
 			'title_tag',
 			[
-				'label' => __( 'Title HTML Tag', 'elementor-pro' ),
+				'label' => esc_html__( 'Title HTML Tag', 'elementor-pro' ),
 				'type' => Controls_Manager::SELECT,
 				'options' => [
 					'h1' => 'H1',
@@ -194,7 +195,7 @@ class Portfolio extends Base_Widget {
 		$this->start_controls_section(
 			'section_query',
 			[
-				'label' => __( 'Query', 'elementor-pro' ),
+				'label' => esc_html__( 'Query', 'elementor-pro' ),
 				'tab' => Controls_Manager::TAB_CONTENT,
 			]
 		);
@@ -215,7 +216,7 @@ class Portfolio extends Base_Widget {
 		$this->start_controls_section(
 			'filter_bar',
 			[
-				'label' => __( 'Filter Bar', 'elementor-pro' ),
+				'label' => esc_html__( 'Filter Bar', 'elementor-pro' ),
 				'tab' => Controls_Manager::TAB_CONTENT,
 			]
 		);
@@ -223,17 +224,17 @@ class Portfolio extends Base_Widget {
 		$this->add_control(
 			'show_filter_bar',
 			[
-				'label' => __( 'Show', 'elementor-pro' ),
+				'label' => esc_html__( 'Show', 'elementor-pro' ),
 				'type' => Controls_Manager::SWITCHER,
-				'label_off' => __( 'Off', 'elementor-pro' ),
-				'label_on' => __( 'On', 'elementor-pro' ),
+				'label_off' => esc_html__( 'Off', 'elementor-pro' ),
+				'label_on' => esc_html__( 'On', 'elementor-pro' ),
 			]
 		);
 
 		$this->add_control(
 			'taxonomy',
 			[
-				'label' => __( 'Taxonomy', 'elementor-pro' ),
+				'label' => esc_html__( 'Taxonomy', 'elementor-pro' ),
 				'type' => Controls_Manager::SELECT2,
 				'label_block' => true,
 				'default' => [],
@@ -250,7 +251,7 @@ class Portfolio extends Base_Widget {
 		$this->start_controls_section(
 			'section_design_layout',
 			[
-				'label' => __( 'Items', 'elementor-pro' ),
+				'label' => esc_html__( 'Items', 'elementor-pro' ),
 				'tab' => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -263,7 +264,7 @@ class Portfolio extends Base_Widget {
 		$this->add_control(
 			'item_gap',
 			[
-				'label' => __( 'Item Gap', 'elementor-pro' ),
+				'label' => esc_html__( 'Item Gap', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
 				'selectors' => [
 					'{{WRAPPER}}' => '--grid-row-gap: {{SIZE}}{{UNIT}}; --grid-column-gap: {{SIZE}}{{UNIT}};',
@@ -276,7 +277,7 @@ class Portfolio extends Base_Widget {
 		$this->add_control(
 			'column_gap',
 			[
-				'label' => __( 'Columns Gap', 'elementor-pro' ),
+				'label' => esc_html__( 'Columns Gap', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
 				'range' => [
 					'px' => [
@@ -293,7 +294,7 @@ class Portfolio extends Base_Widget {
 		$this->add_control(
 			'row_gap',
 			[
-				'label' => __( 'Rows Gap', 'elementor-pro' ),
+				'label' => esc_html__( 'Rows Gap', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
 				'range' => [
 					'px' => [
@@ -311,7 +312,7 @@ class Portfolio extends Base_Widget {
 		$this->add_control(
 			'border_radius',
 			[
-				'label' => __( 'Border Radius', 'elementor-pro' ),
+				'label' => esc_html__( 'Border Radius', 'elementor-pro' ),
 				'type' => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%' ],
 				'selectors' => [
@@ -325,7 +326,7 @@ class Portfolio extends Base_Widget {
 		$this->start_controls_section(
 			'section_design_overlay',
 			[
-				'label' => __( 'Item Overlay', 'elementor-pro' ),
+				'label' => esc_html__( 'Item Overlay', 'elementor-pro' ),
 				'tab' => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -333,7 +334,7 @@ class Portfolio extends Base_Widget {
 		$this->add_control(
 			'color_background',
 			[
-				'label' => __( 'Background Color', 'elementor-pro' ),
+				'label' => esc_html__( 'Background Color', 'elementor-pro' ),
 				'type' => Controls_Manager::COLOR,
 				'global' => [
 					'default' => Global_Colors::COLOR_ACCENT,
@@ -347,7 +348,7 @@ class Portfolio extends Base_Widget {
 		$this->add_control(
 			'color_title',
 			[
-				'label' => __( 'Color', 'elementor-pro' ),
+				'label' => esc_html__( 'Color', 'elementor-pro' ),
 				'separator' => 'before',
 				'type' => Controls_Manager::COLOR,
 				'selectors' => [
@@ -378,7 +379,7 @@ class Portfolio extends Base_Widget {
 		$this->start_controls_section(
 			'section_design_filter',
 			[
-				'label' => __( 'Filter Bar', 'elementor-pro' ),
+				'label' => esc_html__( 'Filter Bar', 'elementor-pro' ),
 				'tab' => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_filter_bar' => 'yes',
@@ -389,7 +390,7 @@ class Portfolio extends Base_Widget {
 		$this->add_control(
 			'color_filter',
 			[
-				'label' => __( 'Color', 'elementor-pro' ),
+				'label' => esc_html__( 'Color', 'elementor-pro' ),
 				'type' => Controls_Manager::COLOR,
 				'global' => [
 					'default' => Global_Colors::COLOR_TEXT,
@@ -403,7 +404,7 @@ class Portfolio extends Base_Widget {
 		$this->add_control(
 			'color_filter_active',
 			[
-				'label' => __( 'Active Color', 'elementor-pro' ),
+				'label' => esc_html__( 'Active Color', 'elementor-pro' ),
 				'type' => Controls_Manager::COLOR,
 				'global' => [
 					'default' => Global_Colors::COLOR_PRIMARY,
@@ -428,7 +429,7 @@ class Portfolio extends Base_Widget {
 		$this->add_control(
 			'filter_item_spacing',
 			[
-				'label' => __( 'Space Between', 'elementor-pro' ),
+				'label' => esc_html__( 'Space Between', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
 				'default' => [
 					'size' => 10,
@@ -449,7 +450,7 @@ class Portfolio extends Base_Widget {
 		$this->add_control(
 			'filter_spacing',
 			[
-				'label' => __( 'Spacing', 'elementor-pro' ),
+				'label' => esc_html__( 'Spacing', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
 				'default' => [
 					'size' => 10,
@@ -544,11 +545,9 @@ class Portfolio extends Base_Widget {
 		$settings['thumbnail_size'] = [
 			'id' => get_post_thumbnail_id(),
 		];
-
-		$thumbnail_html = Group_Control_Image_Size::get_attachment_image_html( $settings, 'thumbnail_size' );
 		?>
 		<div class="elementor-portfolio-item__img elementor-post__thumbnail">
-			<?php echo $thumbnail_html; ?>
+			<?php Group_Control_Image_Size::print_attachment_image_html( $settings, 'thumbnail_size' ); ?>
 		</div>
 		<?php
 	}
@@ -576,9 +575,9 @@ class Portfolio extends Base_Widget {
 
 		?>
 		<ul class="elementor-portfolio__filters">
-			<li class="elementor-portfolio__filter elementor-active" data-filter="__all"><?php echo __( 'All', 'elementor-pro' ); ?></li>
+			<li class="elementor-portfolio__filter elementor-active" data-filter="__all"><?php echo esc_html__( 'All', 'elementor-pro' ); ?></li>
 			<?php foreach ( $terms as $term ) { ?>
-				<li class="elementor-portfolio__filter" data-filter="<?php echo esc_attr( $term->term_id ); ?>"><?php echo $term->name; ?></li>
+				<li class="elementor-portfolio__filter" data-filter="<?php echo esc_attr( $term->term_id ); ?>"><?php echo esc_html( $term->name ); ?></li>
 			<?php } ?>
 		</ul>
 		<?php
@@ -591,9 +590,9 @@ class Portfolio extends Base_Widget {
 
 		$tag = $this->get_settings( 'title_tag' );
 		?>
-		<<?php echo $tag; ?> class="elementor-portfolio-item__title">
+		<<?php Utils::print_validated_html_tag( $tag ); ?> class="elementor-portfolio-item__title">
 		<?php the_title(); ?>
-		</<?php echo $tag; ?>>
+		</<?php Utils::print_validated_html_tag( $tag ); ?>>
 		<?php
 	}
 
@@ -609,12 +608,13 @@ class Portfolio extends Base_Widget {
 		$tags_array = [];
 
 		foreach ( $post->tags as $tag ) {
-			$tags_array[] = '<span class="elementor-portfolio-item__tags__tag">' . $tag->name . '</span>';
+			$tags_array[] = '<span class="elementor-portfolio-item__tags__tag">' . esc_html( $tag->name ) . '</span>';
 		}
 
 		?>
 		<div class="elementor-portfolio-item__tags">
-			<?php echo implode( $separator, $tags_array ); ?>
+			<?php // PHPCS - `$separator`, `$separator` is safe. ?>
+			<?php echo implode( $separator, $tags_array ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 		</div>
 		<?php
 	}
@@ -632,9 +632,10 @@ class Portfolio extends Base_Widget {
 			implode( ' ', $tags_classes ),
 		];
 
+		// PHPCS - `get_permalink` is safe.
 		?>
 		<article <?php post_class( $classes ); ?>>
-			<a class="elementor-post__thumbnail__link" href="<?php echo get_permalink(); ?>">
+			<a class="elementor-post__thumbnail__link" href="<?php echo get_permalink(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>">
 		<?php
 	}
 
@@ -684,4 +685,7 @@ class Portfolio extends Base_Widget {
 
 	public function render_plain_content() {}
 
+	public function get_group_name() {
+		return 'posts';
+	}
 }

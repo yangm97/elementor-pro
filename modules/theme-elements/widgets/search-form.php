@@ -7,6 +7,8 @@ use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 use Elementor\Group_Control_Box_Shadow;
 use Elementor\Group_Control_Typography;
 use Elementor\Icons_Manager;
+use Elementor\Utils;
+use ElementorPro\Plugin;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -19,7 +21,7 @@ class Search_Form extends Base {
 	}
 
 	public function get_title() {
-		return __( 'Search Form', 'elementor-pro' );
+		return esc_html__( 'Search Form', 'elementor-pro' );
 	}
 
 	public function get_icon() {
@@ -37,24 +39,24 @@ class Search_Form extends Base {
 		return [];
 	}
 
-	protected function _register_controls() {
+	protected function register_controls() {
 		$this->start_controls_section(
 			'search_content',
 			[
-				'label' => __( 'Search Form', 'elementor-pro' ),
+				'label' => esc_html__( 'Search Form', 'elementor-pro' ),
 			]
 		);
 
 		$this->add_control(
 			'skin',
 			[
-				'label' => __( 'Skin', 'elementor-pro' ),
+				'label' => esc_html__( 'Skin', 'elementor-pro' ),
 				'type' => Controls_Manager::SELECT,
 				'default' => 'classic',
 				'options' => [
-					'classic' => __( 'Classic', 'elementor-pro' ),
-					'minimal' => __( 'Minimal', 'elementor-pro' ),
-					'full_screen' => __( 'Full Screen', 'elementor-pro' ),
+					'classic' => esc_html__( 'Classic', 'elementor-pro' ),
+					'minimal' => esc_html__( 'Minimal', 'elementor-pro' ),
+					'full_screen' => esc_html__( 'Full Screen', 'elementor-pro' ),
 				],
 				'prefix_class' => 'elementor-search-form--skin-',
 				'render_type' => 'template',
@@ -65,17 +67,17 @@ class Search_Form extends Base {
 		$this->add_control(
 			'placeholder',
 			[
-				'label' => __( 'Placeholder', 'elementor-pro' ),
+				'label' => esc_html__( 'Placeholder', 'elementor-pro' ),
 				'type' => Controls_Manager::TEXT,
 				'separator' => 'before',
-				'default' => __( 'Search', 'elementor-pro' ) . '...',
+				'default' => esc_html__( 'Search', 'elementor-pro' ) . '...',
 			]
 		);
 
 		$this->add_control(
 			'heading_button_content',
 			[
-				'label' => __( 'Button', 'elementor-pro' ),
+				'label' => esc_html__( 'Button', 'elementor-pro' ),
 				'type' => Controls_Manager::HEADING,
 				'separator' => 'before',
 				'condition' => [
@@ -87,12 +89,12 @@ class Search_Form extends Base {
 		$this->add_control(
 			'button_type',
 			[
-				'label' => __( 'Type', 'elementor-pro' ),
+				'label' => esc_html__( 'Type', 'elementor-pro' ),
 				'type' => Controls_Manager::SELECT,
 				'default' => 'icon',
 				'options' => [
-					'icon' => __( 'Icon', 'elementor-pro' ),
-					'text' => __( 'Text', 'elementor-pro' ),
+					'icon' => esc_html__( 'Icon', 'elementor-pro' ),
+					'text' => esc_html__( 'Text', 'elementor-pro' ),
 				],
 				'prefix_class' => 'elementor-search-form--button-type-',
 				'render_type' => 'template',
@@ -105,9 +107,9 @@ class Search_Form extends Base {
 		$this->add_control(
 			'button_text',
 			[
-				'label' => __( 'Text', 'elementor-pro' ),
+				'label' => esc_html__( 'Text', 'elementor-pro' ),
 				'type' => Controls_Manager::TEXT,
-				'default' => __( 'Search', 'elementor-pro' ),
+				'default' => esc_html__( 'Search', 'elementor-pro' ),
 				'separator' => 'after',
 				'condition' => [
 					'button_type' => 'text',
@@ -119,16 +121,16 @@ class Search_Form extends Base {
 		$this->add_control(
 			'icon',
 			[
-				'label' => __( 'Icon', 'elementor-pro' ),
+				'label' => esc_html__( 'Icon', 'elementor-pro' ),
 				'type' => Controls_Manager::CHOOSE,
 				'default' => 'search',
 				'options' => [
 					'search' => [
-						'title' => __( 'Search', 'elementor-pro' ),
+						'title' => esc_html__( 'Search', 'elementor-pro' ),
 						'icon' => 'eicon-search',
 					],
 					'arrow' => [
-						'title' => __( 'Arrow', 'elementor-pro' ),
+						'title' => esc_html__( 'Arrow', 'elementor-pro' ),
 						'icon' => 'eicon-arrow-right',
 					],
 				],
@@ -144,7 +146,7 @@ class Search_Form extends Base {
 		$this->add_control(
 			'size',
 			[
-				'label' => __( 'Size', 'elementor-pro' ),
+				'label' => esc_html__( 'Size', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
 				'default' => [
 					'size' => 50,
@@ -165,7 +167,7 @@ class Search_Form extends Base {
 		$this->add_control(
 			'toggle_button_content',
 			[
-				'label' => __( 'Toggle', 'elementor-pro' ),
+				'label' => esc_html__( 'Toggle', 'elementor-pro' ),
 				'type' => Controls_Manager::HEADING,
 				'separator' => 'before',
 				'condition' => [
@@ -177,20 +179,20 @@ class Search_Form extends Base {
 		$this->add_control(
 			'toggle_align',
 			[
-				'label' => __( 'Alignment', 'elementor-pro' ),
+				'label' => esc_html__( 'Alignment', 'elementor-pro' ),
 				'type' => Controls_Manager::CHOOSE,
 				'default' => 'center',
 				'options' => [
 					'left' => [
-						'title' => __( 'Left', 'elementor-pro' ),
+						'title' => esc_html__( 'Left', 'elementor-pro' ),
 						'icon' => 'eicon-h-align-left',
 					],
 					'center' => [
-						'title' => __( 'Center', 'elementor-pro' ),
+						'title' => esc_html__( 'Center', 'elementor-pro' ),
 						'icon' => 'eicon-h-align-center',
 					],
 					'right' => [
-						'title' => __( 'Right', 'elementor-pro' ),
+						'title' => esc_html__( 'Right', 'elementor-pro' ),
 						'icon' => 'eicon-h-align-right',
 					],
 				],
@@ -206,13 +208,13 @@ class Search_Form extends Base {
 		$this->add_control(
 			'toggle_size',
 			[
-				'label' => __( 'Size', 'elementor-pro' ),
+				'label' => esc_html__( 'Size', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
 				'default' => [
 					'size' => 33,
 				],
 				'selectors' => [
-					'{{WRAPPER}} .elementor-search-form__toggle i' => 'font-size: {{SIZE}}{{UNIT}}; width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} .elementor-search-form__toggle' => '--e-search-form-toggle-size: {{SIZE}}{{UNIT}}',
 				],
 				'condition' => [
 					'skin' => 'full_screen',
@@ -225,7 +227,7 @@ class Search_Form extends Base {
 		$this->start_controls_section(
 			'section_input_style',
 			[
-				'label' => __( 'Input', 'elementor-pro' ),
+				'label' => esc_html__( 'Input', 'elementor-pro' ),
 				'tab' => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -233,7 +235,7 @@ class Search_Form extends Base {
 		$this->add_responsive_control(
 			'icon_size_minimal',
 			[
-				'label' => __( 'Icon Size', 'elementor-pro' ),
+				'label' => esc_html__( 'Icon Size', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
 				'range' => [
 					'px' => [
@@ -242,7 +244,7 @@ class Search_Form extends Base {
 					],
 				],
 				'selectors' => [
-					'{{WRAPPER}} .elementor-search-form__icon' => 'font-size: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} .elementor-search-form__icon' => '--e-search-form-icon-size-minimal: {{SIZE}}{{UNIT}}',
 				],
 				'condition' => [
 					'skin' => 'minimal',
@@ -254,7 +256,7 @@ class Search_Form extends Base {
 		$this->add_control(
 			'overlay_background_color',
 			[
-				'label' => __( 'Overlay Color', 'elementor-pro' ),
+				'label' => esc_html__( 'Overlay Color', 'elementor-pro' ),
 				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}}.elementor-search-form--skin-full_screen .elementor-search-form__container' => 'background-color: {{VALUE}}',
@@ -281,14 +283,14 @@ class Search_Form extends Base {
 		$this->start_controls_tab(
 			'tab_input_normal',
 			[
-				'label' => __( 'Normal', 'elementor-pro' ),
+				'label' => esc_html__( 'Normal', 'elementor-pro' ),
 			]
 		);
 
 		$this->add_control(
 			'input_text_color',
 			[
-				'label' => __( 'Text Color', 'elementor-pro' ),
+				'label' => esc_html__( 'Text Color', 'elementor-pro' ),
 				'type' => Controls_Manager::COLOR,
 				'global' => [
 					'default' => Global_Colors::COLOR_TEXT,
@@ -298,7 +300,7 @@ class Search_Form extends Base {
 					{{WRAPPER}} .elementor-search-form__icon,
 					{{WRAPPER}} .elementor-lightbox .dialog-lightbox-close-button,
 					{{WRAPPER}} .elementor-lightbox .dialog-lightbox-close-button:hover,
-					{{WRAPPER}}.elementor-search-form--skin-full_screen input[type="search"].elementor-search-form__input' => 'color: {{VALUE}}',
+					{{WRAPPER}}.elementor-search-form--skin-full_screen input[type="search"].elementor-search-form__input' => 'color: {{VALUE}}; fill: {{VALUE}}',
 				],
 			]
 		);
@@ -306,7 +308,7 @@ class Search_Form extends Base {
 		$this->add_control(
 			'input_background_color',
 			[
-				'label' => __( 'Background Color', 'elementor-pro' ),
+				'label' => esc_html__( 'Background Color', 'elementor-pro' ),
 				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}}:not(.elementor-search-form--skin-full_screen) .elementor-search-form__container' => 'background-color: {{VALUE}}',
@@ -321,7 +323,7 @@ class Search_Form extends Base {
 		$this->add_control(
 			'input_border_color',
 			[
-				'label' => __( 'Border Color', 'elementor-pro' ),
+				'label' => esc_html__( 'Border Color', 'elementor-pro' ),
 				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}}:not(.elementor-search-form--skin-full_screen) .elementor-search-form__container' => 'border-color: {{VALUE}}',
@@ -351,20 +353,20 @@ class Search_Form extends Base {
 		$this->start_controls_tab(
 			'tab_input_focus',
 			[
-				'label' => __( 'Focus', 'elementor-pro' ),
+				'label' => esc_html__( 'Focus', 'elementor-pro' ),
 			]
 		);
 
 		$this->add_control(
 			'input_text_color_focus',
 			[
-				'label' => __( 'Text Color', 'elementor-pro' ),
+				'label' => esc_html__( 'Text Color', 'elementor-pro' ),
 				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}}:not(.elementor-search-form--skin-full_screen) .elementor-search-form--focus .elementor-search-form__input,
 					{{WRAPPER}} .elementor-search-form--focus .elementor-search-form__icon,
 					{{WRAPPER}} .elementor-lightbox .dialog-lightbox-close-button:hover,
-					{{WRAPPER}}.elementor-search-form--skin-full_screen input[type="search"].elementor-search-form__input:focus' => 'color: {{VALUE}}',
+					{{WRAPPER}}.elementor-search-form--skin-full_screen input[type="search"].elementor-search-form__input:focus' => 'color: {{VALUE}}; fill: {{VALUE}}',
 				],
 			]
 		);
@@ -372,7 +374,7 @@ class Search_Form extends Base {
 		$this->add_control(
 			'input_background_color_focus',
 			[
-				'label' => __( 'Background Color', 'elementor-pro' ),
+				'label' => esc_html__( 'Background Color', 'elementor-pro' ),
 				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}}:not(.elementor-search-form--skin-full_screen) .elementor-search-form--focus .elementor-search-form__container' => 'background-color: {{VALUE}}',
@@ -387,7 +389,7 @@ class Search_Form extends Base {
 		$this->add_control(
 			'input_border_color_focus',
 			[
-				'label' => __( 'Border Color', 'elementor-pro' ),
+				'label' => esc_html__( 'Border Color', 'elementor-pro' ),
 				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}}:not(.elementor-search-form--skin-full_screen) .elementor-search-form--focus .elementor-search-form__container' => 'border-color: {{VALUE}}',
@@ -419,7 +421,7 @@ class Search_Form extends Base {
 		$this->add_control(
 			'button_border_width',
 			[
-				'label' => __( 'Border Size', 'elementor-pro' ),
+				'label' => esc_html__( 'Border Size', 'elementor-pro' ),
 				'type' => Controls_Manager::DIMENSIONS,
 				'selectors' => [
 					'{{WRAPPER}}:not(.elementor-search-form--skin-full_screen) .elementor-search-form__container' => 'border-width: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
@@ -432,7 +434,7 @@ class Search_Form extends Base {
 		$this->add_responsive_control(
 			'border_radius',
 			[
-				'label' => __( 'Border Radius', 'elementor-pro' ),
+				'label' => esc_html__( 'Border Radius', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
 				'range' => [
 					'px' => [
@@ -456,7 +458,7 @@ class Search_Form extends Base {
 		$this->start_controls_section(
 			'section_button_style',
 			[
-				'label' => __( 'Button', 'elementor-pro' ),
+				'label' => esc_html__( 'Button', 'elementor-pro' ),
 				'tab' => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'skin' => 'classic',
@@ -483,17 +485,17 @@ class Search_Form extends Base {
 		$this->start_controls_tab(
 			'tab_button_normal',
 			[
-				'label' => __( 'Normal', 'elementor-pro' ),
+				'label' => esc_html__( 'Normal', 'elementor-pro' ),
 			]
 		);
 
 		$this->add_control(
 			'button_text_color',
 			[
-				'label' => __( 'Text Color', 'elementor-pro' ),
+				'label' => esc_html__( 'Text Color', 'elementor-pro' ),
 				'type' => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .elementor-search-form__submit' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .elementor-search-form__submit' => '--e-search-form-submit-text-color: {{VALUE}}',
 				],
 			]
 		);
@@ -501,7 +503,7 @@ class Search_Form extends Base {
 		$this->add_control(
 			'button_background_color',
 			[
-				'label' => __( 'Background Color', 'elementor-pro' ),
+				'label' => esc_html__( 'Background Color', 'elementor-pro' ),
 				'type' => Controls_Manager::COLOR,
 				'global' => [
 					'default' => Global_Colors::COLOR_SECONDARY,
@@ -517,17 +519,17 @@ class Search_Form extends Base {
 		$this->start_controls_tab(
 			'tab_button_hover',
 			[
-				'label' => __( 'Hover', 'elementor-pro' ),
+				'label' => esc_html__( 'Hover', 'elementor-pro' ),
 			]
 		);
 
 		$this->add_control(
 			'button_text_color_hover',
 			[
-				'label' => __( 'Text Color', 'elementor-pro' ),
+				'label' => esc_html__( 'Text Color', 'elementor-pro' ),
 				'type' => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .elementor-search-form__submit:hover' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .elementor-search-form__submit:hover' => '--e-search-form-submit-text-color: {{VALUE}}',
 				],
 			]
 		);
@@ -535,7 +537,7 @@ class Search_Form extends Base {
 		$this->add_control(
 			'button_background_color_hover',
 			[
-				'label' => __( 'Background Color', 'elementor-pro' ),
+				'label' => esc_html__( 'Background Color', 'elementor-pro' ),
 				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .elementor-search-form__submit:hover' => 'background-color: {{VALUE}}',
@@ -550,7 +552,7 @@ class Search_Form extends Base {
 		$this->add_responsive_control(
 			'icon_size',
 			[
-				'label' => __( 'Icon Size', 'elementor-pro' ),
+				'label' => esc_html__( 'Icon Size', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
 				'range' => [
 					'px' => [
@@ -559,7 +561,7 @@ class Search_Form extends Base {
 					],
 				],
 				'selectors' => [
-					'{{WRAPPER}} .elementor-search-form__submit' => 'font-size: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} .elementor-search-form__submit' => '--e-search-form-submit-icon-size: {{SIZE}}{{UNIT}}',
 				],
 				'condition' => [
 					'button_type' => 'icon',
@@ -571,7 +573,7 @@ class Search_Form extends Base {
 		$this->add_responsive_control(
 			'button_width',
 			[
-				'label' => __( 'Width', 'elementor-pro' ),
+				'label' => esc_html__( 'Width', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
 				'range' => [
 					'px' => [
@@ -591,7 +593,7 @@ class Search_Form extends Base {
 		$this->start_controls_section(
 			'section_toggle_style',
 			[
-				'label' => __( 'Toggle', 'elementor-pro' ),
+				'label' => esc_html__( 'Toggle', 'elementor-pro' ),
 				'tab' => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'skin' => 'full_screen',
@@ -604,17 +606,17 @@ class Search_Form extends Base {
 		$this->start_controls_tab(
 			'tab_toggle_normal',
 			[
-				'label' => __( 'Normal', 'elementor-pro' ),
+				'label' => esc_html__( 'Normal', 'elementor-pro' ),
 			]
 		);
 
 		$this->add_control(
 			'toggle_color',
 			[
-				'label' => __( 'Color', 'elementor-pro' ),
+				'label' => esc_html__( 'Color', 'elementor-pro' ),
 				'type' => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .elementor-search-form__toggle' => 'color: {{VALUE}}; border-color: {{VALUE}}',
+					'{{WRAPPER}} .elementor-search-form__toggle' => '--e-search-form-toggle-color: {{VALUE}}',
 				],
 			]
 		);
@@ -622,10 +624,10 @@ class Search_Form extends Base {
 		$this->add_control(
 			'toggle_background_color',
 			[
-				'label' => __( 'Background Color', 'elementor-pro' ),
+				'label' => esc_html__( 'Background Color', 'elementor-pro' ),
 				'type' => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .elementor-search-form__toggle i' => 'background-color: {{VALUE}}',
+					'{{WRAPPER}} .elementor-search-form__toggle' => '--e-search-form-toggle-background-color: {{VALUE}}',
 				],
 			]
 		);
@@ -635,17 +637,17 @@ class Search_Form extends Base {
 		$this->start_controls_tab(
 			'tab_toggle_hover',
 			[
-				'label' => __( 'Hover', 'elementor-pro' ),
+				'label' => esc_html__( 'Hover', 'elementor-pro' ),
 			]
 		);
 
 		$this->add_control(
 			'toggle_color_hover',
 			[
-				'label' => __( 'Color', 'elementor-pro' ),
+				'label' => esc_html__( 'Color', 'elementor-pro' ),
 				'type' => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .elementor-search-form__toggle:hover' => 'color: {{VALUE}}; border-color: {{VALUE}}',
+					'{{WRAPPER}} .elementor-search-form__toggle:hover' => '--e-search-form-toggle-color: {{VALUE}}',
 				],
 			]
 		);
@@ -653,10 +655,10 @@ class Search_Form extends Base {
 		$this->add_control(
 			'toggle_background_color_hover',
 			[
-				'label' => __( 'Background Color', 'elementor-pro' ),
+				'label' => esc_html__( 'Background Color', 'elementor-pro' ),
 				'type' => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .elementor-search-form__toggle i:hover' => 'background-color: {{VALUE}}',
+					'{{WRAPPER}} .elementor-search-form__toggle:hover' => '--e-search-form-toggle-background-color: {{VALUE}}',
 				],
 			]
 		);
@@ -668,10 +670,10 @@ class Search_Form extends Base {
 		$this->add_control(
 			'toggle_icon_size',
 			[
-				'label' => __( 'Icon Size', 'elementor-pro' ),
+				'label' => esc_html__( 'Icon Size', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
 				'selectors' => [
-					'{{WRAPPER}} .elementor-search-form__toggle i:before' => 'font-size: calc({{SIZE}}em / 100)',
+					'{{WRAPPER}} .elementor-search-form__toggle' => '--e-search-form-toggle-icon-size: calc({{SIZE}}em / 100)',
 				],
 				'separator' => 'before',
 			]
@@ -680,7 +682,7 @@ class Search_Form extends Base {
 		$this->add_control(
 			'toggle_border_width',
 			[
-				'label' => __( 'Border Width', 'elementor-pro' ),
+				'label' => esc_html__( 'Border Width', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
 				'range' => [
 					'px' => [
@@ -688,7 +690,7 @@ class Search_Form extends Base {
 					],
 				],
 				'selectors' => [
-					'{{WRAPPER}} .elementor-search-form__toggle i' => 'border-width: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} .elementor-search-form__toggle' => '--e-search-form-toggle-border-width: {{SIZE}}{{UNIT}}',
 				],
 				'separator' => 'before',
 			]
@@ -697,11 +699,11 @@ class Search_Form extends Base {
 		$this->add_control(
 			'toggle_border_radius',
 			[
-				'label' => __( 'Border Radius', 'elementor-pro' ),
+				'label' => esc_html__( 'Border Radius', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', '%' ],
 				'selectors' => [
-					'{{WRAPPER}} .elementor-search-form__toggle i' => 'border-radius: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} .elementor-search-form__toggle' => '--e-search-form-toggle-border-radius: {{SIZE}}{{UNIT}}',
 				],
 			]
 		);
@@ -717,63 +719,63 @@ class Search_Form extends Base {
 				'class' => 'elementor-search-form__input',
 				'type' => 'search',
 				'name' => 's',
-				'title' => __( 'Search', 'elementor-pro' ),
+				'title' => esc_html__( 'Search', 'elementor-pro' ),
 				'value' => get_search_query(),
 			]
 		);
 
 		// Set the selected icon.
-		$icon_class = '';
-		if ( 'icon' == $settings['button_type'] ) {
-			$icon_class = 'search';
+		$icon_class = 'search';
 
-			if ( 'arrow' == $settings['icon'] ) {
-				$icon_class = is_rtl() ? 'arrow-left' : 'arrow-right';
-			}
-
-			$this->add_render_attribute( 'icon', [
-				'class' => 'fa fa-' . $icon_class,
-			] );
+		if ( 'icon' === $settings['button_type'] && 'arrow' === $settings['icon'] ) {
+			$icon_class = is_rtl() ? 'arrow-left' : 'arrow-right';
 		}
 
-		$migration_allowed = Icons_Manager::is_migration_allowed();
+		$this->add_render_attribute( 'icon', [
+			'class' => 'fa fa-' . $icon_class,
+		] );
+
 		$icon = [
 			'value' => 'fas fa-' . $icon_class,
 			'library' => 'fa-solid',
 		];
 		?>
-		<form class="elementor-search-form" role="search" action="<?php echo home_url(); ?>" method="get">
+		<form class="elementor-search-form" role="search" action="<?php // PHPCS - the method home_url is safe.
+			echo home_url(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" method="get">
 			<?php do_action( 'elementor_pro/search_form/before_input', $this ); ?>
 			<?php if ( 'full_screen' === $settings['skin'] ) : ?>
 			<div class="elementor-search-form__toggle">
-				<?php if ( ! $migration_allowed || ! Icons_Manager::render_icon( $icon, [ 'aria-hidden' => 'true' ] ) ) { ?>
-					<i class="fa fa-search" aria-hidden="true"></i>
-				<?php } ?>
+				<?php $this->render_search_icon( $icon, [ 'aria-hidden' => 'true' ] ); ?>
 				<span class="elementor-screen-only"><?php esc_html_e( 'Search', 'elementor-pro' ); ?></span>
 			</div>
 			<?php endif; ?>
 			<div class="elementor-search-form__container">
 				<?php if ( 'minimal' === $settings['skin'] ) : ?>
 					<div class="elementor-search-form__icon">
-						<i class="fa fa-search" aria-hidden="true"></i>
+						<?php $this->render_search_icon( $icon, [ 'aria-hidden' => 'true' ] ); ?>
 						<span class="elementor-screen-only"><?php esc_html_e( 'Search', 'elementor-pro' ); ?></span>
 					</div>
 				<?php endif; ?>
-				<input <?php echo $this->get_render_attribute_string( 'input' ); ?>>
+				<input <?php $this->print_render_attribute_string( 'input' ); ?>>
 				<?php do_action( 'elementor_pro/search_form/after_input', $this ); ?>
 				<?php if ( 'classic' === $settings['skin'] ) : ?>
 					<button class="elementor-search-form__submit" type="submit" title="<?php esc_attr_e( 'Search', 'elementor-pro' ); ?>" aria-label="<?php esc_attr_e( 'Search', 'elementor-pro' ); ?>">
 						<?php if ( 'icon' === $settings['button_type'] ) : ?>
-							<i <?php echo $this->get_render_attribute_string( 'icon' ); ?> aria-hidden="true"></i>
+							<?php $this->render_search_icon( $icon, $this->get_render_attributes( 'icon' ) ); ?>
 							<span class="elementor-screen-only"><?php esc_html_e( 'Search', 'elementor-pro' ); ?></span>
 						<?php elseif ( ! empty( $settings['button_text'] ) ) : ?>
-							<?php echo $settings['button_text']; ?>
+							<?php $this->print_unescaped_setting( 'button_text' ); ?>
 						<?php endif; ?>
 					</button>
 				<?php endif; ?>
 				<?php if ( 'full_screen' === $settings['skin'] ) : ?>
 				<div class="dialog-lightbox-close-button dialog-close-button">
-					<i class="eicon-close" aria-hidden="true"></i>
+					<?php
+						Icons_Manager::render_icon( [
+							'library' => 'eicons',
+							'value' => 'eicon-close',
+						], [ 'aria-hidden' => 'true' ] );
+					?>
 					<span class="elementor-screen-only"><?php esc_html_e( 'Close', 'elementor-pro' ); ?></span>
 				</div>
 				<?php endif ?>
@@ -836,5 +838,24 @@ class Search_Form extends Base {
 			</div>
 		</form>
 		<?php
+	}
+
+	private function render_search_icon( $icon, $attributes = [] ) {
+		// When the experiment is active and the search icon renders as SVG, it needs additional container for the icon box border.
+		if ( Plugin::elementor()->experiments->is_feature_active( 'e_font_icon_svg' ) ) {
+			$icon_html = Icons_Manager::render_font_icon( $icon, $attributes );
+
+			Utils::print_unescaped_internal_string( sprintf( '<div class="e-font-icon-svg-container">%s</div>', $icon_html ) );
+		} else {
+			$migration_allowed = Icons_Manager::is_migration_allowed();
+
+			if ( ! $migration_allowed || ! Icons_Manager::render_icon( $icon, [ 'aria-hidden' => 'true' ] ) ) {
+				Utils::print_unescaped_internal_string( sprintf( '<i %s aria-hidden="true"></i>', esc_attr( $this->get_render_attribute_string( 'icon' ) ) ) );
+			}
+		}
+	}
+
+	public function get_group_name() {
+		return 'theme-elements';
 	}
 }

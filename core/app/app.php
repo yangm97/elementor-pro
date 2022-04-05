@@ -4,13 +4,14 @@ namespace ElementorPro\Core\App;
 use Elementor\Core\Base\App as BaseApp;
 use ElementorPro\Plugin;
 use ElementorPro\Core\App\Modules\SiteEditor\Module as SiteEditor;
+use ElementorPro\Core\App\Modules\KitLibrary\Module as KitLibrary;
+use ElementorPro\Core\App\Modules\Onboarding\Module as Onboarding;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
 class App extends BaseApp {
-
 	/**
 	 * Get module name.
 	 *
@@ -67,15 +68,29 @@ class App extends BaseApp {
 			true
 		);
 
-		wp_set_script_translations( 'elementor-pro-app', 'elementor-pro', ELEMENTOR_PRO_PATH . 'languages' );
+		wp_set_script_translations( 'elementor-pro-app', 'elementor-pro' );
+	}
+
+	private function enqueue_config() {
+		// If script didn't loaded, config is still relevant, enqueue without a file.
+		if ( ! wp_script_is( 'elementor-pro-app' ) ) {
+			wp_register_script( 'elementor-pro-app', false, [], ELEMENTOR_PRO_VERSION );
+			wp_enqueue_script( 'elementor-pro-app' );
+		}
 
 		$this->print_config( 'elementor-pro-app' );
 	}
 
 	public function __construct() {
 		$this->add_component( 'site-editor', new SiteEditor() );
+		$this->add_component( 'kit-library', new KitLibrary() );
+		$this->add_component( 'onboarding', new Onboarding() );
 
 		add_action( 'elementor/app/init', [ $this, 'init' ] );
+
+		add_action( 'elementor/common/after_register_scripts', function () {
+			$this->enqueue_config();
+		} );
 
 		add_action( 'elementor/init', [ $this, 'set_menu_url' ] );
 	}

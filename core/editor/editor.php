@@ -2,6 +2,7 @@
 namespace ElementorPro\Core\Editor;
 
 use Elementor\Core\Base\App;
+use ElementorPro\License\Admin as License_Admin;
 use ElementorPro\License\API as License_API;
 use ElementorPro\Plugin;
 
@@ -36,13 +37,10 @@ class Editor extends App {
 
 	public function get_init_settings() {
 		$settings = [
-			'i18n' => [
-				// 'edit_element' is here for Backwards Compatibility for Elementor Pro versions <3.1.0
-				'edit_element' => __( 'Edit %s', 'elementor-pro' ),
-			],
 			'isActive' => License_API::is_license_active(),
 			'urls' => [
 				'modules' => ELEMENTOR_PRO_MODULES_URL,
+				'connect' => License_Admin::get_url(),
 			],
 		];
 
@@ -85,15 +83,25 @@ class Editor extends App {
 			true
 		);
 
+		wp_set_script_translations( 'elementor-pro', 'elementor-pro' );
+
 		$this->print_config( 'elementor-pro' );
 	}
 
 	public function localize_settings( array $settings ) {
-		$connect_url = Plugin::instance()->license_admin->get_connect_url();
+		$settings['elementPromotionURL'] = Plugin::instance()->license_admin->get_connect_url([
+			'utm_source' => '%s', // Will be replaced in the frontend to the widget name
+			'utm_medium' => 'wp-dash',
+			'utm_campaign' => 'connect-and-activate-license',
+			'utm_content' => 'editor-widget-promotion',
+		]);
 
-		$settings['elementPromotionURL'] = $connect_url;
-		$settings['dynamicPromotionURL'] = $connect_url;
-		$settings['i18n']['see_it_in_action'] = __( 'Activate License', 'elementor-pro' );
+		$settings['dynamicPromotionURL'] = Plugin::instance()->license_admin->get_connect_url( [
+			'utm_source' => '%s', // Will be replaced in the frontend to the control name
+			'utm_medium' => 'wp-dash',
+			'utm_campaign' => 'connect-and-activate-license',
+			'utm_content' => 'editor-dynamic-promotion',
+		] );
 
 		return $settings;
 	}

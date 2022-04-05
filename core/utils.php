@@ -8,7 +8,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class Utils {
-
 	public static function get_public_post_types( $args = [] ) {
 		$post_type_args = [
 			// Default is the value $public.
@@ -108,52 +107,52 @@ class Utils {
 			}
 		} elseif ( is_search() ) {
 			/* translators: %s: Search term. */
-			$title = sprintf( __( 'Search Results for: %s', 'elementor-pro' ), get_search_query() );
+			$title = sprintf( esc_html__( 'Search Results for: %s', 'elementor-pro' ), get_search_query() );
 
 			if ( get_query_var( 'paged' ) ) {
 				/* translators: %s is the page number. */
-				$title .= sprintf( __( '&nbsp;&ndash; Page %s', 'elementor-pro' ), get_query_var( 'paged' ) );
+				$title .= sprintf( esc_html__( '&nbsp;&ndash; Page %s', 'elementor-pro' ), get_query_var( 'paged' ) );
 			}
 		} elseif ( is_category() ) {
 			$title = single_cat_title( '', false );
 
 			if ( $include_context ) {
 				/* translators: Category archive title. 1: Category name */
-				$title = sprintf( __( 'Category: %s', 'elementor-pro' ), $title );
+				$title = sprintf( esc_html__( 'Category: %s', 'elementor-pro' ), $title );
 			}
 		} elseif ( is_tag() ) {
 			$title = single_tag_title( '', false );
 			if ( $include_context ) {
 				/* translators: Tag archive title. 1: Tag name */
-				$title = sprintf( __( 'Tag: %s', 'elementor-pro' ), $title );
+				$title = sprintf( esc_html__( 'Tag: %s', 'elementor-pro' ), $title );
 			}
 		} elseif ( is_author() ) {
 			$title = '<span class="vcard">' . get_the_author() . '</span>';
 
 			if ( $include_context ) {
 				/* translators: Author archive title. 1: Author name */
-				$title = sprintf( __( 'Author: %s', 'elementor-pro' ), $title );
+				$title = sprintf( esc_html__( 'Author: %s', 'elementor-pro' ), $title );
 			}
 		} elseif ( is_year() ) {
 			$title = get_the_date( _x( 'Y', 'yearly archives date format', 'elementor-pro' ) );
 
 			if ( $include_context ) {
 				/* translators: Yearly archive title. 1: Year */
-				$title = sprintf( __( 'Year: %s', 'elementor-pro' ), $title );
+				$title = sprintf( esc_html__( 'Year: %s', 'elementor-pro' ), $title );
 			}
 		} elseif ( is_month() ) {
 			$title = get_the_date( _x( 'F Y', 'monthly archives date format', 'elementor-pro' ) );
 
 			if ( $include_context ) {
 				/* translators: Monthly archive title. 1: Month name and year */
-				$title = sprintf( __( 'Month: %s', 'elementor-pro' ), $title );
+				$title = sprintf( esc_html__( 'Month: %s', 'elementor-pro' ), $title );
 			}
 		} elseif ( is_day() ) {
 			$title = get_the_date( _x( 'F j, Y', 'daily archives date format', 'elementor-pro' ) );
 
 			if ( $include_context ) {
 				/* translators: Daily archive title. 1: Date */
-				$title = sprintf( __( 'Day: %s', 'elementor-pro' ), $title );
+				$title = sprintf( esc_html__( 'Day: %s', 'elementor-pro' ), $title );
 			}
 		} elseif ( is_tax( 'post_format' ) ) {
 			if ( is_tax( 'post_format', 'post-format-aside' ) ) {
@@ -180,7 +179,7 @@ class Utils {
 
 			if ( $include_context ) {
 				/* translators: Post type archive title. 1: Post type name */
-				$title = sprintf( __( 'Archives: %s', 'elementor-pro' ), $title );
+				$title = sprintf( esc_html__( 'Archives: %s', 'elementor-pro' ), $title );
 			}
 		} elseif ( is_tax() ) {
 			$title = single_term_title( '', false );
@@ -188,12 +187,12 @@ class Utils {
 			if ( $include_context ) {
 				$tax = get_taxonomy( get_queried_object()->taxonomy );
 				/* translators: Taxonomy term archive title. 1: Taxonomy singular name, 2: Current taxonomy term */
-				$title = sprintf( __( '%1$s: %2$s', 'elementor-pro' ), $tax->labels->singular_name, $title );
+				$title = sprintf( esc_html__( '%1$s: %2$s', 'elementor-pro' ), $tax->labels->singular_name, $title );
 			}
 		} elseif ( is_archive() ) {
-			$title = __( 'Archives', 'elementor-pro' );
+			$title = esc_html__( 'Archives', 'elementor-pro' );
 		} elseif ( is_404() ) {
-			$title = __( 'Page Not Found', 'elementor-pro' );
+			$title = esc_html__( 'Page Not Found', 'elementor-pro' );
 		} // End if().
 
 		/**
@@ -296,5 +295,23 @@ class Utils {
 		}
 
 		return $path;
+	}
+
+	/**
+	 * Remove words from a sentence.
+	 *
+	 * @param string  $text
+	 * @param integer $length
+	 *
+	 * @return string
+	 */
+	public static function trim_words( $text, $length ) {
+		if ( $length && str_word_count( $text ) > $length ) {
+			$text = explode( ' ', $text, $length + 1 );
+			unset( $text[ $length ] );
+			$text = implode( ' ', $text );
+		}
+
+		return $text;
 	}
 }

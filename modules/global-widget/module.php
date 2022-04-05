@@ -5,6 +5,7 @@ use Elementor\Core\Documents_Manager;
 use Elementor\Element_Base;
 use Elementor\TemplateLibrary\Source_Local;
 use ElementorPro\Base\Module_Base;
+use ElementorPro\Modules\GlobalWidget\Documents\Widget;
 use ElementorPro\Plugin;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -23,6 +24,8 @@ class Module extends Module_Base {
 		parent::__construct();
 
 		$this->add_hooks();
+
+		Plugin::elementor()->data_manager->register_controller_instance( new Data\Controller() );
 	}
 
 	public function get_widgets() {
@@ -65,16 +68,6 @@ class Module extends Module_Base {
 
 		$settings = array_replace_recursive( $settings, [
 			'widget_templates' => $widget_templates_content,
-			'i18n' => [
-				'unlink' => __( 'Unlink', 'elementor-pro' ),
-				'cancel' => __( 'Cancel', 'elementor-pro' ),
-				'unlink_widget' => __( 'Unlink Widget', 'elementor-pro' ),
-				'global' => __( 'Global', 'elementor-pro' ),
-				'dialog_confirm_unlink' => __( 'This will make the widget stop being global. It\'ll be reverted into being just a regular widget.', 'elementor-pro' ),
-				'global_widget_save_title' => __( 'Save your widget as a global widget', 'elementor-pro' ),
-				'global_widget_save_description' => __( 'You\'ll be able to add this global widget to multiple areas on your site, and edit it from one single place.', 'elementor-pro' ),
-				'linked_to_global' => __( 'Linked to Global', 'elementor-pro' ),
-			],
 		] );
 
 		return $settings;
@@ -138,8 +131,6 @@ class Module extends Module_Base {
 	}
 
 	/**
-	 * TODO: Remove. On Elementor 2.3.3 it's handled by the Documents Manager.
-	 *
 	 * Remove user edit capabilities.
 	 *
 	 * Filters the user capabilities to disable editing in admin.
@@ -149,43 +140,12 @@ class Module extends Module_Base {
 	 * @param array $args    Optional parameters passed to has_cap(), typically object ID.
 	 *
 	 * @return array
+	 * @deprecated 3.1.0
 	 */
 	public function remove_user_edit_cap( $allcaps, $caps, $args ) {
-		$capability = $args[0];
+		Plugin::elementor()->modules_manager->get_modules( 'dev-tools' )->deprecation->deprecated_function( __METHOD__, '3.1.0', 'Plugin::elementor()->documents->remove_user_edit_cap()' );
 
-		if ( empty( $args[2] ) ) {
-			return $allcaps;
-		}
-
-		global $pagenow;
-
-		if ( ! in_array( $pagenow, [ 'post.php', 'edit.php' ], true ) ) {
-			return $allcaps;
-		}
-
-		$post_id = $args[2];
-
-		if ( 'edit_post' !== $capability ) {
-			return $allcaps;
-		}
-
-		$post = get_post( $post_id );
-
-		if ( ! $post ) {
-			return $allcaps;
-		}
-
-		if ( Source_Local::CPT !== $post->post_type ) {
-			return $allcaps;
-		}
-
-		if ( ! $this->is_widget_template( $post_id ) ) {
-			return $allcaps;
-		}
-
-		$allcaps[ $caps[0] ] = false;
-
-		return $allcaps;
+		return Plugin::elementor()->documents->remove_user_edit_cap( $allcaps, $caps, $args );
 	}
 
 	public function is_widget_template( $template_id ) {
@@ -239,6 +199,32 @@ class Module extends Module_Base {
 		Plugin::elementor()->common->add_template( __DIR__ . '/views/panel-template.php' );
 	}
 
+	/**
+	 * Get document data.
+	 *
+	 * Used to manipulate data of global widgets.
+	 *
+	 * @param $data
+	 * @param $document
+	 *
+	 * @return array
+	 */
+	private function get_document_data( $data, $document ) {
+		// If not a global widget template document or does not have elements.
+		if ( ! ( $document instanceof Widget ) && ! empty( $data['elements'] ) ) {
+			$data['elements'] = Plugin::elementor()->db->iterate_data( $data['elements'], function( $element ) {
+				if ( ! empty( $element['templateID'] ) ) {
+					$element['originalWidgetType'] = $element['widgetType'];
+					$element['widgetType'] = 'global';
+				}
+
+				return $element;
+			} );
+		}
+
+		return $data;
+	}
+
 	private function add_hooks() {
 		add_action( 'elementor/documents/register', [ $this, 'register_documents' ] );
 		add_action( 'elementor/template-library/after_save_template', [ $this, 'set_template_widget_type_meta' ], 10, 2 );
@@ -250,8 +236,10 @@ class Module extends Module_Base {
 		add_filter( 'elementor/template-library/get_template', [ $this, 'filter_template_data' ] );
 		add_filter( 'elementor/element/get_child_type', [ $this, 'get_element_child_type' ], 10, 2 );
 		add_filter( 'elementor/utils/is_post_support', [ $this, 'is_post_type_support_elementor' ], 10, 3 );
-		add_filter( 'user_has_cap', [ $this, 'remove_user_edit_cap' ], 10, 3 );
 
 		add_filter( 'elementor/template_library/is_template_supports_export', [ $this, 'is_template_supports_export' ], 10, 2 );
+		add_filter( 'elementor/document/save/data', function ( $data, $document ) {
+			return $this->get_document_data( $data, $document );
+		}, 10, 2 );
 	}
 }

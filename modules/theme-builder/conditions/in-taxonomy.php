@@ -35,14 +35,14 @@ class In_Taxonomy extends Condition_Base {
 
 	public function get_label() {
 		/* translators: %s: Taxonomy label. */
-		return sprintf( __( 'In %s', 'elementor-pro' ), $this->taxonomy->labels->singular_name );
+		return sprintf( esc_html__( 'In %s', 'elementor-pro' ), $this->taxonomy->labels->singular_name );
 	}
 
 	public function check( $args ) {
 		return is_singular() && has_term( (int) $args['id'], $this->taxonomy->name );
 	}
 
-	protected function _register_controls() {
+	protected function register_controls() {
 		$this->add_control(
 			'taxonomy',
 			[

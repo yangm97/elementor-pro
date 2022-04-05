@@ -34,7 +34,11 @@ class Product_Post extends Post {
 	 * @static
 	 */
 	public static function get_title() {
-		return __( 'Product Post', 'elementor-pro' );
+		return esc_html__( 'Product Post', 'elementor-pro' );
+	}
+
+	public static function get_plural_title() {
+		return esc_html__( 'Product Posts', 'elementor-pro' );
 	}
 
 	protected static function get_editor_panel_categories() {
@@ -47,7 +51,7 @@ class Product_Post extends Post {
 			'theme-elements',
 			[
 				'woocommerce-elements-single' => [
-					'title' => __( 'Product', 'elementor-pro' ),
+					'title' => esc_html__( 'Product', 'elementor-pro' ),
 					'active' => false,
 				],
 			]

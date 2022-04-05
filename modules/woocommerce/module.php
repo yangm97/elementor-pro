@@ -1,15 +1,17 @@
 <?php
 namespace ElementorPro\Modules\Woocommerce;
 
-use Elementor\Core\Documents_Manager;
-use Elementor\Settings;
+use ElementorPro\Plugin;
 use ElementorPro\Base\Module_Base;
 use ElementorPro\Modules\ThemeBuilder\Classes\Conditions_Manager;
 use ElementorPro\Modules\Woocommerce\Conditions\Woocommerce;
 use ElementorPro\Modules\Woocommerce\Documents\Product;
 use ElementorPro\Modules\Woocommerce\Documents\Product_Post;
 use ElementorPro\Modules\Woocommerce\Documents\Product_Archive;
-use ElementorPro\Plugin;
+use Elementor\Utils;
+use Elementor\Core\Documents_Manager;
+use Elementor\Settings;
+use Elementor\Core\Common\Modules\Ajax\Module as Ajax;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -23,6 +25,7 @@ class Module extends Module_Base {
 
 	protected $docs_types = [];
 	protected $use_mini_cart_template;
+	protected $woocommerce_notices_elements = [];
 
 	public static function is_active() {
 		return class_exists( 'woocommerce' );
@@ -64,6 +67,12 @@ class Module extends Module_Base {
 			'Product_Additional_Information',
 			'Product_Related',
 			'Product_Upsell',
+
+			'Purchase_Summary',
+			'Checkout',
+			'Cart',
+			'My_Account',
+			'Notices',
 		];
 	}
 
@@ -100,11 +109,13 @@ class Module extends Module_Base {
 		$module = Plugin::elementor()->dynamic_tags;
 
 		$module->register_group( self::WOOCOMMERCE_GROUP, [
-			'title' => __( 'WooCommerce', 'elementor-pro' ),
+			'title' => esc_html__( 'WooCommerce', 'elementor-pro' ),
 		] );
 
 		foreach ( $tags as $tag ) {
-			$module->register_tag( 'ElementorPro\\Modules\\Woocommerce\\tags\\' . $tag );
+			$tag = 'ElementorPro\\Modules\\Woocommerce\\tags\\' . $tag;
+
+			$module->register( new $tag() );
 		}
 	}
 
@@ -143,24 +154,26 @@ class Module extends Module_Base {
 		$product_count = WC()->cart->get_cart_contents_count();
 		$sub_total = WC()->cart->get_cart_subtotal();
 		$counter_attr = 'data-counter="' . $product_count . '"';
-
 		?>
 		<div class="elementor-menu-cart__toggle elementor-button-wrapper">
-			<a id="elementor-menu-cart__toggle_button" href="#" class="elementor-button elementor-size-sm">
-				<span class="elementor-button-text"><?php echo $sub_total; ?></span>
-				<span class="elementor-button-icon" <?php echo $counter_attr; ?>>
-					<i class="eicon" aria-hidden="true"></i>
+			<a id="elementor-menu-cart__toggle_button" href="#" class="elementor-menu-cart__toggle_button elementor-button elementor-size-sm" aria-expanded="false">
+				<span class="elementor-button-text"><?php echo $sub_total; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+				<span class="elementor-button-icon" <?php echo $counter_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+					<i class="eicon"></i>
 					<span class="elementor-screen-only"><?php esc_html_e( 'Cart', 'elementor-pro' ); ?></span>
 				</span>
 			</a>
 		</div>
-
 		<?php
 	}
 
 	/**
-	 * Render menu cart markup.
+	 * Render Menu Cart
+	 *
 	 * The `widget_shopping_cart_content` div will be populated by woocommerce js.
+	 *
+	 * When in the editor we populate this on page load as we can't rely on the woocoommerce js to re-add the fragments
+	 * each time a widget us re-rendered.
 	 */
 	public static function render_menu_cart() {
 		if ( null === WC()->cart ) {
@@ -168,18 +181,25 @@ class Module extends Module_Base {
 		}
 
 		$widget_cart_is_hidden = apply_filters( 'woocommerce_widget_cart_is_hidden', false );
+		$is_edit_mode = Plugin::elementor()->editor->is_edit_mode();
 		?>
 		<div class="elementor-menu-cart__wrapper">
 			<?php if ( ! $widget_cart_is_hidden ) : ?>
-			<div class="elementor-menu-cart__container elementor-lightbox" aria-expanded="false">
-				<div class="elementor-menu-cart__main" aria-expanded="false">
-					<div class="elementor-menu-cart__close-button"></div>
-					<div class="widget_shopping_cart_content"></div>
+				<div class="elementor-menu-cart__toggle_wrapper">
+					<div class="elementor-menu-cart__container elementor-lightbox" aria-hidden="true">
+						<div class="elementor-menu-cart__main" aria-hidden="true">
+							<div class="elementor-menu-cart__close-button"></div>
+							<div class="widget_shopping_cart_content">
+								<?php if ( $is_edit_mode ) {
+									woocommerce_mini_cart();
+								} ?>
+							</div>
+						</div>
+					</div>
+					<?php self::render_menu_cart_toggle_button(); ?>
 				</div>
-			</div>
-				<?php self::render_menu_cart_toggle_button(); ?>
 			<?php endif; ?>
-			</div> <!-- close elementor-menu-cart__wrapper -->
+		</div> <!-- close elementor-menu-cart__wrapper -->
 		<?php
 	}
 
@@ -202,7 +222,7 @@ class Module extends Module_Base {
 		$menu_cart_toggle_button_html = ob_get_clean();
 
 		if ( ! empty( $menu_cart_toggle_button_html ) ) {
-			$fragments['body:not(.elementor-editor-active) div.elementor-element.elementor-widget.elementor-widget-woocommerce-menu-cart div.elementor-menu-cart__toggle.elementor-button-wrapper'] = $menu_cart_toggle_button_html;
+			$fragments['body div.elementor-widget.elementor-widget-woocommerce-menu-cart div.elementor-menu-cart__toggle'] = $menu_cart_toggle_button_html;
 		}
 
 		return $fragments;
@@ -224,7 +244,7 @@ class Module extends Module_Base {
 		$has_cart = is_a( WC()->cart, 'WC_Cart' );
 
 		if ( $has_cart ) {
-			$settings['menu_cart'] = [
+			$settings['woocommerce']['menu_cart'] = [
 				'cart_page_url' => wc_get_cart_url(),
 				'checkout_page_url' => wc_get_checkout_url(),
 			];
@@ -296,24 +316,367 @@ class Module extends Module_Base {
 			},
 			'fields' => [
 				self::OPTION_NAME_USE_MINI_CART => [
-					'label' => __( 'Mini Cart Template', 'elementor-pro' ),
+					'label' => esc_html__( 'Mini Cart Template', 'elementor-pro' ),
 					'field_args' => [
 						'type' => 'select',
 						'std' => 'initial',
 						'options' => [
 							'initial' => '', // Relevant until either menu-cart widget is used or option is explicitly set to 'no'.
-							'no' => __( 'Disable', 'elementor-pro' ),
-							'yes' => __( 'Enable', 'elementor-pro' ),
+							'no' => esc_html__( 'Disable', 'elementor-pro' ),
+							'yes' => esc_html__( 'Enable', 'elementor-pro' ),
 						],
-						'desc' => __( 'Set to `Disable` in order to use your Theme\'s or WooCommerce\'s mini-cart template instead of Elementor\'s.', 'elementor-pro' ),
+						'desc' => esc_html__( 'Set to `Disable` in order to use your Theme\'s or WooCommerce\'s mini-cart template instead of Elementor\'s.', 'elementor-pro' ),
 					],
 				],
 			],
 		] );
 	}
 
+	/**
+	 * Load Widget Before WooCommerce Ajax.
+	 *
+	 * When outputting the complex WooCommerce shortcodes (which we use in our widgets) e.g. Checkout, Cart, etc. WC
+	 * immediately does more ajax calls and retrieves updated html fragments based on the data in the forms that may
+	 * be autofilled by the current user's browser e.g. the Payment section holding the "Place order" button.
+	 *
+	 * This function can be hooked before any of these ajax calls and will look for the `elementorPostId` and
+	 * `elementorWidgetId` querysring we've appended to the forms `_wp_http_referer` url field and load the related
+	 * Elementor Widget before it starts to compile the html to be returned and added to the page.
+	 *
+	 * This is necessary for example in the Checkout Payment section where we modify the Terms & Conditions text
+	 * using settings from the widget.
+	 *
+	 * @since 3.5.0
+	 */
+	public function load_widget_before_wc_ajax() {
+		check_ajax_referer( 'update-order-review', 'security' );
+
+		$post_id = false;
+		$element_id = false;
+
+		if ( isset( $_POST['post_data'] ) ) {
+			parse_str( $_POST['post_data'], $post_data );
+
+			if ( isset( $post_data['_wp_http_referer'] ) ) {
+				$wp_http_referer = wp_unslash( $post_data['_wp_http_referer'] );
+
+				$wp_http_referer_query_string = wp_parse_url( $wp_http_referer, PHP_URL_QUERY );
+				parse_str( $wp_http_referer_query_string, $wp_http_referer_query_string );
+
+				if ( isset( $wp_http_referer_query_string['elementorPostId'] ) ) {
+					$post_id = $wp_http_referer_query_string['elementorPostId'];
+				}
+
+				if ( isset( $wp_http_referer_query_string['elementorWidgetId'] ) ) {
+					$element_id = $wp_http_referer_query_string['elementorWidgetId'];
+				}
+			}
+		}
+
+		if ( ! $post_id || ! $element_id ) {
+			return;
+		}
+
+		$document = Plugin::elementor()->documents->get( $post_id );
+
+		if ( $document ) {
+			$widget = Utils::find_element_recursive( $document->get_elements_data(), $element_id );
+
+			if ( $widget ) {
+				$widget = Plugin::elementor()->elements_manager->create_element_instance( $widget );
+				$widget->get_raw_data( false );
+				if ( method_exists( $widget, 'add_render_hooks' ) ) {
+					$widget->add_render_hooks();
+				}
+			}
+		}
+	}
+
+	/**
+	 * Elementor Woocommerce Checkout Login User
+	 *
+	 * Handle the Ajax call for the custom login form on the Checkout Widget
+	 *
+	 * @since 3.5.0
+	 */
+	public function elementor_woocommerce_checkout_login_user() {
+		if ( is_user_logged_in() ) {
+			wp_logout();
+		}
+
+		$error = false;
+		$error_message = '';
+
+		if ( ! wp_verify_nonce( $_POST['nonce'], 'woocommerce-login' ) ) {
+			$error = true;
+			/* translators: %s: Error. */
+			$error_message = sprintf( esc_html__( '%s Sorry, the nonce security check didn’t pass. Please reload the page and try again. You may want to try clearing your browser cache as a last attempt.', 'elementor-pro' ), '<strong>Error:</strong>' );
+		} else {
+			$info = [
+				'user_login' => trim( $_POST['username'] ),
+				'user_password' => trim( $_POST['password'] ),
+				'remember' => $_POST['remember'],
+			];
+
+			$user_signon = wp_signon( $info, false );
+
+			if ( is_wp_error( $user_signon ) ) {
+				$error = true;
+				$error_message = $user_signon->get_error_message();
+			}
+		}
+
+		if ( $error ) {
+			wc_add_notice(
+				$error_message,
+				'error'
+			);
+			$response = [
+				'logged_in' => false,
+				'message' => wc_print_notices( true ),
+			];
+		} else {
+			$response = [ 'logged_in' => true ];
+		}
+
+		echo wp_json_encode( $response );
+		wp_die();
+	}
+
+	/**
+	 * Print Woocommerce Shipping Message
+	 *
+	 * Format the shipping messages that will be displayed on the Cart and Checkout Widgets.
+	 * This will add extra classes to those messages so that we can target certain messages
+	 * with certain style controls.
+	 *
+	 * @since 3.5.0
+	 *
+	 * @param string $html the original HTML from WC
+	 * @param string $classes the classes we will surround $html with
+	 * @return string the final formatted HTML that will be rendered
+	 */
+	private function print_woocommerce_shipping_message( $html, $classes ) {
+		return '<span class="' . wp_sprintf( '%s', $classes ) . '">' . $html . '</span>';
+	}
+
+	/**
+	 * Register Ajax Actions.
+	 *
+	 * Registers ajax action used by the Editor js.
+	 *
+	 * @since 3.5.0
+	 *
+	 * @param Ajax $ajax
+	 */
+	public function register_ajax_actions( Ajax $ajax ) {
+		// `woocommerce_update_page_option` is called in the editor save-show-modal.js.
+		$ajax->register_ajax_action( 'pro_woocommerce_update_page_option', [ $this, 'update_page_option' ] );
+		$ajax->register_ajax_action( 'pro_woocommerce_mock_notices', [ $this, 'woocommerce_mock_notices' ] );
+	}
+
+	public function woocommerce_mock_notices( $data ) {
+		if ( in_array( 'wc_error', $data['notice_elements'], true ) ) {
+			/* translators: 1: Error notice text, 2: Error notice link. */
+			$notice_message = sprintf(
+				'%1$s <a href="#" class="wc-backward">%2$s</a>',
+				esc_html__( 'Oops, this is how an error notice would look.', 'elementor-pro' ),
+				esc_html__( 'Here\'s a link', 'elementor-pro' )
+			);
+			wc_add_notice( $notice_message, 'error' );
+		}
+
+		if ( in_array( 'wc_message', $data['notice_elements'], true ) ) {
+			/* translators: 1: Message notice button, 2: Message notice text, 3: Message notice link. */
+			$notice_message = sprintf(
+				'<a href="#" tabindex="1" class="button wc-forward">%1$s</a> %2$s <a href="#" class="restore-item">%3$s</a>',
+				esc_html__( 'Button', 'elementor-pro' ),
+				esc_html__( 'This is what a WooCommerce message notice looks like.', 'elementor-pro' ),
+				esc_html__( 'Here\'s a link', 'elementor-pro' )
+			);
+			wc_add_notice( $notice_message, 'success' );
+		}
+
+		if ( in_array( 'wc_info', $data['notice_elements'], true ) ) {
+			/* translators: 1: Info notice button, 2: Info notice text. */
+			$notice_message = sprintf(
+				'<a href="#" tabindex="1" class="button wc-forward">%1$s</a> %2$s',
+				esc_html__( 'Button', 'elementor-pro' ),
+				esc_html__( 'This is how WooCommerce provides an info notice.', 'elementor-pro' )
+			);
+			wc_add_notice( $notice_message, 'notice' );
+		}
+
+		return '<div class="woocommerce-notices-wrapper">' . wc_print_notices( true ) . '</div>';
+	}
+
+	/**
+	 * Update Page Option.
+	 *
+	 * Ajax action can be used to update any WooCommerce option.
+	 *
+	 * @since 3.5.0
+	 *
+	 * @param array $data
+	 */
+	public function update_page_option( $data ) {
+		update_option( $data['option_name'], $data['editor_post_id'] );
+	}
+
+	public function init_site_settings( \Elementor\Core\Kits\Documents\Kit $kit ) {
+		$kit->register_tab( 'settings-woocommerce', \ElementorPro\Modules\Woocommerce\Settings\Settings_Woocommerce::class );
+	}
+
+	/**
+	 * Add Update Kit Settings Hooks
+	 *
+	 * Add hooks that update the corresponding kit setting when the WooCommerce option is updated.
+	 */
+	public function add_update_kit_settings_hooks() {
+		add_action( 'update_option_woocommerce_cart_page_id', function( $old_value, $value ) {
+			Plugin::elementor()->kits_manager->update_kit_settings_based_on_option( 'woocommerce_cart_page_id', $value );
+		}, 10, 2 );
+
+		add_action( 'update_option_woocommerce_checkout_page_id', function( $old_value, $value ) {
+			Plugin::elementor()->kits_manager->update_kit_settings_based_on_option( 'woocommerce_checkout_page_id', $value );
+		}, 10, 2 );
+
+		add_action( 'update_option_woocommerce_myaccount_page_id', function( $old_value, $value ) {
+			Plugin::elementor()->kits_manager->update_kit_settings_based_on_option( 'woocommerce_myaccount_page_id', $value );
+		}, 10, 2 );
+
+		add_action( 'update_option_woocommerce_terms_page_id', function( $old_value, $value ) {
+			Plugin::elementor()->kits_manager->update_kit_settings_based_on_option( 'woocommerce_terms_page_id', $value );
+		}, 10, 2 );
+	}
+
+	/**
+	 * Elementor WC My Account Logout
+	 *
+	 * Programatically log out if $_REQUEST['elementor_wc_logout'] is set.
+	 * The $_REQUEST variables we have generated a custom logout URL for in the My Account menu.
+	 *
+	 * @since 3.5.0
+	 */
+	public function elementor_wc_my_account_logout() {
+		if ( ! empty( $_REQUEST['elementor_wc_logout'] ) && ! empty( $_REQUEST['_wpnonce'] ) && wp_verify_nonce( sanitize_key( $_REQUEST['_wpnonce'] ), 'customer-logout' ) ) {
+			wp_logout(); // Log the user out Programatically.
+			wp_safe_redirect( esc_url( $_REQUEST['elementor_my_account_redirect'] ) ); // Redirect back to the widget page.
+			exit;
+		}
+	}
+
+	/**
+	 * Add Localize Data
+	 *
+	 * Makes `woocommercePages` available with the page name and the associated post ID for use with the various
+	 * widgets site settings modal.
+	 *
+	 * @param $settings
+	 * @return array
+	 */
+	public function add_localize_data( $settings ) {
+		$settings['woocommerce']['woocommercePages'] = [
+			'checkout' => wc_get_page_id( 'checkout' ),
+			'cart' => wc_get_page_id( 'cart' ),
+			'myaccount' => wc_get_page_id( 'myaccount' ),
+			'purchase_summary' => get_option( 'elementor_woocommerce_purchase_summary_page_id' ),
+		];
+
+		return $settings;
+	}
+
+	/**
+	 * Localize Added To Cart On Product Single
+	 *
+	 * WooCommerce doesn't trigger `added_to_cart` event on its products single page which is required for us to
+	 * automatically open our Menu Cart if the settings is chosen. We make the `productAddedToCart` setting
+	 * available that we can use in the Menu Cart js to check if a product has just been added.
+	 *
+	 * @since 3.5.0
+	 */
+	public function localize_added_to_cart_on_product_single() {
+		add_filter( 'elementor_pro/frontend/localize_settings', function ( $settings ) {
+			$settings['woocommerce']['productAddedToCart'] = true;
+			return $settings;
+		} );
+	}
+
+	public function e_notices_body_classes( $classes ) {
+		foreach ( $this->woocommerce_notices_elements as $notice_element ) {
+			$classes[] = 'e-' . str_replace( '_', '-', $notice_element ) . '-notice ';
+		}
+
+		return $classes;
+	}
+
+	/**
+	 * Should load WC Notices Styles
+	 *
+	 * Determine if we should load the WooCommerce notices CSS.
+	 * It should only load:
+	 * - When we are in the Editor, regardless if any notices have been activated.
+	 * - If WooCoomerce is active.
+	 * - When we are on the front end, if at least one notice is activated.
+	 *
+	 * It should not load in WP Admin.
+	 *
+	 * @return boolean
+	 */
+	private function should_load_wc_notices_styles() {
+		$woocommerce_active = in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) );
+		$is_editor = ! empty( $_GET['elementor-preview'] );
+
+		// Editor checks.
+		if ( $woocommerce_active && $is_editor ) {
+			return true;
+		}
+
+		$kit = Plugin::elementor()->kits_manager->get_active_kit_for_frontend();
+		$this->woocommerce_notices_elements = is_array( $kit->get_settings_for_display( 'woocommerce_notices_elements' ) ) ? $kit->get_settings_for_display( 'woocommerce_notices_elements' ) : [];
+
+		// Front end checks.
+		if (
+			0 < count( $this->woocommerce_notices_elements ) // At least one notice has been activated.
+			&& $woocommerce_active // WooCommerce is active.
+			&& ( ! is_admin() || $is_editor ) // We are not in WP Admin.
+		) {
+			return true;
+		}
+
+		return false;
+	}
+
+	public function get_order_received_endpoint_url( $url, $endpoint, $value ) {
+		$order_received_endpoint = get_option( 'woocommerce_checkout_order_received_endpoint', 'order-received' );
+
+		if ( $order_received_endpoint === $endpoint ) {
+			$woocommerce_purchase_summary_page_id = get_option( 'elementor_woocommerce_purchase_summary_page_id' );
+			$order = wc_get_order( $value );
+
+			if ( $woocommerce_purchase_summary_page_id && $order ) {
+				$url = trailingslashit( trailingslashit( trailingslashit( get_permalink( $woocommerce_purchase_summary_page_id ) ) . $order_received_endpoint ) . $order->get_id() );
+			}
+		}
+
+		return $url;
+	}
+
+	public function maybe_define_woocommerce_checkout() {
+		$woocommerce_purchase_summary_page_id = get_option( 'elementor_woocommerce_purchase_summary_page_id' );
+
+		if ( $woocommerce_purchase_summary_page_id && intval( $woocommerce_purchase_summary_page_id ) === get_queried_object_id() ) {
+			if ( ! defined( 'WOOCOMMERCE_CHECKOUT' ) ) {
+				define( 'WOOCOMMERCE_CHECKOUT', true );
+			}
+		}
+	}
+
 	public function __construct() {
 		parent::__construct();
+
+		add_action( 'elementor/kit/register_tabs', [ $this, 'init_site_settings' ], 1, 40 );
+		$this->add_update_kit_settings_hooks();
 
 		$this->use_mini_cart_template = 'yes' === get_option( 'elementor_' . self::OPTION_NAME_USE_MINI_CART, 'no' );
 
@@ -322,18 +685,33 @@ class Module extends Module_Base {
 		}
 
 		add_action( 'elementor/editor/before_enqueue_scripts', [ $this, 'maybe_init_cart' ] );
-		add_action( 'elementor/dynamic_tags/register_tags', [ $this, 'register_tags' ] );
+		add_action( 'elementor/dynamic_tags/register', [ $this, 'register_tags' ] );
 		add_action( 'elementor/documents/register', [ $this, 'register_documents' ] );
 		add_action( 'elementor/theme/register_conditions', [ $this, 'register_conditions' ] );
+
+		add_action( 'wp_ajax_elementor_woocommerce_checkout_login_user', [ $this, 'elementor_woocommerce_checkout_login_user' ] );
+		add_action( 'wp_ajax_nopriv_elementor_woocommerce_checkout_login_user', [ $this, 'elementor_woocommerce_checkout_login_user' ] );
 
 		add_filter( 'elementor/theme/need_override_location', [ $this, 'theme_template_include' ], 10, 2 );
 
 		add_filter( 'elementor_pro/frontend/localize_settings', [ $this, 'localized_settings_frontend' ] );
 
+		// Load our widget Before WooCommerce Ajax. See the variable's PHPDoc for details.
+		add_action( 'woocommerce_checkout_update_order_review', [ $this, 'load_widget_before_wc_ajax' ] );
+
 		// On Editor - Register WooCommerce frontend hooks before the Editor init.
 		// Priority = 5, in order to allow plugins remove/add their wc hooks on init.
 		if ( ! empty( $_REQUEST['action'] ) && 'elementor' === $_REQUEST['action'] && is_admin() ) {
 			add_action( 'init', [ $this, 'register_wc_hooks' ], 5 );
+		}
+
+		// Allow viewing of Checkout page in the Editor with an empty cart.
+		if (
+			( ! empty( $_REQUEST['action'] ) && 'elementor' === $_REQUEST['action'] && is_admin() ) // Elementor Editor
+			|| ! empty( $_REQUEST['elementor-preview'] ) // Elementor Editor Preview
+			|| ( ! empty( $_REQUEST['action'] ) && 'elementor_ajax' === $_REQUEST['action'] ) // Elementor Editor Preview - Ajax Render Widget
+		) {
+			add_filter( 'woocommerce_checkout_redirect_empty_cart', '__return_false', 5 );
 		}
 
 		if ( $this->use_mini_cart_template ) {
@@ -342,5 +720,56 @@ class Module extends Module_Base {
 		}
 
 		add_filter( 'elementor/widgets/wordpress/widget_args', [ $this, 'woocommerce_wordpress_widget_css_class' ], 10, 2 );
+
+		add_action( 'elementor/ajax/register_actions', [ $this, 'register_ajax_actions' ] );
+
+		// Make the Logout redirect go to our my account widget page instead of the set My Account Page.
+		add_action( 'init', [ $this, 'elementor_wc_my_account_logout' ], 5 );
+
+		add_filter( 'elementor_pro/editor/localize_settings', [ $this, 'add_localize_data' ] );
+
+		add_action( 'wp', [ $this, 'maybe_define_woocommerce_checkout' ] );
+
+		add_filter( 'woocommerce_get_endpoint_url', [ $this, 'get_order_received_endpoint_url' ], 10, 3 );
+
+		// Filters for messages on the Shipping calculator
+		add_filter( 'woocommerce_shipping_may_be_available_html', function ( $html ) {
+			return $this->print_woocommerce_shipping_message( $html, 'woocommerce-shipping-may-be-available-html e-checkout-message e-cart-content' );
+		}, 10, 1 );
+
+		add_filter( 'woocommerce_shipping_not_enabled_on_cart_html', function ( $html ) {
+			return $this->print_woocommerce_shipping_message( $html, 'woocommerce-shipping-not_enabled-on-cart-html e-checkout-message e-cart-content' );
+		}, 10, 1 );
+
+		add_filter( 'woocommerce_shipping_estimate_html', function ( $html ) {
+			return $this->print_woocommerce_shipping_message( $html, 'woocommerce-shipping-estimate-html e-checkout-message e-cart-content' );
+		}, 10, 1 );
+
+		add_filter( 'woocommerce_cart_no_shipping_available_html', function ( $html ) {
+			return $this->print_woocommerce_shipping_message( $html, 'woocommerce-cart-no-shipping-available-html e-checkout-message e-cart-content' );
+		}, 10, 1 );
+
+		add_filter( 'woocommerce_no_available_payment_methods_message', function ( $html ) {
+			return $this->print_woocommerce_shipping_message( $html, 'woocommerce-no-available-payment-methods-message e-description' );
+		}, 10, 1 );
+
+		add_filter( 'woocommerce_no_shipping_available_html', function ( $html ) {
+			return $this->print_woocommerce_shipping_message( $html, 'woocommerce-no-shipping-available-html e-checkout-message' );
+		}, 10, 1 );
+
+		add_action( 'woocommerce_add_to_cart', [ $this, 'localize_added_to_cart_on_product_single' ] );
+
+		// WooCommerce Notice Site Settings
+		if ( $this->should_load_wc_notices_styles() ) {
+			add_filter( 'body_class', [ $this, 'e_notices_body_classes' ] );
+
+			// WooCommerce Notices CSS
+			wp_enqueue_style(
+				'e-woocommerce-notices',
+				ELEMENTOR_PRO_URL . 'assets/css/woocommerce-notices.min.css',
+				[],
+				ELEMENTOR_PRO_VERSION
+			);
+		}
 	}
 }

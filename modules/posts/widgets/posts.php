@@ -20,7 +20,7 @@ class Posts extends Posts_Base {
 	}
 
 	public function get_title() {
-		return __( 'Posts', 'elementor-pro' );
+		return esc_html__( 'Posts', 'elementor-pro' );
 	}
 
 	public function get_keywords() {
@@ -28,21 +28,21 @@ class Posts extends Posts_Base {
 	}
 
 	public function on_import( $element ) {
-		if ( ! get_post_type_object( $element['settings']['posts_post_type'] ) ) {
+		if ( isset( $element['settings']['posts_post_type'] ) && ! get_post_type_object( $element['settings']['posts_post_type'] ) ) {
 			$element['settings']['posts_post_type'] = 'post';
 		}
 
 		return $element;
 	}
 
-	protected function _register_skins() {
+	protected function register_skins() {
 		$this->add_skin( new Skins\Skin_Classic( $this ) );
 		$this->add_skin( new Skins\Skin_Cards( $this ) );
 		$this->add_skin( new Skins\Skin_Full_Content( $this ) );
 	}
 
-	protected function _register_controls() {
-		parent::_register_controls();
+	protected function register_controls() {
+		parent::register_controls();
 
 		$this->register_query_section_controls();
 		$this->register_pagination_section_controls();
@@ -64,7 +64,7 @@ class Posts extends Posts_Base {
 		$this->start_controls_section(
 			'section_query',
 			[
-				'label' => __( 'Query', 'elementor-pro' ),
+				'label' => esc_html__( 'Query', 'elementor-pro' ),
 				'tab' => Controls_Manager::TAB_CONTENT,
 			]
 		);

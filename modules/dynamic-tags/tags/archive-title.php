@@ -16,7 +16,7 @@ class Archive_Title extends Tag {
 	}
 
 	public function get_title() {
-		return __( 'Archive Title', 'elementor-pro' );
+		return esc_html__( 'Archive Title', 'elementor-pro' );
 	}
 
 	public function get_group() {
@@ -35,11 +35,11 @@ class Archive_Title extends Tag {
 		echo wp_kses_post( $title );
 	}
 
-	protected function _register_controls() {
+	protected function register_controls() {
 		$this->add_control(
 			'include_context',
 			[
-				'label' => __( 'Include Context', 'elementor-pro' ),
+				'label' => esc_html__( 'Include Context', 'elementor-pro' ),
 				'type' => Controls_Manager::SWITCHER,
 				'default' => 'yes',
 			]

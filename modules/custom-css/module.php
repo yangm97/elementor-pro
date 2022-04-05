@@ -98,7 +98,7 @@ class Module extends Module_Base {
 		$controls_stack->start_controls_section(
 			'section_custom_css',
 			[
-				'label' => __( 'Custom CSS', 'elementor-pro' ),
+				'label' => esc_html__( 'Custom CSS', 'elementor-pro' ),
 				'tab' => $old_section['tab'],
 			]
 		);
@@ -106,7 +106,7 @@ class Module extends Module_Base {
 		$controls_stack->add_control(
 			'custom_css_title',
 			[
-				'raw' => __( 'Add your own custom CSS here', 'elementor-pro' ),
+				'raw' => esc_html__( 'Add your own custom CSS here', 'elementor-pro' ),
 				'type' => Controls_Manager::RAW_HTML,
 			]
 		);
@@ -115,7 +115,7 @@ class Module extends Module_Base {
 			'custom_css',
 			[
 				'type' => Controls_Manager::CODE,
-				'label' => __( 'Custom CSS', 'elementor-pro' ),
+				'label' => esc_html__( 'Custom CSS', 'elementor-pro' ),
 				'language' => 'css',
 				'render_type' => 'ui',
 				'show_label' => false,
@@ -126,7 +126,11 @@ class Module extends Module_Base {
 		$controls_stack->add_control(
 			'custom_css_description',
 			[
-				'raw' => __( 'Use "selector" to target wrapper element. Examples:<br>selector {color: red;} // For main element<br>selector .child-element {margin: 10px;} // For child element<br>.my-class {text-align: center;} // Or use any custom selector', 'elementor-pro' ),
+				'raw' => sprintf(
+				/* translators: 1: Break line tag. */
+					esc_html__( 'Use "selector" to target wrapper element. Examples:%1$sselector {color: red;} // For main element%1$sselector .child-element {margin: 10px;} // For child element%1$s.my-class {text-align: center;} // Or use any custom selector', 'elementor-pro' ),
+					'<br>'
+				),
 				'type' => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
 			]
@@ -135,17 +139,18 @@ class Module extends Module_Base {
 		$controls_stack->end_controls_section();
 	}
 
-	public function localize_settings( array $settings ) {
-		$settings['i18n']['custom_css'] = __( 'Custom CSS', 'elementor-pro' );
+	/**
+	 * @deprecated 3.1.0
+	 */
+	public function localize_settings() {
+		Plugin::elementor()->modules_manager->get_modules( 'dev-tools' )->deprecation->deprecated_function( __METHOD__, '3.1.0' );
 
-		return $settings;
+		return [];
 	}
 
 	protected function add_actions() {
 		add_action( 'elementor/element/after_section_end', [ $this, 'register_controls' ], 10, 2 );
 		add_action( 'elementor/element/parse_css', [ $this, 'add_post_css' ], 10, 2 );
 		add_action( 'elementor/css-file/post/parse', [ $this, 'add_page_settings_css' ] );
-
-		add_filter( 'elementor_pro/editor/localize_settings', [ $this, 'localize_settings' ] );
 	}
 }

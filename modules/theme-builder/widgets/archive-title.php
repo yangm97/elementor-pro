@@ -17,7 +17,7 @@ class Archive_Title extends Title_Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'Archive Title', 'elementor-pro' );
+		return esc_html__( 'Archive Title', 'elementor-pro' );
 	}
 
 	public function get_icon() {
@@ -30,5 +30,14 @@ class Archive_Title extends Title_Widget_Base {
 
 	public function get_keywords() {
 		return [ 'title', 'heading', 'archive' ];
+	}
+
+	public function get_inline_css_depends() {
+		return [
+			[
+				'name' => 'heading',
+				'is_core_dependency' => true,
+			],
+		];
 	}
 }

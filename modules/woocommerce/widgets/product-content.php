@@ -14,7 +14,7 @@ class Product_Content extends Post_Content {
 	}
 
 	public function get_title() {
-		return __( 'Product Content', 'elementor-pro' );
+		return esc_html__( 'Product Content', 'elementor-pro' );
 	}
 
 	public function get_categories() {
@@ -23,5 +23,9 @@ class Product_Content extends Post_Content {
 
 	public function get_keywords() {
 		return [ 'content', 'post', 'product' ];
+	}
+
+	public function get_group_name() {
+		return 'woocommerce';
 	}
 }

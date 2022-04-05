@@ -15,7 +15,7 @@ class Shortcode extends Tag {
 	}
 
 	public function get_title() {
-		return __( 'Shortcode', 'elementor-pro' );
+		return esc_html__( 'Shortcode', 'elementor-pro' );
 	}
 
 	public function get_group() {
@@ -31,11 +31,11 @@ class Shortcode extends Tag {
 		];
 	}
 
-	protected function _register_controls() {
+	protected function register_controls() {
 		$this->add_control(
 			'shortcode',
 			[
-				'label' => __( 'Shortcode', 'elementor-pro' ),
+				'label' => esc_html__( 'Shortcode', 'elementor-pro' ),
 				'type'  => Controls_Manager::TEXTAREA,
 			]
 		);
@@ -66,7 +66,7 @@ class Shortcode extends Tag {
 		if ( $should_escape ) {
 			$value = wp_kses_post( $value );
 		}
-
-		echo $value;
+		// PHPCS - the variable $value is safe.
+		echo $value; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 }

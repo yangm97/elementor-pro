@@ -19,7 +19,7 @@ class Post_Featured_Image extends Widget_Image {
 	}
 
 	public function get_title() {
-		return __( 'Featured Image', 'elementor-pro' );
+		return esc_html__( 'Featured Image', 'elementor-pro' );
 	}
 
 	public function get_icon() {
@@ -34,8 +34,17 @@ class Post_Featured_Image extends Widget_Image {
 		return [ 'image', 'featured', 'thumbnail' ];
 	}
 
-	protected function _register_controls() {
-		parent::_register_controls();
+	public function get_inline_css_depends() {
+		return [
+			[
+				'name' => 'image',
+				'is_core_dependency' => true,
+			],
+		];
+	}
+
+	protected function register_controls() {
+		parent::register_controls();
 
 		$this->update_control(
 			'image',

@@ -58,7 +58,7 @@ class Conditions_Manager {
 		$offset = 3;
 
 		$posts_columns = array_slice( $posts_columns, 0, $offset, true ) + [
-			'instances' => __( 'Instances', 'elementor-pro' ),
+			'instances' => esc_html__( 'Instances', 'elementor-pro' ),
 		] + array_slice( $posts_columns, $offset, null, true );
 
 		return $posts_columns;
@@ -72,9 +72,10 @@ class Conditions_Manager {
 		$instances = $this->get_document_instances( $post_id );
 
 		if ( ! empty( $instances ) ) {
-			echo implode( '<br />', $instances );
+			// PHPCS - the method get_document_instances is safe.
+			echo implode( '<br />', $instances ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		} else {
-			echo __( 'None', 'elementor-pro' );
+			echo esc_html__( 'None', 'elementor-pro' );
 		}
 	}
 
@@ -106,18 +107,14 @@ class Conditions_Manager {
 			return '';
 		}
 
-		return __( 'Elementor recognized that you have set this location for other templates: ', 'elementor-pro' ) .
+		return esc_html__( 'Elementor recognized that you have set this location for other templates: ', 'elementor-pro' ) .
 			' ' .
 			implode( ', ', $conflicted );
 	}
 
-	public function get_conditions_conflicts( $post_id, $condition ) {
-		/** @var \ElementorPro\Modules\ThemeBuilder\Module $theme_builder_module */
+	public function get_conditions_conflicts_by_location( $condition, $location, $ignore_post_id = null ) {
+		/** @var Module $theme_builder_module */
 		$theme_builder_module = Module::instance();
-
-		$document = $theme_builder_module->get_document( $post_id );
-
-		$location = $document->get_location();
 
 		$location_settings = $theme_builder_module->get_locations_manager()->get_location( $location );
 
@@ -135,7 +132,7 @@ class Conditions_Manager {
 					$this->purge_post_from_cache( $template_id );
 				}
 
-				if ( $post_id === $template_id ) {
+				if ( $ignore_post_id === $template_id ) {
 					continue;
 				}
 
@@ -154,6 +151,14 @@ class Conditions_Manager {
 		return $conflicted;
 	}
 
+	public function get_conditions_conflicts( $post_id, $condition ) {
+		/** @var Module $theme_builder_module */
+		$theme_builder_module = Module::instance();
+
+		$document = $theme_builder_module->get_document( $post_id );
+
+		return $this->get_conditions_conflicts_by_location( $condition, $document->get_location(), $post_id );
+	}
 
 	public function ajax_save_theme_template_conditions( $request ) {
 		if ( ! isset( $request['conditions'] ) ) {
@@ -486,8 +491,6 @@ class Conditions_Manager {
 			$document = $theme_builder_module->get_document( $theme_template_id );
 			if ( $document ) {
 				$documents[ $theme_template_id ] = $document;
-			} else {
-				$this->purge_post_from_cache( $theme_template_id );
 			}
 
 			if ( empty( $location_settings['multiple'] ) ) {
@@ -506,5 +509,9 @@ class Conditions_Manager {
 
 	public function get_cache() {
 		return $this->cache;
+	}
+
+	public function clear_location_cache() {
+		$this->location_cache = [];
 	}
 }

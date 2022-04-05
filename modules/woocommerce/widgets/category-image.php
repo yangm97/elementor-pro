@@ -18,7 +18,7 @@ class Category_Image extends Widget_Image {
 	}
 
 	public function get_title() {
-		return __( 'Category Image', 'elementor-pro' );
+		return esc_html__( 'Category Image', 'elementor-pro' );
 	}
 
 	public function get_icon() {
@@ -33,8 +33,17 @@ class Category_Image extends Widget_Image {
 		return [ 'woocommerce', 'category', 'image', 'thumbnail' ];
 	}
 
-	protected function _register_controls() {
-		parent::_register_controls();
+	public function get_inline_css_depends() {
+		return [
+			[
+				'name' => 'image',
+				'is_core_dependency' => true,
+			],
+		];
+	}
+
+	protected function register_controls() {
+		parent::register_controls();
 
 		$this->update_control(
 			'image',
@@ -51,5 +60,9 @@ class Category_Image extends Widget_Image {
 
 	protected function get_html_wrapper_class() {
 		return parent::get_html_wrapper_class() . ' elementor-widget-' . parent::get_name();
+	}
+
+	public function get_group_name() {
+		return 'woocommerce';
 	}
 }

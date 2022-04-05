@@ -47,11 +47,11 @@ abstract class Pods_Base extends Tag {
 		];
 	}
 
-	protected function _register_controls() {
+	protected function register_controls() {
 		$this->add_control(
 			'key',
 			[
-				'label' => __( 'Key', 'elementor-pro' ),
+				'label' => esc_html__( 'Key', 'elementor-pro' ),
 				'type' => Controls_Manager::SELECT,
 				'groups' => Module::get_control_options( $this->get_supported_fields() ),
 			]

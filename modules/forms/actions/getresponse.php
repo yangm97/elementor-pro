@@ -4,7 +4,6 @@ namespace ElementorPro\Modules\Forms\Actions;
 use Elementor\Controls_Manager;
 use ElementorPro\Modules\Forms\Classes\Form_Record;
 use ElementorPro\Modules\Forms\Classes\Integration_Base;
-use ElementorPro\Modules\Forms\Controls\Fields_Map;
 use ElementorPro\Modules\Forms\Classes\Getresponse_Handler;
 use ElementorPro\Core\Utils;
 use Elementor\Settings;
@@ -26,14 +25,14 @@ class Getresponse extends Integration_Base {
 	}
 
 	public function get_label() {
-		return __( 'GetResponse', 'elementor-pro' );
+		return esc_html__( 'GetResponse', 'elementor-pro' );
 	}
 
 	public function register_settings_section( $widget ) {
 		$widget->start_controls_section(
 			'section_getresponse',
 			[
-				'label' => __( 'GetResponse', 'elementor-pro' ),
+				'label' => esc_html__( 'GetResponse', 'elementor-pro' ),
 				'condition' => [
 					'submit_actions' => $this->get_name(),
 				],
@@ -53,7 +52,7 @@ class Getresponse extends Integration_Base {
 		$widget->add_control(
 			'getresponse_api_key_source',
 			[
-				'label' => __( 'API Key', 'elementor-pro' ),
+				'label' => esc_html__( 'API Key', 'elementor-pro' ),
 				'type' => Controls_Manager::SELECT,
 				'label_block' => false,
 				'options' => [
@@ -67,9 +66,9 @@ class Getresponse extends Integration_Base {
 		$widget->add_control(
 			'getresponse_custom_api_key',
 			[
-				'label' => __( 'Custom API Key', 'elementor-pro' ),
+				'label' => esc_html__( 'Custom API Key', 'elementor-pro' ),
 				'type' => Controls_Manager::TEXT,
-				'description' => __( 'Use this field to set a custom API Key for the current form', 'elementor-pro' ),
+				'description' => esc_html__( 'Use this field to set a custom API Key for the current form', 'elementor-pro' ),
 				'condition' => [
 					'getresponse_api_key_source' => 'custom',
 				],
@@ -79,7 +78,7 @@ class Getresponse extends Integration_Base {
 		$widget->add_control(
 			'getresponse_list',
 			[
-				'label' => __( 'List', 'elementor-pro' ),
+				'label' => esc_html__( 'List', 'elementor-pro' ),
 				'type' => Controls_Manager::SELECT,
 				'options' => [],
 				'render_type' => 'none',
@@ -104,7 +103,7 @@ class Getresponse extends Integration_Base {
 		$widget->add_control(
 			'getresponse_dayofcycle',
 			[
-				'label' => __( 'Day Of Cycle', 'elementor-pro' ),
+				'label' => esc_html__( 'Day Of Cycle', 'elementor-pro' ),
 				'type' => Controls_Manager::NUMBER,
 				'min' => 0,
 				'condition' => [
@@ -113,27 +112,7 @@ class Getresponse extends Integration_Base {
 			]
 		);
 
-		$widget->add_control(
-			'getresponse_fields_map',
-			[
-				'label' => __( 'Field Mapping', 'elementor-pro' ),
-				'type' => Fields_Map::CONTROL_TYPE,
-				'separator' => 'before',
-				'fields' => [
-					[
-						'name' => 'remote_id',
-						'type' => Controls_Manager::HIDDEN,
-					],
-					[
-						'name' => 'local_id',
-						'type' => Controls_Manager::SELECT,
-					],
-				],
-				'condition' => [
-					'getresponse_list!' => '',
-				],
-			]
-		);
+		$this->register_fields_map_control( $widget );
 
 		$widget->end_controls_section();
 	}
@@ -154,9 +133,7 @@ class Getresponse extends Integration_Base {
 		$subscriber = $this->create_subscriber_object( $record );
 
 		if ( ! $subscriber ) {
-			$ajax_handler->add_admin_error_message( __( 'GetResponse Integration requires an email field', 'elementor-pro' ) );
-
-			return;
+			throw new \Exception( esc_html__( 'Integration requires an email field', 'elementor-pro' ) );
 		}
 
 		if ( 'default' === $form_settings['getresponse_api_key_source'] ) {
@@ -174,7 +151,7 @@ class Getresponse extends Integration_Base {
 					continue;
 				}
 				if ( ! in_array( $response['raw']['response']['code'], [ 200, 202, 409 ] ) ) {
-					$ajax_handler->add_error_message( 'GetResponse ' . $exception->getMessage() );
+					throw new \Exception( $exception->getMessage() );
 				}
 			}
 		}
@@ -311,16 +288,21 @@ class Getresponse extends Integration_Base {
 			},
 			'fields' => [
 				self::OPTION_NAME_API_KEY => [
-					'label' => __( 'API Key', 'elementor-pro' ),
+					'label' => esc_html__( 'API Key', 'elementor-pro' ),
 					'field_args' => [
 						'type' => 'text',
-						'desc' => sprintf( __( 'To integrate with our forms you need an <a href="%s" target="_blank">API Key</a>.', 'elementor-pro' ), 'https://www.getresponse.com' ),
+						'desc' => sprintf(
+							/* translators: 1: Link open tag, 2: Link closing tag. */
+							esc_html__( 'To integrate with our forms you need an %1$sAPI Key%2$s.', 'elementor-pro' ),
+							'<a href="https://www.getresponse.com" target="_blank">',
+							'</a>'
+						),
 					],
 				],
 				'validate_api_data' => [
 					'field_args' => [
 						'type' => 'raw_html',
-						'html' => sprintf( '<button data-action="%s" data-nonce="%s" class="button elementor-button-spinner" id="elementor_pro_getresponse_api_key_button">%s</button>', self::OPTION_NAME_API_KEY . '_validate', wp_create_nonce( self::OPTION_NAME_API_KEY ), __( 'Validate API Key', 'elementor-pro' ) ),
+						'html' => sprintf( '<button data-action="%s" data-nonce="%s" class="button elementor-button-spinner" id="elementor_pro_getresponse_api_key_button">%s</button>', self::OPTION_NAME_API_KEY . '_validate', wp_create_nonce( self::OPTION_NAME_API_KEY ), esc_html__( 'Validate API Key', 'elementor-pro' ) ),
 					],
 				],
 			],
@@ -332,5 +314,13 @@ class Getresponse extends Integration_Base {
 			add_action( 'elementor/admin/after_create_settings/' . Settings::PAGE_ID, [ $this, 'register_admin_fields' ], 15 );
 		}
 		add_action( 'wp_ajax_' . self::OPTION_NAME_API_KEY . '_validate', [ $this, 'ajax_validate_api_token' ] );
+	}
+
+	protected function get_fields_map_control_options() {
+		return [
+			'condition' => [
+				'getresponse_list!' => '',
+			],
+		];
 	}
 }

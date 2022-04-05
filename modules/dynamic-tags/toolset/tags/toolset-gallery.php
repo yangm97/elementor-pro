@@ -16,7 +16,7 @@ class Toolset_Gallery extends Data_Tag {
 	}
 
 	public function get_title() {
-		return __( 'Toolset', 'elementor-pro' ) . ' ' . __( 'Gallery Field', 'elementor-pro' );
+		return esc_html__( 'Toolset', 'elementor-pro' ) . ' ' . esc_html__( 'Gallery Field', 'elementor-pro' );
 	}
 
 	public function get_categories() {
@@ -55,9 +55,10 @@ class Toolset_Gallery extends Data_Tag {
 				'url' => true,
 			] );
 			$galley_images = explode( '|', $galley_images );
-			foreach ( $galley_images as $image ) {
+			foreach ( $galley_images as $image_url ) {
 				$images[] = [
-					'id' => attachment_url_to_postid( $image ),
+					'id' => $this->get_cached_attachment_url_to_post_id( $image_url ),
+					'url' => $image_url,
 				];
 			}
 		}
@@ -65,11 +66,11 @@ class Toolset_Gallery extends Data_Tag {
 		return $images;
 	}
 
-	protected function _register_controls() {
+	protected function register_controls() {
 		$this->add_control(
 			'key',
 			[
-				'label' => __( 'Key', 'elementor-pro' ),
+				'label' => esc_html__( 'Key', 'elementor-pro' ),
 				'type' => Controls_Manager::SELECT,
 				'groups' => Module::get_control_options( $this->get_supported_fields() ),
 			]
@@ -80,5 +81,33 @@ class Toolset_Gallery extends Data_Tag {
 		return [
 			'toolset_gallery',
 		];
+	}
+
+	/**
+	 * @param $attachment_url
+	 *
+	 * @return false|int|mixed
+	 */
+	private function get_cached_attachment_url_to_post_id( $attachment_url ) {
+		$id = wp_cache_get( $attachment_url, __CLASS__ );
+
+		if ( false === $id ) {
+			$id = attachment_url_to_postid( $attachment_url );
+
+			wp_cache_set( $attachment_url, $id, __CLASS__ );
+		}
+
+		return $id;
+	}
+
+	/**
+	 * Toolset_Gallery constructor.
+	 *
+	 * @param array $data
+	 */
+	public function __construct( array $data = [] ) {
+		parent::__construct( $data );
+
+		wp_cache_add_non_persistent_groups( __CLASS__ );
 	}
 }

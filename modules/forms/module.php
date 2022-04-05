@@ -1,12 +1,17 @@
 <?php
 namespace ElementorPro\Modules\Forms;
 
+use Elementor\Controls_Manager;
+use ElementorPro\Modules\Forms\Data\Controller;
+use Elementor\Core\Experiments\Manager;
 use Elementor\Core\Common\Modules\Ajax\Module as Ajax;
 use ElementorPro\Base\Module_Base;
 use ElementorPro\Modules\Forms\Actions;
 use ElementorPro\Modules\Forms\Classes;
-use ElementorPro\Modules\Forms\Fields;
 use ElementorPro\Modules\Forms\Controls\Fields_Map;
+use ElementorPro\Modules\Forms\Registrars\Form_Actions_Registrar;
+use ElementorPro\Modules\Forms\Registrars\Form_Fields_Registrar;
+use ElementorPro\Modules\Forms\Submissions\Component as Form_Submissions_Component;
 use ElementorPro\Modules\Forms\Controls\Fields_Repeater;
 use ElementorPro\Plugin;
 
@@ -16,13 +21,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Module extends Module_Base {
 	/**
-	 * @var \ElementorPro\Modules\Forms\Classes\Action_Base[]
+	 * @var Form_Actions_Registrar
 	 */
-	private $form_actions = [];
+	public $actions_registrar;
+
 	/**
-	 * @var \ElementorPro\Modules\Forms\Fields\Field_Base[]
+	 * @var Form_Fields_Registrar
 	 */
-	public $field_types = [];
+	public $fields_registrar;
 
 	public function get_name() {
 		return 'forms';
@@ -35,14 +41,13 @@ class Module extends Module_Base {
 		];
 	}
 
-	public function localize_settings( $settings ) {
-		$settings = array_replace_recursive( $settings, [
-			'i18n' => [
-				'x_field' => __( '%s Field', 'elementor-pro' ),
-			],
-		] );
+	/**
+	 * @deprecated 3.1.0
+	 */
+	public function localize_settings() {
+		Plugin::elementor()->modules_manager->get_modules( 'dev-tools' )->deprecation->deprecated_function( __METHOD__, '3.1.0' );
 
-		return $settings;
+		return [];
 	}
 
 	public static function find_element_recursive( $elements, $form_id ) {
@@ -63,11 +68,9 @@ class Module extends Module_Base {
 		return false;
 	}
 
-	public function register_controls() {
-		$controls_manager = Plugin::elementor()->controls_manager;
-
-		$controls_manager->register_control( Fields_Repeater::CONTROL_TYPE, new Fields_Repeater() );
-		$controls_manager->register_control( Fields_Map::CONTROL_TYPE, new Fields_Map() );
+	public function register_controls( Controls_Manager $controls_manager ) {
+		$controls_manager->register( new Fields_Repeater() );
+		$controls_manager->register( new Fields_Map() );
 	}
 
 	/**
@@ -82,7 +85,7 @@ class Module extends Module_Base {
 		}
 
 		/** @var \ElementorPro\Modules\Forms\Classes\Integration_Base $integration */
-		$integration = $this->get_form_actions( $data['service'] );
+		$integration = $this->actions_registrar->get( $data['service'] );
 
 		if ( ! $integration ) {
 			throw new \Exception( 'action_not_found' );
@@ -91,28 +94,69 @@ class Module extends Module_Base {
 		return $integration->handle_panel_request( $data );
 	}
 
+	/**
+	 * @deprecated 3.5.0 - Use `fields_registrar->register()`.
+	 */
 	public function add_form_field_type( $type, $instance ) {
-		$this->field_types[ $type ] = $instance;
+		Plugin::elementor()->modules_manager->get_modules( 'dev-tools' )->deprecation->deprecated_function(
+			__METHOD__,
+			'3.5.0',
+			'fields_registrar->register()'
+		);
+
+		$this->fields_registrar->register( $instance, $type );
 	}
 
+	/**
+	 * @deprecated 3.5.0 - Use `actions_registrar->register()`.
+	 */
 	public function add_form_action( $id, $instance ) {
-		$this->form_actions[ $id ] = $instance;
+		Plugin::elementor()->modules_manager->get_modules( 'dev-tools' )->deprecation->deprecated_function(
+			__METHOD__,
+			'3.5.0',
+			'actions_registrar->register()'
+		);
+
+		$this->actions_registrar->register( $instance, $id );
 	}
 
+	/**
+	 * @deprecated 3.5.0 - Use `actions_registrar->get()`.
+	 */
 	public function get_form_actions( $id = null ) {
-		if ( $id ) {
-			if ( ! isset( $this->form_actions[ $id ] ) ) {
-				return null;
-			}
+		Plugin::elementor()->modules_manager->get_modules( 'dev-tools' )->deprecation->deprecated_function(
+			__METHOD__,
+			'3.5.0',
+			'actions_registrar->get()'
+		);
 
-			return $this->form_actions[ $id ];
-		}
-
-		return $this->form_actions;
+		return $this->actions_registrar->get( $id );
 	}
 
 	public function register_ajax_actions( Ajax $ajax ) {
 		$ajax->register_ajax_action( 'pro_forms_panel_action_data', [ $this, 'forms_panel_action_data' ] );
+	}
+
+	/**
+	 * Register submissions
+	 */
+	private function register_submissions_component() {
+		$experiments_manager = Plugin::elementor()->experiments;
+		$name = Form_Submissions_Component::NAME;
+
+		$experiments_manager->add_feature( [
+			'name' => $name,
+			'title' => esc_html__( 'Form Submissions', 'elementor-pro' ),
+			'description' => esc_html__( 'Never lose another submission! Using “Actions After Submit” you can now choose to save all submissions to an internal database.', 'elementor-pro' ),
+			'release_status' => Manager::RELEASE_STATUS_STABLE,
+			'default' => Manager::STATE_ACTIVE,
+		] );
+
+		if ( ! $experiments_manager->is_feature_active( $name ) ) {
+			return;
+		}
+
+		$this->add_component( $name, new Form_Submissions_Component() );
 	}
 
 	/**
@@ -121,48 +165,18 @@ class Module extends Module_Base {
 	public function __construct() {
 		parent::__construct();
 
-		add_filter( 'elementor_pro/editor/localize_settings', [ $this, 'localize_settings' ] );
-		add_action( 'elementor/controls/controls_registered', [ $this, 'register_controls' ] );
+		add_action( 'elementor/controls/register', [ $this, 'register_controls' ] );
 		add_action( 'elementor/ajax/register_actions', [ $this, 'register_ajax_actions' ] );
-
-		//fields
-		$this->add_form_field_type( 'time', new Fields\Time() );
-		$this->add_form_field_type( 'date', new Fields\Date() );
-		$this->add_form_field_type( 'tel', new Fields\Tel() );
-		$this->add_form_field_type( 'number', new Fields\Number() );
-		$this->add_form_field_type( 'acceptance', new Fields\Acceptance() );
-		$this->add_form_field_type( 'upload', new Fields\Upload() );
-		$this->add_form_field_type( 'step', new Fields\Step() );
 
 		$this->add_component( 'recaptcha', new Classes\Recaptcha_Handler() );
 		$this->add_component( 'recaptcha_v3', new Classes\Recaptcha_V3_Handler() );
 		$this->add_component( 'honeypot', new Classes\Honeypot_Handler() );
 
-		// Actions Handlers
-		$this->add_form_action( 'email', new Actions\Email() );
-		$this->add_form_action( 'email2', new Actions\Email2() );
-		$this->add_form_action( 'redirect', new Actions\Redirect() );
-		$this->add_form_action( 'webhook', new Actions\Webhook() );
-		$this->add_form_action( 'mailchimp', new Actions\Mailchimp() );
-		$this->add_form_action( 'drip', new Actions\Drip() );
-		$this->add_form_action( 'activecampaign', new Actions\Activecampaign() );
-		$this->add_form_action( 'getresponse', new Actions\Getresponse() );
-		$this->add_form_action( 'convertkit', new Actions\Convertkit() );
-		$this->add_form_action( 'mailerlite', new Actions\Mailerlite() );
-		$this->add_form_action( 'slack', new Actions\Slack() );
-		$this->add_form_action( 'discord', new Actions\Discord() );
+		$this->register_submissions_component();
 
-		// Plugins actions
-
-		// MailPoet
-		if ( class_exists( '\WYSIJA' ) ) {
-			$this->add_form_action( 'mailpoet', new Actions\Mailpoet() );
-		}
-
-		// MailPoet
-		if ( class_exists( '\MailPoet\API\API' ) ) {
-			$this->add_form_action( 'mailpoet3', new Actions\Mailpoet3() );
-		}
+		// Initialize registrars.
+		$this->actions_registrar = new Form_Actions_Registrar();
+		$this->fields_registrar = new Form_Fields_Registrar();
 
 		// Add Actions as components, that runs manually in the Ajax_Handler
 

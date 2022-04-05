@@ -4,7 +4,7 @@ namespace ElementorPro\Modules\Forms\Actions;
 use Elementor\Controls_Manager;
 use Elementor\Settings;
 use ElementorPro\Modules\Forms\Classes\Form_Record;
-use ElementorPro\Modules\Forms\Controls\Fields_Map;
+use ElementorPro\Modules\Forms\Classes\Integration_Base;
 use ElementorPro\Modules\Forms\Classes;
 use ElementorPro\Core\Utils;
 
@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-class Activecampaign extends Classes\Integration_Base {
+class Activecampaign extends Integration_Base {
 
 	const OPTION_NAME_API_KEY = 'pro_activecampaign_api_key';
 	const OPTION_NAME_API_URL = 'pro_activecampaign_api_url';
@@ -30,14 +30,14 @@ class Activecampaign extends Classes\Integration_Base {
 	}
 
 	public function get_label() {
-		return __( 'ActiveCampaign', 'elementor-pro' );
+		return esc_html__( 'ActiveCampaign', 'elementor-pro' );
 	}
 
 	public function register_settings_section( $widget ) {
 		$widget->start_controls_section(
 			'section_activecampaign',
 			[
-				'label' => __( 'ActiveCampaign', 'elementor-pro' ),
+				'label' => esc_html__( 'ActiveCampaign', 'elementor-pro' ),
 				'condition' => [
 					'submit_actions' => $this->get_name(),
 				],
@@ -57,7 +57,7 @@ class Activecampaign extends Classes\Integration_Base {
 		$widget->add_control(
 			'activecampaign_api_credentials_source',
 			[
-				'label' => __( 'API Key', 'elementor-pro' ),
+				'label' => esc_html__( 'API Key', 'elementor-pro' ),
 				'type' => Controls_Manager::SELECT,
 				'label_block' => false,
 				'options' => [
@@ -71,9 +71,9 @@ class Activecampaign extends Classes\Integration_Base {
 		$widget->add_control(
 			'activecampaign_api_key',
 			[
-				'label' => __( 'Custom API Key', 'elementor-pro' ),
+				'label' => esc_html__( 'Custom API Key', 'elementor-pro' ),
 				'type' => Controls_Manager::TEXT,
-				'description' => __( 'Use this field to set a custom API Key for the current form', 'elementor-pro' ),
+				'description' => esc_html__( 'Use this field to set a custom API Key for the current form', 'elementor-pro' ),
 				'condition' => [
 					'activecampaign_api_credentials_source' => 'custom',
 				],
@@ -83,9 +83,9 @@ class Activecampaign extends Classes\Integration_Base {
 		$widget->add_control(
 			'activecampaign_api_url',
 			[
-				'label' => __( 'API URL', 'elementor-pro' ),
+				'label' => esc_html__( 'API URL', 'elementor-pro' ),
 				'type' => Controls_Manager::TEXT,
-				'description' => __( 'Use this field to set a custom API URL for the current form', 'elementor-pro' ),
+				'description' => esc_html__( 'Use this field to set a custom API URL for the current form', 'elementor-pro' ),
 				'condition' => [
 					'activecampaign_api_credentials_source' => 'custom',
 				],
@@ -95,7 +95,7 @@ class Activecampaign extends Classes\Integration_Base {
 		$widget->add_control(
 			'activecampaign_list',
 			[
-				'label' => __( 'List', 'elementor-pro' ),
+				'label' => esc_html__( 'List', 'elementor-pro' ),
 				'type' => Controls_Manager::SELECT,
 				'options' => [],
 				'render_type' => 'none',
@@ -127,34 +127,14 @@ class Activecampaign extends Classes\Integration_Base {
 			]
 		);
 
-		$widget->add_control(
-			'activecampaign_fields_map',
-			[
-				'label' => __( 'Field Mapping', 'elementor-pro' ),
-				'type' => Fields_Map::CONTROL_TYPE,
-				'separator' => 'before',
-				'fields' => [
-					[
-						'name' => 'remote_id',
-						'type' => Controls_Manager::HIDDEN,
-					],
-					[
-						'name' => 'local_id',
-						'type' => Controls_Manager::SELECT,
-					],
-				],
-				'condition' => [
-					'activecampaign_list!' => '',
-				],
-			]
-		);
+		$this->register_fields_map_control( $widget );
 
 		$widget->add_control(
 			'activecampaign_tags',
 			[
-				'label' => __( 'Tags', 'elementor-pro' ),
+				'label' => esc_html__( 'Tags', 'elementor-pro' ),
 				'type' => Controls_Manager::TEXT,
-				'description' => __( 'Add as many tags as you want, comma separated.', 'elementor-pro' ),
+				'description' => esc_html__( 'Add as many tags as you want, comma separated.', 'elementor-pro' ),
 				'condition' => [
 					'activecampaign_list!' => '',
 				],
@@ -182,9 +162,7 @@ class Activecampaign extends Classes\Integration_Base {
 		$subscriber = $this->create_subscriber_object( $record );
 
 		if ( ! $subscriber ) {
-			$ajax_handler->add_admin_error_message( __( 'ActiveCampaign Integration requires an email field and a selected list', 'elementor-pro' ) );
-
-			return;
+			throw new \Exception( esc_html__( 'Integration requires an email field and a selected list', 'elementor-pro' ) );
 		}
 
 		if ( 'default' === $form_settings['activecampaign_api_credentials_source'] ) {
@@ -195,12 +173,8 @@ class Activecampaign extends Classes\Integration_Base {
 			$api_url = $form_settings['activecampaign_api_url'];
 		}
 
-		try {
-			$handler = new Classes\Activecampaign_Handler( $api_key, $api_url );
-			$handler->create_subscriber( $subscriber );
-		} catch ( \Exception $exception ) {
-			$ajax_handler->add_admin_error_message( 'ActiveCampaign ' . $exception->getMessage() );
-		}
+		$handler = new Classes\Activecampaign_Handler( $api_key, $api_url );
+		$handler->create_subscriber( $subscriber );
 	}
 
 	/**
@@ -308,22 +282,27 @@ class Activecampaign extends Classes\Integration_Base {
 			},
 			'fields' => [
 				self::OPTION_NAME_API_KEY => [
-					'label' => __( 'API Key', 'elementor-pro' ),
+					'label' => esc_html__( 'API Key', 'elementor-pro' ),
 					'field_args' => [
 						'type' => 'text',
 					],
 				],
 				self::OPTION_NAME_API_URL => [
-					'label' => __( 'API URL', 'elementor-pro' ),
+					'label' => esc_html__( 'API URL', 'elementor-pro' ),
 					'field_args' => [
 						'type' => 'url',
-						'desc' => sprintf( __( 'To integrate with our forms you need an <a href="%s" target="_blank">API Key</a>.', 'elementor-pro' ), 'https://help.activecampaign.com/hc/en-us/articles/207317590-Getting-started-with-the-API' ),
+						/* translators: 1: Link open tag, 2: Link closing tag. */
+						'desc' => sprintf(
+							esc_html__( 'To integrate with our forms you need an %1$sAPI Key%2$s.', 'elementor-pro' ),
+							'<a href="https://help.activecampaign.com/hc/en-us/articles/207317590-Getting-started-with-the-API" target="_blank">',
+							'</a>'
+						),
 					],
 				],
 				'validate_api_data' => [
 					'field_args' => [
 						'type' => 'raw_html',
-						'html' => sprintf( '<button data-action="%s" data-nonce="%s" class="button elementor-button-spinner" id="elementor_pro_activecampaign_api_key_button">%s</button>', self::OPTION_NAME_API_KEY . '_validate', wp_create_nonce( self::OPTION_NAME_API_KEY ), __( 'Validate API Key', 'elementor-pro' ) ),
+						'html' => sprintf( '<button data-action="%s" data-nonce="%s" class="button elementor-button-spinner" id="elementor_pro_activecampaign_api_key_button">%s</button>', self::OPTION_NAME_API_KEY . '_validate', wp_create_nonce( self::OPTION_NAME_API_KEY ), esc_html__( 'Validate API Key', 'elementor-pro' ) ),
 					],
 				],
 			],
@@ -335,5 +314,13 @@ class Activecampaign extends Classes\Integration_Base {
 			add_action( 'elementor/admin/after_create_settings/' . Settings::PAGE_ID, [ $this, 'register_admin_fields' ], 15 );
 		}
 		add_action( 'wp_ajax_' . self::OPTION_NAME_API_KEY . '_validate', [ $this, 'ajax_validate_api_token' ] );
+	}
+
+	protected function get_fields_map_control_options() {
+		return [
+			'condition' => [
+				'activecampaign_list!' => '',
+			],
+		];
 	}
 }

@@ -5,7 +5,6 @@ use Elementor\Controls_Manager;
 use Elementor\Settings;
 use ElementorPro\Modules\Forms\Classes\Form_Record;
 use ElementorPro\Modules\Forms\Classes\Mailerlite_Handler;
-use ElementorPro\Modules\Forms\Controls\Fields_Map;
 use ElementorPro\Modules\Forms\Classes\Integration_Base;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -25,14 +24,14 @@ class Mailerlite extends Integration_Base {
 	}
 
 	public function get_label() {
-		return __( 'MailerLite', 'elementor-pro' );
+		return esc_html__( 'MailerLite', 'elementor-pro' );
 	}
 
 	public function register_settings_section( $widget ) {
 		$widget->start_controls_section(
 			'section_mailerlite',
 			[
-				'label' => __( 'MailerLite', 'elementor-pro' ),
+				'label' => esc_html__( 'MailerLite', 'elementor-pro' ),
 				'condition' => [
 					'submit_actions' => $this->get_name(),
 				],
@@ -52,7 +51,7 @@ class Mailerlite extends Integration_Base {
 		$widget->add_control(
 			'mailerlite_api_key_source',
 			[
-				'label' => __( 'API Key', 'elementor-pro' ),
+				'label' => esc_html__( 'API Key', 'elementor-pro' ),
 				'type' => Controls_Manager::SELECT,
 				'label_block' => false,
 				'options' => [
@@ -66,19 +65,19 @@ class Mailerlite extends Integration_Base {
 		$widget->add_control(
 			'mailerlite_custom_api_key',
 			[
-				'label' => __( 'Custom API Key', 'elementor-pro' ),
+				'label' => esc_html__( 'Custom API Key', 'elementor-pro' ),
 				'type' => Controls_Manager::TEXT,
 				'condition' => [
 					'mailerlite_api_key_source' => 'custom',
 				],
-				'description' => __( 'Use this field to set a custom API Key for the current form', 'elementor-pro' ),
+				'description' => esc_html__( 'Use this field to set a custom API Key for the current form', 'elementor-pro' ),
 			]
 		);
 
 		$widget->add_control(
 			'mailerlite_group',
 			[
-				'label' => __( 'Group', 'elementor-pro' ),
+				'label' => esc_html__( 'Group', 'elementor-pro' ),
 				'type' => Controls_Manager::SELECT,
 				'options' => [],
 				'render_type' => 'none',
@@ -100,32 +99,12 @@ class Mailerlite extends Integration_Base {
 			]
 		);
 
-		$widget->add_control(
-			'mailerlite_fields_map',
-			[
-				'label' => __( 'Email Field Mapping', 'elementor-pro' ),
-				'type' => Fields_Map::CONTROL_TYPE,
-				'separator' => 'before',
-				'fields' => [
-					[
-						'name' => 'remote_id',
-						'type' => Controls_Manager::HIDDEN,
-					],
-					[
-						'name' => 'local_id',
-						'type' => Controls_Manager::SELECT,
-					],
-				],
-				'condition' => [
-					'mailerlite_group!' => '',
-				],
-			]
-		);
+		$this->register_fields_map_control( $widget );
 
 		$widget->add_control(
 			'allow_resubscribe',
 			[
-				'label' => __( 'Allow Resubscribe', 'elementor-pro' ),
+				'label' => esc_html__( 'Allow Resubscribe', 'elementor-pro' ),
 				'type' => Controls_Manager::SWITCHER,
 				'condition' => [
 					'mailerlite_group!' => '',
@@ -152,8 +131,7 @@ class Mailerlite extends Integration_Base {
 		$subscriber = $this->create_subscriber_object( $record );
 
 		if ( ! $subscriber ) {
-			$ajax_handler->add_admin_error_message( __( 'MailerLite Integration requires an email field', 'elementor-pro' ) );
-			return;
+			new \Exception( esc_html__( 'Integration requires an email field', 'elementor-pro' ) );
 		}
 
 		if ( 'default' === $form_settings['mailerlite_api_key_source'] ) {
@@ -162,12 +140,8 @@ class Mailerlite extends Integration_Base {
 			$api_key = $form_settings['mailerlite_custom_api_key'];
 		}
 
-		try {
-			$handler = new Mailerlite_Handler( $api_key );
-			$handler->create_subscriber( $form_settings['mailerlite_group'], $subscriber );
-		} catch ( \Exception $exception ) {
-			$ajax_handler->add_admin_error_message( 'MailerLite ' . $exception->getMessage() );
-		}
+		$handler = new Mailerlite_Handler( $api_key );
+		$handler->create_subscriber( $form_settings['mailerlite_group'], $subscriber );
 	}
 
 	/**
@@ -269,16 +243,21 @@ class Mailerlite extends Integration_Base {
 			},
 			'fields' => [
 				self::OPTION_NAME_API_KEY => [
-					'label' => __( 'API Key', 'elementor-pro' ),
+					'label' => esc_html__( 'API Key', 'elementor-pro' ),
 					'field_args' => [
 						'type' => 'text',
-						'desc' => sprintf( __( 'To integrate with our forms you need an <a href="%s" target="_blank">API Key</a>.', 'elementor-pro' ), 'https://help.mailerlite.com/article/show/35040-where-can-i-find-the-api-key' ),
+						'desc' => sprintf(
+							/* translators: 1: Link open tag, 2: Link closing tag. */
+							esc_html__( 'To integrate with our forms you need an %1$sAPI Key%2$s.', 'elementor-pro' ),
+							'<a href="https://help.mailerlite.com/article/show/35040-where-can-i-find-the-api-key" target="_blank">',
+							'</a>'
+						),
 					],
 				],
 				'validate_api_data' => [
 					'field_args' => [
 						'type' => 'raw_html',
-						'html' => sprintf( '<button data-action="%s" data-nonce="%s" class="button elementor-button-spinner" id="elementor_pro_mailerlite_api_key_button">%s</button>', self::OPTION_NAME_API_KEY . '_validate', wp_create_nonce( self::OPTION_NAME_API_KEY ), __( 'Validate API Key', 'elementor-pro' ) ),
+						'html' => sprintf( '<button data-action="%s" data-nonce="%s" class="button elementor-button-spinner" id="elementor_pro_mailerlite_api_key_button">%s</button>', self::OPTION_NAME_API_KEY . '_validate', wp_create_nonce( self::OPTION_NAME_API_KEY ), esc_html__( 'Validate API Key', 'elementor-pro' ) ),
 					],
 				],
 			],
@@ -303,5 +282,13 @@ class Mailerlite extends Integration_Base {
 			add_action( 'elementor/admin/after_create_settings/' . Settings::PAGE_ID, [ $this, 'register_admin_fields' ], 15 );
 		}
 		add_action( 'wp_ajax_' . self::OPTION_NAME_API_KEY . '_validate', [ $this, 'ajax_validate_api_key' ] );
+	}
+
+	protected function get_fields_map_control_options() {
+		return [
+			'condition' => [
+				'mailerlite_group!' => '',
+			],
+		];
 	}
 }

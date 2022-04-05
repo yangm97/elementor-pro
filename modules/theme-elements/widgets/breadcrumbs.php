@@ -4,6 +4,8 @@ namespace ElementorPro\Modules\ThemeElements\Widgets;
 use Elementor\Controls_Manager;
 use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 use Elementor\Group_Control_Typography;
+use Elementor\Utils;
+use WPSEO_Breadcrumbs;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -16,7 +18,7 @@ class Breadcrumbs extends Base {
 	}
 
 	public function get_title() {
-		return __( 'Breadcrumbs', 'elementor-pro' );
+		return esc_html__( 'Breadcrumbs', 'elementor-pro' );
 	}
 
 	public function get_icon() {
@@ -31,56 +33,30 @@ class Breadcrumbs extends Base {
 		return [ 'yoast', 'seo', 'breadcrumbs', 'internal links' ];
 	}
 
-	private function is_breadcrumbs_enabled() {
-		$breadcrumbs_enabled = current_theme_supports( 'yoast-seo-breadcrumbs' );
-		if ( ! $breadcrumbs_enabled ) {
-			// The check for option 'wpseo_internallinks' is a BC fix for old versions of Yoast (<7.0.0).
-			// In this version Yoast changed the DB key for the breadcrumbs options to 'wpseo_titles'.
-			$options = get_option( 'wpseo_internallinks' );
-			if ( empty( $options ) ) {
-				$options = get_option( 'wpseo_titles' );
-			}
-			$breadcrumbs_enabled = true === $options['breadcrumbs-enable'];
-		}
-
-		return $breadcrumbs_enabled;
-	}
-
-	protected function _register_controls() {
+	protected function register_controls() {
 		$this->start_controls_section(
 			'section_breadcrumbs_content',
 			[
-				'label' => __( 'Breadcrumbs', 'elementor-pro' ),
+				'label' => esc_html__( 'Breadcrumbs', 'elementor-pro' ),
 			]
 		);
-
-		if ( ! $this->is_breadcrumbs_enabled() ) {
-			$this->add_control(
-				'html_disabled_alert',
-				[
-					'raw' => __( 'Breadcrumbs are disabled in the Yoast SEO', 'elementor-pro' ) . ' ' . sprintf( '<a href="%s" target="_blank">%s</a>', admin_url( 'admin.php?page=wpseo_titles#top#breadcrumbs' ), __( 'Breadcrumbs Panel', 'elementor-pro' ) ),
-					'type' => Controls_Manager::RAW_HTML,
-					'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
-				]
-			);
-		}
 
 		$this->add_responsive_control(
 			'align',
 			[
-				'label' => __( 'Alignment', 'elementor-pro' ),
+				'label' => esc_html__( 'Alignment', 'elementor-pro' ),
 				'type' => Controls_Manager::CHOOSE,
 				'options' => [
 					'left' => [
-						'title' => __( 'Left', 'elementor-pro' ),
+						'title' => esc_html__( 'Left', 'elementor-pro' ),
 						'icon' => 'eicon-text-align-left',
 					],
 					'center' => [
-						'title' => __( 'Center', 'elementor-pro' ),
+						'title' => esc_html__( 'Center', 'elementor-pro' ),
 						'icon' => 'eicon-text-align-center',
 					],
 					'right' => [
-						'title' => __( 'Right', 'elementor-pro' ),
+						'title' => esc_html__( 'Right', 'elementor-pro' ),
 						'icon' => 'eicon-text-align-right',
 					],
 				],
@@ -91,10 +67,10 @@ class Breadcrumbs extends Base {
 		$this->add_control(
 			'html_tag',
 			[
-				'label' => __( 'HTML Tag', 'elementor-pro' ),
+				'label' => esc_html__( 'HTML Tag', 'elementor-pro' ),
 				'type' => Controls_Manager::SELECT,
 				'options' => [
-					'' => __( 'Default', 'elementor-pro' ),
+					'' => esc_html__( 'Default', 'elementor-pro' ),
 					'p' => 'p',
 					'div' => 'div',
 					'nav' => 'nav',
@@ -107,7 +83,7 @@ class Breadcrumbs extends Base {
 		$this->add_control(
 			'html_description',
 			[
-				'raw' => __( 'Additional settings are available in the Yoast SEO', 'elementor-pro' ) . ' ' . sprintf( '<a href="%s" target="_blank">%s</a>', admin_url( 'admin.php?page=wpseo_titles#top#breadcrumbs' ), __( 'Breadcrumbs Panel', 'elementor-pro' ) ),
+				'raw' => esc_html__( 'Additional settings are available in the Yoast SEO', 'elementor-pro' ) . ' ' . sprintf( '<a href="%s" target="_blank">%s</a>', admin_url( 'admin.php?page=wpseo_titles#top#breadcrumbs' ), esc_html__( 'Breadcrumbs Panel', 'elementor-pro' ) ),
 				'type' => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-descriptor',
 			]
@@ -118,7 +94,7 @@ class Breadcrumbs extends Base {
 		$this->start_controls_section(
 			'section_style',
 			[
-				'label' => __( 'Breadcrumbs', 'elementor-pro' ),
+				'label' => esc_html__( 'Breadcrumbs', 'elementor-pro' ),
 				'tab' => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -137,7 +113,7 @@ class Breadcrumbs extends Base {
 		$this->add_control(
 			'text_color',
 			[
-				'label' => __( 'Text Color', 'elementor-pro' ),
+				'label' => esc_html__( 'Text Color', 'elementor-pro' ),
 				'type' => Controls_Manager::COLOR,
 				'default' => '',
 				'selectors' => [
@@ -151,14 +127,14 @@ class Breadcrumbs extends Base {
 		$this->start_controls_tab(
 			'tab_color_normal',
 			[
-				'label' => __( 'Normal', 'elementor-pro' ),
+				'label' => esc_html__( 'Normal', 'elementor-pro' ),
 			]
 		);
 
 		$this->add_control(
 			'link_color',
 			[
-				'label' => __( 'Link Color', 'elementor-pro' ),
+				'label' => esc_html__( 'Link Color', 'elementor-pro' ),
 				'type' => Controls_Manager::COLOR,
 				'default' => '',
 				'selectors' => [
@@ -172,14 +148,14 @@ class Breadcrumbs extends Base {
 		$this->start_controls_tab(
 			'tab_color_hover',
 			[
-				'label' => __( 'Hover', 'elementor-pro' ),
+				'label' => esc_html__( 'Hover', 'elementor-pro' ),
 			]
 		);
 
 		$this->add_control(
 			'link_hover_color',
 			[
-				'label' => __( 'Color', 'elementor-pro' ),
+				'label' => esc_html__( 'Color', 'elementor-pro' ),
 				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} a:hover' => 'color: {{VALUE}};',
@@ -197,11 +173,18 @@ class Breadcrumbs extends Base {
 			$html_tag = 'p';
 		}
 
-		return $html_tag;
+		return Utils::validate_html_tag( $html_tag );
 	}
 
 	protected function render() {
-		$html_tag = $this->get_html_tag();
-		yoast_breadcrumb( '<' . $html_tag . ' id="breadcrumbs">', '</' . $html_tag . '>' );
+		if ( class_exists( '\WPSEO_Breadcrumbs' ) ) {
+			$html_tag = $this->get_html_tag();
+			WPSEO_Breadcrumbs::breadcrumb( '<' . $html_tag . ' id="breadcrumbs">', '</' . $html_tag . '>' );
+		}
+
+	}
+
+	public function get_group_name() {
+		return 'theme-elements';
 	}
 }

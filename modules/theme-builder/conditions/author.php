@@ -22,14 +22,14 @@ class Author extends Condition_Base {
 	}
 
 	public function get_label() {
-		return __( 'Author Archive', 'elementor-pro' );
+		return esc_html__( 'Author Archive', 'elementor-pro' );
 	}
 
 	public function check( $args = null ) {
 		return is_author( $args['id'] );
 	}
 
-	protected function _register_controls() {
+	protected function register_controls() {
 		$this->add_control(
 			'author_id',
 			[
